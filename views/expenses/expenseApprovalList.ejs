@@ -1,0 +1,304 @@
+
+<% include ../partials/navbar %>
+<% include ../partials/messages %>
+<% include ../partials/footer %>
+
+<p id ="parentExpenseId"><%=parentExpenseId %></p>
+
+
+<link rel="stylesheet" href="/stylesheets/table-sortable.css">
+<script src="/scripts/table-sortable.js" ></script>
+</br>
+<h4 style="text-align: center;">Expense Approval Form</h4></br>
+<div class="container">
+    <div class="row mt-5 mb-3 align-items-center">
+      <div class="col-md-5">
+        <a class="btn btn-primary btn-md bg-gray" href="/expense/expenseViewRel/<%= parentExpenseId %>&<%= isDisabled %>" >Go To Expense </a>
+    </div>
+        <div class="col-md-3">
+        <input type="text" class="form-control" placeholder="Search" id="searchField" style="margin-top: 5px;">
+        </div>
+        <div class="col-md-2 text-right">
+        <span class="pr-2">Rows Per Page:</span>
+        </div>
+        <div class="col-md-1">
+            <div class="d-flex justify-content-end">
+                <select class="custom-select" name="rowsPerPage" id="changeRows">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15" selected>15</option>
+                </select>
+            </div>
+        </div>
+ </div>
+
+ <div id="approvalListView" class="responsive "  style="overflow-y: auto;">
+
+ </div>
+</div>
+
+</div>
+<!--        Approval  Detail Modal-->
+
+<div id="approvalModal" class="modal fade">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Approval Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+          <div class="col-md-12">
+          <nav>
+          <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Details</a>
+          <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Related</a>
+          </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+          <!--Approval Details --> 
+          <div id="detailLoadingSpinner">
+          <center> <img src="/spinner-gif-transparent-background-14.gif" /> </center>
+          </div>
+          <div class="table-responsive">
+          <table id="approvalTable" class="table">
+          </table>
+          </div>
+          <!-- Particul Non It Details-->
+          </div>
+          
+          <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+          <div class="accordion" id="accordionExample">
+          
+          <div class="card">
+          <div class="card-header" id="headingOne">
+          <h5 class="mb-0">
+          <button class="btn btn-link text-left" type="pettyCashButton"
+          data-toggle="collapse" data-target="#collapseOne"
+          aria-expanded="true" aria-controls="collapseOne">
+          <i class="fa fa-angle-double-right mr-3"></i>History
+          </button>
+          <!-- <button class="btn btn-primary float-right" id="pettyCashButton" >New</button> -->
+         <!--  <a href="#" class="btn btn-primary float-right procurementNonIT" id="createAssetRequisitionFormButton" style="color:white;" >New</a> -->
+          </h5>
+          </div>
+         
+          <div id="collapseOne" class="collapse show fade" aria-labelledby="headingOne" data-parent="#accordionExample">
+          <div class="card-body">
+         
+          <!-- History  table code -->
+          
+          <table id="historyTable" class="table table-hover striped">
+          </table>
+          <!-- Feedback table code -->
+          </div>
+          </div>
+          </div>
+          
+          </div>
+          </div>
+          </div>
+          </div>
+          </div>
+         
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<script>
+    $(document).ready(function(){
+        $('#parentExpenseId').hide();
+        let parentId=document.getElementById('parentExpenseId').innerHTML;
+      //  alert('parentId '+parentId);
+      /**************Table Sortable Start ***********/
+  
+          let columns ={
+            sno : 'S.No.',
+            name : 'Approval Name',
+            type : 'Approval Type',
+            approver: 'Submitter ',
+            comment:'Submitter Comment',
+            expense: 'Expense',
+            amount: 'Amount',
+            createdDate: 'Created Date'
+          }
+          var table = $('#approvalListView').tableSortable({
+            data :[],
+            columns,
+            searchField: '#searchField',
+            sorting: true,
+            rowsPerPage: 15,
+            pagination:true,
+            tableWillMount: () => {
+                console.log('table will mount')
+                
+            },
+            tableDidMount: () => {
+                console.log('table did mount');
+                $('#spinner').hide();
+            },
+            tableWillUpdate: () => {
+                console.log('table will update')
+           //  table.refresh();
+             //onLoadTask();
+            },
+            tableDidUpdate: () => {
+            console.log('table did update');
+           anchorClickFunctionalities();
+         //   additionalEditFunctionality();
+            
+            },
+            tableWillUnmount: () => console.log('table will unmount'),
+            tableDidUnmount: () => console.log('table did unmount'),
+            onPaginationChange: function(nextPage, setPage) {
+                setPage(nextPage);
+            },
+        
+        });
+        /**************Table Sortable End ***********/
+        $('#changeRows').on('change', function() {
+        table.updateRowsPerPage(parseInt($(this).val(), 15));
+        })
+        $('#refresh').click(function() {
+            table.refresh(true);
+            onLoadTask();
+        })
+       $.ajax({
+            url : '/expense/approvalList',
+            type:'get',
+            data:{parentId:parentId},
+            dataType: 'json'
+       })
+       .done((response) => {
+           console.log('response it : '+JSON.stringify(response));
+           table.setData(response, columns);
+           anchorClickFunctionalities();
+          
+          
+        })
+      .fail((jqXHR, status, error) =>{
+          console.log('jqXHR  : '+JSON.stringify(jqXHR));
+          console.log('error  : '+error);
+        })
+});
+function anchorClickFunctionalities(){
+        $('a.approvalTag').on('click',function(event){
+            event.stopImmediatePropagation();
+            event.stopPropagation();
+            let approvalId = this.id;
+        //    alert('Approval ID=>'+approvalId);
+            $('#approvalModal').modal('show');
+            $.ajax({
+                url : '/approvals/getExpenseApprovalDetail',
+                type:'get',
+                data : {
+                    approvalId : approvalId
+                },
+                dataType: 'json',
+                beforeSend : function(){
+                  $('#detailLoadingSpinner').show();
+                }
+            })
+            .done((response)=>{
+                $('#detailLoadingSpinner').hide();
+                console.log('response from the approval Tab;e Ajax '+JSON.stringify(response));
+                         if(response.approvalFormDetails.length > 0)
+                            {
+                              let record = response.approvalFormDetails[0];
+                            
+                              let htmlTable = '';
+                              htmlTable += '<tr>';
+                                htmlTable += '<td colspan="4" style="background-color:#d3d3d3;"><h5>Information</h5></td>'; 
+                                htmlTable += '</tr>';
+                                htmlTable += '<tr>';
+                                htmlTable += '<td><strong>Expense Approval Name</strong></td>';
+                                htmlTable += '<td>'+record.appname+'</td>';
+                                htmlTable += '<td><strong>Expense</strong></td>';
+                              htmlTable += '<td>'+record.expname+'</td>';
+                              htmlTable += '</tr>';
+
+                              htmlTable += '<tr>';
+                              htmlTable += '<td><strong>Approval Type</strong></td>';
+                              htmlTable += '<td>'+record.approval_type__c+'</td>';
+                              htmlTable += '<td><strong>Amount</strong></td>';
+                              htmlTable += '<td>'+record.amount__c+'</td>';
+                              htmlTable += '</tr>';
+                            
+                                htmlTable += '<tr>';
+                                htmlTable += '<td><strong>Submitter</strong></td>';
+                                htmlTable += '<td>'+record.submitter+'</td>';
+                                htmlTable += '<td><strong>Submitter Comment</strong></td>';
+                                htmlTable += '<td>'+record.comment__c+'</td>';
+                                htmlTable += '</tr>';
+
+                                htmlTable += '<tr>';
+                                htmlTable += '<td colspan="4" style="background-color:#d3d3d3;"><h5>Reporting Manager Approval Information</h5></td>'; 
+                                htmlTable += '</tr>';
+
+                                htmlTable += '<tr>';
+                                htmlTable += '<td><strong>Approver (RM)</strong></td>';
+                                if(record.conname!=null){
+                                  htmlTable += '<td>'+record.conname+'</td>';
+                                }
+                                else{
+                                  htmlTable += '<td>'+''+'</td>';
+                                
+                                }
+                                htmlTable += '<td><strong>Reporting Manager Status</strong></td>';
+                                htmlTable += '<td>'+record.status__c+'</td>';
+                                htmlTable += '</tr>';
+                         
+                                htmlTable += '<tr>';
+                                htmlTable += '<td><strong>Reporting Manager Comment</strong></td>';
+                                htmlTable += '<td>'+record.reporting_manager_comment__c+'</td>';
+                                htmlTable += '<td></td>';
+                                htmlTable += '<td></td>';
+                               htmlTable += '</tr>';
+
+                                htmlTable += '<tr>';
+                                htmlTable += '<td colspan="4" style="background-color:#d3d3d3;"><h5>Project Manager Approval Information</h5></td>'; 
+                                htmlTable += '</tr>';
+
+                                htmlTable += '<tr>';
+                                 
+                                htmlTable += '<td><strong>Approver (PM)</strong></td>';
+                                if(record.connamerm!=null){
+                                  htmlTable += '<td>'+record.connamerm+'</td>';
+                                }
+                                else
+                                htmlTable += '<td>'+''+'</td>';
+                                                      
+                                //htmlTable += '<td><strong>Assign To (PM))</strong></td>';
+                                //htmlTable += '<td>'+record.assign_to_pm__c+'</td>';
+                                htmlTable += '<td><strong>Project Manager Approval Status</strong></td>';
+                                htmlTable += '<td>'+record.project_manager_approval_status__c+'</td>';
+                                htmlTable += '</tr>';
+
+                                htmlTable += '<tr>';
+                                  htmlTable += '<td><strong>Project Manager Comment</strong></td>';
+                                htmlTable += '<td>'+record.project_manager_comment__c+'</td>';
+                                htmlTable += '</tr>';
+                        
+                          $('#approvalTable').empty();
+                            $('#approvalTable').html(htmlTable);
+                            }
+                       
+            })
+            .fail((jqXHR, status, error) =>{
+                $('#detailLoadingSpinner').show();
+                console.log('jqXHR  : '+JSON.stringify(jqXHR));
+                console.log('error  : '+error);
+              })
+      
+          })
+        }
+</script>

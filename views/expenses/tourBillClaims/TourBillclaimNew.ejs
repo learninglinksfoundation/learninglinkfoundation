@@ -1,0 +1,157 @@
+<% include ../../partials/navbar %>
+<% include ../../partials/footer %>
+
+<p id='expenseId'><%= parentExpenseId %></p>
+<p id= "isDisabled"><%=isDisabled %></p>
+<div>
+  <br>
+</div>
+
+<div class="col-md-10 m-auto">
+  <div class="col-md-5">
+    <a class="btn btn-primary btn-md bg-gray mb-mobile" href="/expense/tourBillClaim/tourBillClaimListview/<%= parentExpenseId %>&<%= isDisabled %>" >Go To TourBill</a>
+                  <!-- 
+<a class="btn btn-primary btn-md bg-gray mb-mobile" href="/expense/tourBillClaim/tourBillViewRelated/<%= tourbillId %>"  >Go To TourBill</a> -->
+<a class="btn btn-primary btn-md bg-gray" href="/expense/tourBillClaim/expenseLanding/<%= tourbillId %>&<%= isDisabled %>"  >Go To Expense</a>
+  </div>
+
+</div><!-- Create Tour Bill Claim Modal Start -->
+<!-- Create Tour Bill Claim Modal Start -->
+<!-- <div id="createTourBillClaimModal11" class="modal fade bs-example-modal-lg" tabindex ="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createTaskModal">Create New Tour Bill Claim</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="">
+            <div id="errorMessagesss"></div>
+          <form  id="tourBillClaimForm" class="needs-validation" novalidate >
+  
+          <div class="form-group">  
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="validationTooltip01">Tour Bill Claim Name</label>
+                  <input type="text" class="form-control" id="validationTooltip01" value="" placeholder="Tour Bill Claim Name"  name="tourBillClaimName" required>
+                </div>
+            </div>
+          </div> 
+          <div class="form-group">  
+              <div class="row">
+                <div class="col-md-6">
+                  <input type="hidden" class="form-control" id="hiddenExpenseId"   value="<%= parentExpenseId %>"  name="parentExpenseId" required>
+                </div>
+            </div>
+          </div>   
+  
+            <div class="modal-footer">
+              <button type="submit" id="tourBillClaimSubmitbutton"  class="btn btn-primary">Save</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+  
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ **/
+ -->  <div class="" style="margin-top: 25px;margin-left: 30px;">
+    <div id="errorMessagesss"></div>
+  <form  id="tourBillClaimForm" class="needs-validation" novalidate >
+
+  <div class="form-group">  
+      <div class="row">
+        <div class="col-md-6">
+          <label for="validationTooltip01">Tour Bill Claim Name</label>
+          <input type="text" class="form-control" id="validationTooltip01" value="" placeholder="Tour Bill Claim Name"  name="tourBillClaimName" required>
+        </div>
+    </div>
+  </div> 
+  <div class="form-group">  
+      <div class="row">
+        <div class="col-md-6">
+          <input type="hidden" class="form-control" id="hiddenExpenseId"   value="<%= parentExpenseId %>"  name="parentExpenseId" required>
+        </div>
+    </div>
+  </div>   
+
+  <div class="" style="margin-left: 150px;">
+      <button type="submit" id="tourBillClaimSubmitbutton"  class="btn btn-primary">Save</button>
+      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+    </div>
+
+
+  </form>
+  </div>
+</div>
+  
+<script>
+     $(document).ready(function(){
+
+      $('#expenseId').hide();
+      $('#isDisabled').hide();
+        let expenseId = document.getElementById('expenseId').innerHTML;
+        let isDisabled = document.getElementById('isDisabled').innerHTML;
+        $('#createTourBillClaimModal').modal('show');
+        $('#tourBillClaimSubmitbutton').on('click',function(event){
+                event.stopImmediatePropagation();
+                event.stopPropagation();
+                  $('#tourBillClaimForm').submit(function(e){
+                    $("#tourBillClaimSubmitbutton").attr("disabled", true);
+                      e.preventDefault();
+                      e.stopImmediatePropagation();
+                      e.stopPropagation();
+                      var values = $(this).serialize();
+                      console.log('tour Bill Claim values  '+values);
+                      
+      
+                      $.ajax({
+                        url: '/expense/tourBillClaim/saveTourBillClaim',
+                        type: 'post',
+                        data:  values,
+                        dataType : 'json'
+                      })
+                      .done((response) => {
+                        console.log('resonse :'+JSON.stringify(response));
+                        
+                        })
+                        .fail((jqXHR,text,err) => {
+
+                          if(jqXHR.responseText== "Saved Successfully !")
+                             {
+                                  alert('Successfully Inserted!');
+                                  window.open('/expense/tourBillClaim/tourBillClaimListview/'+expenseId + '&' + isDisabled,'_blank');
+                                $('#tourBillClaimForm')[0].reset()
+                                let errorHtml = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+jqXHR.responseText+
+                                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                                '<span aria-hidden="true">&times;</span>'+
+                                '</button>'+
+                                '</div>';
+                                $('#errorMessages').empty();
+                                $('#errorMessages').append(errorHtml); 
+                                $("#tourBillClaimSubmitbutton").attr("disabled", false);
+                              }
+                              else
+                              {
+                                console.log('jqXHR   '+JSON.stringify(jqXHR));
+                                  alert('Error: '+jqXHR.responseText);
+                                let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+jqXHR.responseText+
+                                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                                '<span aria-hidden="true">&times;</span>'+
+                                '</button>'+
+                                '</div>';
+                                $('#errorMessages').empty();
+                                $('#errorMessages').append(errorHtml); 
+                                $("#tourBillClaimSubmitbutton").attr("disabled", false);
+                              }
+                          
+                      })
+                    })
+              })
+
+     })
+</script>  

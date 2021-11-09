@@ -1,0 +1,266 @@
+<% include ../../partials/navbar %>
+<% include ../../partials/footer %>
+<style>
+  #formdata .form-control {
+    width: auto;
+    }
+    body {
+          overflow-x: hidden;
+      }
+      @media (max-width: 768px){
+  .mb-mobile{margin-bottom: 10px;}
+  }
+
+</style>
+  <div style="overflow-y: auto;">
+      <div id="activityCodes"></div>
+      <p id="expenseId"><%= parentExpenseId %></p>
+      <div class="row mt-5">
+       
+          <div class="col-md-10 m-auto">
+      <div class="col-md-10">
+          <a class="btn btn-primary btn-md bg-gray mb-mobile" href="/expense/ConveyanceListView/<%= parentExpenseId %>&<%= isDisabled %>" id="createNewPettyCashButton">Go To Conveyance</a>
+          <a class="btn btn-primary btn-md bg-gray mb-mobile" href="/expense/expenseViewRel/<%= parentExpenseId %>&<%= isDisabled %>" >Go To Expense </a>
+          <a class="btn btn-primary btn-md bg-gray mb-mobile" href="https://res.cloudinary.com/hfmqrflec/image/upload/v1600428120/expense%20document/LLF_-_Local_Conveyance_and_Reimbursement_Policy_eptz2u.pdf" target="_blank" >Conveyance Voucher Policy Document </a>
+
+      </div>
+   <br />
+   <h4 align="center">Conveyance Voucher Expenses</h4>
+   <br />
+   
+   <div class="">
+    <% include ../../partials/messages %>
+    <div id="errorMessages"></div>
+
+   <form method="post" action="/insertprecash" id="formdata"  enctype="multipart/form-data">
+    <div class="table-responsive">
+     <span id="error"></span>
+     <table class="table table-bordered" id="item_table">
+      <tr>
+       <th>SLIP NO</th>
+       <th>FROM <span style="color: red;">*</span></th>
+       <th>TO <span style="color: red;">*</span></th>
+       <th>ACTIVITY CODE <span style="color: red;">*</span></th>
+       <th>PURPOSE OF TRAVEL <span style="color: red;">*</span></th>
+       
+
+       <th>MODE OF CONVEYANCE <span style="color: red;">*</span></th>
+       <th>KM. TRAVELLED <span style="color: red;">*</span></th>
+       <th>AMOUNT <span style="color: red;">*</span></th>
+       <th>FILE <span style="color: red;">*</span></th>
+       <th><button type="button" id="addButton" style="background-color:#2C3E50;" name="add" class="btn btn-success btn-sm add">Add Row</button></th>
+       <th style="display:none;"></th>
+      </tr>
+     </table>
+     <div align="center">
+    
+      <input type="submit" style="background-color:#2C3E50;" id="submitButton" name="submit" class="btn btn-info" value="Submit" />
+     </div>
+     <br>
+    </div>
+   </form>
+   </div>
+   </div>
+   </div>
+  </div>
+
+
+<script>
+$(document).ready(function(){
+
+  $('#expenseId').hide();
+  $('#activityCodes').hide();
+  $('#addButton').hide();
+  var count = 1
+  let expenseId = document.getElementById('expenseId').innerHTML; 
+  let lstActivityCodes = [];
+ 
+   $.ajax({
+       url : '/expense/activityCode',
+       data : {
+         parentExpenseId : expenseId
+       },
+       dataType : 'json',
+       type : 'get'
+   })
+   .done((response) => {
+       console.log('response  '+JSON.stringify(response));
+       $('#addButton').show();
+       if(response.length > 0)
+       { 
+         lstActivityCodes = response;
+       }
+       var cnt = count++;
+  var html = '';
+  html += '<tr>';
+  html += '<td>'+cnt+'</td>';
+  html += '<td><input type="date" name="from" class="form-control" /></td>';
+  html += '<td><input type="date" name="to" class="form-control " /></td>';
+  html += '<td><select id="activity_code'+cnt+'"  name="projectTask"  class="form-control item_unit"></select></td>';
+  html += '<td><textarea  name="purposeoftravel" class="form-control"></textarea></td>';
+  html += '<td><input type="text" name="modeofconveyance" class="form-control" /></td>';
+  html += '<td><input type="number" name="kmtravelled" class="form-control" /></td>';
+  html += '<td><input type="number" name="amount" class="form-control" /></td>';
+  html += '<td><input type="file" onChange="chkFile(this,'+cnt+')" name="fileprety" id="fileprety" style="overflow:hidden" class="form-control" /><input type="hidden" value="demo" name="imgpath" id="file_'+cnt+'"></td>';
+  html += '<td style="display:none;"><input  type="hidden" name="parentExpenseId" value="<%= parentExpenseId %>" class="form-control" /></td>';
+  html += '<td style="display:none;"><input  type="hidden" id="projectTask'+cnt+'"  name="activity_code"  class="form-control" /></td>';
+  html += '<td><button type="button" name="remove" class="btn btn-danger btn-sm remove"><span class="glyphicon glyphicon-minus">Delete</span></button></td></tr>';
+  
+  $('#item_table').append(html);
+  $('#activity_code'+cnt)
+  .append($("<option></option>")
+  .attr("value",'')
+  .text('Select'));	
+  for(let i=0; i< lstActivityCodes.length ;i++)
+  {
+    $('#activity_code'+cnt)
+    .append($("<option></option>")
+    .attr("value",lstActivityCodes[i].sfid)
+    .text(lstActivityCodes[i].name));	
+  }
+
+  $('#activity_code'+cnt).on('change',function(){
+      let taskId = this.value;
+      let selectedCode = lstActivityCodes.filter((eachCode)=> {
+        if(eachCode.sfid == taskId)
+          return eachCode;
+      })
+      let label = selectedCode[0].activity_code__c;
+      document.getElementById('projectTask'+cnt).value = label;
+    //  $('#projectTask'+cnt).value = label;
+      console.log('label  :'+label+' value : '+taskId);
+  })
+
+
+   })
+   .fail((jqXHR,text,err) => {
+       console.log('text  '+text + '  err '+err);
+   })
+
+
+ $(document).on('click', '.add', function(){
+     var cnt = count++;
+  var html = '';
+  html += '<tr>';
+  html += '<td>'+cnt+'</td>';
+  html += '<td><input type="date" name="from" class="form-control" /></td>';
+  html += '<td><input type="date" name="to" class="form-control " /></td>';
+  html += '<td><select id="activity_code'+cnt+'"  name="projectTask"  class="form-control item_unit"></select></td>';
+  html += '<td><textarea  name="purposeoftravel" class="form-control"></textarea></td>';
+  html += '<td><input type="text" name="modeofconveyance" class="form-control" /></td>';
+  html += '<td><input type="number" name="kmtravelled" class="form-control" /></td>';
+  html += '<td><input type="number" name="amount" class="form-control" /></td>';
+  html += '<td><input type="file" onChange="chkFile(this,'+cnt+')" name="fileprety" id="fileprety" style="overflow:hidden" class="form-control" /><input type="hidden" value="demo" name="imgpath" id="file_'+cnt+'"></td>';
+  html += '<td style="display:none;"><input  type="hidden" name="parentExpenseId" value="<%= parentExpenseId %>" class="form-control" /></td>';
+  html += '<td style="display:none;"><input  type="hidden" id="projectTask'+cnt+'"  name="activity_code"  class="form-control" /></td>';
+  html += '<td><button type="button" name="remove" class="btn btn-danger btn-sm remove"><span class="glyphicon glyphicon-minus">Delete</span></button></td></tr>';
+  
+  $('#item_table').append(html);
+  $('#activity_code'+cnt)
+  .append($("<option></option>")
+  .attr("value",'')
+  .text('Select'));	
+  for(let i=0; i< lstActivityCodes.length ;i++)
+  {
+    $('#activity_code'+cnt)
+    .append($("<option></option>")
+    .attr("value",lstActivityCodes[i].sfid)
+    .text(lstActivityCodes[i].name));	
+  }
+
+  $('#activity_code'+cnt).on('change',function(){
+      let taskId = this.value;
+      let selectedCode = lstActivityCodes.filter((eachCode)=> {
+        if(eachCode.sfid == taskId)
+          return eachCode;
+      })
+      let label = selectedCode[0].activity_code__c;
+      document.getElementById('projectTask'+cnt).value = label;
+    //  $('#projectTask'+cnt).value = label;
+      console.log('label  :'+label+' value : '+taskId);
+  })
+
+
+
+ });
+ 
+ $(document).on('click', '.remove', function(){
+  $(this).closest('tr').remove();
+ });
+
+});
+
+
+$(function () {
+  $('form#formdata').bind('submit', function () {
+    $("#submitButton").attr("disabled", true);
+    $.ajax({
+      type: 'post',
+      url: '/expense/conveyanceform',
+      data: $('form#formdata').serialize(),
+      success: function (data) {
+        console.log(data);
+        if(data == 'Conveyance Saved Successfully !')
+        {
+          document.getElementById("formdata").reset();
+          let errorHtml = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+ data+
+              '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                '<span aria-hidden="true">&times;</span>'+
+              '</button>'+
+            '</div>';
+            $('#errorMessages').empty();
+            $('#errorMessages').append(errorHtml); 
+            $("#submitButton").attr("disabled", false); 
+        }
+        else
+        {
+          
+          let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+ data+
+              '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                '<span aria-hidden="true">&times;</span>'+
+              '</button>'+
+            '</div>';
+            $('#errorMessages').empty();
+            $('#errorMessages').append(errorHtml);  
+            $("#submitButton").attr("disabled", false);
+        }
+        
+       
+        
+            
+     
+      },
+      fail:function(jqXHR ,status,error){
+        console.log('jqXHR '+JSON.stringify(jqXHR));        
+      }
+    });
+    return false;
+  });
+});
+
+
+function chkFile(file1,id) {
+    var file = file1.files[0];
+    var formData = new FormData();
+    formData.append('formData', file);
+
+   
+    $.ajax({
+    type: "POST",
+    url: "/expense/uploadImage",    
+    cache: false,
+    dataType:'json',
+    processData: false,
+    contentType: false,
+    data: formData,
+    success: function (data) {
+      alert('File Uploaded Successfully !');
+      console.log(data);
+    //  var result = JSON.stringify(data)
+     $('#file_'+id).val(data.url);
+     
+      }
+  });
+}
+
+</script>

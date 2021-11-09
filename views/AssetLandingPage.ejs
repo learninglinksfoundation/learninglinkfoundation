@@ -1,0 +1,493 @@
+<% include ./partials/navbar %>
+<% include ./partials/footer %> 
+<% include ./partials/messages %>
+
+<p id= "parentId"><%=parentprocurementId %></p>
+<p id= "isDisabled"><%=isDisabled %></p>
+
+<!-- Modal Popup For Asset Requisition Detail & Their Related data -->
+
+
+
+<div class="modal fade" id="popup">
+    <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+   
+    <!-- Modal Header -->
+    <div class="modal-header">
+    <center><h4 class="modal-title">Asset Requisition Form: Main Form</h4></center>
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+   
+    <!-- Modal body -->
+    <div class="modal-body">
+    <div class="row">
+    <div class="col-md-12">
+    <nav>
+    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Details</a>
+    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Related</a>
+    </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" style="overflow-x: auto;">
+    <!-- Particular Asset Details -->
+    <table id="assetDetails" class="table table-hover striped">
+    <!-- Inside code is handled by Jquery to add dyanamic Content -->
+  </div>  
+  </table>
+    <!-- Particular Asset Details-->
+    </div>
+                               
+    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+      <div class="accordion" id="accordionExample">
+                                     
+      <div class="card">
+      <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+      <button class="btn btn-link text-left" type="pettyCashButton"
+      data-toggle="collapse" data-target="#collapseOne"
+      aria-expanded="true" aria-controls="collapseOne">
+      <i class="fa fa-angle-double-right mr-3"></i>Procurement-Non IT
+      </button>
+      <!-- <button class="btn btn-primary float-right" id="pettyCashButton" >New</button> -->
+      <a href="#" class="btn btn-primary float-right procurementNonIT" id="pettyCashButton" style="color:white;" >New</a>
+      </h5>
+      </div>
+     
+      <div id="collapseOne" class="collapse show fade" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body">
+      <table id="procuremnetNonItTable" class="table table-hover striped">
+      </table>
+      </div>
+      </div>
+      </div>
+                                         
+      <div class="card">
+      <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+      <button class="btn btn-link collapsed text-left" type="button"
+      data-toggle="collapse" data-target="#collapseTwo"
+      aria-expanded="false" aria-controls="collapseTwo">
+      <i class="fa fa-angle-double-right mr-3"></i>Procurement-IT
+      </button>
+      <!-- <button class="btn btn-primary float-right">New</button> -->
+      <a href="#" class="btn btn-primary float-right procurementIT" style="color:white;">New</a>
+      </h5>
+      </div>
+      <div id="collapseTwo" class="collapse fade" aria-labelledby="headingTwo" data-parent="#accordionExample">
+      <div class="card-body">
+      <table id="procuremnetItTable" class="table table-hover striped">
+      <thead>
+      <th>Procuremnet_-IT ID</th>
+      <th>Items</th>
+      <th>Quantity</th>
+      <th>Budget</th>
+      </thead>
+      </table>
+      </div>
+      </div>
+      </div>
+     
+      
+      <div class="card">
+        <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+                <button class="btn btn-link collapsed text-left" type="button"
+                    data-toggle="collapse" data-target="#collapseThree"
+                    aria-expanded="false" aria-controls="collapseThree">
+                    <i class="fa fa-angle-double-right mr-3"></i>Approval
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseThree" class="collapse fade" 
+                  aria-labelledby="headingTwo" data-parent="#accordionExample">
+                      <div class="card-body" style="overflow-y: auto;">
+                        <table id="approvalTable" class="table table-hover striped">
+                        <thead>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Date</th>
+                        
+                        </thead>
+                      </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+              <div class="card-header" id="headingFour">
+                  <h5 class="mb-0">
+                  <button class="btn btn-link collapsed text-left" type="button"
+                      data-toggle="collapse" data-target="#collapseFour"
+                      aria-expanded="false" aria-controls="collapseFour">
+                      <i class="fa fa-angle-double-right mr-3"></i>Notes/Attachments 
+                           </button>
+      <!-- <button class="btn btn-primary float-right" id="pettyCashButton" >New</button> -->
+                      <a href="#" class="btn btn-primary float-right notes" id="notes" style="color:white;" >New</a>
+                  </h5>
+                </div>
+                <div id="collapseFour" class="collapse fade" aria-labelledby="headingFour" data-parent="#accordionExample">
+                  <div class="card-body" style="overflow-y: auto;">
+      <table id="notesbuttontable" class="table table-hover striped">
+        <thead>
+          <th>Name</th>
+          </thead>
+      </table>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
+     
+      </div>
+   
+    <!-- Modal footer -->
+    <div class="modal-footer">
+    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+    </div>
+   
+    </div>
+    </div>
+   </div>
+
+<script>
+        $(document).ready(function(){
+           $('#parentId').hide();
+           $('#isDisabled').hide();
+            let assetId = document.getElementById('parentId').innerHTML;
+            let isDisabled = document.getElementById('isDisabled').innerHTML;
+           // alert('isDisabled ++ '+isDisabled);
+       //     alert('parentId  : '+assetId);
+          $("#popup").modal("show"); 
+          $.ajax({
+                type : 'GET',
+                url  : '/procurement/details',
+                data : {
+                    'assetId' : assetId
+                },
+                dataType : 'json',
+                beforeSend: function()
+              {
+                $('#expenseDetailsSpinner').show();
+              }
+            })
+            .done((assetDetails) =>{
+    console.log('assetDetails : '+JSON.stringify(assetDetails));
+    $('#procuremnetItTable').empty();$('#procuremnetNonItTable').empty();
+    if(assetDetails.assetFormDetails.length > 0)
+    {
+    console.log('Inside Asset Details'); 
+    let assetDetailsTableRows = ''; 
+    assetDetails.assetFormDetails.forEach((assetDetailsRecord) => {
+    let plane = new Date(assetDetailsRecord.requested_closure_plan_date__c);
+    plane.setHours(plane.getHours() + 5);
+    plane.setMinutes(plane.getMinutes() + 30);
+    let planDt = plane.toLocaleString().split(',')[0];
+    let rec = new Date(assetDetailsRecord.date_of_receiving_goods__c);
+    rec.setHours(rec.getHours() + 5);
+    rec.setMinutes(rec.getMinutes() + 30);
+    let receiveDate = rec.toLocaleString().split(',')[0];
+    let actu = new Date(assetDetailsRecord.requested_closure_actual_date__c);
+    actu.setHours(actu.getHours() + 5);
+    actu.setMinutes(actu.getMinutes() + 30);
+    let actualDt = actu.toLocaleString().split(',')[0];
+    console.log('Inside Loop'+actualDt);
+  assetDetailsTableRows += '<tr>';
+    assetDetailsTableRows += '<td ><strong>Asset Requisition Name<strong></td>';
+    assetDetailsTableRows += '<td >'+assetDetailsRecord.name+'</td>';
+    assetDetailsTableRows += '<td><strong>Project/Department<strong></td>';
+    assetDetailsTableRows += '<td>'+assetDetailsRecord.projname +'</td>';
+    assetDetailsTableRows += '</tr>'; 
+    assetDetailsTableRows += '<tr>';
+    assetDetailsTableRows += '<td><strong>Target Date of receiving<strong></td>';
+    assetDetailsTableRows += '<td>'+ planDt+'</td>';
+    assetDetailsTableRows += '<td ><strong>Activity Code<strong></td>';
+    
+    assetDetailsTableRows += '<td >'+assetDetailsRecord.actname+'</td>';
+    
+    assetDetailsTableRows += '</tr>'; 
+    assetDetailsTableRows += '<tr>';
+    assetDetailsTableRows += '<td><strong>Submitted By Heroku User<strong></td>';
+    assetDetailsTableRows += '<td>'+ '<%=objUser.name %>'+'</td>';
+    assetDetailsTableRows += '<td></td>';
+    assetDetailsTableRows += '<td></td>';
+
+    assetDetailsTableRows += '</tr>'; 
+    
+    
+    assetDetailsTableRows += '<tr>';
+    assetDetailsTableRows += '<td colspan="6" style="background-color:#d3d3d3;"><h5>Item Metrics</h5></td>'; 
+    assetDetailsTableRows += '</tr>';
+    
+    assetDetailsTableRows += '<tr>';
+    assetDetailsTableRows += '<td><strong>Number Of IT Product<strong></td>';
+    assetDetailsTableRows += '<td>'+assetDetailsRecord.number_of_it_product__c+'</td>';
+    assetDetailsTableRows += '<td><strong>Number of Non IT Product<strong></td>';
+    assetDetailsTableRows += '<td>'+assetDetailsRecord.number_of_non_it_product__c+'</td>';
+    assetDetailsTableRows += '</tr>'; 
+    
+    assetDetailsTableRows += '<tr>';
+    assetDetailsTableRows += '<td colspan="4" style="background-color:#d3d3d3;"><h5>Amount Information</h5></td>'; 
+    assetDetailsTableRows += '</tr>';
+    
+    assetDetailsTableRows += '<tr>';
+    assetDetailsTableRows += '<td><strong>Procurement-IT total amount<strong></td>';
+    assetDetailsTableRows += '<td>'+assetDetailsRecord.procurement_it_total_amount__c+'</td>';
+      assetDetailsTableRows += '<td><strong>Procurement-Non IT total amount<strong></td>';
+      assetDetailsTableRows += '<td>'+assetDetailsRecord.procurement_non_it_total_amount__c+'</td>';
+      assetDetailsTableRows += '</tr>'; 
+      
+      assetDetailsTableRows += '<tr>';
+      assetDetailsTableRows += '<td><strong>Total Amount<strong></td>';
+      assetDetailsTableRows += '<td>'+assetDetailsRecord.total_amount__c+'</td>';
+      assetDetailsTableRows += '<td><strong><strong></td>';
+      assetDetailsTableRows += '<td></td>';
+      assetDetailsTableRows += '</tr>'; 
+
+      assetDetailsTableRows += '<tr>';
+      assetDetailsTableRows += '<td colspan="4" style="background-color:#d3d3d3;"><h5>Purchase Order Checklist</h5></td>'; 
+      assetDetailsTableRows += '</tr>';
+      assetDetailsTableRows += '<tr>';
+      assetDetailsTableRows += '<td><strong>if < 3 quotations, specify Reason<strong></td>';
+        if(assetDetailsRecord.if_3_quotations_specify_reason__c==true){
+          assetDetailsTableRows += '<td>Yes</td>';
+        }
+        else {
+          assetDetailsTableRows += '<td>No</td>';
+        }
+      
+      assetDetailsTableRows += '<td><strong>reason for non-registered GST Vendor<strong></td>';
+        if(assetDetailsRecord.reason_for_non_registered_gst_vendor__c==true){
+          assetDetailsTableRows += '<td>Yes</td>';
+        }
+        else {
+          assetDetailsTableRows += '<td>No</td>';
+        }
+     // assetDetailsTableRows += '<td>'+assetDetailsRecord.reason_for_non_registered_gst_vendor__c+'</td>';
+      assetDetailsTableRows += '</tr>'; 
+      assetDetailsTableRows += '<tr>';
+      assetDetailsTableRows += '<td><strong>Pricing Terms/Cost comparison<strong></td>';
+        if(assetDetailsRecord.pricing_terms_cost_comparison__c==true){
+          assetDetailsTableRows += '<td>Yes</td>';
+        }
+        else {
+          assetDetailsTableRows += '<td>No</td>';
+        }
+    //  assetDetailsTableRows += '<td>'+assetDetailsRecord.pricing_terms_cost_comparison__c+'</td>';
+      assetDetailsTableRows += '<td><strong>Delivery Place<strong></td>';
+      assetDetailsTableRows += '<td>'+assetDetailsRecord.delivery_terms_delivery_place__c+'</td>';
+      assetDetailsTableRows += '</tr>'; 
+      assetDetailsTableRows += '<tr>';
+      assetDetailsTableRows += '<td><strong>Expected Delivery Date<strong></td>';
+          if(assetDetailsRecord.delivery_terms_delivery_time__c!=null){
+      assetDetailsTableRows += '<td>'+assetDetailsRecord.delivery_terms_delivery_time__c.split('T')[0]+'</td>';
+            }
+         else{
+      assetDetailsTableRows +='<td></td>';
+            }
+      assetDetailsTableRows += '<td><strong>Delivery cost(transport cost,etc)<strong></td>';
+      assetDetailsTableRows += '<td>'+assetDetailsRecord.delivery_cost_incl__c+'</td>';
+      assetDetailsTableRows += '</tr>'; 
+
+    assetDetailsTableRows += '<tr>';
+    assetDetailsTableRows += '<td colspan="4" style="background-color:#d3d3d3;"><h5>1st Stage Approval Status </h5></td>'; 
+    assetDetailsTableRows += '</tr>';
+    
+    assetDetailsTableRows += '<tr>';
+    assetDetailsTableRows += '<td><strong>PM Approval(amount<=10k, 10k-30k)<strong></td>';
+    assetDetailsTableRows += '<td>'+assetDetailsRecord.manager_approval__c+'</td>';
+    assetDetailsTableRows += '<td><strong>Proc. Head Approval(amount= 10k-30k)<strong></td>';
+    assetDetailsTableRows += '<td>'+assetDetailsRecord. procurement_head_approval__c+'</td>';
+    assetDetailsTableRows += '</tr>';
+    assetDetailsTableRows += '<tr>';
+    assetDetailsTableRows += '<tr>';
+    assetDetailsTableRows += '<td><strong>Proc. Comm. Approval(amount= 30k-5L)<strong></td>';
+    assetDetailsTableRows += '<td>'+assetDetailsRecord.procurement_comt_approval_for_fortnight__c+'</td>';
+    assetDetailsTableRows += '<td><strong>Proc. Comm. Approval(>30k/14days/vendor)<strong></td>';
+    assetDetailsTableRows += '<td>'+assetDetailsRecord.management_approval_for_fortnight_limit__c+'</td>';
+    assetDetailsTableRows += '</tr>';
+    
+        assetDetailsTableRows += '<tr>';
+        assetDetailsTableRows += '<td><strong>Management Approval(Amount > 5L)<strong></td>';
+    assetDetailsTableRows += '<td>'+assetDetailsRecord.management_approval__c+'</td>';
+    assetDetailsTableRows += '<td><strong>Chairperson Approval(amount > 5L)<strong></td>';
+    assetDetailsTableRows += '<td>'+assetDetailsRecord.chairperson_approval__c+'</td>';
+    assetDetailsTableRows += '</tr>';
+    
+    assetDetailsTableRows += '<tr>';
+    assetDetailsTableRows += '<td><strong>Management Approval(less than 3 quotes)<strong></td>';
+    assetDetailsTableRows += '<td>'+assetDetailsRecord.management_approval_less_than_3_quotes__c+'</td>';
+    assetDetailsTableRows += '<td><strong>Mgmt. Approval(>30k/14day/vendor/No GST)<strong></td>';
+    assetDetailsTableRows += '<td>'+assetDetailsRecord.procurement_committee_approval__c+'</td>';
+    assetDetailsTableRows += '</tr>';
+    assetDetailsTableRows += '<tr>';
+    assetDetailsTableRows += '<tr>';
+
+    assetDetailsTableRows += '<td><strong>Mgmt. Approval(No Activity Code)<strong></td>';
+    assetDetailsTableRows += '<td>'+assetDetailsRecord.management_approval_activity_code__c+'</td>';
+    assetDetailsTableRows += '<td></td>';
+    assetDetailsTableRows += '<td></td>';
+    assetDetailsTableRows += '</tr>';
+    
+    assetDetailsTableRows += '<tr>';
+    assetDetailsTableRows += '<td colspan="4" style="background-color:#d3d3d3;"><h5>Account Status</h5></td>'; 
+    assetDetailsTableRows += '</tr>';
+    assetDetailsTableRows += '<tr>';
+    assetDetailsTableRows += '<td><strong> Accounts Approval<strong></td>';
+    assetDetailsTableRows += '<td>'+assetDetailsRecord.accounts_approval__c+'</td>';
+    assetDetailsTableRows += '<td><strong>UTR Number/Transaction Details<strong></td>';
+    assetDetailsTableRows += '<td>'+assetDetailsRecord.utr_number_transaction_details__c+'</td>';
+    assetDetailsTableRows += '</tr>';
+    assetDetailsTableRows += '<tr>';
+    assetDetailsTableRows += '<tr>';
+    assetDetailsTableRows += '<td><strong>Advance Payment Status<strong></td>';
+    assetDetailsTableRows += '<td>'+assetDetailsRecord.advance_payment_status__c+'</td>';
+    assetDetailsTableRows += '<td><strong>Final Payment Status<strong></td>';
+    assetDetailsTableRows += '<td>'+assetDetailsRecord.payment_status__c+'</td>';
+    assetDetailsTableRows += '</tr>';
+    assetDetailsTableRows += '<tr>';
+        assetDetailsTableRows += '<tr>';
+    assetDetailsTableRows += '<td><strong>P.O attachment<strong></td>';
+    assetDetailsTableRows += '<td>'+assetDetailsRecord.p_o_attachment__c +'</td>';
+    assetDetailsTableRows += '<td><strong>PO Attachment URL<strong></td>';
+    if(assetDetailsRecord.po_attachment_url__c!="demo"){
+    if(assetDetailsRecord.po_attachment_url__c!=null){
+    assetDetailsTableRows += '<td>'+'<a href="'+assetDetailsRecord.po_attachment_url__c+'" target="_blank">Click to View </a></td>';
+    }
+    }
+    else{
+    assetDetailsTableRows +='<td></td>';
+    }
+    assetDetailsTableRows += '</tr>'; 
+    assetDetailsTableRows += '<tr>';
+      assetDetailsTableRows += '<td colspan="4" style="background-color:#d3d3d3;"><h5>Received Stage</h5></td>'; 
+      assetDetailsTableRows += '</tr>';
+      assetDetailsTableRows += '<tr>';
+      assetDetailsTableRows += '<td><strong>Status<strong></td>';
+      assetDetailsTableRows += '<td>'+assetDetailsRecord.status__c+'</td>';
+      assetDetailsTableRows += '<td><strong>Goods/Service Received<strong></td>';
+      assetDetailsTableRows += '<td>'+assetDetailsRecord.payment_received_acknowledgement__c+'</td>';
+      assetDetailsTableRows += '</tr>'; 
+      
+      assetDetailsTableRows += '<tr>';
+      assetDetailsTableRows += '<td><strong>Receiver Name<strong></td>';
+      assetDetailsTableRows += '<td>'+assetDetailsRecord.receiver_name__c+'</td>';
+      assetDetailsTableRows += '<td><strong>Received Quantity<strong></td>';
+      assetDetailsTableRows += '<td>'+assetDetailsRecord.received_quantity_goods__c+'</td>';
+      assetDetailsTableRows += '</tr>'; 
+      
+      assetDetailsTableRows += '<tr>';
+      assetDetailsTableRows += '<td><strong>Date Of Receiving (Goods)<strong></td>';
+      assetDetailsTableRows += '<td>'+receiveDate+'</td>';
+      assetDetailsTableRows += '<td><strong><strong></td>';
+      assetDetailsTableRows += '<td></td>';
+      assetDetailsTableRows += '</tr>';
+   
+      })
+      $('#assetDetails').html(assetDetailsTableRows);
+      
+      }
+      if(assetDetails.nonItProducts.length > 0)
+                    {
+                        let nonItProductTable = '';
+                        nonItProductTable+='<thead>  <th>Procuremnet_Non-IT ID</th><th>Items</th><th>Quantity</th><th>Budget</th></thead>';
+                        assetDetails.nonItProducts.forEach((eachNonIt) => {
+                            nonItProductTable += '<tr><td>'+eachNonIt.name +'</td>';
+                            nonItProductTable += '<td>'+eachNonIt.items__c +'</td>';
+                            nonItProductTable += '<td>'+eachNonIt.quantity__c +'</td>';
+                            nonItProductTable += '<td>'+eachNonIt.budget__c +'</td></tr>';  
+                        })
+                        nonItProductTable+=  '<td colspan="6"><center><a target="_blank" href="/procurement/getNonItProcurementListVIew/'+assetId+'&'+isDisabled+'">View All</a></centre></td>';
+                            $('#procuremnetNonItTable').empty();
+                            $('#procuremnetNonItTable').append(nonItProductTable);
+                    }
+                    if(assetDetails.itProducts.length > 0)     
+                    {
+                        let itProductTable = '';
+                        itProductTable+='<thead>  <th>ProcuremnetName</th><th>Items</th><th>Quantity</th><th>Budget</th></thead>';
+                        assetDetails.itProducts.forEach((eachIt)=> {
+                            console.log('chdc'+JSON.stringify(eachIt));
+                            itProductTable += '<tr><td>'+eachIt.name +'</td>';
+                            itProductTable += '<td>'+eachIt.items__c +'</td>';
+                            itProductTable += '<td>'+eachIt.quantity__c +'</td>';
+                            itProductTable += '<td>'+eachIt.budget__c +'</td></tr>';      
+                        })
+                        itProductTable+=  '<td colspan="6"><center><a target="_blank" href="/procurement/getProcurementItListView/'+assetId+'&'+isDisabled+'">View All</a></centre></td>';
+                            $('#procuremnetItTable').empty();
+                        $('#procuremnetItTable').append(itProductTable);   
+                    }
+                    if(assetDetails.approvals.length > 0)
+                    {
+                        let approvalHtml = '';
+                        approvalHtml+='<thead><th>Name </th><th>Type</th> <th>Status</th> <th>Approver Emails</th></thead>';
+                        assetDetails.approvals.forEach((eachApproval)=> {
+                            approvalHtml += '<tr><td>'+eachApproval.name +'</td>';
+                            approvalHtml += '<td>'+eachApproval.approval_type__c +'</td>';
+                            approvalHtml += '<td>'+eachApproval.status__c +'</td>';
+                            approvalHtml += '<td>'+eachApproval.approver_s_emails__c +'</td></tr>';      
+                        })
+                        approvalHtml+=  '<td colspan="6"><center><a target="_blank" href="/procurement/getProcurementApproval/'+assetId+'&'+isDisabled+'">View All</a></centre></td>';
+                        $('#approvalTable').empty();
+                        $('#approvalTable').append(approvalHtml);   
+                    }
+
+                    if(assetDetails.assetFormDetails.length > 0)
+                    {
+                        let notesAttachmentTable = '';
+                        assetDetails.assetFormDetails.forEach((assetDetailsRecord) => {
+                        notesAttachmentTable+='<thead><th>Name (PO Attachment URL) </th></thead>';
+                        if(assetDetailsRecord.po_attachment_url__c!="demo"){
+                        if(assetDetailsRecord.po_attachment_url__c!=null){
+                          notesAttachmentTable += '<td>'+'<a href="'+assetDetailsRecord.po_attachment_url__c+'" target="_blank">Click to View </a></td>';
+                        }
+                        }
+                        else{
+                          notesAttachmentTable +='<td></td>';
+                        }
+                      })
+                        $('#notesbuttontable').empty();
+                        $('#notesbuttontable').append(notesAttachmentTable);   
+                    }
+
+                })
+                .fail((jqXHR, status, error) =>{
+                  console.log('jqXHR  : '+JSON.stringify(jqXHR));
+                  console.log('error  : '+error);
+                })
+               /*  $("#popup").modal("show");
+                    return false; */
+                  
+
+                     $('a.procurementNonIT').click(() => {
+                       // alert('bhjsbvhjsdbjhd');
+                        console.log('procurementNonIT anchor tag ');
+                        var assetId = document.getElementById('parentId').innerHTML;
+                        console.log('assetId : '+assetId);
+                      //  location.assign('/procurement/nonItProducts/'+assetId);
+                        window.open('/procurement/nonItProducts/'+assetId+'&'+isDisabled,'_blank');
+                        });
+
+                       $('a.procurementIT').click(() => {
+                           console.log('procurementIT anchor tag ');
+                           var assetId = document.getElementById('parentId').innerHTML;
+                           console.log('assetId : '+assetId);
+                         //  location.assign('/procurement/itProducts/'+assetId);
+                           window.open('/procurement/itProducts/'+assetId+'&'+isDisabled,'_blank');
+                       });
+
+                        $('a.notes').on('click',function(event){
+                        //alert('Hello'+this.id);
+                        var assetId = document.getElementById('parentId').innerHTML;
+                        console.log('assetId notes : '+assetId);
+                        // location.assign('/procurement/upload/'+assetId);
+                        window.open('/procurement/upload/'+assetId+'&'+isDisabled,'_blank');
+                        })
+
+
+
+
+        })
+</script>

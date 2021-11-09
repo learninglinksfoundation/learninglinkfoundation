@@ -1,0 +1,143 @@
+<% include ./partials/navbar %>
+<% include ./partials/footer %>
+<% include ./partials/messages %>
+<p id ="parentId"><%=procid %></p>
+
+<style>
+     @media (max-width: 768px){
+ .mb-mobile{margin-bottom: 10px;}
+ }
+</style>
+<div style="overflow-y: auto;">
+<div class="container-fluid bg-gray" id="accordion-style-1" style="align-items: center; margin-left: 2px; margin-right: 2px;" >
+</br>
+<div class="col-md-5" style="margin-left: 30px;">
+  <a class="btn btn-primary btn-md bg-gray mb-mobile" href="/procurement/assetRequisitionNonITFeedback/<%=procid %>" >Go To Asset Requisition </a>
+  <a class="btn btn-primary btn-md bg-gray mb-mobile" href="/procurement/feedbackProcurementNonIT/<%=procid %>">Go to Procurement-Non IT</a> 
+</div>
+</br>
+<h4 style="text-align: center; margin-top: 20px;">Feedback Procurement-Non IT</h4>
+</br>
+<div class="" style="margin-right: 4px; margin-left: 4px;" style="overflow-y: auto;">
+  <div id="errorMessages">
+    <form  method="POST" name="createfeed" id="formdata" >
+      <div class="form-group">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="Time">Timely submissions of all Deliverables </label>
+                <select id="time" name="time" class="form-control" required="true" >
+                    <option value="">None</option>
+                    <option value="Delighted">Delighted</option>
+                    <option value="Satisfactory">Satisfactory	</option>
+                    <option value="Dissatisfied">Dissatisfied</option>
+                    <option value="NA">NA</option>
+                </select> 
+              </div>
+              <div class="col-md-6">
+                <label for="quality">Work Quality/Goods Quality </label>
+                <select id="quality" name="quality" class="form-control" required="true" >
+                  <option value="">None</option>
+                  <option value="Delighted">Delighted</option>
+                  <option value="Satisfactory">Satisfactory	</option>
+                  <option value="Dissatisfied">Dissatisfied</option>
+                  <option value="NA">NA</option>
+              </select> 
+            </div>
+          </div>
+      </div>
+      <div class="form-group">
+        <div class="row">          
+          <div class="col-md-6">
+                <label for="issue">Issue Knowledge/ Expertise</label>
+                <select id="issue" name="issue" class="form-control" required="true" >
+                    <option value="">None</option>
+                    <option value="Delighted">Delighted</option>
+                    <option value="Satisfactory">Satisfactory	</option>
+                    <option value="Dissatisfied">Dissatisfied</option>
+                    <option value="NA">NA</option>
+                </select> 
+              </div>
+              <div class="col-md-6">
+                <label for="quantity">Quantity Requested vs Received</label>
+                <select id="quantity" name="quantity" class="form-control" required="true" >
+                    <option value="">None</option>
+                    <option value="Delighted">Delighted</option>
+                    <option value="Satisfactory">Satisfactory	</option>
+                    <option value="Dissatisfied">Dissatisfied</option>
+                    <option value="NA">NA</option>
+                </select> 
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-6">
+                     <input type="hidden" class="form-control" id="hide" value="" required="true"  name="hide" > 
+                    </div>
+                </div>
+            </div>
+        
+            </div>
+        </div>
+      </br>
+        <center><button style="align-content: center; border: 5px solid black; width:100px;height:50px;" type="submit" class="btn btn-primary"id="createFEED" >Save</button></center>  
+  </form>  
+</div></div></div>
+<script>
+    $(document).ready(function(){
+
+        $('#parentId').hide();
+        let procid = document.getElementById('parentId').innerHTML;
+      //  let vendId = document.getElementById('parentId').innerHTML;
+      //  alert('venbderoIDv'+vendId);
+        document.forms["formdata"]["hide"].value = procid;
+       // alert('parentId '+parentId);
+    })
+
+    $(function () {
+        $('form#formdata').bind('submit', function () {
+          let data=$('form#formdata').serialize();
+        //  alert('Sumbit button clicked!' +data);
+          console.log('data _+>'+data);
+          $.ajax({
+            type: 'post',
+            url: '/procurement/savefeedback',   // Need to make changes in post method url
+            data:$('form#formdata').serialize(),
+            success: function (data) {
+              console.log(data);
+              let msg = data;
+       if(data == 'Succesfully Inserted')
+       {
+        document.getElementById("formdata").reset();
+        let errorHtml = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+ data+
+            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+              '<span aria-hidden="true">&times;</span>'+
+            '</button>'+
+          '</div>';
+          $('#errorMessages').empty();
+          $('#errorMessages').append(errorHtml);
+          $("#submitButton").attr("disabled", false);
+          window.location.reload()
+       }
+       else
+       {
+        let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+ data+
+            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+              '<span aria-hidden="true">&times;</span>'+
+            '</button>'+
+          '</div>';
+          $('#errorMessages').empty();
+          $('#errorMessages').append(errorHtml);
+          $("#submitButton").attr("disabled", false);
+       }
+        
+       
+      },
+      fail:function(jqXHR ,status,error){
+        console.log('jqXHR '+JSON.stringify(jqXHR));        
+      }
+          });
+          
+          return false;
+
+        })
+    })
+</script>

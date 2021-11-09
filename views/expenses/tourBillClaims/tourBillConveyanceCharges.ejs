@@ -1,0 +1,230 @@
+<% include ../../partials/navbar %>
+<% include ../../partials/footer %>
+<style>
+      @media (max-width: 768px){
+  .mb-mobile{margin-bottom: 10px;}
+  }
+  .table {
+    width: 150%;
+    margin-bottom: 1rem;
+    color: #212529;
+}
+</style>
+<div style="overflow-y: auto;">
+  <div class="row mt-5">
+        
+        <div class="col-md-10 m-auto">
+              
+          <a class="btn btn-primary btn-md bg-gray mb-mobile" href="/expense/tourBillClaim/conveyanceChargesListView/<%= parentTourBillId %>&<%= isDisabled %>" >Go To Conveyance Charges</a>
+          <a class="btn btn-primary btn-md bg-gray mb-mobile" href="/expense/tourBillClaim/tourBillViewRelated/<%= parentTourBillId %>&<%= isDisabled %>"  >Go To TourBill</a>
+          <a class="btn btn-primary btn-md bg-gray mb-mobile" href="/expense/tourBillClaim/expenseLanding/<%= parentTourBillId %>&<%= isDisabled %>"  >Go To Expense</a>
+        <br>
+      </br>
+   <p id="tourbillId"><%= parentTourBillId %></p>
+   <p id="isDisabled"><%= isDisabled %></p>
+   <h4 align="center">Conveyance Charge Expenses</h4>
+   <br />
+   <div class="">
+      <% include ../../partials/messages %>
+    <div id="errorMessages"></div>
+   <form method="post" action="/insertprecash" id="formdata"  enctype="multipart/form-data">
+    <div class="table-repsonsive">
+     <span id="error"></span>
+     <table class="table table-bordered" id="item_table">
+      <tr>
+       <th>SLIP NO</th>
+       <th>DATE <span style="color: red;">*</span></th>
+       <th>PLACE <span style="color: red;">*</span></th>
+       <th>ACTIVITY CODE <span style="color: red;">*</span></th> 
+       <th>REMARKS <span style="color: red;">*</span></th>
+       <th>AMOUNT <span style="color: red;">*</span></th>
+       <th>UPLOAD FILE <span style="color: red;">*</span></th>
+       <th><button type="button" id="addButton" style="background-color:#2C3E50;" name="add" class="btn btn-success btn-sm add">Add Row</span></button></th>
+       <th style="display:none;"></th>
+      </tr>
+     </table>
+     <div align="center">
+    
+      <input type="submit" style="background-color:#2C3E50;" id="submitButton" name="submit" class="btn btn-info" value="Submit" />
+     </div>
+     <br>
+    </div>
+   </form>
+   </div>
+   </div>
+  </div>
+</div>
+
+
+<script>
+$(document).ready(function(){
+  //alert('Hello pettyCash');
+  $('#addButton').hide();
+  $('#tourbillId').hide();
+  $('#isDisabled').hide();
+ let tourbillId  = document.getElementById('tourbillId').innerHTML;
+ let isDisabled  = document.getElementById('isDisabled').innerHTML;
+ let activityCodes = [];
+ var count = 1;
+ $.get('/expense/tourBillClaimActivityCode',{tourbillId : tourbillId, isDisabled:isDisabled}, function(response){
+      console.log('response  : '+JSON.stringify(response));
+      activityCodes = response;
+      $('#addButton').show();
+      var cnt = count++;
+      var html = '';
+      html += '<tr>';
+      html += '<td>'+cnt+'</td>';
+      html += '<td><input type="date" name="date" class="form-control " /></td>';
+      html += '<td><input type="text" name="place" class="form-control " /></td>';
+      html += '<td><select id="activity_code'+cnt+'"  name="projectTask" class="form-control item_unit"></select></td>';
+      html += '<td><textarea  name="remarks" class="form-control"></textarea></td>';
+      html += '<td><input type="number" name="amount" class="form-control" /></td>';
+      html += '<td><input type="file" onChange="chkFile(this,'+cnt+')" name="fileprety" id="fileprety" style="overflow:hidden;width:auto" class="form-control" /><input type="hidden" value="demo" name="imgpath" id="file_'+cnt+'"></td>';
+      html += '<td style="display:none;"><input  type="hidden" name="parentTourBillId" value="<%= parentTourBillId %>" class="form-control" /></td>';
+      html += '<td style="display:none;"><input  type="hidden" id="projectTask'+cnt+'" name="activity_code"   class="form-control" /></td>';
+      html += '<td><button type="button" name="remove" class="btn btn-danger btn-sm remove"><span class="glyphicon glyphicon-minus">Delete</span></button></td>';
+      html += '</tr>';
+     
+      $('#item_table').append(html);
+      $('#activity_code'+cnt)
+      .append($("<option></option>")
+      .attr("value",'')
+      .text('Select'));	
+    for(let i=0; i< activityCodes.length ;i++)
+    {
+      $('#activity_code'+cnt)
+      .append($("<option></option>")
+      .attr("value",activityCodes[i].sfid)
+      .text(activityCodes[i].name));	
+    }
+    $('#activity_code'+cnt).on('change',function(){
+      let taskId = this.value;
+      let selectedCode = activityCodes.filter((eachCode)=> {
+        if(eachCode.sfid == taskId)
+          return eachCode;
+      })
+      let label = selectedCode[0].name;
+      document.getElementById('projectTask'+cnt).value = label;
+    //  $('#projectTask'+cnt).value = label;
+      console.log('label  :'+label+' value : '+taskId);
+  })
+  }).fail(function(jqXHR, error) {
+      console.log('error  : '+JSON.stringify(jqXHR));
+  })
+ 
+ $(document).on('click', '.add', function(){
+    var cnt = count++;
+    var html = '';
+    html += '<tr>';
+    html += '<td>'+cnt+'</td>';
+    html += '<td><input type="date" name="date" class="form-control " /></td>';
+    html += '<td><input type="text" name="place" class="form-control " /></td>';
+    html += '<td><select id="activity_code'+cnt+'"  name="projectTask" class="form-control item_unit"></select></td>';
+    html += '<td><textarea  name="remarks" class="form-control"></textarea></td>';
+    html += '<td><input type="number" name="amount" class="form-control" /></td>';
+    html += '<td><input type="file" onChange="chkFile(this,'+cnt+')" name="fileprety" id="fileprety" style="overflow:hidden;width:auto" class="form-control" /><input type="hidden" value="demo" name="imgpath" id="file_'+cnt+'"></td>';
+    html += '<td style="display:none;"><input  type="hidden" name="parentTourBillId" value="<%= parentTourBillId %>" class="form-control" /></td>';
+    html += '<td style="display:none;"><input  type="hidden" id="projectTask'+cnt+'" name="activity_code"   class="form-control" /></td>';
+    html += '<td><button type="button" name="remove" class="btn btn-danger btn-sm remove"><span class="glyphicon glyphicon-minus">Delete</span></button></td>';
+    html += '</tr>';
+   
+    $('#item_table').append(html);
+    $('#activity_code'+cnt)
+    .append($("<option></option>")
+    .attr("value",'')
+    .text('Select'));	
+  for(let i=0; i< activityCodes.length ;i++)
+  {
+    $('#activity_code'+cnt)
+    .append($("<option></option>")
+    .attr("value",activityCodes[i].sfid)
+    .text(activityCodes[i].name));	
+  }
+  $('#activity_code'+cnt).on('change',function(){
+    let taskId = this.value;
+    let selectedCode = activityCodes.filter((eachCode)=> {
+      if(eachCode.sfid == taskId)
+        return eachCode;
+    })
+    let label = selectedCode[0].name;
+    document.getElementById('projectTask'+cnt).value = label;
+  //  $('#projectTask'+cnt).value = label;
+    console.log('label  :'+label+' value : '+taskId);
+})
+ });
+
+ $(document).on('click', '.remove', function(){
+    $(this).closest('tr').remove();
+ });
+
+});
+
+
+$(function () {
+  $('form#formdata').bind('submit', function () {
+    $("#submitButton").attr("disabled", true);
+    $.ajax({
+      type: 'post',
+      url: '/expense/tourBillClaim/conveyanceCharges',  
+      data: $('form#formdata').serialize(),
+      success: function (data) {
+        console.log(data);
+        if(data == 'Conveyance Charges Form Saved Successfully !')
+        {
+          document.getElementById("formdata").reset();
+          let errorHtml = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+ data+
+              '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                '<span aria-hidden="true">&times;</span>'+
+              '</button>'+
+            '</div>';
+            $('#errorMessages').empty();
+            $('#errorMessages').append(errorHtml); 
+            $("#submitButton").attr("disabled", false);
+        }
+        else
+        {
+          let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+ data+
+              '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                '<span aria-hidden="true">&times;</span>'+
+              '</button>'+
+            '</div>';
+            $('#errorMessages').empty();
+            $('#errorMessages').append(errorHtml); 
+            $("#submitButton").attr("disabled", false);
+        }
+        
+       
+        
+       
+      }
+    });
+    return false;
+  });
+});
+
+
+function chkFile(file1,id) {
+    var file = file1.files[0];
+    var formData = new FormData();
+    formData.append('formData', file);
+
+   
+    $.ajax({
+    type: "POST",
+    url: "/expense/uploadImage",    
+    cache: false,
+    dataType:'json',
+    processData: false,
+    contentType: false,
+    data: formData,
+    success: function (data) {
+      alert('File Uploaded Successfully !');
+      console.log(data);
+    //  var result = JSON.stringify(data)
+     $('#file_'+id).val(data.url);
+     
+     }
+  });
+}
+
+</script>

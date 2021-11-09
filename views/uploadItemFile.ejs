@@ -1,0 +1,139 @@
+<% include ./partials/navbar %>
+<% include ./partials/footer %>
+<p id="item"><%=itemId %></p>
+
+
+<link rel="stylesheet" href="/stylesheets/table-sortable.css">
+<script src="/scripts/table-sortable.js" ></script>
+
+<h3 style="text-align: center; margin-top: 20px;">ITEM QUOTES</h3>
+<div class="col-md-10 ">
+
+     <div class="col-md-5 ">
+  
+     <a class="btn btn-primary btn-md bg-gray" style="margin:5px" href="/procurement/impaneledVendorUpload/<%=itemId %>" >Go To Impaneled Vendor </a> 
+      
+    <a class="btn btn-primary btn-md bg-gray" style="margin:5px" href="/procurement/itemdescriptionUpload/<%=itemId %>" >Go To Item Description</a>
+
+</div>
+</div>
+
+
+<div class="container">
+</br>
+
+</br>
+  <div class="row mt-5 mb-3 align-items-center">
+      <div class="col-md-5">
+      </br>
+      <div class="">
+        <div id="errorMessages"></div>
+<form name="notesupload" id="notesupload" >
+    <div class="form-group">
+       <div class="row">
+           <div class="col-md-5">
+            <h4 style="text-align: center; margin-top: 20px;">Choose your file</h4>
+           
+              <input type="file" onChange="chkFile(this)" name="fileprety" style="overflow:hidden;width:auto;" id="fileprety" class="form-control" style="width: 300px;"/><input type="hidden" value="demo" name="imgpath" id="file">
+           </div>  
+           <div><input type="hidden" value="<%=itemId %>" name="hide" id="hide"></div>                 
+       </div>
+     </div>
+     
+     <div class="">
+         <button type="submit" class="btn btn-primary" id="uploadattachmentBuuton" data-dismiss="modal" style="margin-left: 140px;">Save</button>
+     </div>
+     </div>
+     </div>
+     </div>
+    
+   </form>
+</div>
+   <script>
+    $(document).ready(() => {
+
+        $('#item').hide();
+        var itemId ='<%=itemId %>';
+        console.log('item id'+itemId);
+        $('#uploadattachmentBuuton').on('click',function(event){
+            event.preventDefault();
+                      event.stopPropagation();
+                      event.stopImmediatePropagation();
+                     
+                     // alert('Save Button Clicked !' );
+                      var $inputs = $('#notesupload :input');
+    
+                      // not sure if you wanted this, but I thought I'd add it.
+                      // get an associative array of just the values.
+                      var values = {};
+                      $inputs.each(function() {
+                          values[this.name] = $(this).val();
+                      });
+                      values.itemId=itemId;
+                 //     alert('formValues : '+JSON.stringify(values));
+                      $.ajax({
+                        url : '/procurement/uploadItemFiless',
+                        type:'post',
+                        data: values,
+                        dataType : 'json'
+                    })
+                    .done((response) => {
+                          console.log('response   :'+response);
+                         
+                    })
+                    .fail((jqXHR, status, error) => {
+                          console.log('jqXHR  '+JSON.stringify(jqXHR));
+                         // alert('data succesfully inserted ');
+                          if(jqXHR.responseText=='Attachment saved Successfully'){
+                          //  alert('data succesfully inserted ');
+                            document.getElementById("notesupload").reset()
+                            let errorHtml = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+ jqXHR.responseText+
+                            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                            '<span aria-hidden="true">&times;</span>'+
+                            '</button>'+
+                            '</div>';
+                            $('#errorMessages').empty();
+                            $('#errorMessages').append(errorHtml); 
+                          //  $('#assetRequisitionEditModal').modal('hide');
+    
+                          }
+                          else{
+                            document.getElementById("notesupload").reset()
+                            let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+ jqXHR.responseText+
+                            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                            '<span aria-hidden="true">&times;</span>'+
+                            '</button>'+
+                            '</div>';
+                            $('#errorMessages').empty();
+                            $('#errorMessages').append(errorHtml); 
+                          }
+                          
+                    })  
+                    
+                })      
+
+
+    })
+
+    function chkFile(file) {
+        var file = file.files[0];
+        var formData = new FormData();
+        formData.append('formData', file);
+    
+        $.ajax({
+        type: "POST",
+        url: "/expense/uploadImage",    
+        cache: false,
+        dataType:'json',
+        processData: false,
+        contentType: false,
+        data: formData,
+        success: function (data) {
+            console.log('daat url '+JSON.stringify(data));
+            alert('Attachment Uploaded Successfully !');
+          $('#file').val(data.url); 
+          console.log('file '+document.getElementById("file").value);         
+          }
+      });
+    }
+   </script>

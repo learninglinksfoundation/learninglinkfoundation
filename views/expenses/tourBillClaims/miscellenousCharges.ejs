@@ -1,0 +1,574 @@
+<% include ../../partials/navbar %>
+<% include ../../partials/footer %>
+
+<style>
+  @media (max-width: 768px){
+.mb-mobile{margin-bottom: 10px;}
+.table {
+    width: 250%;
+    margin-bottom: 1rem;
+    color: #212529;
+}
+}
+
+</style>
+<style>
+  #formdata .form-control {
+    width: auto;
+    } 
+    @media (max-width: 768px){
+.mb-mobile{margin-bottom: 10px;}
+}
+  </style> 
+<div style="overflow-y: auto;">
+  <div class="container-fluid">
+   <br />
+   <p id="tourbillId"><%= parentTourBillId %></p>
+   <p id="isDisabled"><%= isDisabled %></p>
+      <div class="col-md-10">
+          <a class="btn btn-primary btn-md bg-gray mb-mobile" href="/expense/tourBillClaim/boardingLodgingListView/<%= parentTourBillId %>&<%= isDisabled %>" >Go To Boarding &amp; Lodging</a>
+          <a class="btn btn-primary btn-md bg-gray mb-mobile" href="/expense/tourBillClaim/tourBillViewRelated/<%= parentTourBillId %>&<%= isDisabled %>"  >Go To TourBill</a>
+          <a class="btn btn-primary btn-md bg-gray mb-mobile" href="/expense/tourBillClaim/expenseLanding/<%= parentTourBillId %>&<%= isDisabled %>"  >Go To Expense</a>
+          <a class="btn btn-primary btn-md bg-gray mb-mobile" href="https://res.cloudinary.com/hfmqrflec/image/upload/v1600428143/LLF_-_Travel_Policy_1_de9yad.pdf" target="_blank" >Boarding & Lodging Policy Document </a>
+        </div>
+
+      <h3 style="text-align: center; margin-top: 20px;">Boarding &amp; Lodging Expenses</h3>
+   <br />
+  
+      <% include ../../partials/messages %>
+    <div id="errorMessages"></div>
+    
+   <form method="post" action="/insertprecash" id="formdata"  enctype="multipart/form-data">
+    <div class="table-responsive" >
+     <table class="table table-bordered " id="item_table">
+      <tr>
+        <th>NO</th>
+        <th>STAY OPTION <span style="color: red;">*</span></th>
+        <th>ACTIVITY CODE <span style="color: red;">*</span></th>
+        <th>PLACE JOURNEY <span style="color: red;">*</span></th>
+        <th>OTHER CITY</th>
+        <th>FROM(Dep. Time from Residence) <span style="color: red;">*</span></th>
+        <th></th>
+        <th>TO(Arrival Time to Residence) <span style="color: red;">*</span></th>
+        <th></th>
+        <th>Total OWN STAY AMOUNT</th>
+        <th>TOTAL ALLOWANCES</th>
+        <th>DAILY ALLOWANCE PER DAY</th>
+        <th>AMOUNT for B &amp; L(per day)</th>
+        <th>ACTUAL AMOUNT for B &amp; L(as per incurred)</th>
+        <th>OWN STAY AMOUNT</th>
+        <th>UPLOAD FILE</th>
+        <th><button type="button" id="addButton" style="background-color:#2C3E50;" name="add" class="btn btn-success btn-sm add">Add Row</button></th>
+        <th style="display:none;"></th>
+ 
+       </tr>
+     </table>
+  </div>
+
+     <div align="center">
+    
+      <input type="submit" style="background-color:#2C3E50;" id="submitButton" name="submit" class="btn btn-info" value="Submit" />
+     </div>
+    
+   </form>
+   </div>
+  </div>
+</div>
+</div>
+
+<script>
+  var lstPlaces = ["Mumbai","Delhi/NCR","Bengaluru","Hyderabad","Itanagar","Dispur", 
+  "Patna", "Raipur", "Panaji", "Gandhinagar", "Shimla", "Srinagar", "Chandigarh", 
+  "Ranchi", "Thiruvananthapuram","Bhopal", "Imphal", "Shillong", "Aizawl", "Kohima",
+  "Bhubaneswar", "Jaipur", "Gangtok", "Chennai","Agartala", "Lucknow", "Dehradun", 
+  "Kolkata", "Port Blair", "Silvassa", "Daman", "Kavaratti", "Pondicherry", "Agra", "Pune", "Kochi", 
+  "Ajmer", "Allahabad", "Amritsar","Coimbatore", "Indore", "Gwalior", "Jalandhar", "Mussorie","Ooty", "Others"];
+$(document).ready(function(){
+  $('#tourbillId').hide();
+   $('#addButton').hide();
+   $('#isDisabled').hide();
+   
+   var tourbillId  = document.getElementById('tourbillId').innerHTML;
+  // alert('parentTourBillId ++ '+tourbillId);
+ // var count = 1;
+ let isDisabled  = document.getElementById('isDisabled').innerHTML;
+ let activityCodes = [];
+ var count = 1;
+ $.get('/expense/tourBillClaimActivityCode',{tourbillId : tourbillId, isDisabled:isDisabled}, function(response){
+      console.log('response  : '+JSON.stringify(response));
+      activityCodes = response;
+      $('#addButton').show();
+      var cnt = count++;
+      var html = '';
+      html += '<tr>';
+      html += '<td>'+cnt+'</td>';
+      html += '<td><select  id="stay'+cnt+'" name="stayOption" class="form-control"><option value="">None</option><option value="Own Stay">Own Stay</option><option value="Stay">Stay</option></select>';
+      html += '<td><select id="activity_code'+cnt+'"  name="projectTask"  class="form-control item_unit"></select></td>';
+      html += '<td><select  id="place'+cnt+'" name="placeJourney" class="form-control" ></select></td>';
+      html += '<td><input type="text" id="tier3City'+cnt+'"  readonly="readonly" name="tier3City" class="form-control" /></td>';
+      html += '<td><input type="date" id="fromDate'+cnt+'" name="fromDate" class="form-control" /></td>';
+      html += '<td><input type="time" id="fromTime'+cnt+'" name="fromTime" class="form-control" /></td>';
+      html += '<td><input type="date" id="toDate'+cnt+'" name="toDate" class="form-control" /></td>';
+      html += '<td><input type="time" id="toTime'+cnt+'" name="toTime" class="form-control" /></td>';
+      html += '<td><input type="number" id="totalOwnStay'+cnt+'" name="totalOwnStay" value = "0" readonly="readonly"  class="form-control" /></td>';
+      html += '<td><input type="number" id="totalAllowances'+cnt+'" name="totalAllowances" value = "0" readonly="readonly"  class="form-control" /></td>';
+      html += '<td><input type="number" id="dailyAllowances'+cnt+'"  name="dailyAllowances" readonly="readonly"  class="form-control" /></td>';
+      html += '<td><input type="number" id ="amtForBL'+cnt+'" name="amtForBL"  class="form-control" /></td>';
+      html += '<td><input type="number" id="actualAMTForBL'+cnt+'" name="actualAMTForBL" value = "0" class="form-control" /></td>';
+      html += '<td style="display:none;" ><input type="hidden" id="policyamtForBL'+cnt+'" name="policyamtForBL"  class="form-control" /></td>';
+      html += '<td><input type="number" id="ownStayAmount'+cnt+'" name="ownStayAmount" class="form-control" /></td>';
+      html += '<td><input type="file" onChange="chkFile(this,'+cnt+')" name="fileprety" id="fileprety" style="overflow:hidden;width:auto" class="form-control" /><input type="hidden" value="demo" name="imgpath" id="file_'+cnt+'"></td>';
+      html += '<td><button type="button" name="remove" class="btn btn-danger btn-sm remove"><span class="glyphicon glyphicon-minus">Delete</span></button></td></tr>';
+      html += '<td style="display:none;"><input  type="hidden" id="projectTask'+cnt+'" name="activity_code"   class="form-control" /></td>';
+      html += '<td style="display:none;"><input  type="hidden" name="parentTourBillId" value="<%= parentTourBillId %>" class="form-control" /></td>';
+      $('#item_table').append(html);
+      $('#stay'+cnt).on("change" ,function(){
+        $('#activity_code'+cnt).val('');
+        $('#place'+cnt).val('');
+        $('#tier3City'+cnt).val('');
+        $('#fromDate'+cnt).val('');
+        $('#fromTime'+cnt).val('');
+        $('#toDate'+cnt).val('');
+        $('#toTime'+cnt).val('');
+        $('#totalOwnStay'+cnt).val('0');
+        $('#totalAllowances'+cnt).val('');
+        $('#dailyAllowances'+cnt).val('');
+        $('#actualAMTForBL'+cnt).val('');
+        $('#amtForBL'+cnt).val('');
+        $('#policyamtForBL'+cnt).val('');
+        $('#ownStayAmount'+cnt).val('');
+        $('#file_'+cnt).val('');
+
+        
+        if(this.value != 'Stay')
+        {
+       // $('#activity_code'+cnt).attr("disabled",true);  OwnStay
+       $('#totalOwnStay'+cnt).attr("readonly","readonly");  
+        $('#amtForBL'+cnt).attr("readonly","readonly");  
+        $('#actualAMTForBL'+cnt).attr("readonly","readonly");
+        $('#ownStayAmount'+cnt).attr("readonly","readonly");  
+        }       
+        else
+        {
+         // $('#activity_code'+cnt).attr("disabled",false);   Stay
+         $('#totalOwnStay'+cnt).attr("readonly","readonly");  
+          $('#amtForBL'+cnt).attr("readonly",false);  
+          $('#amtForBL'+cnt).attr("readonly","readonly");  
+          $('#actualAMTForBL'+cnt).attr("readonly",false);
+          $('#ownStayAmount'+cnt).attr("readonly","readonly"); 
+        }
+      })
+      $('#activity_code'+cnt)
+      .append($("<option></option>")
+      .attr("value",'')
+      .text('Select'));	
+    for(let i=0; i< activityCodes.length ;i++)
+    {
+      $('#activity_code'+cnt)
+      .append($("<option></option>")
+      .attr("value",activityCodes[i].sfid)
+      .text(activityCodes[i].name));	
+    }
+    $('#activity_code'+cnt).on('change',function(){
+      let taskId = this.value;
+            let selectedCode = activityCodes.filter((eachCode)=> {
+              if(eachCode.sfid == taskId)
+                return eachCode;
+            })
+            let label = selectedCode[0].name;
+            document.getElementById('projectTask'+cnt).value = label;
+          //  $('#projectTask'+cnt).value = label;
+            console.log('label  :'+label+' value : '+taskId);
+    })
+    $('#place'+cnt).empty();
+   $('#place'+cnt)
+    .append($("<option></option>")
+    .attr("value",'')
+    .text('Select'));
+    for(let i=0;i<lstPlaces.length;i++)
+    {
+      $('#place'+cnt)
+    .append($("<option></option>")
+    .attr("value",lstPlaces[i])
+    .text(lstPlaces[i]));
+    }
+    $('#place'+cnt).on("change",function(){
+        if(this.value == 'Others')
+          {
+            $('#tier3City'+cnt).attr("readonly",false);
+          cityAllowance(this.value,cnt); 
+          }
+        else
+        {
+          $('#tier3City'+cnt).attr("readonly","readonly");
+            cityAllowance(this.value,cnt);                                  // to auto fill the allowanne fields
+        } 
+    });
+
+   console.log('Line 311 fromDate'+cnt);
+   console.log('Line 312 fromTime'+cnt);
+   console.log('Line 313 toDate'+cnt);
+   console.log('Line 314 toTime'+cnt);
+    $('#fromDate'+cnt).on("change",function(){
+			totalAllowancesCalculation(cnt);
+    });
+    $('#fromTime'+cnt).on("change",function(){
+			totalAllowancesCalculation(cnt);
+    });
+    $('#toDate'+cnt).on("change",function(){
+			totalAllowancesCalculation(cnt);
+    });
+    $('#toTime'+cnt).on("change",function(){
+			totalAllowancesCalculation(cnt);
+	});
+  }).fail(function(jqXHR, error) {
+      console.log('error  : '+JSON.stringify(jqXHR));
+  })
+/******************* New Row ***************************/  
+  
+ $(document).on('click', '.add', function(){
+    var cnt = count++;
+    var html = '';
+    html += '<tr>';
+    html += '<td>'+cnt+'</td>';
+    html += '<td><select  id="stay'+cnt+'" name="stayOption" class="form-control"><option value="">None</option><option value="Own Stay">Own Stay</option><option value="Stay">Stay</option></select>';
+    html += '<td><select id="activity_code'+cnt+'"  name="projectTask" class="form-control item_unit"></select></td>';
+    html += '<td><select  id="place'+cnt+'" name="placeJourney" class="form-control" ></select></td>';
+    html += '<td><input type="text" id="tier3City'+cnt+'" readonly="readonly" name="tier3City" class="form-control" /></td>';
+    html += '<td><input type="date" id="fromDate'+cnt+'" name="fromDate" class="form-control" /></td>';
+    html += '<td><input type="time" id="fromTime'+cnt+'" name="fromTime" class="form-control" /></td>';
+    html += '<td><input type="date" id="toDate'+cnt+'" name="toDate" class="form-control" /></td>';
+    html += '<td><input type="time" id="toTime'+cnt+'" name="toTime" class="form-control" /></td>';
+    html += '<td><input type="number" id="totalOwnStay'+cnt+'" name="totalOwnStay" value = "0" readonly="readonly"  class="form-control" /></td>';
+    html += '<td><input type="number" id="totalAllowances'+cnt+'" name="totalAllowances"  readonly="readonly" class="form-control" /></td>';
+    html += '<td><input type="number" id="dailyAllowances'+cnt+'" name="dailyAllowances"  readonly="readonly"  class="form-control" /></td>';
+    html += '<td><input type="number" id="amtForBL'+cnt+'" name="amtForBL"  class="form-control" /></td>';
+    html += '<td><input type="number" id="actualAMTForBL'+cnt+'" name="actualAMTForBL" class="form-control" /></td>';
+    html += '<td style="display:none;" ><input type="hidden" id="policyamtForBL'+cnt+'" name="policyamtForBL"  class="form-control" /></td>';
+    html += '<td><input type="number" id="ownStayAmount'+cnt+'" name="ownStayAmount" class="form-control" /></td>';
+    html += '<td><input type="file" onChange="chkFile(this,'+cnt+')" name="fileprety" style="overflow:hidden;width:auto" class="form-control" /><input type="hidden" value="demo" name="imgpath" id="file_'+cnt+'"></td>';
+    html += '<td><button type="button" name="remove" class="btn btn-danger btn-sm remove"><span class="glyphicon glyphicon-minus">Delete</span></button></td></tr>';
+    html += '<td style="display:none;"><input  type="hidden" id="projectTask'+cnt+'"  name="activity_code"  class="form-control" /></td>';
+    html += '<td style="display:none;"><input  type="hidden" name="parentTourBillId" value="<%= parentTourBillId %>" class="form-control" /></td>';
+    $('#item_table').append(html);
+    $('#stay'+cnt).on("change" ,function(){
+      $('#activity_code'+cnt).val('');
+        $('#place'+cnt).val('');
+        $('#tier3City'+cnt).val('');
+        $('#fromDate'+cnt).val('');
+        $('#fromTime'+cnt).val('');
+        $('#toDate'+cnt).val('');
+        $('#toTime'+cnt).val('');
+        $('#totalOwnStay'+cnt).val('0');
+        $('#totalAllowances'+cnt).val('');
+        $('#dailyAllowances'+cnt).val('');
+        $('#actualAMTForBL'+cnt).val('');
+        $('#amtForBL'+cnt).val('');
+        $('#policyamtForBL'+cnt).val('');
+        $('#ownStayAmount'+cnt).val('');
+        $('#file_'+cnt).val('');
+        if(this.value != 'Stay')
+        {
+       // $('#activity_code'+cnt).attr("disabled",true);  OwnStay
+        $('#totalOwnStay'+cnt).attr("readonly","readonly");  
+        $('#amtForBL'+cnt).attr("readonly","readonly");  
+        $('#actualAMTForBL'+cnt).attr("readonly","readonly");
+        $('#ownStayAmount'+cnt).attr("readonly","readonly");  
+        }       
+        else
+        {
+         // $('#activity_code'+cnt).attr("disabled",false);   Stay
+          $('#totalOwnStay'+cnt).attr("readonly","readonly");  
+          $('#amtForBL'+cnt).attr("readonly",false);  
+          $('#amtForBL'+cnt).attr("readonly","readonly");  
+          $('#actualAMTForBL'+cnt).attr("readonly",false);
+          $('#ownStayAmount'+cnt).attr("readonly","readonly"); 
+        }
+    })
+    console.log('Line 391 fromDate'+cnt);
+   console.log('Line 392 fromTime'+cnt);
+   console.log('Line 393 toDate'+cnt);
+   console.log('Line 394 toTime'+cnt);
+    $('#fromDate'+cnt).on("change",function(){
+			totalAllowancesCalculation(cnt);
+    });
+    $('#fromTime'+cnt).on("change",function(){
+			totalAllowancesCalculation(cnt);
+    });
+    $('#toDate'+cnt).on("change",function(){
+			totalAllowancesCalculation(cnt);
+    });
+    $('#toTime'+cnt).on("change",function(){
+			totalAllowancesCalculation(cnt);
+	});
+    $('#activity_code'+cnt)
+    .append($("<option></option>")
+    .attr("value",'')
+    .text('Select'));	
+  for(let i=0; i< activityCodes.length ;i++)
+  {
+    $('#activity_code'+cnt)
+    .append($("<option></option>")
+    .attr("value",activityCodes[i].sfid)
+    .text(activityCodes[i].name));	
+  }
+  $('#activity_code'+cnt).on('change',function(){
+    let taskId = this.value;
+          let selectedCode = activityCodes.filter((eachCode)=> {
+            if(eachCode.sfid == taskId)
+              return eachCode;
+          })
+          let label = selectedCode[0].name;
+          document.getElementById('projectTask'+cnt).value = label;
+        //  $('#projectTask'+cnt).value = label;
+          console.log('label  :'+label+' value : '+taskId);
+  })
+  
+  $('#place'+cnt).empty();
+   $('#place'+cnt)
+    .append($("<option></option>")
+    .attr("value",'')
+    .text('Select'));
+    for(let i=0;i<lstPlaces.length;i++)
+    {
+      $('#place'+cnt)
+    .append($("<option></option>")
+    .attr("value",lstPlaces[i])
+    .text(lstPlaces[i]));
+    }
+    $('#place'+cnt).on("change",function(){
+        if(this.value == 'Others'){
+          $('#tier3City'+cnt).attr("readonly",false);
+          cityAllowance(this.value,cnt); 
+        }
+        else{
+          $('#tier3City'+cnt).attr("readonly","readonly");
+            cityAllowance(this.value,cnt); 
+        }
+                     
+    });
+  });
+ 
+ $(document).on('click', '.remove', function(){
+    $(this).closest('tr').remove();
+ });
+ $.get('/expense/tourBillClaimActivityCode',{tourbillId : tourbillId, isDisabled:isDisabled}, function(response){
+    console.log('response  : '+JSON.stringify(response));
+ }).fail(function(jqXHR, error) {
+    console.log('error  : '+JSON.stringify(jqXHR));
+ })
+});
+$(function () {
+  $('form#formdata').bind('submit', function () {
+    console.log('formdata +'+$('form#formdata').serialize())
+    $("#submitButton").attr("disabled", true);
+    $.ajax({
+      type: 'post',
+      url: '/expense/tourBillClaim/boardingLodgingCharges',  // to save the Boarding Chargess
+      data: $('form#formdata').serialize(),
+      success: function (data) {
+        console.log(data);
+       if(data == 'BoardingLodging Form Saved Successfully !')
+       {
+        document.getElementById("formdata").reset();
+        let errorHtml = '<div class="col-md-6 m-auto" ><div class="alert alert-success alert-dismissible fade show" role="alert">'+ data+
+            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+              '<span aria-hidden="true">&times;</span>'+
+            '</button>'+
+          '</div></div>';
+          $('#errorMessages').empty();
+          $('#errorMessages').append(errorHtml);
+          $("#submitButton").attr("disabled", false);
+       }
+       else
+       {
+        let errorHtml = '<div class="col-md-6 m-auto" ><div class="alert alert-danger alert-dismissible fade show" role="alert">'+ data+
+            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+              '<span aria-hidden="true">&times;</span>'+
+            '</button>'+
+          '</div></div>';
+          $('#errorMessages').empty();
+          $('#errorMessages').append(errorHtml);
+          $("#submitButton").attr("disabled", false); 
+       }
+        
+        
+    
+        
+      }
+    });
+    return false;
+  });
+});
+function chkFile(file1,id) {
+    var file = file1.files[0];
+    var formData = new FormData();
+    formData.append('formData', file);
+   
+    $.ajax({
+    type: "POST",
+    url: "/expense/uploadImage",    
+    cache: true,
+    dataType:'json',
+    processData: false,
+    contentType: false,
+    data: formData,
+    success: function (data) {
+      alert('File Uploaded Successfully !');
+      console.log(data);
+    //  var result = JSON.stringify(data)
+     $('#file_'+id).val(data.url);
+     
+     }
+  });
+}
+
+function cityAllowance(name,cnt)
+{
+  $.get('/expense/tourBillClaim/fetchAllowence',{name : name}, function(response){
+    console.log('response  : '+JSON.stringify(response));
+    let val=response[0];
+   // alert(JSON.stringify(val.boarding_lodging__c));
+    // $('#amtForBL'+cnt).attr("disabled",true);
+    let stayType = document.getElementById('stay'+cnt).value;
+    console.log('stayType  '+stayType);
+    if(stayType == 'Own Stay')
+    {
+      $('amtForBL'+cnt).attr("readonly","readonly");
+      $('ownStayAmount'+cnt).attr("readonly","readonly");
+      //document.getElementById('amtForBL'+cnt).value = val.boarding_lodging__c;
+      document.getElementById('totalAllowances'+cnt).value = 0;
+      document.getElementById('amtForBL'+cnt).value = 0;
+      document.getElementById('dailyAllowances'+cnt).value = 0;
+      document.getElementById('actualAMTForBL'+cnt).value = 0;
+      document.getElementById('ownStayAmount'+cnt).value = val.own_stay__c;
+      
+      
+    }
+    else if(stayType == 'Stay')
+    {
+      $('amtForBL'+cnt).attr("readonly","readonly");
+      $('ownStayAmount'+cnt).attr("readonly","readonly");
+      document.getElementById('totalAllowances'+cnt).value = 0;
+      document.getElementById('amtForBL'+cnt).value = val.boarding_lodging__c;
+      document.getElementById('dailyAllowances'+cnt).value = val.daily_allowance_amount__c;
+      document.getElementById('ownStayAmount'+cnt). value = 0;
+    }
+    $('#place'+cnt).on("change",function(){
+      
+    });
+  
+    
+ }).fail(function(jqXHR, error) {
+    console.log('error  : '+JSON.stringify(jqXHR));
+ })
+}
+function totalAllowancesCalculation(cnt)
+	{
+			let fromDate = document.getElementById('fromDate'+cnt).value;
+      let fromTime = document.getElementById('fromTime'+cnt).value;
+      let toDate = document.getElementById('toDate'+cnt).value;
+      let toTime = document.getElementById('toTime'+cnt).value;
+      let fromHours = parseInt(fromTime.split(':')[0],10);
+      let fromMinutes = parseInt(fromTime.split(':')[1],10);
+      let toHours = parseInt(toTime.split(':')[0],10);
+      let toMinutes = parseInt(toTime.split(':')[1],10);
+      
+      let dailyAllowances = document.getElementById('dailyAllowances'+cnt).value;
+      let ownStayAmount = document.getElementById('ownStayAmount'+cnt).value;
+      let amtForBL = document.getElementById('amtForBL'+cnt).value;
+      console.log('fromDate   : '+fromDate);
+      console.log('typeof(fromDate)  '+typeof(fromDate));
+      console.log('fromTime   : '+typeof(fromTime));
+      console.log('toDate   : '+toDate);
+      console.log('toTime   : '+toTime);
+    
+      let stayType = document.getElementById('stay'+cnt).value;
+      console.log('stayType  '+stayType);
+      if(stayType == 'Stay')
+      {
+        var date1 = new Date(fromDate); 
+        var date2 = new Date(toDate); 
+          
+        var Difference_In_Time = date2.getTime() - date1.getTime(); 
+        var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24); 
+        console.log('Difference_In_Days  '+Difference_In_Days);
+        console.log('dailyAllowances  : '+dailyAllowances);
+        Difference_In_Days = Difference_In_Days - 1;
+        var totalAllowances = dailyAllowances * Difference_In_Days;
+        console.log('totalAllowances  : '+totalAllowances);
+        
+        if(fromHours > 0 && fromMinutes > 0 &&  (fromHours <= 11 && fromMinutes <= 59) || (fromHours <= 12 && fromMinutes == 00))
+        {
+          console.log('if from : '+dailyAllowances);
+          let dailyAllowanceValue = parseInt(dailyAllowances,10);
+          totalAllowances = parseInt(totalAllowances,10) + dailyAllowanceValue;
+        }
+        else if(fromHours >=12 && fromMinutes > 00)
+        {
+          console.log('else from : '+dailyAllowances/2);
+          let dailyAllowanceValue = parseInt(dailyAllowances/2,10);
+          totalAllowances = parseInt(totalAllowances,10) + dailyAllowanceValue;
+        }
+        if((toHours > 0 && toMinutes > 0) && (toHours <= 11 && toMinutes <= 59)   )
+        {
+          console.log('if to : '+dailyAllowances/2);
+          let dailyAllowanceValue = parseInt(dailyAllowances/2,10);
+          totalAllowances = parseInt(totalAllowances,10) + dailyAllowanceValue;
+        }
+        else if(toHours >=12 && toHours > 00)
+        {
+          console.log('else to : '+dailyAllowances);
+          let dailyAllowanceValue = parseInt(dailyAllowances,10);
+          totalAllowances = parseInt(totalAllowances,10) + dailyAllowanceValue;
+        }
+        document.getElementById('totalAllowances'+cnt).value = totalAllowances;
+        let policyamtForBL = amtForBL * Difference_In_Days;
+        document.getElementById('policyamtForBL'+cnt).value = policyamtForBL;
+      }
+
+      if(stayType != 'Stay')
+      {
+        var date1 = new Date(fromDate); 
+        var date2 = new Date(toDate); 
+          
+        var Difference_In_Time = date2.getTime() - date1.getTime(); 
+        var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24); 
+        console.log('Difference_In_Days  '+Difference_In_Days);
+        console.log('ownStayAmount  : '+ownStayAmount);
+        Difference_In_Days = Difference_In_Days - 1;
+        var totalOwnStay = ownStayAmount * Difference_In_Days;
+        console.log('totalAllowances  : '+totalOwnStay);
+        
+        if(fromHours > 0 && fromMinutes > 0 &&  (fromHours <= 11 && fromMinutes <= 59) || (fromHours <= 12 && fromMinutes == 00))
+        {
+          console.log('if from : '+ownStayAmount);
+          let dailyAllowanceValue = parseInt(ownStayAmount,10);
+          totalOwnStay = parseInt(totalOwnStay,10) + dailyAllowanceValue;
+        }
+        else if(fromHours >=12 && fromMinutes > 00)
+        {
+          console.log('else from : '+ownStayAmount/2);
+          let dailyAllowanceValue = parseInt(ownStayAmount/2,10);
+          totalOwnStay = parseInt(totalOwnStay,10) + dailyAllowanceValue;
+        }
+        if((toHours > 0 && toMinutes > 0) && (toHours <= 11 && toMinutes <= 59)   )
+        {
+          console.log('if to : '+ownStayAmount/2);
+          let dailyAllowanceValue = parseInt(ownStayAmount/2,10);
+          totalOwnStay = parseInt(totalOwnStay,10) + dailyAllowanceValue;
+        }
+        else if(toHours >=12 && toHours > 00)
+        {
+          console.log('else to : '+ownStayAmount);
+          let dailyAllowanceValue = parseInt(ownStayAmount,10);
+          totalOwnStay = parseInt(totalOwnStay,10) + dailyAllowanceValue;
+        }
+        document.getElementById('totalOwnStay'+cnt).value = totalOwnStay;
+        console.log('Line 305 ++ Id value totalOwnStay'+cnt);
+        let policyamtForBL = amtForBL * Difference_In_Days;
+        document.getElementById('policyamtForBL'+cnt).value = policyamtForBL;
+      }
+		
+	} 
+</script>

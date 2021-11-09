@@ -1,0 +1,214 @@
+<% include ./partials/navbar %>
+<% include ./partials/footer %> 
+<% include ./partials/messages %>
+
+<p id= "vendorId"><%=vendorId %></p>
+
+<div class="modal fade" id="popup">
+    
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"> Vendor List</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+            <div class="col-md-12">
+            <nav>
+            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Details</a>
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Related</a>
+            </div>
+            </nav>
+                        <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                      
+                        <div class="table-responsive">
+                                <table id="vendorDetail" class="table table-hover striped">
+                                    <!-- Inside code is handled by Jquery to add dyanamic Content -->
+                                </table>
+                            </div>
+                          
+                            </div>
+							
+                            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                <div class="accordion" id="accordionExample">
+                                
+                                <div class="card">
+                                <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                <button class="btn btn-link text-left" type="pettyCashButton"
+                                data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                <i class="fa fa-angle-double-right mr-3"></i>Item Description
+                                            </button>
+                                             <!-- <button class="btn btn-primary float-right" id="pettyCashButton" >New</button> -->
+                                            <a href="#" class="btn btn-primary float-right newVendor" id="newVendor" style="color:white;" >New</a>
+                                        </h5>
+                                        </div>
+
+                                        <div id="collapseOne" class="collapse show fade" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                            <div class="card-body">
+                                                <table id="ItemDescriptionTable" class="table table-hover striped">
+                                                    
+                                                </table>
+                                                <!-- Feedback table code -->
+                                                </div>
+                                                </div>
+                                                </div>
+                                                
+                                                </div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                               
+                                                </div>
+                                              <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+
+<script>
+     $(document).ready(function(){
+           $('#vendorId').hide();
+            let vendorId = document.getElementById('vendorId').innerHTML;
+           // alert('vendorId  : '+vendorId);x`
+          $("#popup").modal("show"); 
+          $.ajax({
+                type : 'GET',
+                url  : '/procurement/getVendorDetail',
+                data : {
+                    'vendorId' : vendorId
+                },
+                dataType : 'json',
+                beforeSend: function()
+              {
+                $('#expenseDetailsSpinner').show();
+              }
+            })
+            .done((data)=>{
+                let recordData=data[0];
+                console.log('DATA DEtails=>'+JSON.stringify(data.VendorDetail));
+                let record=data.VendorDetail;
+                console.log('DATA record=>'+JSON.stringify(record));
+                if(data.VendorDetail.length>0)
+                {
+                    console.log('Inside Vendor Details'); 
+                        let vendorDetailRow = '';
+                        data.VendorDetail.forEach((eachRecord) => {
+                            vendorDetailRow += '<tr>';
+                            vendorDetailRow += '<td colspan="4" style="background-color:#d3d3d3;"><h5>Item Metrics</h5></td>';    
+                            vendorDetailRow += '</tr>';
+
+                            vendorDetailRow += '<tr>';
+                                    vendorDetailRow += '<td><strong> Vendor List ID<strong></td>';
+                                    vendorDetailRow += '<td>'+eachRecord.name+'</td>';
+                                    vendorDetailRow += '<td><strong>State<strong></td>';
+                                        vendorDetailRow += '<td>'+eachRecord.state__c+'</td>';
+                                vendorDetailRow += '</tr>'; 
+
+                                vendorDetailRow += '<tr>';
+                                    vendorDetailRow += '<td><strong>District<strong></td>';
+                                    vendorDetailRow += '<td>'+eachRecord.district__c+'</td>';
+                                    vendorDetailRow += '<td><strong> Vendor Name<strong></td>';
+                                        vendorDetailRow += '<td>'+eachRecord.vendor_name__c+'</td>';
+                                vendorDetailRow += '</tr>';
+                                vendorDetailRow += '<tr>';
+                    
+                                vendorDetailRow += '<tr>';
+                                    vendorDetailRow += '<td><strong>Contact no.<strong></td>';
+                                    vendorDetailRow += '<td>'+eachRecord.contact_no__c+'</td>';
+                                    vendorDetailRow += '<td><strong>Name of Signing Authority from Vendor<strong></td>';
+                                    vendorDetailRow += '<td>'+eachRecord.name_of_signing_authority__c+'</td>';
+                                vendorDetailRow += '</tr>';
+
+                                vendorDetailRow += '<tr>';
+                                    vendorDetailRow += '<td><strong>PAN<strong></td>';
+                                    vendorDetailRow += '<td>'+eachRecord.pan_no__c+'</td>';
+                                    vendorDetailRow += '<td><strong>Bank Account No.<strong></td>';
+                                    vendorDetailRow += '<td>'+eachRecord.bank_account_no__c+'</td>';
+                                vendorDetailRow += '</tr>';
+
+                                    vendorDetailRow += '<tr>';
+                                        vendorDetailRow += '<td><strong>Bank Details(Name,Branch, etc)<strong></td>';
+                                        vendorDetailRow += '<td>'+eachRecord.bank_details__c+'</td>';
+                                        vendorDetailRow += '<td><strong>Bank IFSC Code<strong></td>';
+                                        vendorDetailRow += '<td>'+eachRecord.bank_ifsc_code__c+'</td>';
+                                    vendorDetailRow += '</tr>';
+
+                                    vendorDetailRow += '<tr>';
+                                    vendorDetailRow += '<td><strong>Address/Web Address<strong></td>';
+                                    vendorDetailRow += '<td>'+eachRecord.address__c+'</td>';
+                                    vendorDetailRow += '<td><strong>GST No.<strong></td>';
+                                        if(eachRecord.gst_no__c!=null){
+                                            vendorDetailRow += '<td>'+eachRecord.gst_no__c+'</td>';
+                                        }
+                                        else{
+                                            vendorDetailRow +='<td></td>';
+                                        }
+                                vendorDetailRow += '</tr>';
+                
+                              vendorDetailRow += '<tr>';
+                   
+                            vendorDetailRow += '<td><strong>Reason for not providing GST no.<strong></td>';
+                                if(eachRecord.reason_for_not_providing_gst_no__c!=null){
+                                    vendorDetailRow += '<td>'+eachRecord.reason_for_not_providing_gst_no__c+'</td>';
+                                        }
+                                        else{
+                                            vendorDetailRow +='<td></td>';
+                                        }
+                                        vendorDetailRow += '<td></td>';
+                                    vendorDetailRow += '<td></td>';
+                            vendorDetailRow += '</tr>'; 
+                               
+                                    $('#vendorDetail').html(vendorDetailRow);
+
+                        })
+                }
+
+                if(data.item.length>0){
+                    console.log('INSIDE Item Description')
+                    let itemDescription = '';
+                    itemDescription+='<thead>  <th>Item Name</th><th>Category</th><th>Item</th><th>Unit</th><th>Cost Per Unit</th></thead>';
+                    data.item.forEach((each)=>{
+                        itemDescription
+                        itemDescription += '<td>'+each.name +'</td>'; 
+                        itemDescription += '<td>'+each.category__c +'</td>'; 
+                        itemDescription += '<td>'+each.items__c +'</td>'; 
+                        itemDescription += '<td>'+each.unit__c +'</td>'; 
+                        itemDescription += '<td>'+each.per_unit_cost__c +'</td></tr>';
+                    })
+                    itemDescription+=  '<td colspan="6"><center><a target="_blank" href="/procurement/ItemDescriptionListView?vendorId='+vendorId+'">View All</a></centre></td>';
+                   
+                   console.log('iddd'+data.VendorDetail[0].sfid);
+                        $('#ItemDescriptionTable').empty();
+                    $('#ItemDescriptionTable').append(itemDescription);
+                }
+            })
+            .fail((jqXHR, textStatus, err) =>{
+                console.log('textStatus  : '+textStatus);
+            })
+        })
+
+        $('a.newVendor').click(() => {
+            console.log('newVendor anchor tag ');
+            //var assetId = document.getElementById('assetId').innerHTML;
+            var vendorId1 = document.getElementById('vendorId').innerHTML;
+            console.log(vendorId1+'  ' + 'vendorId  : '+JSON.stringify(vendorId));
+            window.open('/procurement/ItemDescription/'+vendorId1,'_blank');
+            //location.assign('/procurement/ItemDescription/'+vendorIDS);           
+        })
+        $('a.itemDescTag').click(() => {
+            console.log('ItemDescription view List anchor tag ');
+           // var assetId = document.getElementById('assetId').value;
+            console.log('vendorId  : '+vendorId);
+           // window.open('/procurement/ItemDescription/'+vendorId,'_blank');
+          //  location.assign('/procurement/ItemDescription/'+vendorIDS);           
+        })
+    
+</script>

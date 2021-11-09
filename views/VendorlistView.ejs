@@ -1,0 +1,1619 @@
+<% include ./partials/navbar %>
+<% include ./partials/footer %>
+<% include ./partials/messages %>
+<link rel="stylesheet" href="/stylesheets/table-sortable.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/scripts/table-sortable.js" ></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<h3 style="text-align: center; margin-top: 20px;">Vendor List</h3>
+<div class="container">
+    <div class="row mt-5 mb-3 align-items-center">
+        <div class="col-md-5">
+            <a class="btn btn-primary btn-md bg-gray" href="/procurement/createvendor" target="_blank" id="createNewVendor">Create New</a>
+            <a  href="/procurement/getvendorListView" style="color: #555;" id="ref" ><i class="fa fa-refresh" style="font-size:34px; margin-left: 10px; margin-top: 30px;"></i> </a>
+               </div>
+        <div class="col-md-4">
+        <input type="text" class="form-control" placeholder="Search by Vendor List ID " id="searchField" style="margin-top: 5px;">
+        </div>
+        <div class="col-md-2 text-right">
+        <span class="pr-2">Rows Per Page:</span>
+        </div>
+        <div class="col-md-1">
+            <div class="d-flex justify-content-end">
+                <select class="custom-select" name="rowsPerPage" id="changeRows">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15" selected>15</option>
+                </select>
+            </div>
+        </div>
+ </div>
+
+ <div id="vendorListViewTable" class="responsive ">
+
+ </div>
+
+</div>
+
+
+<!-- vendor edit Modal  modal -->
+<div id="venderEditModal" class="modal fade bs-example-modal-lg" tabindex ="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+          <h5 class="modal-title" id="createTaskModal">Vendor List Edit Form</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            <div class="">
+            <div id="errorMessages"></div>
+            <form id="editvendor" class="needs-validation" novalidate  >
+              <div class="form-group"> 
+                <div class="row">
+                <div class="col-md-6">
+                      <label for="vendorId"> Vendor List ID</label>
+                      <input type="text" disabled class="form-control" id="vendorId" value=""   name="vendorId" >
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="name">Vendor Name </label>
+                        <input type="text"  class="form-control" id="name" value=""   name="name" >
+                      </div>
+                </div>
+              </div>
+              <div class="form-group"> 
+                <div class="row">
+               
+                <div class="col-md-6">
+                  <label for="state">state </label>
+                    <select id="state" name="state" class="form-control item_unit"><option value="">Select</option></select>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="district">  District </label>
+                    <select id="district" name="district" class="form-control item_unit" ><option value="">Select</option></select>
+                    </div>
+                </div>
+            </div>
+
+
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-6">
+                  <label for="aacc">Bank Account  No. </label>
+                  <input type="number" class="form-control" id="aacc" value=""   name="aacc" >
+                  </div>
+                  <div class="col-md-6">
+                    <label for="auth"> Name of Signing Authority from Vendor</label>
+                    <input type="text" class="form-control" id="auth" value=""   name="auth" >
+                    </div>
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <div class="row">
+                  <div class="col-md-6">
+                  <label for="cont">Contact No. </label>
+                    <input type="number" class="form-control" id="cont" value=""   name="cont" >
+                  </div>
+                  <div class="col-md-6">
+                    <label for="bankDetail">Bank Details(Name,Branch, etc)</label>
+                    <input type="text" class="form-control" id="bankDetail" value=""   name="bankDetail" >
+                    </div>
+                </div>
+            </div>
+        
+            
+        <div class="form-group">
+            <div class="row">
+              <div class="col-md-6">
+              <label for="ifsc">Bank IFSC Code </label>
+                <input type="text" class="form-control" id="ifsc" value=""   name="ifsc" >
+              </div>
+              <div class="col-md-6">
+                <label for="pan"> Pan Number </label>
+                <input type="text" class="form-control" id="pan" value=""   name="pan" >
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+              
+              
+              <div class="col-md-6">
+              <label for="add">Address/Web Address</label>
+                <input type="text" class="form-control" id="add" value=""   name="add" >
+              </div>
+              <div class="col-md-6">
+                <label for="gst">GST No. </label>
+                <input type="text" class="form-control" id="gst" value=""   name="gst" >
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+              
+              
+              <div class="col-md-6">
+              <label for="other">Others </label>
+                <input type="text" class="form-control" id="other" value=""   name="other" >
+              </div>
+              <div class="col-md-6">
+                <label for="quote">Quote Public URL </label>
+                <input type="text" class="form-control" id="quote" value=""   name="quote" >
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+            
+              <div class="col-md-6">
+                <label for="quote">Reason for not providing GST no.</label>
+                <input type="text" class="form-control" id="reason" value=""   name="reason" >
+                </div>
+            </div>
+        </div>
+        
+
+              <div class="form-group">
+                  <div class="row">
+                    
+                      <div class="col-md-6">
+                        <input type="hidden" class="form-control" id="hide" value=""   name="hide" >
+                        </div>
+                  </div>     
+              </div>
+              <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary" id="editVendorButton" >Save</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+              </form>
+              </div>
+              </div>
+              </div>
+              </div>
+              </div>
+    
+
+
+<!-- End of Edi tmodal -->
+
+
+<!-- Modal Popup For VendorList Detail & Their Related data -->
+
+<div class="modal fade" id="popup">
+    
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"> Vendor List</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+            <div class="col-md-12">
+                <nav>
+                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Details</a>
+                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Related</a>
+                    </div>
+                </nav>
+                        <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                      
+                        <div class="table-responsive">
+                                <table id="vendorDetail" class="table table-hover striped">
+                                    <!-- Inside code is handled by Jquery to add dyanamic Content -->
+                                </table>
+                            </div>
+                          
+                            </div>
+							
+                            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                <div class="accordion" id="accordionExample">
+                                
+                                <div class="card">
+                                <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                <button class="btn btn-link text-left" type="pettyCashButton"
+                                data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                <i class="fa fa-angle-double-right mr-3"></i>Item Description
+                                            </button>
+                                             <!-- <button class="btn btn-primary float-right" id="pettyCashButton" >New</button> -->
+                                            <a href="#" class="btn btn-primary float-right newVendor" id="newVendor" style="color:white;" >New</a>
+                                        </h5>
+                                        </div>
+
+                                        <div id="collapseOne" class="collapse show fade" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                            <div class="card-body">
+                                                <table id="ItemDescriptionTable" class="table table-hover striped">
+                                                    
+                                                </table>
+                                                <!-- Feedback table code -->
+                                                </div>
+                                                </div>
+                                                </div>
+                                                
+                                                </div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                               
+                                                </div>
+                                              <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+<script>
+
+let st =["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Goa","Gujarat","Haryana","Himachal Pradesh",
+    "Jharkhand", "Karnataka","Kerala","Madhya Pradesh","Maharashtra","Manipur","Meghalaya","Mizoram","Nagaland","Odisha",
+    "Punjab","Rajasthan","Sikkim","Tamil Nadu","Telangana","Tripura", "Uttar Pradesh","Uttarakhand","West Bengal"];
+    let dstrUP=["Noida","Ghaziabad","Kanpur Nagar","Kanpur Dehat","Unnao"];
+    let dstrUK=["Almora","Bageshwar","Chamoli","Champawat","Dehradun","Haridwar","Nainital","Pauri Garhwal","Pithoragarh"];
+    let dstrJK=["Ranchi"];
+    $(document).ready(function(){
+        let columns ={
+            sequence : 'Sequence',
+            name: ' Vendor List ID',
+            vendorname: 'Vendor Name',
+            state:'State',
+            district:' District',
+            signAuthority:'Name of Signing Authority',
+            contact:'Contact Number',
+           // add:'Address',
+            createdDate:'Created Date',
+            editAction:'Action'
+        }
+        var table = $('#vendorListViewTable').tableSortable({
+            data :[],
+            columns,
+            searchField: '#searchField',
+            sorting: true,
+            rowsPerPage: 15,
+            pagination:true,
+            sorting: ['sequence','createdDate'],
+            tableWillMount: () => {
+                console.log('table will mount')
+                
+            },
+            tableDidMount: () => {
+                console.log('table did mount');
+
+                $('#spinner').hide();
+            },
+            tableWillUpdate: () => {
+                console.log('table will update')
+            //  table.refresh();
+            // onLoadTask();
+            },
+            tableDidUpdate: () => {
+            console.log('table did update');
+             anchorClickFunctionalities();
+            additionalEditFunctionality();
+            
+            },
+            tableWillUnmount: () => console.log('table will unmount'),
+            tableDidUnmount: () => console.log('table did unmount'),
+            onPaginationChange: function(nextPage, setPage) {
+                setPage(nextPage);
+            },
+        
+        });
+        $('#changeRows').on('change', function() {
+            table.updateRowsPerPage(parseInt($(this).val()));
+            })
+    
+            $('#refresh').click(function() {
+                table.refresh(true);
+                onLoadTask();
+            })    
+            $.ajax({
+                url : '/procurement/getVendorsList',
+                type:'get',
+                dataType: 'json'
+           })
+           .done((response) => {
+               console.log('response it : '+JSON.stringify(response));
+               table.setData(response, columns);
+               anchorClickFunctionalities();
+              
+              
+            })
+          .fail((jqXHR, status, error) =>{
+              console.log('jqXHR  : '+JSON.stringify(jqXHR));
+              console.log('error  : '+error);
+            })
+    })
+   var vendorIDS;
+    function anchorClickFunctionalities()
+    {
+        $('a.vendorTag').on('click',function(event){
+            event.stopImmediatePropagation();
+            event.stopPropagation();
+            vendorIDS=this.id;
+            let vendorId = this.id;
+          //  alert('vendorTag=>'+vendorId);
+            $("#popup").modal("show");
+            $.ajax({
+                type : 'GET',
+                url  : '/procurement/getVendorDetail',
+                data : {
+                    'vendorId' : vendorId
+                },
+                dataType : 'json'
+            })
+            .done((data)=>{
+                let recordData=data[0];
+                console.log('DATA DEtails=>'+JSON.stringify(data.VendorDetail));
+                let record=data.VendorDetail;
+                console.log('DATA record=>'+JSON.stringify(record));
+                if(data.VendorDetail.length>0)
+                {
+                    console.log('Inside Vendor Details'); 
+                        let vendorDetailRow = '';
+                        data.VendorDetail.forEach((eachRecord) => {
+                            vendorDetailRow += '<tr>';
+                            vendorDetailRow += '<td colspan="4" style="background-color:#d3d3d3;"><h5>Item Metrics</h5></td>';    
+                            vendorDetailRow += '</tr>';
+
+                                vendorDetailRow += '<tr>';
+                                    vendorDetailRow += '<td><strong> VendorList  ID<strong></td>';
+                                    vendorDetailRow += '<td>'+eachRecord.name+'</td>';
+                                    vendorDetailRow += '<td><strong>State<strong></td>';
+                                        vendorDetailRow += '<td>'+eachRecord.state__c+'</td>';
+                                vendorDetailRow += '</tr>'; 
+
+                                vendorDetailRow += '<tr>';
+                                    vendorDetailRow += '<td><strong>District<strong></td>';
+                                    vendorDetailRow += '<td>'+eachRecord.district__c+'</td>';
+                                    vendorDetailRow += '<td><strong> Vendor Name<strong></td>';
+                                        vendorDetailRow += '<td>'+eachRecord.vendor_name__c+'</td>';
+                                vendorDetailRow += '</tr>';
+                                vendorDetailRow += '<tr>';
+                    
+                                vendorDetailRow += '<tr>';
+                                    vendorDetailRow += '<td><strong>Contact no.<strong></td>';
+                                    vendorDetailRow += '<td>'+eachRecord.contact_no__c+'</td>';
+                                    vendorDetailRow += '<td><strong>Name of Signing Authority from Vendor<strong></td>';
+                                    vendorDetailRow += '<td>'+eachRecord.name_of_signing_authority__c+'</td>';
+                                vendorDetailRow += '</tr>';
+
+                                vendorDetailRow += '<tr>';
+                                    vendorDetailRow += '<td><strong>PAN<strong></td>';
+                                    vendorDetailRow += '<td>'+eachRecord.pan_no__c+'</td>';
+                                    vendorDetailRow += '<td><strong>Bank Account No.<strong></td>';
+                                    vendorDetailRow += '<td>'+eachRecord.bank_account_no__c+'</td>';
+                                vendorDetailRow += '</tr>';
+
+                                    vendorDetailRow += '<tr>';
+                                        vendorDetailRow += '<td><strong>Bank Details(Name,Branch, etc)<strong></td>';
+                                        vendorDetailRow += '<td>'+eachRecord.bank_details__c+'</td>';
+                                        vendorDetailRow += '<td><strong>Bank IFSC Code<strong></td>';
+                                        vendorDetailRow += '<td>'+eachRecord.bank_ifsc_code__c+'</td>';
+                                    vendorDetailRow += '</tr>';
+
+                                    vendorDetailRow += '<tr>';
+                                    vendorDetailRow += '<td><strong>Address/Web Address<strong></td>';
+                                    vendorDetailRow += '<td>'+eachRecord.address__c+'</td>';
+                                    vendorDetailRow += '<td><strong>GST No.<strong></td>';
+                                        if(eachRecord.gst_no__c!=null){
+                                            vendorDetailRow += '<td>'+eachRecord.gst_no__c+'</td>';
+                                        }
+                                        else{
+                                            vendorDetailRow +='<td></td>';
+                                        }
+                                vendorDetailRow += '</tr>';
+                
+                              vendorDetailRow += '<tr>';
+                   
+                            vendorDetailRow += '<td><strong>Reason for not providing GST no.<strong></td>';
+                                if(eachRecord.reason_for_not_providing_gst_no__c!=null){
+                                    vendorDetailRow += '<td>'+eachRecord.reason_for_not_providing_gst_no__c+'</td>';
+                                        }
+                                        else{
+                                            vendorDetailRow +='<td></td>';
+                                        }
+                                        vendorDetailRow += '<td></td>';
+                                    vendorDetailRow += '<td></td>';
+                            vendorDetailRow += '</tr>'; 
+
+                               
+                                    $('#vendorDetail').html(vendorDetailRow);
+
+                        })
+                }
+
+                if(data.item.length>0){
+                    console.log('INSIDE Item Description')
+                    let itemDescription = '';
+                    itemDescription+='<thead>  <th>Item Name</th><th>Category</th><th>Item</th><th>Unit</th><th>Cost Per Unit</th></thead>';
+                    data.item.forEach((each)=>{
+                        itemDescription
+                        itemDescription += '<td>'+each.name +'</td>'; 
+                        itemDescription += '<td>'+each.category__c +'</td>'; 
+                        itemDescription += '<td>'+each.items__c +'</td>'; 
+                        itemDescription += '<td>'+each.unit__c +'</td>'; 
+                        itemDescription += '<td>'+each.per_unit_cost__c +'</td></tr>';
+                    })
+                    itemDescription+=  '<td colspan="6"><center><a target="_blank" href="/procurement/ItemDescriptionListView?vendorId='+vendorIDS+'">View All</a></centre></td>';
+                   
+                   console.log('iddd'+data.VendorDetail.sfid);
+                        $('#ItemDescriptionTable').empty();
+                    $('#ItemDescriptionTable').append(itemDescription);
+                }
+            })
+            .fail((jqXHR, textStatus, err) =>{
+                console.log('textStatus  : '+textStatus);
+            })
+        })
+    }
+
+        $('a.newVendor').click(() => {
+            console.log('newVendor anchor tag ');
+            //var assetId = document.getElementById('assetId').innerHTML;
+            console.log('vendorIDS  : '+vendorIDS);
+            window.open('/procurement/ItemDescription/'+vendorIDS,'_blank');
+            //location.assign('/procurement/ItemDescription/'+vendorIDS);           
+        })
+        $('a.itemDescTag').click(() => {
+            console.log('ItemDescription view List anchor tag ');
+            //var assetId = document.getElementById('assetId').innerHTML;
+            console.log('vendorIDS  : '+vendorIDS);
+            window.open('/procurement/ItemDescription/'+vendorIDS,'_blank');
+          //  location.assign('/procurement/ItemDescription/'+vendorIDS);           
+        })
+        function additionalEditFunctionality(){
+            $('.editVendor').on('click',function(event){
+              event.stopPropagation();
+              event.stopImmediatePropagation();
+              $('#district').empty();
+              let vendorId = this.id;
+              let dist='';
+              let st =["Andaman and Nicobar Islands","Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chandigarh","Chhattisgarh","Dadra Nagar Haveli","Daman Diu","Delhi","Goa","Gujarat","Haryana","Himachal Pradesh","Jammu Kashmir",
+    "Jharkhand","Karnataka","Kerala","Lakshadweep","Ladakh","Madhya Pradesh","Maharashtra","Manipur","Meghalaya","Mizoram","Nagaland","Odisha","Puducherry","Punjab","Rajasthan","Sikkim","Tamil Nadu","Telangana","Tripura","Uttar Pradesh","Uttarakhand","West Bengal"];
+    let dstrAN=["Nicobar","North Middle Andaman","South Andaman"]
+    let dstrAP=["Anantapur","Chittoor","East Godavari","Guntur","Kadapa","Krishna","Kurnool","Nellore","Prakasam","Srikakulam","Visakhapatnam","Vizianagaram","West Godavari"]
+    let dstrARP=["Anjaw","Central Siang","Changlang","Dibang Valley","East Kameng","East Siang","Kamle","Kurung Kumey","Lepa Rada","Lohit","Longding","Lower Dibang Valley","Lower Siang","Lower Subansiri","Namsai","Pakke Kessang","Papum Pare","Shi Yomi","Tawang","Tirap","Upper Siang","Upper Subansiri","West Kameng","West Siang"];
+    let dstrAS=["Bajali","Baksa","Barpeta","Biswanath","Bongaigaon","Cachar","Charaideo","Chirang","Darrang","Dhemaji","Dhubri","Dibrugarh","Dima Hasao","Goalpara","Golaghat","Hailakandi","Hojai","Jorhat","Kamrup","Kamrup Metropolitan","Karbi Anglong","Karimganj","Kokrajhar","Lakhimpur","Majuli","Morigaon","Nagaon","Nalbari","Sivasagar","Sonitpur","South Salmara-Mankachar","Tinsukia","Udalguri","West Karbi Anglong"];
+    let dstrBh=["Araria","Arwal","Aurangabad","Banka","Begusarai","Bhagalpur","Bhojpur","Buxar","Darbhanga","East Champaran","Gaya","Gopalganj","Jamui","Jehanabad","Kaimur","Katihar","Khagaria","Kishanganj","Lakhisarai","Madhepura","Madhubani","Munger","Muzaffarpur","Nalanda","Nawada","Patna","Purnia","Rohtas","Saharsa","Samastipur","Saran","Sheikhpura","Sheohar","Sitamarhi","Siwan","Supaul","Vaishali","West Champaran"];
+    let dstrCHD=["Chandigarh"];
+    let dstrCHG=["Balod","Baloda Bazar","Balrampur","Bastar","Bemetara","Bijapur","Bilaspur","Dantewada","Dhamtari","Durg","Gariaband","Gaurela Pendra Marwahi","Janjgir Champa","Jashpur","Kabirdham","Kanker","Kondagaon","Korba","Koriya","Mahasamund","Mungeli","Narayanpur","Raigarh","Raipur","Rajnandgaon","Sukma","Surajpur","Surguja"];
+    let dstrDNH=["Dadra Nagar Haveli"];
+    let dstrDD=["Daman","Diu"];
+    let dstrDEL=["Central Delhi","East Delhi","New Delhi","North Delhi","North East Delhi","North West Delhi","Shahdara","South Delhi","South East Delhi","South West Delhi","West Delhi"];
+    let dstrGOA=["North Goa","South Goa"];
+    let dstrGJ=["Ahmedabad","Amreli","Anand","Aravalli","Banaskantha","Bharuch","Bhavnagar","Botad","Chhota Udaipur","Dahod","Dang","Devbhoomi Dwarka","Gandhinagar","Gir Somnath","Jamnagar","Junagadh","Kheda","Kutch","Mahisagar","Mehsana","Morbi","Narmada","Navsari","Panchmahal","Patan","Porbandar","Rajkot","Sabarkantha","Surat","Surendranagar","Tapi","Vadodara","Valsad"];
+    let dstrHR=["Ambala","Bhiwani","Charkhi Dadri","Faridabad","Fatehabad","Gurugram","Hisar","Jhajjar","Jind","Kaithal","Karnal","Kurukshetra","Mahendragarh","Mewat","Palwal","Panchkula","Panipat","Rewari","Rohtak","Sirsa","Sonipat","Yamunanagar",]
+    let dstrHP=["Bilaspur","Chamba","Hamirpur","Kangra","Kinnaur","Kullu","Lahaul Spiti","Mandi","Shimla","Sirmaur","Solan","Una"];
+    let dstrJK=["Anantnag","Bandipora","Baramulla","Budgam","Doda","Ganderbal","Jammu","Kathua","Kishtwar","Kulgam","Kupwara","Poonch","Pulwama","Rajouri","Ramban","Reasi","Samba","Shopian","Srinagar","Udhampur"]
+    let dstrJHK=["Bokaro","Chatra","Deoghar","Dhanbad","Dumka","East Singhbhum","Garhwa","Giridih","Godda","Gumla","Hazaribagh","Jamtara","Khunti","Koderma","Latehar","Lohardaga","Pakur","Palamu","Ramgarh","Ranchi","Sahebganj","Seraikela Kharsawan","Simdega","West Singhbhum"]
+    let dstrKTK=["Bagalkot","Bangalore Rural","Bangalore Urban","Belgaum","Bellary","Bidar","Chamarajanagar","Chikkaballapur","Chikkamagaluru","Chitradurga","Dakshina Kannada","Davanagere","Dharwad","Gadag","Gulbarga","Hassan","Haveri","Kodagu","Kolar","Koppal","Mandya","Mysore","Raichur","Ramanagara","Shimoga","Tumkur","Udupi","Uttara Kannada","Vijayapura","Yadgir"];
+    let dstrKR=["Alappuzha","Ernakulam","Idukki","Kannur","Kasaragod","Kollam","Kottayam","Kozhikode","Malappuram","Palakkad","Pathanamthitta","Thiruvananthapuram","Thrissur","Wayanad"];
+    let dstrLKS=["Lakshadweep"];
+    let dstrLDK=["Kargil","Leh"];
+    let dstrMP=["Agar Malwa","Alirajpur","Anuppur","Ashoknagar","Balaghat","Barwani","Betul","Bhind","Bhopal","Burhanpur","Chachaura","Chhatarpur","Chhindwara","Damoh","Datia","Dewas","Dhar","Dindori","Guna","Gwalior","Harda","Hoshangabad","Indore","Jabalpur","Jhabua","Katni","Khandwa","Khargone","Maihar","Mandla","Mandsaur","Morena","Narsinghpur","Nagda","Neemuch","Niwari","Panna","Raisen","Rajgarh","Ratlam","Rewa","Sagar","Satna","Sehore","Seoni","Shahdol","Shajapur","Sheopur","Shivpuri","Sidhi","Singrauli","Tikamgarh","Ujjain","Umaria","Vidisha"];
+    let dstrMH=["Ahmednagar","Akola","Amravati","Aurangabad","Beed","Bhandara","Buldhana","Chandrapur","Dhule","Gadchiroli","Gondia","Hingoli","Jalgaon","Jalna","Kolhapur","Latur","Mumbai City","Mumbai Suburban","Nagpur","Nanded","Nandurbar","Nashik","Osmanabad","Palghar","Parbhani","Pune","Raigad","Ratnagiri","Sangli","Satara","Sindhudurg","Solapur","Thane","Wardha","Washim","Yavatmal"];
+    let dstrMNP=["Bishnupur","Chandel","Churachandpur","Imphal East","Imphal West","Jiribam","Kakching","Kamjong","Kangpokpi","Noney","Pherzawl","Senapati","Tamenglong","Tengnoupal","Thoubal","Ukhrul"];
+    let dstrMGH=["East Garo Hills","East Jaintia Hills","East Khasi Hills","North Garo Hills","Ri Bhoi","South Garo Hills","South West Garo Hills","South West Khasi Hills","West Garo Hills","West Jaintia Hills","West Khasi Hills"];
+    let dstrMZ=["Aizawl","Champhai","Hnahthial","Kolasib","Khawzawl","Lawngtlai","Lunglei","Mamit","Saiha","Serchhip","Saitual"];
+    let dstrNL=["Mon","Dimapur","Kiphire","Kohima","Longleng","Mokokchung","Noklak","Peren","Phek","Tuensang","Wokha","Zunheboto"];
+    let dstrOD=["Angul","Balangir","Balasore","Bargarh","Bhadrak","Boudh","Cuttack","Debagarh","Dhenkanal","Gajapati","Ganjam","Jagatsinghpur","Jajpur","Jharsuguda","Kalahandi","Kandhamal","Kendrapara","Kendujhar","Khordha","Koraput","Malkangiri","Mayurbhanj","Nabarangpur","Nayagarh","Nuapada","Puri","Rayagada","Sambalpur","Subarnapur","Sundergarh"];
+    let dstrPUD=["Karaikal","Mahe","Puducherry","Yanam"];
+    let dstrPB=["Amritsar","Barnala","Bathinda","Faridkot","Fatehgarh Sahib","Fazilka","Firozpur","Gurdaspur","Hoshiarpur","Jalandhar","Kapurthala","Ludhiana","Mansa","Moga","Mohali","Muktsar","Pathankot","Patiala","Rupnagar","Sangrur","Shaheed Bhagat Singh Nagar","Tarn Taran"];
+    let dstrRJ=["Ajmer","Alwar","Banswara","Baran","Barmer","Bharatpur","Bhilwara","Bikaner","Bundi","Chittorgarh","Churu","Dausa","Dholpur","Dungarpur","Hanumangarh","Jaipur","Jaisalmer","Jalore","Jhalawar","Jhunjhunu","Jodhpur","Karauli","Kota","Nagaur","Pali","Pratapgarh","Rajsamand","Sawai Madhopur","Sikar","Sirohi","Sri Ganganagar","Tonk","Udaipur"];
+    let dstrSK=["East Sikkim","North Sikkim","South Sikkim","West Sikkim"];
+    let dstrTN=["Ariyalur","Chengalpattu","Chennai","Coimbatore","Cuddalore","Dharmapuri","Dindigul","Erode","Kallakurichi","Kanchipuram","Kanyakumari","Karur","Krishnagiri","Madurai","Mayiladuthurai","Nagapattinam","Namakkal","Nilgiris","Perambalur","Pudukkottai","Ramanathapuram","Ranipet","Salem","Sivaganga","Tenkasi","Thanjavur","Theni","Thoothukudi","Tiruchirappalli","Tirunelveli","Tirupattur","Tiruppur","Tiruvallur","Tiruvannamalai","Tiruvarur","Vellore","Viluppuram","Virudhunagar"];
+    let dstrTEL=["Adilabad","Bhadradri Kothagudem","Hyderabad","Jagtial","Jangaon","Jayashankar","Jogulamba","Kamareddy","Karimnagar","Khammam","Komaram Bheem","Mahabubabad","Mahbubnagar","Mancherial","Medak","Medchal","Mulugu","Nagarkurnool","Nalgonda","Narayanpet","Nirmal","Nizamabad","Peddapalli","Rajanna Sircilla","Ranga Reddy","Sangareddy","Siddipet","Suryapet","Vikarabad","Wanaparthy","Warangal Rural","Warangal Urban","Yadadri Bhuvanagiri"];
+    let dstrTP=["Dhalai","Gomati","Khowai","North Tripura","Sepahijala","South Tripura","Unakoti","West Tripura"];
+    let dstrUP=["Agra","Aligarh","Ambedkar Nagar","Amethi","Amroha","Auraiya","Ayodhya","Azamgarh","Baghpat","Bahraich","Ballia","Balrampur","Banda","Barabanki","Bareilly","Basti","Bhadohi","Bijnor","Budaun","Bulandshahr","Chandauli","Chitrakoot","Deoria","Etah","Etawah","Farrukhabad","Fatehpur","Firozabad","Gautam Buddha Nagar","Ghaziabad","Ghazipur","Gonda","Gorakhpur","Hamirpur","Hapur","Hardoi","Hathras","Jalaun","Jaunpur","Jhansi","Kannauj","Kanpur Dehat","Kanpur Nagar","Kasganj","Kaushambi","Kheri","Kushinagar","Lalitpur","Lucknow","Maharajganj","Mahoba","Mainpuri","Mathura","Mau","Meerut","Mirzapur","Moradabad","Muzaffarnagar","Pilibhit","Pratapgarh","Prayagraj","Raebareli","Rampur","Saharanpur","Sambhal","Sant Kabir Nagar","Shahjahanpur","Shamli","Shravasti","Siddharthnagar","Sitapur","Sonbhadra","Sultanpur","Unnao","Varanasi"];
+    let dstrUK=["Almora","Bageshwar","Chamoli","Champawat","Dehradun","Haridwar","Nainital","Pauri","Pithoragarh","Rudraprayag","Tehri","Udham Singh Nagar","Uttarkashi"];
+    let dstrWB=["Alipurduar","Bankura","Birbhum","Cooch Behar","Dakshin Dinajpur","Darjeeling","Hooghly","Howrah","Jalpaiguri","Jhargram","Kalimpong","Kolkata","Malda","Murshidabad","Nadia","North 24 Parganas","Paschim Bardhaman","Paschim Medinipur","Purba Bardhaman","Purba Medinipur","Purulia","South 24 Parganas","Uttar Dinajpur"];
+
+              if(st.length > 0)
+                {
+                  for(let i=0; i < st.length; i++)
+                  {
+                    $('#state')
+                    .append($("<option></option>")
+                    .attr("value",st[i])
+                    .text(st[i]))
+                  }
+                }
+                $('#state').on('click',function(){
+        let state =this.value;
+        sts=state;
+        //alert("selcted"+sts);
+        let select = document.getElementById("district");
+        let length = select.options.length;
+        for (i = length-1; i > 0; i--) {
+          select.options[i] = null;
+         }
+      //  alert('You Choose'+state);
+      if(state=='Andaman and Nicobar Islands')
+        {
+         $('#district').attr("readonly",false);
+       //  alert('You Choose=> '+state);
+         $('#district')
+          for(let i=0; i <dstrAN.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrAN[i])
+           .text(dstrAN[i]))
+          }
+        }
+         else if(state=='Andhra Pradesh')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrAP.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrAP[i])
+           .text(dstrAP[i]))
+          }
+        }
+	 else if(state=='Arunachal Pradesh')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrARP.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrARP[i])
+           .text(dstrARP[i]))
+          }
+        }
+	 else if(state=='Assam')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrAS.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrAS[i])
+           .text(dstrAS[i]))
+          }
+        }
+	 else if(state=='Bihar')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrBh.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrBh[i])
+           .text(dstrBh[i]))
+          }
+        }
+	 else if(state=='Chandigarh')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrCHD.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrCHD[i])
+           .text(dstrCHD[i]))
+          }
+        }
+	 else if(state=='Chhattisgarh')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrCHG.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrCHG[i])
+           .text(dstrCHG[i]))
+          }
+        }
+	 else if(state=='Dadra Nagar Haveli')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrDNH.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrDNH[i])
+           .text(dstrDNH[i]))
+          }
+        }
+	 else if(state=='Daman Diu')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrDD.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrDD[i])
+           .text(dstrDD[i]))
+          }
+        }
+	 else if(state=='Delhi')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrDEL.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrDEL[i])
+           .text(dstrDEL[i]))
+          }
+        }
+	 else if(state=='Goa')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrGOA.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrGOA[i])
+           .text(dstrGOA[i]))
+          }
+        }
+	 else if(state=='Gujarat')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrGJ.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrGJ[i])
+           .text(dstrGJ[i]))
+          }
+        }
+	 else if(state=='Haryana')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrHR.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrHR[i])
+           .text(dstrHR[i]))
+          }
+        }
+	 else if(state=='Himachal Pradesh')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrHP.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrHP[i])
+           .text(dstrHP[i]))
+          }
+        }
+	 else if(state=='Jammu Kashmir')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrJK.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrJK[i])
+           .text(dstrJK[i]))
+          }
+        }
+	 else if(state=='Jharkhand')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrJHK.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrJHK[i])
+           .text(dstrJHK[i]))
+          }
+        }
+	 else if(state=='Karnataka')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrKTK.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrKTK[i])
+           .text(dstrKTK[i]))
+          }
+        }
+	 else if(state=='Kerala')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrKR.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrKR[i])
+           .text(dstrKR[i]))
+          }
+        }
+	 else if(state=='Lakshadweep')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrLKS.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrLKS[i])
+           .text(dstrLKS[i]))
+          }
+        }
+	 else if(state=='Ladakh')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrLDK.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrLDK[i])
+           .text(dstrLDK[i]))
+          }
+        }
+	 else if(state=='Madhya Pradesh')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrMP.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrMP[i])
+           .text(dstrMP[i]))
+          }
+        }
+ else if(state=='Maharashtra')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrMH.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrMH[i])
+           .text(dstrMH[i]))
+          }
+        }
+ else if(state=='Manipur')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrMNP.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrMNP[i])
+           .text(dstrMNP[i]))
+          }
+        }
+ else if(state=='Meghalaya')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrMGH.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrMGH[i])
+           .text(dstrMGH[i]))
+          }
+        }
+ else if(state=='Mizoram')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrMZ.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrMZ[i])
+           .text(dstrMZ[i]))
+          }
+        }
+ else if(state=='Nagaland')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrNL.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrNL[i])
+           .text(dstrNL[i]))
+          }
+        }
+ else if(state=='Odisha')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrOD.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrOD[i])
+           .text(dstrOD[i]))
+          }
+        }
+	 else if(state=='Puducherry')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrPUD.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrPUD[i])
+           .text(dstrPUD[i]))
+          }
+        }
+	 else if(state=='Punjab')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrPB.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrPB[i])
+           .text(dstrPB[i]))
+          }
+        }
+	 else if(state=='Rajasthan')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrRJ.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrRJ[i])
+           .text(dstrRJ[i]))
+          }
+        }
+	 else if(state=='Sikkim')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrSK.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrSK[i])
+           .text(dstrSK[i]))
+          }
+        }
+	 else if(state=='Tamil Nadu')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrTN.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrTN[i])
+           .text(dstrTN[i]))
+          }
+        }
+	else if(state=='Telangana')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrTEL.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrTEL[i])
+           .text(dstrTEL[i]))
+          }
+        }
+	else if(state=='Tripura')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrTP.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrTP[i])
+           .text(dstrTP[i]))
+          }
+        }
+else if(state=='Uttar Pradesh')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrUP.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrUP[i])
+           .text(dstrUP[i]))
+          }
+        }
+else if(state=='Uttarakhand')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrUK.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrUK[i])
+           .text(dstrUK[i]))
+          }
+        }
+	else if(state=='West Bengal')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrWB.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrWB[i])
+           .text(dstrWB[i]))
+          }
+        }
+        else{
+         $('#district').attr("readonly",true);
+        }
+        $('#district').on('change',function(){
+         dstr=this.value;
+         //alert('District choose =>'+dstr);
+       })           
+     })
+
+          //    alert('vendorEditId modal ID=>'+vendorId);
+              $('#venderEditModal').modal('show'); 
+              $.ajax({
+                url : '/procurement/getVendorDetail',
+                type:'get',
+                data : {
+                    vendorId : vendorId
+                },
+                dataType: 'json',
+                beforeSend : function(){
+                  $('#detailLoadingSpinner').show();
+                }
+            })
+          .then((response)=>{
+            console.log('response from Edit Ajax +='+JSON.stringify(response));
+            console.log('rtecordDeatail '+response.VendorDetail[0].name);
+            dist=response.VendorDetail[0].state__c;
+            document.forms["editvendor"]["vendorId"].value = response.VendorDetail[0].name;
+            document.forms["editvendor"]["name"].value = response.VendorDetail[0].vendor_name__c;
+            document.forms["editvendor"]["cont"].value = response.VendorDetail[0].contact_no__c;
+            document.forms["editvendor"]["bankDetail"].value = response.VendorDetail[0].bank_details__c;
+            document.forms["editvendor"]["ifsc"].value = response.VendorDetail[0].bank_ifsc_code__c;
+            document.forms["editvendor"]["pan"].value = response.VendorDetail[0].pan_no__c;
+            document.forms["editvendor"]["add"].value = response.VendorDetail[0].address__c;
+            document.forms["editvendor"]["aacc"].value = response.VendorDetail[0].bank_account_no__c;
+            document.forms["editvendor"]["auth"].value = response.VendorDetail[0].name_of_signing_authority__c; 
+            document.forms["editvendor"]["state"].value = response.VendorDetail[0].state__c;
+
+            let state = response.VendorDetail[0].state__c;
+            if(state=='Andaman and Nicobar Islands')
+        {
+         $('#district').attr("readonly",false);
+       //  alert('You Choose=> '+state);
+         $('#district')
+          for(let i=0; i <dstrAN.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrAN[i])
+           .text(dstrAN[i]))
+          }
+        }
+         else if(state=='Andhra Pradesh')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrAP.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrAP[i])
+           .text(dstrAP[i]))
+          }
+        }
+	 else if(state=='Arunachal Pradesh')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrARP.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrARP[i])
+           .text(dstrARP[i]))
+          }
+        }
+	 else if(state=='Assam')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrAS.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrAS[i])
+           .text(dstrAS[i]))
+          }
+        }
+	 else if(state=='Bihar')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrBh.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrBh[i])
+           .text(dstrBh[i]))
+          }
+        }
+	 else if(state=='Chandigarh')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrCHD.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrCHD[i])
+           .text(dstrCHD[i]))
+          }
+        }
+	 else if(state=='Chhattisgarh')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrCHG.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrCHG[i])
+           .text(dstrCHG[i]))
+          }
+        }
+	 else if(state=='Dadra Nagar Haveli')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrDNH.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrDNH[i])
+           .text(dstrDNH[i]))
+          }
+        }
+	 else if(state=='Daman Diu')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrDD.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrDD[i])
+           .text(dstrDD[i]))
+          }
+        }
+	 else if(state=='Delhi')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrDEL.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrDEL[i])
+           .text(dstrDEL[i]))
+          }
+        }
+	 else if(state=='Goa')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrGOA.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrGOA[i])
+           .text(dstrGOA[i]))
+          }
+        }
+	 else if(state=='Gujarat')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrGJ.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrGJ[i])
+           .text(dstrGJ[i]))
+          }
+        }
+	 else if(state=='Haryana')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrHR.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrHR[i])
+           .text(dstrHR[i]))
+          }
+        }
+	 else if(state=='Himachal Pradesh')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrHP.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrHP[i])
+           .text(dstrHP[i]))
+          }
+        }
+	 else if(state=='Jammu Kashmir')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrJK.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrJK[i])
+           .text(dstrJK[i]))
+          }
+        }
+	 else if(state=='Jharkhand')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrJHK.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrJHK[i])
+           .text(dstrJHK[i]))
+          }
+        }
+	 else if(state=='Karnataka')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrKTK.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrKTK[i])
+           .text(dstrKTK[i]))
+          }
+        }
+	 else if(state=='Kerala')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrKR.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrKR[i])
+           .text(dstrKR[i]))
+          }
+        }
+	 else if(state=='Lakshadweep')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrLKS.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrLKS[i])
+           .text(dstrLKS[i]))
+          }
+        }
+	 else if(state=='Ladakh')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrLDK.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrLDK[i])
+           .text(dstrLDK[i]))
+          }
+        }
+	 else if(state=='Madhya Pradesh')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrMP.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrMP[i])
+           .text(dstrMP[i]))
+          }
+        }
+ else if(state=='Maharashtra')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrMH.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrMH[i])
+           .text(dstrMH[i]))
+          }
+        }
+ else if(state=='Manipur')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrMNP.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrMNP[i])
+           .text(dstrMNP[i]))
+          }
+        }
+ else if(state=='Meghalaya')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrMGH.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrMGH[i])
+           .text(dstrMGH[i]))
+          }
+        }
+ else if(state=='Mizoram')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrMZ.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrMZ[i])
+           .text(dstrMZ[i]))
+          }
+        }
+ else if(state=='Nagaland')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrNL.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrNL[i])
+           .text(dstrNL[i]))
+          }
+        }
+ else if(state=='Odisha')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrOD.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrOD[i])
+           .text(dstrOD[i]))
+          }
+        }
+	 else if(state=='Puducherry')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrPUD.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrPUD[i])
+           .text(dstrPUD[i]))
+          }
+        }
+	 else if(state=='Punjab')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrPB.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrPB[i])
+           .text(dstrPB[i]))
+          }
+        }
+	 else if(state=='Rajasthan')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrRJ.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrRJ[i])
+           .text(dstrRJ[i]))
+          }
+        }
+	 else if(state=='Sikkim')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrSK.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrSK[i])
+           .text(dstrSK[i]))
+          }
+        }
+	 else if(state=='Tamil Nadu')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrTN.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrTN[i])
+           .text(dstrTN[i]))
+          }
+        }
+	else if(state=='Telangana')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrTEL.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrTEL[i])
+           .text(dstrTEL[i]))
+          }
+        }
+	else if(state=='Tripura')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrTP.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrTP[i])
+           .text(dstrTP[i]))
+          }
+        }
+else if(state=='Uttar Pradesh')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrUP.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrUP[i])
+           .text(dstrUP[i]))
+          }
+        }
+else if(state=='Uttarakhand')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrUK.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrUK[i])
+           .text(dstrUK[i]))
+          }
+        }
+	else if(state=='West Bengal')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <dstrWB.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",dstrWB[i])
+           .text(dstrWB[i]))
+          }
+        }
+            document.forms["editvendor"]["district"].value=response.VendorDetail[0].district__c;
+            document.forms["editvendor"]["quote"].value = response.VendorDetail[0].quote_public_url__c;
+            document.forms["editvendor"]["gst"].value = response.VendorDetail[0].gst_no__c;
+            document.forms["editvendor"]["reason"].value = response.VendorDetail[0].reason_for_not_providing_gst_no__c;
+            document.forms["editvendor"]["other"].value = response.VendorDetail[0].others__c;
+            document.forms["editvendor"]["hide"].value = response.VendorDetail[0].sfid;
+          })
+          .fail((jqXHR, status, error) =>{
+            $('#detailLoadingSpinner').show();
+            console.log('jqXHR  : '+JSON.stringify(jqXHR));
+            console.log('error  : '+error);
+          })
+            })
+            
+          $('#editVendorButton').on('click',function(event){
+
+           // $('#district').empty();
+
+            event.preventDefault();
+                      event.stopPropagation();
+                      event.stopImmediatePropagation();
+                      var $inputs = $('#editvendor :input');
+                      var values = {};
+                      $inputs.each(function() {
+                          values[this.name] = $(this).val();
+                          console.log('fomvalues=> '+JSON.stringify(values));
+                      });
+                      console.log('fomvalues=> '+JSON.stringify(values));
+                 $("#editVendorButton").attr("disabled", true);
+                      $.ajax({
+                        url : '/procurement/updateVendor',
+                        type:'post',
+                        data: values,
+                    })
+                    .done((data) => {
+                        console.log('data '+JSON.stringify(data))
+                    let resp = JSON.stringify(data);
+                    console.log('dataaaaa' +resp);
+                    if(data == 'Success')
+                    {
+                     // document.getElementById("taskForm").reset()
+                      let errorHtml = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+ resp+
+                        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                        '<span aria-hidden="true">&times;</span>'+
+                        '</button>'+
+                        '</div>';
+                        $('#errorMessages').empty();
+                        $('#errorMessages').append(errorHtml); 
+                        $("#editVendorButton").attr("disabled", false);
+                      //  $("#createTaskModal").modal("hide");
+                        window.location.reload()
+                    }
+                    else
+                    {
+                      //document.getElementById("taskForm").reset()
+                      let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+ resp+
+                        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                        '<span aria-hidden="true">&times;</span>'+
+                        '</button>'+
+                        '</div>';
+                        $('#errorMessages').empty();
+                        $('#errorMessages').append(errorHtml); 
+                        $("#editVendorButton").attr("disabled", false);
+                      //  $("#createTaskModal").modal("hide");
+                       // window.location.reload()
+                    }  
+                         
+                    })
+                    .fail((jqXHR, status, error) => {
+                          console.log('jqXHR  '+JSON.stringify(jqXHR));
+                        
+                    }) 
+                    })
+        
+        }
+
+
+</script>
