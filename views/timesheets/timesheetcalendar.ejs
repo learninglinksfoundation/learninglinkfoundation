@@ -786,8 +786,7 @@
                         });
                     }
                 }
-                else if(calEvent.title == 'Details') {
-                    console.log('1');
+               /* else if(calEvent.title == 'Details') {
                   var selecPro= $('#selproject').val();
                   var selecView= $('#Selectview').val();
                   console.log('selecPro : '+selecPro +' selecView: '+selecView);
@@ -837,7 +836,6 @@
                 //   <!-- End OF CurrenntUSER selected project -->
 
                 // all project current user 
-                console.log('2');
                 if(selecPro=='allproject' && selecView =='currentuser'){
                  //   alert('selected project & currentUSer');
                     //  alert('select view is : '+$('#Selectview').val());
@@ -881,7 +879,7 @@
                      })     
                    } 
                 //end of current user all project
-console.log('3');
+
                 // start of team view 
                 if(selecView =='teamview'){
                   console.log('Team view detail action');
@@ -902,10 +900,9 @@ console.log('3');
                     var tasktableData='<h4>You are Not Team Manager for this Project or No task Available </h4>';
                     $('#taskDetails').html(tasktableData);
                       $("#detailsModal").modal("show");
-console.log('5');
+
                   }
                   else{
-                    console.log('4');
                   var tasktableData = '';
                       tasktableData  += '<thead>';
                       tasktableData  += '<tr>';
@@ -933,19 +930,18 @@ console.log('5');
                   })
                   $('#taskDetails').html(tasktableData);
                       $("#detailsModal").modal("show");
-                      console.log('5');
                 }
                 })
                 .fail(function(jqXHR, textStatus, err){
                   console.log('AJAX error response :',textStatus);
                   $("#detailsModal").modal("show");
               })
-console.log('6');
+
                 }
 
                 // end of team view
                 
-                  } 
+                  } */
             } 
         });
         var colorStyle = document.getElementsByClassName('fc-title');
