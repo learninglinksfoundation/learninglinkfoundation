@@ -16,12 +16,12 @@
            <div class="col-md-6">
               <label for="validationTooltip02">Select Project</label>
                  <select class="custom-select custom-select-sm form-control" id="selproject" name="Selectproject">
-                    <option selected value='None'>None</option>
-                   <option  value="allproject">All Project</option>
+                    <option  value='None'>None</option>
+                   <option selected value="allproject">All Project</option>
                     <% if(projectList.length != 0) { %>
                         <% projectList.sort((a,b)=> (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0) )  %>
                     <% projectList.forEach((eachProject) => { %>
-                    <option value="<%= eachProject.sfid %>" selected="<%= eachProject.name.toLowerCase() == 'all project' %>" ><%= eachProject.name %></option>
+                    <option value="<%= eachProject.sfid %>" ><%= eachProject.name %></option>
                     <% }) %>
                    <% } %>
                  </select>
@@ -29,8 +29,8 @@
   <div class="col-md-6">
     <label for="validationTooltip02">Select View</label>
     <select class="custom-select custom-select-sm form-control" readonly="true" id="Selectview" readonly="true" name="Selectview">
-        <option selected value''>None</option>
-        <option  value="currentuser" selected="currentuser" >current User View</option>
+        <!-- <option value''>None</option> -->
+        <option  value="currentuser" selected >current User View</option>
         <% if(objUser.isManager) { %>
         <option value="teamview">Team View</option>
         <% } %>
