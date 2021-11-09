@@ -650,11 +650,11 @@ router.get('/geteventsTeam',verify,async function(req,res,next){
               title : 'Create Task',
               start : year+'-'+twoDigitMonth+'-'+day,   
             });
-            lstEvents.push({
+            /*lstEvents.push({
               title : 'Details',
               start : year+'-'+twoDigitMonth+'-'+day,   
             });
-            
+            */
             lstEvents.push({
               title : 'Fill Actuals',
               start : year+'-'+twoDigitMonth+'-'+day,   
@@ -993,11 +993,11 @@ router.get('/geteventsTeam',verify,async function(req,res,next){
                               title : 'Create Task',
                               start : year+'-'+twoDigitMonth+'-'+day,   
                             });
-                            lstEvents.push({
+                            /*lstEvents.push({
                               title : 'Details',
                               start : year+'-'+twoDigitMonth+'-'+day,   
                             });
-                            
+                            */
                             lstEvents.push({
                               title : 'Fill Actuals',
                               start : year+'-'+twoDigitMonth+'-'+day,   
@@ -1094,10 +1094,10 @@ router.get('/getNullevents',verify,async function(req,res,next) {
         title : 'Create Task',
         start : year+'-'+twoDigitMonth+'-'+day,   
       });
-      lstEvents.push({
+      /*lstEvents.push({
         title : 'Details',
         start : year+'-'+twoDigitMonth+'-'+day,   
-      });
+      });*/
       
       lstEvents.push({
         title : 'Fill Actuals',
@@ -1297,11 +1297,11 @@ router.get('/geteventsProj',verify,async function(req,res,next){
         title : 'Create Task',
         start : year+'-'+twoDigitMonth+'-'+day,   
       });
-      lstEvents.push({
+      /*lstEvents.push({
         title : 'Details',
         start : year+'-'+twoDigitMonth+'-'+day,   
       });
-      
+      */
       lstEvents.push({
         title : 'Fill Actuals',
         start : year+'-'+twoDigitMonth+'-'+day,   
@@ -1517,11 +1517,11 @@ router.get('/getevents',verify, async function(req, res, next) {
         title : 'Create Task',
         start : year+'-'+twoDigitMonth+'-'+day,   
       });
-      lstEvents.push({
+      /*lstEvents.push({
         title : 'Details',
         start : year+'-'+twoDigitMonth+'-'+day,   
       });
-      
+      */
       lstEvents.push({
         title : 'Fill Actuals',
         start : year+'-'+twoDigitMonth+'-'+day,   
@@ -2363,11 +2363,11 @@ router.get('/geteventsTeams',verify,async function(req,res,next){
               title : 'Create Task',
               start : year+'-'+twoDigitMonth+'-'+day,   
             });
-            lstEvents.push({
+            /*lstEvents.push({
               title : 'Details',
               start : year+'-'+twoDigitMonth+'-'+day,   
             });
-            
+            */
             lstEvents.push({
               title : 'Fill Actuals',
               start : year+'-'+twoDigitMonth+'-'+day,   
