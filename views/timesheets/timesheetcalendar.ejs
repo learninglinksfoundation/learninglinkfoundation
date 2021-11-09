@@ -19,7 +19,7 @@
                     <option selected value='None'>None</option>
                    <option  value="allproject">All Project</option>
                     <% if(projectList.length != 0) { %>
-                        <% projectList.sort((a,b)=> (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0) )  %>
+                        
                     <% projectList.forEach((eachProject) => { %>
                     <option value="<%= eachProject.sfid %>" ><%= eachProject.name %></option>
                     <% }) %>

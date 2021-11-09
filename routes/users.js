@@ -328,7 +328,7 @@ router.get('/timesheet',verify,function(request,response){
             projectTeamparams.push('$' + i);
             lstTeamId.push(teamMemberResult.rows[i-1].team__c);
           } 
-          var projectTeamQueryText = 'SELECT sfid, Name, Project__c FROM salesforce.Project_Team__c WHERE Team__c IN (' + projectTeamparams.join(',') + ')';
+          var projectTeamQueryText = 'SELECT sfid, Name, Project__c FROM salesforce.Project_Team__c WHERE Team__c IN (' + projectTeamparams.join(',') + ') ORDER BY Name';
           console.log('projectTeamQueryText '+projectTeamQueryText);
           
             pool
