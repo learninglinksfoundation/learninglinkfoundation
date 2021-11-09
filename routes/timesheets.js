@@ -46,7 +46,7 @@ router.get('/timesheet',verify,(request, response) => {
                 lstProjectId.push(projectTeamResult.rows[i-1].project__c);
               } 
               console.log('lstProjectId  : '+lstProjectId);
-              var projetQueryText = 'SELECT sfid, Name FROM salesforce.Milestone1_Project__c WHERE sfid IN ('+ projectParams.join(',')+ ')';
+              var projetQueryText = 'SELECT sfid, Name FROM salesforce.Milestone1_Project__c WHERE sfid IN ('+ projectParams.join(',')+ ') ORDER BY Name';
 
               pool.
               query(projetQueryText, lstProjectId)
