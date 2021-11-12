@@ -90,6 +90,9 @@
 
 
 <script>
+var obj = {taskName:'',taskType:'',projectName:'',taskDate:'',assignedResource:'',status:'',plannedEndtime:'',deadline:''};
+        var createTaskList = [];
+        createTaskList.push(obj);
     $(document).ready(function() { 
       $('#objUser').hide();
       $('#objname').hide();
@@ -350,9 +353,7 @@
             })     
         });
         /*Task Form post method */
-        var obj = {taskName:'',taskType:'',projectName:'',taskDate:'',assignedResource:'',status:'',plannedEndtime:'',deadline:''};
-        var createTaskList = [];
-        createTaskList.push(obj);
+        
         
 
 
