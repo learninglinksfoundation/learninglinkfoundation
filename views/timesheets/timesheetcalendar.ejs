@@ -350,9 +350,10 @@
             })     
         });
         /*Task Form post method */
-
-        var createTask = [];
-        var obj = {};
+        var obj = {taskName:'',taskType:'',projectName:'',taskDate:'',assignedResource:'',status:'',plannedEndtime:'',deadline:''};
+        var createTaskList = [];
+        createTaskList.push(obj);
+        
 
 
         $('#taskForm').submit(function(e) {
@@ -962,7 +963,9 @@
         <div id="errorMessages"></div>
       <form  id="taskForm" class="needs-validation" novalidate >
         <div id="taskformRow" >
+        <% createTaskList.forEach((dt,i)=>{ %>
             <div id="formRowTask">
+            <% dt %>  <% i%>
                 <div style="font-weight: bold;margin: 30px 0;font-family: system-ui;">New Task 1</div>
                 <div class="form-group">  
                   <div class="row">
@@ -1104,6 +1107,7 @@
                   </div>  
                 </div>
             </div>
+            <% }); %>
         </div>
         <div class="modal-footer">
           <button type="button" id="newRow" style="background: #3a87ad;" class="btn btn-primary"> Add New Task Row</button>
