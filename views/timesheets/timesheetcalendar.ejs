@@ -1130,6 +1130,7 @@
     $('.recordD').click(function(e){
         console.log('running');
         var index = e.target.dataset.label;
+        console.log('running',index);
         var dummyRecord = document.getElementById('formRowTask'+index);
         dummyRecord.remove();
         let parent = document.getElementById('taskformRow');
