@@ -1119,7 +1119,7 @@
     $('#newRowBtn').click(function() {
         console.log( "Handler for .click() called." );
         var ele = document.getElementsByClassName('dynamicRow');
-        var dummyRecord = document.getElementById('dummyRecord');
+        var dummyRecord = document.getElementById('dummyRecord').cloneNode();
         var insideData = document.getElementById('taskformRow');
         dummyRecord.setAttribute('id','formRowTask'+ele.length);
         dummyRecord.setAttribute('class','dynamicRow');
