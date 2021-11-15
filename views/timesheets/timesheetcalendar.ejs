@@ -939,17 +939,7 @@
 
 </script>
 
-<script>
 
-    $('#newRow').click(function() {
-        console.log( "Handler for .click() called." );
-        var createTaskList = <%- JSON.stringify(createTaskList) %>; 
-        createTaskList.push({});
-        console.log(createTaskList);
-    });
-
-
-</script>
 
 
 
@@ -1115,7 +1105,7 @@
             <% }); %>
         </div>
         <div class="modal-footer">
-          <button type="button" id="newRow" style="background: #3a87ad;" class="btn btn-primary"> Add New Task Row</button>
+          <button type="button" id="newRowBtn" style="background: #3a87ad;" class="btn btn-primary"> Add New Task Row</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
           <button type="submit" id="submitbutton" class="btn btn-primary">Save</button>
         </div>
@@ -1127,6 +1117,17 @@
 </div>
 </div>
 
+<script>
+
+    $('#newRowBtn').click(function() {
+        console.log( "Handler for .click() called." );
+        var createTaskList = <%- JSON.stringify(createTaskList) %>; 
+        createTaskList.push({});
+        console.log(createTaskList);
+    });
+
+
+</script>
 
 
 <!-- Fill Actuals  Modal -->
