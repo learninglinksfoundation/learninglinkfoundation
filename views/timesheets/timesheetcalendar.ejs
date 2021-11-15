@@ -1119,11 +1119,9 @@
     $('#newRowBtn').click(function() {
         console.log( "Handler for .click() called." );
         var ele = document.getElementsByClassName('dynamicRow');
-        var dummyRecord = document.getElementById('dummyRecord').cloneNode();
+        var dummyRecord = document.getElementById('dummyRecord').cloneNode(true);
         var insideData = document.getElementById('taskformRow');
-        dummyRecord.setAttribute('id','formRowTask'+ele.length);
-        dummyRecord.setAttribute('class','dynamicRow');
-        insideData.innerHTML = insideData.innerHTML + dummyRecord;
+        insideData.innerHTML = insideData.innerHTML + `<div class="dynamicRow" id="formRowTask${ele.length}">` + dummyRecord.innerHTML + '</div>' ;
         
     });
 
