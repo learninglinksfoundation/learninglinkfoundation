@@ -1125,6 +1125,32 @@
         
     });
 
+    $('.recordD').click(function(e){
+        var index = e.target.dataset.label;
+        var dummyRecord = document.getElementById('formRowTask'+index);
+        dummyRecord.remove();
+        let parent = document.getElementById('taskformRow');
+        let child = Array.from(parent.children);
+        child.forEach((dt,i)=>{
+            if(index <= i+1){
+                let d =  dt.innerHTML ;
+                d =  d.replaceAll('New Task '+(i+2),'New Task '+(i+1));
+                d =  d.replaceAll('taskname'+(i+2),'taskname'+(i+1));
+                d =  d.replaceAll('deadline'+(i+2),'deadline'+(i+1));
+                d =  d.replaceAll('plannedendtime'+(i+2),'plannedendtime'+(i+1));
+                d =  d.replaceAll('plannedstarttime'+(i+2),'plannedstarttime'+(i+1));
+                d =  d.replaceAll('status'+(i+2),'status'+(i+1));
+                d =  d.replaceAll('assignedresource'+(i+2),'assignedresource'+(i+1));
+                d =  d.replaceAll('taskdate'+(i+2),'taskdate'+(i+1));
+                d =  d.replaceAll('projectname'+(i+2),'projectname'+(i+1));
+                d =  d.replaceAll('tasktype'+(i+2),'tasktype'+(i+1));
+                d =  d.replaceAll('data-label="'+(i+2),'data-label="'+(i+1));
+                dt.setAttribute('id','formRowTask'+(i+1));
+                dt.innerHTML = d;
+            }
+            
+        });
+    });
 
 </script>
 
@@ -1262,7 +1288,7 @@
 </div>
 
 <div style="display:none;opacity:0" >
-<div id="dummyRecord" class="dummyRecord" >
+<div id="dummyRecord" class="dummyRecord">
                 <i class="fa fa-trash recordD" data-label="{data}" style="float: right; color: white; background: #116288; padding: 9px; border-radius: 5px;font-size: 14px; cursor: pointer;"></i>
                 <div  style="font-weight: bold;margin: 30px 0;font-family: system-ui;">New Task {data}</div>
                 <div class="form-group">  
@@ -1348,7 +1374,7 @@
                   </div>
                   <div class="col-md-6">
                     <label for="validationTooltip04">Task Date</label>
-                    <input type="text" class="form-control datepic"   id="datePicker" required readonly name="taskdate{data}">
+                    <input type="text" class="form-control datepic datePicker"   id="datePicker" required readonly name="taskdate{data}">
                     
                   </div>
                 </div>
@@ -1358,7 +1384,7 @@
                   <div class="row">
                     <div class="col-md-6">
                       <label for="validationTooltip02">Assign to Heroku user <span style="color: red;">*</span></label>
-                      <select class="custom-select custom-select-sm form-control" name="assignedresource{data}" id="assignedresource">
+                      <select class="custom-select custom-select-sm form-control assignedresource" name="assignedresource{data}" id="assignedresource{data}">
                         <option value="">None</option>
                        </select>
 
@@ -1381,12 +1407,12 @@
                   <div class="row">
                     <div class="col-md-6">
                       <label for="validationTooltip02">Planned Start Time</label>
-                      <input type="time" class="form-control" id="plannedstarttimeTask" name="plannedstarttime{data}" required>
+                      <input type="time" class="form-control plannedstarttimeTask" id="plannedstarttimeTask" name="plannedstarttime{data}" required>
                     </div>
                     
                     <div class="col-md-6">
                       <label for="validationTooltip02">Planned End Time</label>
-                      <input type="time" class="form-control" id="plannedendtimeTask" name="plannedendtime{data}" required>
+                      <input type="time" class="form-control plannedendtimeTask" id="plannedendtimeTask" name="plannedendtime{data}" required>
                     </div>
                   </div>  
                 </div>
