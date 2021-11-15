@@ -1126,11 +1126,13 @@
     });
 
     $('.recordD').click(function(e){
+        console.log('running');
         var index = e.target.dataset.label;
         var dummyRecord = document.getElementById('formRowTask'+index);
         dummyRecord.remove();
         let parent = document.getElementById('taskformRow');
         let child = Array.from(parent.children);
+        console.log('before etc ');
         child.forEach((dt,i)=>{
             if(index <= i+1){
                 let d =  dt.innerHTML ;
@@ -1147,9 +1149,11 @@
                 d =  d.replaceAll('data-label="'+(i+2),'data-label="'+(i+1));
                 dt.setAttribute('id','formRowTask'+(i+1));
                 dt.innerHTML = d;
+                console.log('handle thses ',i+1);
             }
             
         });
+        console.log('done');
     });
 
 </script>
