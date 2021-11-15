@@ -373,8 +373,7 @@ router.get('/timesheet',verify,function(request,response){
   
                     var taskQueryText = 'SELECT sfid, Name FROM salesforce.Milestone1_Task__c  WHERE Project_Name__c IN ('+projectParams.join(',')+') AND  Project_Milestone__c IN (SELECT sfid FROM salesforce.Milestone1_Milestone__c WHERE Name = \'Timesheet Category\') AND sfid IS NOT NULL';
                     console.log('taskQueryText  : '+taskQueryText);
-                    var obj = {taskName:'test',taskType:'tests',projectName:'',taskDate:'',assignedResource:'',status:'',plannedEndtime:'',deadline:''}; 
-                    var createTaskList = [obj];
+                    
   
   
                       pool
@@ -382,7 +381,7 @@ router.get('/timesheet',verify,function(request,response){
                       .then((taskQueryResult) => {
                           console.log('taskQueryResult  rows '+taskQueryResult.rows.length);
                           
-                          response.render('./timesheets/timesheetcalendar',{createTaskList:createTaskList,objUser, objname : objusername, objUserId : userId, projectList : projectQueryResult.rows, contactList : contactResult.rows, taskList : taskQueryResult.rows }); // render calendar
+                          response.render('./timesheets/timesheetcalendar',{objUser, objname : objusername, objUserId : userId, projectList : projectQueryResult.rows, contactList : contactResult.rows, taskList : taskQueryResult.rows }); // render calendar
                       })
                       .catch((taskQueryError) => {
                           console.log('taskQueryError : '+taskQueryError.stack);
@@ -393,21 +392,21 @@ router.get('/timesheet',verify,function(request,response){
                 .catch((projectQueryError) => {
                       console.log('projectQueryError '+projectQueryError.stack);
                       //response.send(403);
-                      response.render('./timesheets/timesheetcalendar',{createTaskList:createTaskList,objUser, projectList : [], contactList : [], taskList : [] }); // render calendar
+                      response.render('./timesheets/timesheetcalendar',{objUser, projectList : [], contactList : [], taskList : [] }); // render calendar
                 })
              
             })
               .catch((projectTeamQueryError) =>{
                 console.log('projectTeamQueryError : '+projectTeamQueryError.stack);
                // response.send(403);
-               response.render('./timesheets/timesheetcalendar',{createTaskList:createTaskList,objUser, projectList : [], contactList : [], taskList : [] }); 
+               response.render('./timesheets/timesheetcalendar',{objUser, projectList : [], contactList : [], taskList : [] }); 
               })          
            })
 
           .catch((teamMemberQueryError) => {
             console.log('Error in team member query '+teamMemberQueryError.stack);
             //response.send(403);
-            response.render('./timesheets/timesheetcalendar',{createTaskList:createTaskList,objUser, projectList : [], contactList : [], taskList : [] }); 
+            response.render('./timesheets/timesheetcalendar',{objUser, projectList : [], contactList : [], taskList : [] }); 
           })
   
         }) 
