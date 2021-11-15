@@ -380,7 +380,9 @@ router.get('/timesheet',verify,function(request,response){
                       .query(taskQueryText, lstProjectId)
                       .then((taskQueryResult) => {
                           console.log('taskQueryResult  rows '+taskQueryResult.rows.length);
-                          response.render('./timesheets/timesheetcalendar',{objUser, objname : objusername, objUserId : userId, projectList : projectQueryResult.rows, contactList : contactResult.rows, taskList : taskQueryResult.rows }); // render calendar
+                          var obj = {taskName:'test',taskType:'tests',projectName:'',taskDate:'',assignedResource:'',status:'',plannedEndtime:'',deadline:''}; 
+                          var createTaskList = [obj];
+                          response.render('./timesheets/timesheetcalendar',{createTaskList:createTaskList,objUser, objname : objusername, objUserId : userId, projectList : projectQueryResult.rows, contactList : contactResult.rows, taskList : taskQueryResult.rows }); // render calendar
                       })
                       .catch((taskQueryError) => {
                           console.log('taskQueryError : '+taskQueryError.stack);

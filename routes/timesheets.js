@@ -74,9 +74,7 @@ router.get('/timesheet',verify,(request, response) => {
                     .query(taskQueryText, lstProjectId)
                     .then((taskQueryResult) => {
                         console.log('taskQueryResult  rows '+taskQueryResult.rows.length);
-                        var obj = {taskName:'test',taskType:'tests',projectName:'',taskDate:'',assignedResource:'',status:'',plannedEndtime:'',deadline:''}; 
-                        var createTaskList = [obj];
-                        response.send({createTaskList:createTaskList,projectList : projectQueryResult.rows, contactList : contactResult.rows, taskList : taskQueryResult.rows }); // render calendar
+                        response.send({projectList : projectQueryResult.rows, contactList : contactResult.rows, taskList : taskQueryResult.rows }); // render calendar
                     })
                     .catch((taskQueryError) => {
                         console.log('taskQueryError : '+taskQueryError.stack);
