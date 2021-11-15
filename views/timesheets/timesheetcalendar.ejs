@@ -1115,15 +1115,17 @@
 </div>
 
 <script>
-
+    bindEvent();
     $('#newRowBtn').click(function() {
+        $('.recordD').unbind('click');
         console.log( "Handler for .click() called." );
         var ele = document.getElementsByClassName('dynamicRow');
         var dummyRecord = document.getElementById('dummyRecord').cloneNode(true);
         var insideData = document.getElementById('taskformRow');
         insideData.innerHTML = insideData.innerHTML + `<div class="dynamicRow" id="formRowTask${ele.length + 1}">` + dummyRecord.innerHTML.replaceAll('{data}',ele.length + 1) + '</div>' ;
-        
+        bindEvent();
     });
+    function bindEvent(){
 
     $('.recordD').click(function(e){
         console.log('running');
@@ -1155,7 +1157,7 @@
         });
         console.log('done');
     });
-
+}
 </script>
 
 
