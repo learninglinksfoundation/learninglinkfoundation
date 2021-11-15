@@ -1119,10 +1119,11 @@
 
 <script>
 
-    $('#newRowBtn').click(function() {
+    document.getElementById('newRowBtn').addEventListener('click', () => {
         console.log( "Handler for .click() called." );
         var d = <%- createTaskList %>
-        $.ajax({ type: 'POST',url: '/timesheets/createRow',data : d,})
+        console.log(d,'before');
+        $.ajax({ type: 'POST',url: '/timesheets/createRow',data : d})
         .done(function( taskData ) {
              console.log(taskData,'wwww');
          });
