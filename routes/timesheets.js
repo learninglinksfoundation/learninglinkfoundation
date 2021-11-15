@@ -100,7 +100,7 @@ router.get('/timesheet',verify,(request, response) => {
 
 });
 
-router.post('/createRow',(request, response) => {
+router.post('/createRow',verify,(request, response) => {
     var createObj = request.body;
     createObj.push({ss:''});
     response.send(createObj);
