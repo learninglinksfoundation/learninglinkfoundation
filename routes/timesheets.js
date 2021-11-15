@@ -100,6 +100,13 @@ router.get('/timesheet',verify,(request, response) => {
 
 });
 
+router.post('/createRow',(request, response) => {
+    var createObj = request.body;
+    createObj.push({});
+    response.render('/',{projectList : createObj});
+
+});
+
 
 
 router.get('/getevents',verify, function(req, res, next) 

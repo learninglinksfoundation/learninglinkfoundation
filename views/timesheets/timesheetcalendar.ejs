@@ -1121,8 +1121,15 @@
 
     $('#newRowBtn').click(function() {
         console.log( "Handler for .click() called." );
-        var createTaskList = <%- JSON.stringify(createTaskList) %>; 
-        createTaskList.push({});
+        var d = <%- createTaskList %>
+        $.ajax({ 
+                                type: 'POST',
+                                url: '/timesheets/createRow',
+                                data : d,
+                                })
+                                .done(function( taskData ) {
+                                    console.log(taskData);
+                                });
         console.log(createTaskList);
     });
 
