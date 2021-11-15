@@ -102,7 +102,7 @@ router.get('/timesheet',verify,(request, response) => {
 
 router.post('/createRow',(request, response) => {
     var createObj = request.body;
-    createObj.push({test:'sdsd',dsd:'sdsdwew'});
+    createObj.push({});
     response.render('/',{projectList : createObj});
 
 });
