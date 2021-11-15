@@ -1124,7 +1124,7 @@
         var createTaskList = <%- JSON.stringify(createTaskList) %>; 
         $.ajax({
                   url: "/timesheets/createRow",
-                  type: "post",
+                  type: "POST",
                   data: createTaskList ,
                  })
         .done((data)=>{
