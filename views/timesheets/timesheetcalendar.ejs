@@ -1166,7 +1166,7 @@
     $('.deadline').on('change',function(){
         let deadValue=this.value;
         let id = this.id;
-        let index = id.replace('deadline');
+        let index = id.replace('deadline','');
         console.log(index,id,'  qqqqq');
         if(index != ''){
             if(deadValue=='Deadlines')
