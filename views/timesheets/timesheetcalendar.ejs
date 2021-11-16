@@ -622,15 +622,15 @@
                 
                     if(seletedDate.getTime() < currentDate.getTime())
                     {
-                        $('#plannedstarttimeTask').prop("disabled",true);
-                        $('#plannedendtimeTask').prop("disabled",true);
-                        $('#deadline').prop("disabled",true);
+                        $('.plannedstarttimeTask').prop("disabled",true);
+                        $('.plannedendtimeTask').prop("disabled",true);
+                        $('.deadline').prop("disabled",true);
                     }
                     else
                     {
-                        $('#deadline').prop("disabled",false);
-                        $('#plannedstarttimeTask').prop("disabled",true);
-                        $('#plannedendtimeTask').prop("disabled",true);
+                        $('.deadline').prop("disabled",false);
+                        $('.plannedstarttimeTask').prop("disabled",true);
+                        $('.plannedendtimeTask').prop("disabled",true);
                         $('.deadline').on('change',function(){
                           let deadValue=this.value;
                           console.log('deadValue' +deadValue);
@@ -658,12 +658,12 @@
                      console.log('Selected view ++ '+selectedView);
                          // selectedView=this.value;
                         console.log('hii i m inside current user view');
-                        $('#assignedresource').val('');
+                        $('.assignedresource').val('');
 
                         if(selectedView == 'currentuser')
                         {
-                          $('#assignedresource').attr("readonly","readonly");
-                          $('#assignedresource')
+                          $('.assignedresource').attr("readonly","readonly");
+                          $('.assignedresource')
                           .append($("<option></option>")
                           .attr("value",objUserId)
                           .text(objUserName))                        
@@ -672,7 +672,7 @@
                         if(selectedView == 'teamview')
                         {
                           console.log('hii i m inside team view');
-                          $('#assignedresource').attr("readonly",false);
+                          $('.assignedresource').attr("readonly",false);
                           $.ajax({
                         url : '/users/getContact',
                         data : {
@@ -687,7 +687,7 @@
                             {
                             response.forEach((eachContact) => {
                             console.log('eachContact.name '+eachContact.name);
-                            $('#assignedresource')
+                            $('.assignedresource')
                             .append($("<option></option>")
                             .attr("value",eachContact.sfid)
                             .text(eachContact.name))
@@ -1053,7 +1053,7 @@
                   <div class="row">
                     <div class="col-md-6">
                       <label for="validationTooltip02">Assign to Heroku user <span style="color: red;">*</span></label>
-                      <select class="custom-select custom-select-sm form-control" name="assignedresource" id="assignedresource">
+                      <select class="custom-select custom-select-sm form-control assignedresource" name="assignedresource" id="assignedresource">
                         <option value="">None</option>
                        </select>
 
