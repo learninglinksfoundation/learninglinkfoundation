@@ -970,7 +970,7 @@
                    
                     <div class="col-md-6">
                       <label for="validationTooltip02">function<span style="color: red;">*</span></label>
-                      <select class="custom-select custom-select-sm form-control" onchange="handleChange(this);" id="function" name="function">
+                      <select class="custom-select custom-select-sm form-control" onchange="handleChange(event);" id="function" name="function">
                           <option selected value=''>None</option>
                           <option value="Accounts">Accounts </option>
                           <option value="Compliance">Compliance</option>
@@ -1089,9 +1089,10 @@
     bindEvent();
 
     function handleChange(e){
-        value = e.target.value;
+        value = e;
+        console.log(e);
         var taskType = <%- JSON.stringify(taskType) %>;
-        console.log(value,taskType);
+        console.log(e.target.value,taskType);
     }
 
 
@@ -1336,7 +1337,7 @@
                    
                     <div class="col-md-6">
                       <label for="validationTooltip02">function<span style="color: red;">*</span></label>
-                      <select class="custom-select custom-select-sm form-control" id="function{data}" data-label="{data}" onchange="handleChange(this);" name="function{data}" >
+                      <select class="custom-select custom-select-sm form-control" id="function{data}" data-label="{data}" onchange="handleChange(event);" name="function{data}" >
                           <option selected value=''>None</option>
                           <option value="Accounts">Accounts </option>
                           <option value="Compliance">Compliance</option>
