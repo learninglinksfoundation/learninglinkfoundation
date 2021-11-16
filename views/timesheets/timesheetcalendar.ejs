@@ -631,7 +631,7 @@
                         $('.deadline').prop("disabled",false);
                         $('.plannedstarttimeTask').prop("disabled",true);
                         $('.plannedendtimeTask').prop("disabled",true);
-                        $('.deadline').on('change',function(){
+                       /* $('.deadline').on('change',function(){
                           let deadValue=this.value;
                           console.log('deadValue' +deadValue);
                           if(deadValue=='Deadlines')
@@ -644,7 +644,7 @@
                             $('#plannedstarttimeTask').prop("disabled",false);
                             $('#plannedendtimeTask').prop("disabled",false);
                           }
-                        });
+                        });*/
             
                     }
                  //   if(seletedDate.getTime()<todaydate && seletedDate.getTime()>before)
@@ -1162,6 +1162,41 @@
         bindEvent();
         console.log('done');
     });
+
+    $('.deadline').on('change',function(){
+        let deadValue=this.value;
+        let id = this.id;
+        let index = id.replace('deadline');
+        console.log(index,id,'  qqqqq');
+        if(index != ''){
+            if(deadValue=='Deadlines')
+            {
+                $('#plannedstarttimeTask'+index).prop("disabled",true);
+                $('#plannedendtimeTask'+index).prop("disabled",false);
+            }
+            else
+            {
+                $('#plannedstarttimeTask'+index).prop("disabled",false);
+                $('#plannedendtimeTask'+index).prop("disabled",false);
+            }
+        }
+        else{
+            if(deadValue=='Deadlines')
+            {
+                $('#plannedstarttimeTask').prop("disabled",true);
+                $('#plannedendtimeTask').prop("disabled",false);
+            }
+            else
+            {
+                $('#plannedstarttimeTask').prop("disabled",false);
+                $('#plannedendtimeTask').prop("disabled",false);
+            }
+        }
+        
+        
+    });
+
+
 }
 </script>
 
