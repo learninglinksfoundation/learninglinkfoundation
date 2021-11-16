@@ -359,7 +359,7 @@
             var values = $(this).serialize();
             console.log('values   ' + values);
             let aryData = $(this).serializeArray();
-            // if()
+            
             var deadlin = $('#deadline option:selected').val();
             console.log('deadline ++++  ' + deadlin);
             if (deadlin == 'Block Time') {
@@ -970,62 +970,32 @@
                    
                     <div class="col-md-6">
                       <label for="validationTooltip02">function<span style="color: red;">*</span></label>
-                      <select class="custom-select custom-select-sm form-control" name="tasktype">
-                          <option value=''>None</option>
-                          <option value="Generic-Reflecting & Planning - Personal Time for official work">Generic-Reflecting & Planning - Personal Time for official work</option>
-                          <option value="Generic-Miscellaneous Personal official work - IT Support, HR, Flexiele, Filling Timesheet, etc.">Generic-Miscellaneous Personal official work - IT Support, HR, Flexiele, Filling Timesheet, etc.</option>
-                          <option value="Generic-Expenses - Raising Bills/Invoices - Self">Generic-Expenses - Raising Bills/Invoices - Self</option>
-                          <option value="Generic-Expenses - reviewing & approving bills - Teams">Generic-Expenses - reviewing & approving bills - Teams</option>
-                          <option value="Generic-Procurement - Raising request & follow-up">Generic-Procurement - Raising request & follow-up</option>
-                          <option value="Generic-Procurement - reviewing & approving - Teams">Generic-Procurement - reviewing & approving - Teams</option>
-                          <option value="Generic-Attended Training/Orientation - Requested by LLF">Generic-Attended Training/Orientation - Requested by LLF</option>
-                          <option value="Generic-Attended Training/Orientation - Self Managed">Generic-Attended Training/Orientation - Self Managed</option>
-                          <option value="Generic-Imparted Training - External - Project Delivery Purpose - RPs & Beneficiaries">Generic-Imparted Training - External - Project Delivery Purpose - RPs & Beneficiaries</option>
-                          <option value="Generic-Team Meetings/Progress Review Meetings - At various levels">Generic-Team Meetings/Progress Review Meetings - At various levels</option>
-                          <option value="Generic-Travel Time - For field visits/meetings/etc">Generic-Travel Time - For field visits/meetings/etc</option>
-                          <option value="Generic-Field Visit - Interaction Time Spent - Schools/Donors/Govt. officials, etc">Generic-Field Visit - Interaction Time Spent - Schools/Donors/Govt. officials, etc</option>
-                          <option value="Generic-Data Analysis & Gathering insights from work items for evidence-based decision making">Generic-Data Analysis & Gathering insights from work items for evidence-based decision making</option>
-                          <option value="Generic-Report-Making/Presentations for various stakeholders inside/outside organization">Generic-Report-Making/Presentations for various stakeholders inside/outside organization</option>
-                          <option value="Generic-Field visit Data Upload/Reporting on Salesforce/Excel sheets">Generic-Field visit Data Upload/Reporting on Salesforce/Excel sheets</option>
-                          <option value="Generic-Assistance Time Spent to facilitate project team organization members">Generic-Assistance Time Spent to facilitate project team organization members</option>
-                          <option value="Generic-Assistance Time Spent to facilitate non-project team organization members">Generic-Assistance Time Spent to facilitate non-project team organization members</option>
-                          <option value="Generic-Assistance Time Spent to facilitate external stakeholders - Govt., Donors, Officials, etc">Generic-Assistance Time Spent to facilitate external stakeholders - Govt., Donors, Officials, etc</option>
-                          <option value="Generic-Assistance Time Spent to facilitate beneficiaries outside Field visit hours - Students, Teachers, Principals, women, entrepreneurs, etc">Generic-Assistance Time Spent to facilitate beneficiaries outside Field visit hours - Students, Teachers, Principals, women, entrepreneurs, etc</option>
-                          <option value="Generic-Content Creation Time Spent for a Training - Project delivery purpose">Generic-Content Creation Time Spent for a Training - Project delivery purpose</option>
-                          <option value="Generic-Project Hiring related - Calling for Interviews">Generic-Project Hiring related - Calling for Interviews</option>
-                          <option value="Generic-Project Hiring related - Conducted Interviews">Generic-Project Hiring related - Conducted Interviews</option>
-                          <option value="Generic-Project Hiring related - Reviewed Application for interviews">Generic-Project Hiring related - Reviewed Application for interviews</option>
-                          <option value="Generic-Project Hiring related - Evaluation of interviewees">Generic-Project Hiring related - Evaluation of interviewees</option>
-                          <option value="Generic-Training Imparted - Internal Organization - Non Project Delivery Purpose">Generic-Training Imparted - Internal Organization - Non Project Delivery Purpose</option>
-                          <option value="Generic-Content Creation Time Spent for - Internal - Non Project Delivery purpose">Generic-Content Creation Time Spent for - Internal - Non Project Delivery purpose</option>
-                          <option value="Generic-Training Content Creation Time Spent - Internal - Non Project Delivery purpose">Generic-Training Content Creation Time Spent - Internal - Non Project Delivery purpose</option>
-                          <option value="Content - Research">Content - Research</option>
-                          <option value="Content - Content Creation">Content - Content Creation</option>
-                          <option value="Content - Content Review">Content - Content Review</option>
-                          <option value="Content - Editing and Proofreading">Content - Editing and Proofreading</option>
-                          <option value="Content - Formatting and Design">Content - Formatting and Design</option>
-                          <option value="Accounts - Voucher checking">Accounts - Voucher checking</option>
-                          <option value="Accounts - Tally entry">Accounts - Tally entry</option>
-                          <option value="Accounts - Report Preparation">Accounts - Report Preparation</option>
-                          <option value="Accounts - Liasoning with Auditors">Accounts - Liasoning with Auditors</option>
-                          <option value="Accounts - Processing Payments TDS, GST, etc">Accounts - Processing Payments TDS, GST, etc</option>
-                          <option value="HR - Recruitment Process">HR - Recruitment Process</option>
-                          <option value="HR - Payroll Process">HR - Payroll Process</option>
-                          <option value="HR - Joining Process">HR - Joining Process</option>
-                          <option value="HR - Exit Process">HR - Exit Process</option>
-                          <option value="HR - Handling Employee Grievances">HR - Handling Employee Grievances</option>
-                          <option value="HR - Full & Final Settlements">HR - Full & Final Settlements</option>
-                          <option value="HR - Prepare and deposition of the statutory liabilities such as PF, ESI, PT & LW">HR - Prepare and deposition of the statutory liabilities such as PF, ESI, PT & LW</option>
-                          <option value="HR - Prepare and submit quarterly, half yearly and annual returns">HR - Prepare and submit quarterly, half yearly and annual returns</option>
-                          <option value="HR - Calculate TDS deductions based on tax laws">HR - Calculate TDS deductions based on tax laws</option>
-                          <option value="HR - Attendance Management">HR - Attendance Management</option>
-                          <option value="HR - Manage employees investment declarations, Payroll reimbursements, etc">HR - Manage employees investment declarations, Payroll reimbursements, etc</option>
-                          <option value="Training - Research">Training - Research</option>
-                          <option value="Training - Dry run">Training - Dry run</option>
-                          <option value="Training - Editing and making changes to the content as per the need on ground">Training - Editing and making changes to the content as per the need on ground</option>
-                          <option value="Training - Agenda preparation and session flow planning">Training - Agenda preparation and session flow planning</option>
+                      <select class="custom-select custom-select-sm form-control" onchange="handleChange(this);" id="function" name="function">
+                          <option selected value=''>None</option>
+                          <option value="Accounts">Accounts </option>
+                          <option value="Compliance">Compliance</option>
+                          <option value="Content">Content </option>
+                          <option value="HR">HR</option>
+                          <option value="IT_Support">IT Support</option>
+                          <option value="Learning_Development">Learning & Development</option>
+                          <option value="Operations">Operations</option>
+                          <option value="Project">Project</option>
+                          <option value="Self_Management">Self Management</option>
+                          <option value="Beneficiary">Project - Beneficiary Engagement</option>
+                          <option value="Internal">Internal - LLF</option>
                       </select>
                     </div>
+                  </div>
+                </div>
+
+                <div class="form-group"> 
+                  <div class="row">
+                      <div class="col-md-6">
+                           <label for="validationTooltip03">Project <span style="color: red;">*</span></label>
+                            <select class="custom-select custom-select-sm form-control" disabled id="tasktype" name="tasktype">
+                                <option value=''>None</option>
+                            </select>
+                      </div>
                   </div>
                 </div>
 
@@ -1117,6 +1087,14 @@
 
 <script>
     bindEvent();
+
+    function handleChange(e){
+        value = e.target.value;
+        var taskType = <%- JSON.stringify(taskType) %>;
+        console.log(value,taskType);
+    }
+
+
 
     $('#newRowBtn').click(function() {
         $('.recordD').unbind('click');
@@ -1358,62 +1336,32 @@
                    
                     <div class="col-md-6">
                       <label for="validationTooltip02">function<span style="color: red;">*</span></label>
-                      <select class="custom-select custom-select-sm form-control" name="tasktype{data}">
-                          <option value=''>None</option>
-                          <option value="Generic-Reflecting & Planning - Personal Time for official work">Generic-Reflecting & Planning - Personal Time for official work</option>
-                          <option value="Generic-Miscellaneous Personal official work - IT Support, HR, Flexiele, Filling Timesheet, etc.">Generic-Miscellaneous Personal official work - IT Support, HR, Flexiele, Filling Timesheet, etc.</option>
-                          <option value="Generic-Expenses - Raising Bills/Invoices - Self">Generic-Expenses - Raising Bills/Invoices - Self</option>
-                          <option value="Generic-Expenses - reviewing & approving bills - Teams">Generic-Expenses - reviewing & approving bills - Teams</option>
-                          <option value="Generic-Procurement - Raising request & follow-up">Generic-Procurement - Raising request & follow-up</option>
-                          <option value="Generic-Procurement - reviewing & approving - Teams">Generic-Procurement - reviewing & approving - Teams</option>
-                          <option value="Generic-Attended Training/Orientation - Requested by LLF">Generic-Attended Training/Orientation - Requested by LLF</option>
-                          <option value="Generic-Attended Training/Orientation - Self Managed">Generic-Attended Training/Orientation - Self Managed</option>
-                          <option value="Generic-Imparted Training - External - Project Delivery Purpose - RPs & Beneficiaries">Generic-Imparted Training - External - Project Delivery Purpose - RPs & Beneficiaries</option>
-                          <option value="Generic-Team Meetings/Progress Review Meetings - At various levels">Generic-Team Meetings/Progress Review Meetings - At various levels</option>
-                          <option value="Generic-Travel Time - For field visits/meetings/etc">Generic-Travel Time - For field visits/meetings/etc</option>
-                          <option value="Generic-Field Visit - Interaction Time Spent - Schools/Donors/Govt. officials, etc">Generic-Field Visit - Interaction Time Spent - Schools/Donors/Govt. officials, etc</option>
-                          <option value="Generic-Data Analysis & Gathering insights from work items for evidence-based decision making">Generic-Data Analysis & Gathering insights from work items for evidence-based decision making</option>
-                          <option value="Generic-Report-Making/Presentations for various stakeholders inside/outside organization">Generic-Report-Making/Presentations for various stakeholders inside/outside organization</option>
-                          <option value="Generic-Field visit Data Upload/Reporting on Salesforce/Excel sheets">Generic-Field visit Data Upload/Reporting on Salesforce/Excel sheets</option>
-                          <option value="Generic-Assistance Time Spent to facilitate project team organization members">Generic-Assistance Time Spent to facilitate project team organization members</option>
-                          <option value="Generic-Assistance Time Spent to facilitate non-project team organization members">Generic-Assistance Time Spent to facilitate non-project team organization members</option>
-                          <option value="Generic-Assistance Time Spent to facilitate external stakeholders - Govt., Donors, Officials, etc">Generic-Assistance Time Spent to facilitate external stakeholders - Govt., Donors, Officials, etc</option>
-                          <option value="Generic-Assistance Time Spent to facilitate beneficiaries outside Field visit hours - Students, Teachers, Principals, women, entrepreneurs, etc">Generic-Assistance Time Spent to facilitate beneficiaries outside Field visit hours - Students, Teachers, Principals, women, entrepreneurs, etc</option>
-                          <option value="Generic-Content Creation Time Spent for a Training - Project delivery purpose">Generic-Content Creation Time Spent for a Training - Project delivery purpose</option>
-                          <option value="Generic-Project Hiring related - Calling for Interviews">Generic-Project Hiring related - Calling for Interviews</option>
-                          <option value="Generic-Project Hiring related - Conducted Interviews">Generic-Project Hiring related - Conducted Interviews</option>
-                          <option value="Generic-Project Hiring related - Reviewed Application for interviews">Generic-Project Hiring related - Reviewed Application for interviews</option>
-                          <option value="Generic-Project Hiring related - Evaluation of interviewees">Generic-Project Hiring related - Evaluation of interviewees</option>
-                          <option value="Generic-Training Imparted - Internal Organization - Non Project Delivery Purpose">Generic-Training Imparted - Internal Organization - Non Project Delivery Purpose</option>
-                          <option value="Generic-Content Creation Time Spent for - Internal - Non Project Delivery purpose">Generic-Content Creation Time Spent for - Internal - Non Project Delivery purpose</option>
-                          <option value="Generic-Training Content Creation Time Spent - Internal - Non Project Delivery purpose">Generic-Training Content Creation Time Spent - Internal - Non Project Delivery purpose</option>
-                          <option value="Content - Research">Content - Research</option>
-                          <option value="Content - Content Creation">Content - Content Creation</option>
-                          <option value="Content - Content Review">Content - Content Review</option>
-                          <option value="Content - Editing and Proofreading">Content - Editing and Proofreading</option>
-                          <option value="Content - Formatting and Design">Content - Formatting and Design</option>
-                          <option value="Accounts - Voucher checking">Accounts - Voucher checking</option>
-                          <option value="Accounts - Tally entry">Accounts - Tally entry</option>
-                          <option value="Accounts - Report Preparation">Accounts - Report Preparation</option>
-                          <option value="Accounts - Liasoning with Auditors">Accounts - Liasoning with Auditors</option>
-                          <option value="Accounts - Processing Payments TDS, GST, etc">Accounts - Processing Payments TDS, GST, etc</option>
-                          <option value="HR - Recruitment Process">HR - Recruitment Process</option>
-                          <option value="HR - Payroll Process">HR - Payroll Process</option>
-                          <option value="HR - Joining Process">HR - Joining Process</option>
-                          <option value="HR - Exit Process">HR - Exit Process</option>
-                          <option value="HR - Handling Employee Grievances">HR - Handling Employee Grievances</option>
-                          <option value="HR - Full & Final Settlements">HR - Full & Final Settlements</option>
-                          <option value="HR - Prepare and deposition of the statutory liabilities such as PF, ESI, PT & LW">HR - Prepare and deposition of the statutory liabilities such as PF, ESI, PT & LW</option>
-                          <option value="HR - Prepare and submit quarterly, half yearly and annual returns">HR - Prepare and submit quarterly, half yearly and annual returns</option>
-                          <option value="HR - Calculate TDS deductions based on tax laws">HR - Calculate TDS deductions based on tax laws</option>
-                          <option value="HR - Attendance Management">HR - Attendance Management</option>
-                          <option value="HR - Manage employees investment declarations, Payroll reimbursements, etc">HR - Manage employees investment declarations, Payroll reimbursements, etc</option>
-                          <option value="Training - Research">Training - Research</option>
-                          <option value="Training - Dry run">Training - Dry run</option>
-                          <option value="Training - Editing and making changes to the content as per the need on ground">Training - Editing and making changes to the content as per the need on ground</option>
-                          <option value="Training - Agenda preparation and session flow planning">Training - Agenda preparation and session flow planning</option>
+                      <select class="custom-select custom-select-sm form-control" id="function{data}" data-label="{data}" onchange="handleChange(this);" name="function{data}" >
+                          <option selected value=''>None</option>
+                          <option value="Accounts">Accounts </option>
+                          <option value="Compliance">Compliance</option>
+                          <option value="Content">Content </option>
+                          <option value="HR">HR</option>
+                          <option value="IT_Support">IT Support</option>
+                          <option value="Learning_Development">Learning & Development</option>
+                          <option value="Operations">Operations</option>
+                          <option value="Project">Project</option>
+                          <option value="Self_Management">Self Management</option>
+                          <option value="Beneficiary">Project - Beneficiary Engagement</option>
+                          <option value="Internal">Internal - LLF</option>
                       </select>
                     </div>
+                  </div>
+                </div>
+
+                <div class="form-group"> 
+                  <div class="row">
+                      <div class="col-md-6">
+                           <label for="validationTooltip03">Project <span style="color: red;">*</span></label>
+                            <select class="custom-select custom-select-sm form-control" data-label="{data}" disabled id="tasktype{data}" name="tasktype{data}">
+                                <option value=''>None</option>
+                            </select>
+                      </div>
                   </div>
                 </div>
 
