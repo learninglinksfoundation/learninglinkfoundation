@@ -1101,7 +1101,7 @@
             $('#tasktype'+index).find('option').remove().end();
              $('#tasktype'+index).append('<option value="">None</option>');
             data.forEach((dt)=>{
-                $('#tasktype'+index).find('option').append(`<option value="${dt}">${dt}</option>`);
+                $('#tasktype'+index).append(`<option value="${dt}">${dt}</option>`);
                 $('#tasktype'+index).attr('disabled',false);
             });
         }
