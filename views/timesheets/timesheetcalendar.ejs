@@ -1089,10 +1089,21 @@
     bindEvent();
 
     function handleChange(e){
-        value = e;
+        var value = e.target.value.trim();
+        var index = e.target.dataset.label;
         console.log(e);
         var taskType = <%- JSON.stringify(taskType) %>;
-        console.log(e.target.value,taskType);
+        var data = taskType[value];
+        if(data && data.length > 0){
+            data.forEach((dt)=>{
+                $('#tasktype'+index).append(`<option value="${dt}">${dt}</option>`);
+                $('#tasktype'+index).attr('disabled',false);
+            });
+        }
+        else {
+            $('#tasktype'+index).append(`<option value="">None</option>`);
+                $('#tasktype'+index).attr('disabled',true);
+        }
     }
 
 
@@ -1123,6 +1134,7 @@
         child.forEach((dt,i)=>{
             if(index <= i+1){
                 let d =  dt.innerHTML ;
+                d =  d.replaceAll('function'+(i+2),'function'+(i+1));
                 d =  d.replaceAll('New Task '+(i+2),'New Task '+(i+1));
                 d =  d.replaceAll('taskname'+(i+2),'taskname'+(i+1));
                 d =  d.replaceAll('deadline'+(i+2),'deadline'+(i+1));
