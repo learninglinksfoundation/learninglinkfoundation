@@ -358,49 +358,63 @@
             e.preventDefault();
             var values = $(this).serialize();
             console.log('values   ' + values);
+            let aryData = $(this).serializeArray();
             // if()
-            var deadlin = $('#deadline option:selected').val();
-            console.log('deadline ++++  ' + deadlin);
-            if (deadlin == 'Block Time') {
-                var startDate = $('#plannedstarttimeTask').val();
-                console.log('plandatejhjbkjbjk ' + startDate);
-                if (startDate == '') {
-                    alert('Error: Please Fill Planned Start Time');
-                }
-                var endDate = $('#plannedendtimeTask').val();
-                console.log('plandatejhjbkjbjk ' + endDate);
-                if (endDate == '') {
-                    alert('Error: Please Fill Planned End  Time');
-                }
-                if (endDate != '' && startDate != '') {
-                    var starthours = Number(startDate.match(/^(\d+)/)[1]);
-                    var startminutes = Number(startDate.match(/:(\d+)/)[1]);
-                    //  var startAMPM = startDate.match(/\s(.*)$/)[1];
-                    var endhours = Number(endDate.match(/^(\d+)/)[1]);
-                    var endminutes = Number(endDate.match(/:(\d+)/)[1]);
-                    // var endAMPM = endDate.match(/\s(.*)$/)[1];
-                    //  var AMPM = startDate.match(/\s(.*)$/)[1];
-                    console.log('starthours ' + starthours);
-                    console.log('startminutes ' + startminutes);
-                    //     console.log('startAMPM '+startAMPM);
-                    console.log('endhours ' + endhours);
-                    console.log('endminutes ' + endminutes);
-                    //  console.log('endAMPM '+endAMPM);
+            
+            $('.deadline').each(function(){
+                if (this.id != 'deadline{data}') {
+                    var deadlin = this.value;
+                    var index = this.id.replaceAll('deadline', '');
+                    if (deadlin == 'Block Time') {
+                        var startDate = $('#plannedstarttimeTask' + index).val();
+                        console.log('plandatejhjbkjbjk ' + startDate);
+                        if (startDate == '') {
+                            alert('Error: Please Fill Planned Start Time');
+                        }
+                        var endDate = $('#plannedendtimeTask' + index).val();
+                        console.log('plandatejhjbkjbjk ' + endDate);
+                        if (endDate == '') {
+                            alert('Error: Please Fill Planned End  Time');
+                        }
+                        if (endDate != '' && startDate != '') {
+                            var starthours = Number(startDate.match(/^(\d+)/)[1]);
+                            var startminutes = Number(startDate.match(/:(\d+)/)[1]);
+                            //  var startAMPM = startDate.match(/\s(.*)$/)[1];
+                            var endhours = Number(endDate.match(/^(\d+)/)[1]);
+                            var endminutes = Number(endDate.match(/:(\d+)/)[1]);
+                            // var endAMPM = endDate.match(/\s(.*)$/)[1];
+                            //  var AMPM = startDate.match(/\s(.*)$/)[1];
+                            console.log('starthours ' + starthours);
+                            console.log('startminutes ' + startminutes);
+                            //     console.log('startAMPM '+startAMPM);
+                            console.log('endhours ' + endhours);
+                            console.log('endminutes ' + endminutes);
+                            //  console.log('endAMPM '+endAMPM);
 
-                    if (startDate > endDate) {
-                        alert('Error: Planned Start time should be less than Planned End time. !')
-                    }
+                            if (startDate > endDate) {
+                                alert('Error: Planned Start time should be less than Planned End time. !')
+                            }
 
-                    if (starthours > endhours) {
-                        alert('Error: Planned Start time should be less than Planned End time. !')
-                    } else if ((starthours == endhours) && (startminutes > endminutes)) {
-                        alert('Error: Planned Start time should be less than Planned End time. !')
+                            if (starthours > endhours) {
+                                alert('Error: Planned Start time should be less than Planned End time. !')
+                            } else if ((starthours == endhours) && (startminutes > endminutes)) {
+                                alert('Error: Planned Start time should be less than Planned End time. !')
+                            }
+
+                            console.log('deadline ++++  ' + deadlin);
+                        }
                     }
+                }
+                    
+
+            });
+            
+            
                     /*   else if((starthours == endhours) && (startminutes = endminutes))
                        {
                          alert('Error: Planned Start time should be less than Planned End time. !')
                        }*/
-                    else {
+                     {
                         $("#submitbutton").attr("disabled", true);
                         $.ajax({
                                 url: "/timesheets/createtask",
