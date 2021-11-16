@@ -1118,11 +1118,13 @@
     bindEvent();
     $('#newRowBtn').click(function() {
         $('.recordD').unbind('click');
+        let datePic = $('#datePicker').val();
         console.log( "Handler for .click() called." );
         var ele = document.getElementsByClassName('dynamicRow');
         var dummyRecord = document.getElementById('dummyRecord').cloneNode(true);
         var insideData = document.getElementById('taskformRow');
         insideData.innerHTML = insideData.innerHTML + `<div class="dynamicRow" id="formRowTask${ele.length + 1}">` + dummyRecord.innerHTML.replaceAll('{data}',ele.length + 1) + '</div>' ;
+        $('.datepic').val(datePic);
         bindEvent();
     });
     function bindEvent(){
@@ -1383,7 +1385,7 @@
                   </div>
                   <div class="col-md-6">
                     <label for="validationTooltip04">Task Date</label>
-                    <input type="text" class="form-control datepic datePicker"   id="datePicker" required readonly name="taskdate{data}">
+                    <input type="text" class="form-control datepic datePicker"   id="datePicker{data}" required readonly name="taskdate{data}">
                     
                   </div>
                 </div>
