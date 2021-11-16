@@ -352,85 +352,95 @@
         /*Task Form post method */
         
         
+
+
         $('#taskForm').submit(function(e) {
-                e.preventDefault();
-                var values = $(this).serialize();
-                console.log('values   ' + values);
-                let aryData = $(this).serializeArray();
-                // if()
+            e.preventDefault();
+            var values = $(this).serialize();
+            console.log('values   ' + values);
+            let aryData = $(this).serializeArray();
+            // if()
+            var deadlin = $('#deadline option:selected').val();
+            console.log('deadline ++++  ' + deadlin);
+            if (deadlin == 'Block Time') {
+                var startDate = $('#plannedstarttimeTask').val();
+                console.log('plandatejhjbkjbjk ' + startDate);
+                if (startDate == '') {
+                    alert('Error: Please Fill Planned Start Time');
+                }
+                var endDate = $('#plannedendtimeTask').val();
+                console.log('plandatejhjbkjbjk ' + endDate);
+                if (endDate == '') {
+                    alert('Error: Please Fill Planned End  Time');
+                }
+                if (endDate != '' && startDate != '') {
+                    var starthours = Number(startDate.match(/^(\d+)/)[1]);
+                    var startminutes = Number(startDate.match(/:(\d+)/)[1]);
+                    //  var startAMPM = startDate.match(/\s(.*)$/)[1];
+                    var endhours = Number(endDate.match(/^(\d+)/)[1]);
+                    var endminutes = Number(endDate.match(/:(\d+)/)[1]);
+                    // var endAMPM = endDate.match(/\s(.*)$/)[1];
+                    //  var AMPM = startDate.match(/\s(.*)$/)[1];
+                    console.log('starthours ' + starthours);
+                    console.log('startminutes ' + startminutes);
+                    //     console.log('startAMPM '+startAMPM);
+                    console.log('endhours ' + endhours);
+                    console.log('endminutes ' + endminutes);
+                    //  console.log('endAMPM '+endAMPM);
 
-                $('.deadline').each(function() {
-                    if (this.id != 'deadline{data}') {
-                        var deadlin = this.value;
-                        var index = this.id.replaceAll('deadline', '');
-                        if (deadlin == 'Block Time') {
-                            var startDate = $('#plannedstarttimeTask' + index).val();
-                            console.log('plandatejhjbkjbjk ' + startDate);
-                            if (startDate == '') {
-                                alert('Error: Please Fill Planned Start Time');
-                            }
-                            var endDate = $('#plannedendtimeTask' + index).val();
-                            console.log('plandatejhjbkjbjk ' + endDate);
-                            if (endDate == '') {
-                                alert('Error: Please Fill Planned End  Time');
-                            }
-                            if (endDate != '' && startDate != '') {
-                                var starthours = Number(startDate.match(/^(\d+)/)[1]);
-                                var startminutes = Number(startDate.match(/:(\d+)/)[1]);
-                                //  var startAMPM = startDate.match(/\s(.*)$/)[1];
-                                var endhours = Number(endDate.match(/^(\d+)/)[1]);
-                                var endminutes = Number(endDate.match(/:(\d+)/)[1]);
-                                // var endAMPM = endDate.match(/\s(.*)$/)[1];
-                                //  var AMPM = startDate.match(/\s(.*)$/)[1];
-                                console.log('starthours ' + starthours);
-                                console.log('startminutes ' + startminutes);
-                                //     console.log('startAMPM '+startAMPM);
-                                console.log('endhours ' + endhours);
-                                console.log('endminutes ' + endminutes);
-                                //  console.log('endAMPM '+endAMPM);
-
-                                if (startDate > endDate) {
-                                    alert('Error: Planned Start time should be less than Planned End time. !')
-                                }
-
-                                if (starthours > endhours) {
-                                    alert('Error: Planned Start time should be less than Planned End time. !')
-                                } else if ((starthours == endhours) && (startminutes > endminutes)) {
-                                    alert('Error: Planned Start time should be less than Planned End time. !')
-                                }
-                            }
-                        }
+                    if (startDate > endDate) {
+                        alert('Error: Planned Start time should be less than Planned End time. !')
                     }
 
-
-                });
-
-            
-                 {
-                    $("#submitbutton").attr("disabled", true);
-                    $.ajax({
-                            url: "/timesheets/createtask",
-                            type: "post",
-                            data: values,
-                        })
-                        .done((data) => {
-                            console.log('data ' + JSON.stringify(data))
-                            let resp = JSON.stringify(data);
-                            console.log('dataaaaa' + resp);
-                            if (data == 'Task saved Successfully') {
-                                document.getElementById("taskForm").reset()
-                                let errorHtml = '<div class="alert alert-success alert-dismissible fade show" role="alert">' + resp +
-                                    '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-                                    '<span aria-hidden="true">&times;</span>' +
-                                    '</button>' +
-                                    '</div>';
-                                $('#errorMessages').empty();
-                                $('#errorMessages').append(errorHtml);
-                                $("#submitbutton").attr("disabled", false);
-                                //  $("#createTaskModal").modal("hide");
-                                window.location.reload()
-                            } else {
-                                //document.getElementById("taskForm").reset()
+                    if (starthours > endhours) {
+                        alert('Error: Planned Start time should be less than Planned End time. !')
+                    } else if ((starthours == endhours) && (startminutes > endminutes)) {
+                        alert('Error: Planned Start time should be less than Planned End time. !')
+                    }
+                    /*   else if((starthours == endhours) && (startminutes = endminutes))
+                       {
+                         alert('Error: Planned Start time should be less than Planned End time. !')
+                       }*/
+                    else {
+                        $("#submitbutton").attr("disabled", true);
+                        $.ajax({
+                                url: "/timesheets/createtask",
+                                type: "post",
+                                data: values,
+                            })
+                            .done((data) => {
+                                console.log('data ' + JSON.stringify(data))
+                                let resp = JSON.stringify(data);
+                                console.log('dataaaaa' + resp);
+                                if (data == 'Task saved Successfully') {
+                                    document.getElementById("taskForm").reset()
+                                    let errorHtml = '<div class="alert alert-success alert-dismissible fade show" role="alert">' + resp +
+                                        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                                        '<span aria-hidden="true">&times;</span>' +
+                                        '</button>' +
+                                        '</div>';
+                                    $('#errorMessages').empty();
+                                    $('#errorMessages').append(errorHtml);
+                                    $("#submitbutton").attr("disabled", false);
+                                    //  $("#createTaskModal").modal("hide");
+                                    window.location.reload()
+                                } else {
+                                    //document.getElementById("taskForm").reset()
+                                    let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">' + resp +
+                                        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                                        '<span aria-hidden="true">&times;</span>' +
+                                        '</button>' +
+                                        '</div>';
+                                    $('#errorMessages').empty();
+                                    $('#errorMessages').append(errorHtml);
+                                    $("#submitbutton").attr("disabled", false);
+                                    //  $("#createTaskModal").modal("hide");
+                                    // window.location.reload()
+                                }
+                            })
+                            .fail((jqXHR, status, error) => {
+                                console.log('jqXHR  : ' + JSON.stringify(jqXHR));
+                                console.log('error  : ' + error);
                                 let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">' + resp +
                                     '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
                                     '<span aria-hidden="true">&times;</span>' +
@@ -438,29 +448,13 @@
                                     '</div>';
                                 $('#errorMessages').empty();
                                 $('#errorMessages').append(errorHtml);
-                                $("#submitbutton").attr("disabled", false);
-                                //  $("#createTaskModal").modal("hide");
-                                // window.location.reload()
-                            }
-                        })
-                        .fail((jqXHR, status, error) => {
-                            console.log('jqXHR  : ' + JSON.stringify(jqXHR));
-                            console.log('error  : ' + error);
-                            let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">' + resp +
-                                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-                                '<span aria-hidden="true">&times;</span>' +
-                                '</button>' +
-                                '</div>';
-                            $('#errorMessages').empty();
-                            $('#errorMessages').append(errorHtml);
-                            $("#createTaskModal").modal("hide");
-                            //  window.location.reload()
-                        });
+                                $("#createTaskModal").modal("hide");
+                                //  window.location.reload()
+                            });
+                    }
                 }
-            
 
-
-            else {
+            } else {
                 $("#submitbutton").attr("disabled", true);
                 $.ajax({
                         url: "/timesheets/createtask",
@@ -509,7 +503,7 @@
                     });
             }
 
-        })
+})
         /*Timesheet Form post method */
         $('#fillActualsForm').submit(function(e){
         e.preventDefault();
