@@ -1015,7 +1015,7 @@ function handleChange(e){
                 <div class="form-group"> 
                   <div class="row">
                       <div class="col-md-6">
-                           <label for="validationTooltip03">Project <span style="color: red;">*</span></label>
+                           <label for="validationTooltip03">Task Type <span style="color: red;">*</span></label>
                             <select class="custom-select custom-select-sm form-control" disabled id="tasktype" name="tasktype">
                                 <option value=''>None</option>
                             </select>
@@ -1118,8 +1118,8 @@ function handleChange(e){
         let datePic = $('#datePicker').val();
         var ele = document.getElementsByClassName('dynamicRow');
         var dummyRecord = document.getElementById('dummyRecord').cloneNode(true);
-        var insideData = document.getElementById('taskformRow');
-        insideData.innerHTML = insideData.innerHTML + `<div class="dynamicRow" id="formRowTask${ele.length + 1}">` + dummyRecord.innerHTML.replaceAll('{data}',ele.length + 1) + '</div>' ;
+        var insideData = $('#taskformRow');
+        insideData.append(`<div class="dynamicRow" id="formRowTask${ele.length + 1}">` + dummyRecord.innerHTML.replaceAll('{data}',ele.length + 1) + '</div>');  
         $('.datepic').val(datePic);
         bindEvent();
     });
@@ -1373,7 +1373,7 @@ function handleChange(e){
                 <div class="form-group"> 
                   <div class="row">
                       <div class="col-md-6">
-                           <label for="validationTooltip03">Project <span style="color: red;">*</span></label>
+                           <label for="validationTooltip03">Task Type <span style="color: red;">*</span></label>
                             <select class="custom-select custom-select-sm form-control" data-label="{data}" disabled id="tasktype{data}" name="tasktype{data}">
                                 <option value=''>None</option>
                             </select>
