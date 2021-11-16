@@ -414,7 +414,7 @@
                        {
                          alert('Error: Planned Start time should be less than Planned End time. !')
                        }*/
-                     {
+                     
                         $("#submitbutton").attr("disabled", true);
                         $.ajax({
                                 url: "/timesheets/createtask",
@@ -464,8 +464,8 @@
                                 $("#createTaskModal").modal("hide");
                                 //  window.location.reload()
                             });
-                    }
-                }
+                    
+                
 
             } else {
                 $("#submitbutton").attr("disabled", true);
