@@ -217,186 +217,204 @@ router.get('/getdata',verify, function(req, response, next)
         });
 });
 
-router.post('/createtask',async (request, response) => {
+router.post('/createtask', async (request, response) => {
   var formData = request.body;
-  console.log('formData  '+JSON.stringify(formData));
-  console.log('ffff '+formData.taskname);
-  var startTime,endTime;
+  console.log('formData  ' + JSON.stringify(formData));
+  console.log('ffff ' + formData.taskname);
+  var startTime, endTime;
   var suffixStart = '';
   var suffixEnd = '';
-var taskname = formData.taskname,
-      status = formData.status,
-      projectname = formData.projectname, 
-      taskdate = formData.taskdate, 
-      assignedresource = formData.assignedresource,
-      tasktype = formData.tasktype,
-      plannedstarttime = formData.plannedstarttime,
-      plannedendtime = formData.plannedendtime;
-      deadline = formData.deadline,
+  var taskname = formData.taskname,
+    status = formData.status,
+    projectname = formData.projectname,
+    taskdate = formData.taskdate,
+    assignedresource = formData.assignedresource,
+    tasktype = formData.tasktype,
+    plannedstarttime = formData.plannedstarttime,
+    plannedendtime = formData.plannedendtime;
+    deadline = formData.deadline,
 
-console.log('taskname '+taskname);
-console.log('status : '+status);
-console.log('projectname  '+projectname);
-console.log('taskdate '+taskdate);
-var dateParts = taskdate.split('/');
+  console.log('taskname ' + taskname);
+  console.log('status : ' + status);
+  console.log('projectname  ' + projectname);
+  console.log('taskdate ' + taskdate);
+  var dateParts = taskdate.split('/');
 
-console.log('assignedresource  '+assignedresource);
-console.log('tasktype   '+tasktype);
+  console.log('assignedresource  ' + assignedresource);
+  console.log('tasktype   ' + tasktype);
 
-console.log('plannedstarttime  '+plannedstarttime);
-console.log('plannedendtime '+plannedendtime);
-console.log('deadline '+deadline);
-let schema,result ; 
-if(deadline == undefined || deadline == '')
-{
-  console.log('deadline Null/undefine');
-   schema=joi.object({
-    taskname:joi.string().min(3).required().label('Please enter Task Description!'),
-    task:joi.string().invalid(' ').required().label('Please enter Task Description!'),
-    taskn:joi.string().min(1).max(80).required().label(' Task Description too long.'),
-    projectname:joi.string().required().label('Please select Project !'),
-    type:joi.string().required().label('Please select Task Type !'),
-    status:joi.string().invalid('None').required().label('Please choose Status'),
-    assignedresource:joi.string().invalid('None').required().label('Please Assign Resource!'),
+  console.log('plannedstarttime  ' + plannedstarttime);
+  console.log('plannedendtime ' + plannedendtime);
+  console.log('deadline ' + deadline);
+  let schema, result;
+  if (deadline == undefined || deadline == '') {
+    console.log('deadline Null/undefine');
+    schema = joi.object({
+      taskname: joi.string().min(3).required().label('Please enter Task Description!'),
+      task: joi.string().invalid(' ').required().label('Please enter Task Description!'),
+      taskn: joi.string().min(1).max(80).required().label(' Task Description too long.'),
+      projectname: joi.string().required().label('Please select Project !'),
+      type: joi.string().required().label('Please select Task Type !'),
+      status: joi.string().invalid('None').required().label('Please choose Status'),
+      assignedresource: joi.string().invalid('None').required().label('Please Assign Resource!'),
 
-   // depart:joi.string().min(1).max(255).required().label('Department value too long.'),
+      // depart:joi.string().min(1).max(255).required().label('Department value too long.'),
+    })
+
+    result = schema.validate({
+      taskname: taskname,
+      task: taskname,
+      taskn: taskname,
+      type: tasktype,
+      projectname: projectname,
+      status: request.body.status,
+      assignedresource: assignedresource
+    });
+  } else if (deadline == 'Select') {
+    console.log('select');
+    schema = joi.object({
+      taskname: joi.string().min(3).required().label('Please enter Task Description!'),
+      task: joi.string().invalid(' ').required().label('Please enter Task Description!'),
+      taskn: joi.string().min(1).max(80).required().label(' Task Description too long.'),
+      projectname: joi.string().required().label('Please select Project !'),
+      type: joi.string().required().label('Please select Task Type !'),
+      status: joi.string().invalid('None').required().label('Please choose Status'),
+      assignedresource: joi.string().invalid('None').required().label('Please Assign Resource!'),
+
+      deadline: joi.string().invalid('Select').required().label('Please select Deadline Type!'),
+
+    })
+    result = schema.validate({
+      deadline: deadline,
+      taskname: taskname,
+      task: taskname,
+      taskn: taskname,
+      type: tasktype,
+      projectname: projectname,
+      status: request.body.status,
+      assignedresource: assignedresource
+    });
+
+    // result=schema.validate({deadline:deadline});
+  } else if (deadline == 'Deadlines') {
+    console.log('Deadlines');
+    schema = joi.object({
+      taskname: joi.string().min(3).required().label('Please enter Task Description!'),
+      task: joi.string().min(3).required().label('Please enter Task Description!'),
+      taskn: joi.string().min(1).max(80).required().label(' Task Description too long.'),
+      projectname: joi.string().required().label('Please select Project !'),
+      type: joi.string().required().label('Please select Task Type !'),
+      assignedresource: joi.string().invalid('None').required().label('Please Assign Resource!'),
+      status: joi.string().invalid('None').required().label('Please choose Status'),
+      plannedendtime: joi.string().regex(/^([0-9]{2})\:([0-9]{2})$/).required().label('Please fill Planned End Time !'),
+
+    })
+
+    result = schema.validate({
+      taskname: taskname,
+      task: taskname,
+      taskn: taskname,
+      type: tasktype,
+      projectname: projectname,
+      assignedresource: assignedresource,
+      status: request.body.status,
+      plannedendtime: plannedendtime
+    });
+  } else if (deadline == 'Block Time') {
+    schema = joi.object({
+      taskname: joi.string().min(3).required().label('Please enter Task Description!'),
+      task: joi.string().min(3).required().label('Please enter Task Description!'),
+      taskn: joi.string().min(1).max(80).required().label(' Task Description too long.'),
+      projectname: joi.string().required().label('Please select Project !'),
+      type: joi.string().required().label('Please select Task Type !'),
+      assignedresource: joi.string().invalid('None').required().label('Please Assign Resource!'),
+      status: joi.string().invalid('None').required().label('Please choose Status'),
+
+      //plannedstarttime:joi.string().regex(/^([0-9]{2})\:([0-9]{2})$/).required().label('Please fill Planned Start Time !'),
+      // plannedendtime:joi.string().regex(/^([0-9]{2})\:([0-9]{2})$/).required().label('Please fill Planned End Time !'),
+      //plantime:joi.string().required().less(joi.ref('plannedendtime')).label('Planned Start time should be less than Planned End time. !'),
+    })
+
+    result = schema.validate({
+      taskname: taskname,
+      task: taskname,
+      taskn: taskname,
+      type: tasktype,
+      projectname: projectname,
+      assignedresource: assignedresource,
+      status: request.body.status
+    });
+  }
+
+  if (result.error) {
+    console.log('fd' + result.error);
+    response.send(result.error.details[0].context.label);
+  } else {
+
+    if (deadline == 'Block Time') {
+      var starthours = Number(plannedstarttime.match(/^(\d+)/)[1]);
+      var startminutes = Number(plannedstarttime.match(/:(\d+)/)[1]);
+      var endhours = Number(plannedendtime.match(/^(\d+)/)[1]);
+      var endminutes = Number(plannedendtime.match(/:(\d+)/)[1]);
+      console.log('starthours ' + starthours);
+      console.log('startminutes ' + startminutes);
+      console.log('endhours ' + endhours);
+      console.log('endminutes ' + endminutes);
+
+      startTime = (starthours > 11) ? (starthours - 12 + ':' + startminutes + ':00' + ' PM') : (starthours + ':' + startminutes + ':00' + ' AM');
+      endTime = (endhours >= 11) ? (endhours - 12 + ':' + endminutes + ':00' + ' PM') : (endhours + ':' + endminutes + ':00' + ' AM');
+
+      console.log('startTime abc ' + startTime);
+      console.log('endTime xyz' + endTime);
+
+
+    } else if (deadline == 'Deadlines') {
+      var endhours = Number(plannedendtime.match(/^(\d+)/)[1]);
+      var endminutes = Number(plannedendtime.match(/:(\d+)/)[1]);
+      console.log('endhours ' + endhours);
+      console.log('endminutes ' + endminutes);
+      endTime = (endhours > 12) ? (endhours - 12 + ':' + endminutes + ':00' + ' PM') : (endhours + ':' + endminutes + ':00' + ' AM');
+      startTime = plannedstarttime;
+      console.log('startTime ' + startTime);
+      console.log('endTime ' + endTime);
+
+    } else {
+      startTime = plannedstarttime;
+      endTime = plannedendtime;
+    }
+
+    pool
+    // let qry='SELECT Id, Name FROM Milestone1_Milestone__c WHERE Project__c =$1 AND Name =$2,'+[projectname,'Timesheets'];
+    pool.query('SELECT Id,sfid, Name,project__c FROM salesforce.Milestone1_Milestone__c WHERE project__c = $1 AND Name = $2', [projectname, 'Timesheets'])
+      // pool.query('SELECT id,sfid from salesforce.Milestone1_Milestone__c WHERE Name = $1',['Timesheet Category'])
+      .then((milestoneQueryResult) => {
+        console.log('milestoneQueryResult ' + JSON.stringify(milestoneQueryResult.rows))
+        if (milestoneQueryResult.rowCount > 0) {
+          console.log('milestoneQueryResult ' + JSON.stringify(milestoneQueryResult.rows));
+          var timesheetMilestoneId = milestoneQueryResult.rows[0].sfid;
+          console.log('timesheetMilestoneId Inside Milestone : ' + timesheetMilestoneId + ' Name :' + milestoneQueryResult.rows[0].name); /*'a020p000001cObIAAU'*/
+          pool
+            .query('INSERT INTO salesforce.Milestone1_Task__c (Name, project_milestone__c, RecordTypeId, Task_Stage__c, Project_Name__c, Start_Date__c, Assigned_Manager__c,Task_Type__c ,Start_Time__c,End_Time__c,DeadLine_Type__c) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) RETURNING *', [taskname, timesheetMilestoneId, '0122y00000005mMAAQ', status, projectname, taskdate, assignedresource, tasktype, startTime, endTime, deadline])
+            .then((saveTaskResult) => {
+              console.log('saveTaskResult =====>>>>>>>>>>>>  : ' + JSON.stringify(saveTaskResult.rows));
+              //  response.send('savedInserted');
+              //  console.log('inserted Id '+saveTaskResult.rows[0]);
+              response.send('Task saved Successfully');
+            })
+            .catch((saveTaskError) => {
+              console.log('saveTaskError  ' + saveTaskError.stack);
+              console.log('saveTaskError._hc_err  : ' + saveTaskError._hc_err.msg);
+              response.send('Error Occured');
+            })
+
+        }
+
+      })
+      .catch((milestoneQueryError) => {
+        console.log('milestoneQueryError ' + milestoneQueryError.stack);
       })
 
- result=schema.validate({taskname:taskname,task:taskname,taskn:taskname,type:tasktype,projectname:projectname,status:request.body.status,assignedresource:assignedresource});
-}
-
-else if(deadline == 'Select')
-{
-  console.log('select');
-  schema=joi.object({
-    taskname:joi.string().min(3).required().label('Please enter Task Description!'),
-    task:joi.string().invalid(' ').required().label('Please enter Task Description!'),
-    taskn:joi.string().min(1).max(80).required().label(' Task Description too long.'),
-    projectname:joi.string().required().label('Please select Project !'),
-    type:joi.string().required().label('Please select Task Type !'),
-    status:joi.string().invalid('None').required().label('Please choose Status'),
-    assignedresource:joi.string().invalid('None').required().label('Please Assign Resource!'),
-
-    deadline:joi.string().invalid('Select').required().label('Please select Deadline Type!'),
-
-  })
-  result=schema.validate({deadline:deadline,taskname:taskname,task:taskname,taskn:taskname,type:tasktype,projectname:projectname,status:request.body.status,assignedresource:assignedresource});
-
- // result=schema.validate({deadline:deadline});
-}
-else if(deadline == 'Deadlines')
-{
-  console.log('Deadlines');
-  schema=joi.object({
-    taskname:joi.string().min(3).required().label('Please enter Task Description!'),
-    task:joi.string().min(3).required().label('Please enter Task Description!'),
-    taskn:joi.string().min(1).max(80).required().label(' Task Description too long.'),
-    projectname:joi.string().required().label('Please select Project !'),
-    type:joi.string().required().label('Please select Task Type !'),
-    assignedresource:joi.string().invalid('None').required().label('Please Assign Resource!'),
-    status:joi.string().invalid('None').required().label('Please choose Status'),
-    plannedendtime:joi.string().regex(/^([0-9]{2})\:([0-9]{2})$/).required().label('Please fill Planned End Time !'),
-
-  })
-
-  result=schema.validate({taskname:taskname,task:taskname,taskn:taskname,type:tasktype,projectname:projectname,assignedresource:assignedresource,status:request.body.status,plannedendtime:plannedendtime});
-}
-
-else if(deadline == 'Block Time')
-{
-  schema=joi.object({
-    taskname:joi.string().min(3).required().label('Please enter Task Description!'),
-    task:joi.string().min(3).required().label('Please enter Task Description!'),
-    taskn:joi.string().min(1).max(80).required().label(' Task Description too long.'),
-    projectname:joi.string().required().label('Please select Project !'),
-    type:joi.string().required().label('Please select Task Type !'),
-    assignedresource:joi.string().invalid('None').required().label('Please Assign Resource!'),
-    status:joi.string().invalid('None').required().label('Please choose Status'),
-  
-    //plannedstarttime:joi.string().regex(/^([0-9]{2})\:([0-9]{2})$/).required().label('Please fill Planned Start Time !'),
-   // plannedendtime:joi.string().regex(/^([0-9]{2})\:([0-9]{2})$/).required().label('Please fill Planned End Time !'),
-   //plantime:joi.string().required().less(joi.ref('plannedendtime')).label('Planned Start time should be less than Planned End time. !'),
-  })
-
-  result=schema.validate({taskname:taskname,task:taskname,taskn:taskname,type:tasktype,projectname:projectname,assignedresource:assignedresource,status:request.body.status});
-}
-
-if(result.error){
-  console.log('fd'+result.error);
-  response.send(result.error.details[0].context.label);    
-}
-else{
-
- if(deadline == 'Block Time')
- {
-  var starthours = Number(plannedstarttime.match(/^(\d+)/)[1]);
-  var startminutes = Number(plannedstarttime.match(/:(\d+)/)[1]);
-  var endhours = Number(plannedendtime.match(/^(\d+)/)[1]);
-  var endminutes = Number(plannedendtime.match(/:(\d+)/)[1]);
-  console.log('starthours '+starthours);
-  console.log('startminutes '+startminutes);
-  console.log('endhours '+endhours);
-  console.log('endminutes '+endminutes);
-   
-startTime = (starthours > 11) ? (starthours-12 + ':' + startminutes + ':00'+' PM') : (starthours + ':' + startminutes + ':00' +' AM');
-endTime = (endhours >= 11) ? (endhours-12 + ':' + endminutes + ':00'+' PM') : (endhours + ':' + endminutes + ':00'+' AM');
-
-console.log('startTime abc '+startTime);
-console.log('endTime xyz'+endTime);
-
-
- }
-else if(deadline == 'Deadlines')
- {
-  var endhours = Number(plannedendtime.match(/^(\d+)/)[1]);
-  var endminutes = Number(plannedendtime.match(/:(\d+)/)[1]);
-  console.log('endhours '+endhours);
-  console.log('endminutes '+endminutes);
-  endTime = (endhours > 12) ? (endhours-12 + ':' + endminutes + ':00'+' PM') : (endhours + ':' + endminutes + ':00'+' AM');
-  startTime = plannedstarttime;
-  console.log('startTime '+startTime);
-  console.log('endTime '+endTime);
-
- }
- else
- {
-startTime = plannedstarttime;
-endTime = plannedendtime;
- }
-
-  pool
-// let qry='SELECT Id, Name FROM Milestone1_Milestone__c WHERE Project__c =$1 AND Name =$2,'+[projectname,'Timesheets'];
-pool.query('SELECT Id,sfid, Name,project__c FROM salesforce.Milestone1_Milestone__c WHERE project__c = $1 AND Name = $2',[projectname, 'Timesheets'])
-// pool.query('SELECT id,sfid from salesforce.Milestone1_Milestone__c WHERE Name = $1',['Timesheet Category'])
-.then((milestoneQueryResult) => {
-  console.log('milestoneQueryResult '+JSON.stringify(milestoneQueryResult.rows))
-    if(milestoneQueryResult.rowCount > 0)
-    {
-        console.log('milestoneQueryResult '+JSON.stringify(milestoneQueryResult.rows));
-        var timesheetMilestoneId =  milestoneQueryResult.rows[0].sfid;
-        console.log('timesheetMilestoneId Inside Milestone : '+timesheetMilestoneId +' Name :'+milestoneQueryResult.rows[0].name);   /*'a020p000001cObIAAU'*/
-          pool
-            .query('INSERT INTO salesforce.Milestone1_Task__c (Name, project_milestone__c, RecordTypeId, Task_Stage__c, Project_Name__c, Start_Date__c, Assigned_Manager__c,Task_Type__c ,Start_Time__c,End_Time__c,DeadLine_Type__c) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) RETURNING *',[taskname,timesheetMilestoneId ,'0122y00000005mMAAQ',status,projectname,taskdate,assignedresource,tasktype,startTime,endTime,deadline])
-            .then((saveTaskResult) => {
-                    console.log('saveTaskResult =====>>>>>>>>>>>>  : '+JSON.stringify(saveTaskResult.rows));
-    //  response.send('savedInserted');
-  //  console.log('inserted Id '+saveTaskResult.rows[0]);
-               response.send('Task saved Successfully');
-                })
-                  .catch((saveTaskError) => {
-                   console.log('saveTaskError  '+saveTaskError.stack);
-                    console.log('saveTaskError._hc_err  : '+saveTaskError._hc_err.msg);
-                     response.send('Error Occured');
-                }) 
-
-      }
-
-})
-.catch((milestoneQueryError) => {
-    console.log('milestoneQueryError '+milestoneQueryError.stack);
-})
-
-}
+  }
 
 });
 
