@@ -620,7 +620,10 @@
                 {
                     console.log('calEvent.start '+calEvent.start);
                     $('.datepic').val(selectedDate);
-                
+                    $('.dynamicRow').each(function(){
+                        if(this.id !== 'formRowTask1')
+                            this.remove();
+                    });
                     if(seletedDate.getTime() < currentDate.getTime())
                     {
                         $('.plannedstarttimeTask').prop("disabled",true);
