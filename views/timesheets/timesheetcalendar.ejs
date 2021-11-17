@@ -359,6 +359,7 @@
             var values = $(this).serialize();
             console.log('values   ' + values);
             let aryData = $(this).serializeArray();
+            let i = {a:0,b:0,c:0,d:0,e:0};
             $('.deadline').each(function(){
 
                 var deadlin = this.value;//$('#deadline option:selected').val();
@@ -373,12 +374,14 @@
                         var startDate = $('#plannedstarttimeTask'+index).val();
                         console.log('plandatejhjbkjbjk ' + startDate);
                         if (startDate == '') {
+                            i.a++;
                             alert('Error: Please Fill Planned Start Time');
                             return ;
                         }
                         var endDate = $('#plannedendtimeTask'+index).val();
                         console.log('plandatejhjbkjbjk ' + endDate);
                         if (endDate == '') {
+                            i.b++;
                             alert('Error: Please Fill Planned End  Time');
                             return;
                         }
@@ -398,14 +401,17 @@
                             //  console.log('endAMPM '+endAMPM);
 
                             if (startDate > endDate) {
+                                i.c++;
                                 alert('Error: Planned Start time should be less than Planned End time. !')
                                 return ;
                             }
 
                             if (starthours > endhours) {
+                                i.d++;
                                 alert('Error: Planned Start time should be less than Planned End time. !')
                             return;
                             } else if ((starthours == endhours) && (startminutes > endminutes)) {
+                                i.e++;
                                 alert('Error: Planned Start time should be less than Planned End time. !')
                                 return ;
                             }
@@ -413,6 +419,7 @@
                 }}
             });
            
+           if(i.a == 0 && i.b == 0 && i.c == 0 && i.d == 0 && i.e == 0){
                 $("#submitbutton").attr("disabled", true);
                 $.ajax({
                         url: "/timesheets/createtask",
@@ -460,8 +467,14 @@
                         //   window.location.reload()
                     });
             
+            }
+            else{
+                console.log('not run');
+            }
+            
 
-            /*else {
+        })
+/*else {
                         $("#submitbutton").attr("disabled", true);
                         $.ajax({
                                 url: "/timesheets/createtask",
@@ -512,8 +525,6 @@
                                 //  window.location.reload()
                             });
             }*/
-
-})
         /*Timesheet Form post method */
         $('#fillActualsForm').submit(function(e){
         e.preventDefault();
