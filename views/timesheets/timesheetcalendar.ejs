@@ -81,6 +81,9 @@
   .fc-toolbar .fc-center {
     display: none;
 }
+.table td, .table th{
+    white-space: nowrap !important;
+}
 
 </style>
 
@@ -1234,102 +1237,52 @@ function handleChange(e){
 <div class="modal-dialog modal-lg" role="document">
   <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title" id="fillActualsModals">Fill Actuals</h5>
+      <h5 class="modal-title" id="fillActualsModals">Project Tasks Detail</h5>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div class="modal-body">
+    <div class="modal-body" style=" overflow: auto;" >
       <div class="">
         <div id="errorMessagesss"></div>
-      <form id="fillActualsForm" class="needs-validation" novalidate>
-        <div class="form-group">  
-          <div class="row">
-            <div class="col-md-6">
-              <label for="validationTooltip01">Project Name <span style="color: red;">*</span></label>
-              <select class="custom-select custom-select-sm form-control" name="projectName" id="projectName">
-                    <option selected>None</option>
-                    <% if(projectList.length != 0) { %>
-                        <% projectList.forEach((eachProject) => { %>
-                        <option value="<%= eachProject.sfid %>" ><%= eachProject.name %></option>
-                        <% }) %>
-                    <% } %>
-             </select>
-            </div>
-           
-            <div class="col-md-6">
-            <label for="validationTooltip04">Date Incurred</label>
-            <input type="text" class="form-control datepic" class="dateIncurred" id="dateIncurred" readonly name="dateIncurred" required>
-             
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group"> 
-          <div class="row">
-          <div class="col-md-6">
-            <label for="selectedTask">Task Description <span style="color: red;">*</span></label>
-            <select class="custom-select custom-select-sm form-control" name="selectedTask" id="selectedTask" > 
-                    <option value="None" selected>None</option>
-           </select>
-          </div>
-          <div class="col-md-6">
-            <label for="validationTooltipUsername">Status <span style="color: red;">*</span></label>
-             <select class="custom-select custom-select-sm form-control" name="statusTimesheet">
-                  <option selected>None</option>
-                  <option value="Started">Started</option>
-                  <option value="On Hold">On Hold</option>
-                  <option value="Completed">Completed</option>
-             </select>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ADD MULTIPLE TIMESHEETS</th>
+                            <th> <input type="checkbox" id="Allcheckbox" /> </th>
+                            <th scope="col">PROJECT NAME</th>
+                            <th scope="col">TASK NAME</th>
+                            <th scope="col">TASK DATE</th>
+                            <th scope="col">STATUS  </th>
+                            <th scope="col">FUNCTION</th>
+                            <th scope="col">TASK TYPE</th>
+                            <th scope="col">PLANNED START TIME</th>
+                            <th scope="col">PLANNED END TIME</th>
+                            <th scope="col">DESCRIPTION</th>
+                            <th scope="col">ACTUAL START TIME</th>
+                            <th scope="col">ACTUAL END TIME</th>
+                            <th scope="col">PLANNED HOURS  </th>
+                            <th scope="col">ACTUAL HOURS  </th>
+                            <th scope="col">ASSIGNED TO HEROKU USER  </th>
+                            <th scope="col">ASSIGNED TO SALESFORCE USER  </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td scope="row"><button type="button" class="btn btn-primary">Add Timesheets</button></td>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+               
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" id="submitbuttonnn">Save</button>
+               </div>
             
-          </div>
-        </div>
-        </div>
-
-
-        <div class="form-group">
-          <div class="row">
-            <div class="col-md-6">
-              <label for="validationTooltip02">Actual Start Time <span style="color: red;">*</span></label>
-              <input type="time" class="form-control" id="startTime" placeholder="Last name" value="Otto" name="plannedStartTimeTimesheet" required>
-            </div>
-            
-            <div class="col-md-6">
-              <label for="validationTooltip02">Actual End Time <span style="color: red;">*</span></label>
-              <input type="time" class="form-control" id="endTime" placeholder="Last name" value="Otto" name="plannedEndTimeTimesheet" required>
-            </div>
-          </div>  
-        </div>
-        
-        <div class="form-group">
-          <div class="row">
-            <div class="col-md-6">
-                  <label for="validationTooltip02">Description <span style="color: red;">*</span></label>
-                  <textarea class="form-control" id="descriptionTimesheet" rows="3" autocomplete="off" name="descriptionTimesheet"></textarea>
-            </div>
-
-            <div class="col-md-6">
-                <label >Representative</label>
-                <select class="custom-select custom-select-sm form-control" name="representative">
-                  <option value="<%= objUser.sfid %>" ><%= objUser.name %></option>
-                  <!--   <% if(contactList.length != 0) { %>
-                     <% contactList.forEach((eachContact) => { %>
-                     <option value="<%= eachContact.sfid %>" ><%= eachContact.name %></option>
-                     <% }) %>
-                    <% } %> -->
-                 </select>
-            </div>
-
-           
-          </div>  
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" id="submitbuttonnn">Save</button>
-        </div>
-
-      </form>
       </div>
     </div>
     
