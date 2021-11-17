@@ -83,7 +83,10 @@
 }
 .table td, .table th{
     white-space: nowrap !important;
+    text-align: center;
+    vertical-align: middle;
 }
+
 
 </style>
 
@@ -1242,9 +1245,10 @@ function handleChange(e){
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div class="modal-body" style=" overflow: auto;" >
+    <div class="modal-body"  >
       <div class="">
         <div id="errorMessagesss"></div>
+            <div style=" overflow: auto;">
                 <table class="table">
                     <thead>
                         <tr>
@@ -1275,7 +1279,7 @@ function handleChange(e){
                             <td>Test-Test</td>
                             <td> 2021-11-18 </td>
                             <td>
-                                <select class="custom-select" style="width:auto;" >  
+                                <select class="form-control" style="width:auto;" >  
                                     <option value="" > None </option>
                                     <option value="Started" > Started </option>
                                     <option value="Hold" > On Hold </option>
@@ -1287,9 +1291,9 @@ function handleChange(e){
                             <td> Review of Grants agreements & budget approval</td>
                             <td>Test</td>
                             <td>Test-Test</td>
-                            <td> <textarea  > </textarea> </td>
-                            <td><input  type="date" /></td>
-                            <td><input  type="date" /></td>
+                            <td> <textarea class="form-control" > </textarea> </td>
+                            <td><input class="form-control" type="time" /></td>
+                            <td><input class="form-control" type="time" /></td>
                             <td> 0 </td>
                             <td>0</td>
                             <td></td>
@@ -1298,6 +1302,7 @@ function handleChange(e){
                         
                     </tbody>
                 </table>
+            </div>
                
                <div class="modal-footer">
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
