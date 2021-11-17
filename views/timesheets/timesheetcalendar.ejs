@@ -362,53 +362,55 @@
             $('.deadline').each(function(){
 
                 var deadlin = this.value;//$('#deadline option:selected').val();
-                var index = this.id.replace('deadline');
-                if(!index){
-                    index = '';
-                }
-                console.log('deadline ++++  ' + deadlin,index);
-                if (deadlin == 'Block Time') {
-                    var startDate = $('#plannedstarttimeTask'+index).val();
-                    console.log('plandatejhjbkjbjk ' + startDate);
-                    if (startDate == '') {
-                        alert('Error: Please Fill Planned Start Time');
-                        return ;
+                if(!deadlin.includes('{data}')){
+                    var index = this.id.replace('deadline');
+                    if(index == 'undefined' || index == '' || index == undefined || index == null){
+                        index = '';
                     }
-                    var endDate = $('#plannedendtimeTask'+index).val();
-                    console.log('plandatejhjbkjbjk ' + endDate);
-                    if (endDate == '') {
-                        alert('Error: Please Fill Planned End  Time');
-                        return;
-                    }
-                    if (endDate != '' && startDate != '') {
-                        var starthours = Number(startDate.match(/^(\d+)/)[1]);
-                        var startminutes = Number(startDate.match(/:(\d+)/)[1]);
-                        //  var startAMPM = startDate.match(/\s(.*)$/)[1];
-                        var endhours = Number(endDate.match(/^(\d+)/)[1]);
-                        var endminutes = Number(endDate.match(/:(\d+)/)[1]);
-                        // var endAMPM = endDate.match(/\s(.*)$/)[1];
-                        //  var AMPM = startDate.match(/\s(.*)$/)[1];
-                        console.log('starthours ' + starthours);
-                        console.log('startminutes ' + startminutes);
-                        //     console.log('startAMPM '+startAMPM);
-                        console.log('endhours ' + endhours);
-                        console.log('endminutes ' + endminutes);
-                        //  console.log('endAMPM '+endAMPM);
 
-                        if (startDate > endDate) {
-                            alert('Error: Planned Start time should be less than Planned End time. !')
+                    console.log('deadline ++++  ' + deadlin,index);
+                    if (deadlin == 'Block Time') {
+                        var startDate = $('#plannedstarttimeTask'+index).val();
+                        console.log('plandatejhjbkjbjk ' + startDate);
+                        if (startDate == '') {
+                            alert('Error: Please Fill Planned Start Time');
                             return ;
                         }
-
-                        if (starthours > endhours) {
-                            alert('Error: Planned Start time should be less than Planned End time. !')
-                        return;
-                        } else if ((starthours == endhours) && (startminutes > endminutes)) {
-                            alert('Error: Planned Start time should be less than Planned End time. !')
-                            return ;
+                        var endDate = $('#plannedendtimeTask'+index).val();
+                        console.log('plandatejhjbkjbjk ' + endDate);
+                        if (endDate == '') {
+                            alert('Error: Please Fill Planned End  Time');
+                            return;
                         }
+                        if (endDate != '' && startDate != '') {
+                            var starthours = Number(startDate.match(/^(\d+)/)[1]);
+                            var startminutes = Number(startDate.match(/:(\d+)/)[1]);
+                            //  var startAMPM = startDate.match(/\s(.*)$/)[1];
+                            var endhours = Number(endDate.match(/^(\d+)/)[1]);
+                            var endminutes = Number(endDate.match(/:(\d+)/)[1]);
+                            // var endAMPM = endDate.match(/\s(.*)$/)[1];
+                            //  var AMPM = startDate.match(/\s(.*)$/)[1];
+                            console.log('starthours ' + starthours);
+                            console.log('startminutes ' + startminutes);
+                            //     console.log('startAMPM '+startAMPM);
+                            console.log('endhours ' + endhours);
+                            console.log('endminutes ' + endminutes);
+                            //  console.log('endAMPM '+endAMPM);
+
+                            if (startDate > endDate) {
+                                alert('Error: Planned Start time should be less than Planned End time. !')
+                                return ;
+                            }
+
+                            if (starthours > endhours) {
+                                alert('Error: Planned Start time should be less than Planned End time. !')
+                            return;
+                            } else if ((starthours == endhours) && (startminutes > endminutes)) {
+                                alert('Error: Planned Start time should be less than Planned End time. !')
+                                return ;
+                            }
                     }
-                }
+                }}
             });
            
                 $("#submitbutton").attr("disabled", true);
@@ -715,8 +717,6 @@
 
                         }
                       
-                
-                   //   })
                     }
                     else{
                       alert('The timesheet tasks are locked. You cannot create task before 7 days from today date. !');
