@@ -645,6 +645,7 @@
             
                 if(calEvent.title == 'Create Task')
                 {
+                     selectedView = $('#Selectview').val();
                     console.log('calEvent.start '+calEvent.start);
                     $('.datepic').val(selectedDate);
                     $('.dynamicRow').each(function(){
