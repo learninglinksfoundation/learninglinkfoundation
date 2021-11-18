@@ -695,6 +695,7 @@
                         if(selectedView == 'currentuser')
                         {
                           $('.assignedresource').attr("readonly","readonly");
+                          $('.assignedresource option:not(:first)').remove();
                           $('.assignedresource')
                           .append($("<option></option>")
                           .attr("value",objUserId)
@@ -709,6 +710,8 @@
                           $('.assignedresource').attr("readonly",false);
                           $('.assignedresource').attr("disabled", true); 
                           $('.assignedresource').val('');
+                          $('.assignedresource option:not(:first)').remove();
+                          
                           /* $.ajax({
                             url : '/users/getContact',
                             data : {
@@ -1150,17 +1153,8 @@ function handleChange(e){
             index = '';
         console.log(value,index);
         let selectedView = $('#Selectview').val();
-        if(selectedView == 'currentuser')
-        {
-              $('#assignedresource'+index).attr("readonly","readonly");
-              $('#assignedresource'+index)
-              .append($("<option></option>")
-              .attr("value",objUserId)
-              .text(objUserName)) 
-              $('#assignedresource'+index).val(objUserId); 
-              $('#assignedresource'+index).attr("disabled", true);                       
-        }
-
+        
+//heroku logs -t --app learninglinksfoundation-test
         if(selectedView == 'teamview')
         {
               console.log('hii i m inside team view');
@@ -1179,6 +1173,7 @@ function handleChange(e){
                         console.log('response  ',response);
                         if(response.length > 0)
                             {
+                            $('#assignedresource' +index+' option:not(:first)').remove();
                             response.forEach((eachContact) => {
                             console.log('eachContact.name '+eachContact);
                             $('#assignedresource'+index)

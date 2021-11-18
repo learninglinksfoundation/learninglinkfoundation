@@ -280,7 +280,7 @@ router.get('/getuser',verify, (request, response) => {
 
 router.get('/getContact',verify, (request, response) => {
 
-  console.log('request.user '+JSON.stringify(request.user),request.query,request.params);
+  console.log('request.user '+JSON.stringify(request.user),request.query);
  /* pool
   .query('SELECT sfid, Name FROM salesforce.Contact')
   .then((contactQueryResult) => {
