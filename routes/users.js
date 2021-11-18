@@ -280,10 +280,8 @@ router.get('/getuser',verify, (request, response) => {
 
 router.get('/getContact',verify, (request, response) => {
 
-  console.log(req.query);
-
-  response.send('Hello ');
-  /*pool
+  console.log('request.user '+JSON.stringify(request.user));
+  pool
   .query('SELECT sfid, Name FROM salesforce.Contact')
   .then((contactQueryResult) => {
     console.log('contactQueryResult  : '+JSON.stringify(contactQueryResult.rows));
@@ -293,7 +291,7 @@ router.get('/getContact',verify, (request, response) => {
   .catch((contactQueryError) => {
     console.error('Error executing contact query', contactQueryError.stack);
     response.send(403);
-});*/
+});
 
 });
 
