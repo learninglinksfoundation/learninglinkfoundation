@@ -299,10 +299,21 @@ router.get('/getContact',verify, (request, response) => {
 router.get('/getProjectMemeber',verify, (request, response) => {
 
   console.log('request.user '+JSON.stringify(request.user),request.query);
+  let id = request.query.projectId;
   pool
-  .query('SELECT sfid, Name FROM salesforce.Contact')
+  .query(`SELECT Name, sfid,  Team__c FROM salesforce.Project_Team__c where Project__c = '${id}'`)
   .then((contactQueryResult) => {
     console.log('contactQueryResult  : '+JSON.stringify(contactQueryResult.rows));
+    let teamList = [];
+    contactQueryResult.rows.forEach(dt=>{
+        teamList.push(dt.Team__c);
+    });
+    console.log(teamList);
+    console.log(`SELECT Team__c, Representative__c, Id, Name FROM salesforce.Team_Member__c WHERE Team__c IN ('${teamList.join(',')}') ORDER BY Name`);
+    pool.query(`SELECT Team__c, Representative__c, Id, Name FROM salesforce.Team_Member__c WHERE Team__c IN ('${teamList.join(',')}') ORDER BY Name`)
+      .then(data=>{
+        console.log(data.rows);
+      });
       response.send(contactQueryResult.rows);
     
   })
