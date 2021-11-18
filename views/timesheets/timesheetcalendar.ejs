@@ -1157,37 +1157,35 @@ function handleChange(e){
 //heroku logs -t --app learninglinksfoundation-test
         if(selectedView == 'teamview')
         {
-              console.log('hii i m inside team view');
-              $('#assignedresource'+index).attr("readonly",false);
-              $('#assignedresource'+index).attr("disabled", false); 
-              $('#assignedresource'+index).val(''); 
-              $.ajax({
-                            url : '/users/getProjectMemeber',
-                            data : {
-                              projectId : value
-                            },
-                            dataType : 'json',
-                            type : 'get'
-                        })
-                    .done((response) => {
-                        console.log('response  ',response);
-                        if(response.length > 0)
-                            {
-                            $('#assignedresource' +index+' option:not(:first)').remove();
-                            response.forEach((eachContact) => {
-                            console.log('eachContact.name '+eachContact);
-                            $('#assignedresource'+index)
-                            .append($("<option></option>")
-                            .attr("value",eachContact.sfid)
-                            .text(eachContact.name))
-                            }); 
-                            }
-                    })
-                    .fail((jqXHR,text,err) => {
-                        console.log('text  '+text + '  err '+err);
-                        console.log('jqXHR '+JSON.stringify(jqXHR));
+          console.log('hii i m inside team view');
+          $('#assignedresource'+index).attr("readonly",false);
+          $('#assignedresource'+index).attr("disabled", false); 
+          $('#assignedresource'+index).val(''); 
+          $.ajax({
+                url : '/users/getProjectMemeber',
+                data : {
+                  projectId : value
+                },
+                dataType : 'json',
+                type : 'get'
+           })
+            .done((response) => {
+                console.log('response  ',response);
+                    $('#assignedresource' +index+' option:not(:first)').remove();
+                    response.forEach((eachContact) => {
+                    console.log('eachContact.name '+eachContact);
+                    $('#assignedresource'+index)
+                    .append($("<option></option>")
+                    .attr("value",eachContact.sfid)
+                    .text(eachContact.name))
+                    }); 
+                    
+            })
+            .fail((jqXHR,text,err) => {
+                console.log('text  '+text + '  err '+err);
+                console.log('jqXHR '+JSON.stringify(jqXHR));
 
-                    }) 
+            }) 
 
 
         }
@@ -1204,7 +1202,7 @@ function handleChange(e){
         var dummyRecord = document.getElementById('dummyRecord').cloneNode(true);
         var insideData = $('#taskformRow');
         insideData.append(`<div class="dynamicRow" id="formRowTask${ele.length + 1}">` + dummyRecord.innerHTML.replaceAll('{data}',ele.length + 1) + '</div>'); 
-         handleProject(ele.length + 1);
+         
         $('.datepic').val(datePic);
         bindEvent();
     });
@@ -1526,7 +1524,7 @@ function handleTimeSheet(event){
                   <div class="row">
                   <div class="col-md-6">
                     <label for="validationTooltip03">Project <span style="color: red;">*</span></label>
-                    <select class="custom-select custom-select-sm form-control" name="projectname{data}">
+                    <select class="custom-select custom-select-sm form-control" onchange="handleProject(event)" name="projectname{data}">
                       <option value="" >None</option>
                       <% if(projectList.length != 0) { %>
                        <% projectList.forEach((eachProject) => { %>
