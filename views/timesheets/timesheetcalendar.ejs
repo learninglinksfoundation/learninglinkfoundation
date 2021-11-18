@@ -699,13 +699,15 @@
                           .append($("<option></option>")
                           .attr("value",objUserId)
                           .text(objUserName)) 
-                          $('.assignedresource').val(objUserId);                       
+                          $('.assignedresource').val(objUserId); 
+                          $('.assignedresource').attr("disabled", true);                       
                         }
 
                         if(selectedView == 'teamview')
                         {
                           console.log('hii i m inside team view');
                           $('.assignedresource').attr("readonly",false);
+                          $('.assignedresource').attr("disabled", false); 
                           $.ajax({
                         url : '/users/getContact',
                         data : {
