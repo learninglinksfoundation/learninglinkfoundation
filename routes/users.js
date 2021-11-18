@@ -306,15 +306,16 @@ router.get('/getProjectMemeber',verify, (request, response) => {
     console.log('contactQueryResult  : '+JSON.stringify(contactQueryResult.rows));
     let teamList = [];
     contactQueryResult.rows.forEach(dt=>{
-        teamList.push(dt.Team__c);
+        teamList.push(dt.team__c);
     });
     console.log(teamList);
-    console.log(`SELECT Team__c, Representative__c, Id, Name FROM salesforce.Team_Member__c WHERE Team__c IN ('${teamList.join(',')}') ORDER BY Name`);
-    pool.query(`SELECT Team__c, Representative__c, Id, Name FROM salesforce.Team_Member__c WHERE Team__c IN ('${teamList.join(',')}') ORDER BY Name`)
+    console.log(`SELECT Team__c, Representative__c, sfId, Name FROM salesforce.Team_Member__c WHERE Team__c IN ('${teamList.join(',')}') ORDER BY Name`);
+    pool.query(`SELECT Team__c, Representative__c,Representative__r.Name sfId, Name FROM salesforce.Team_Member__c WHERE Team__c IN ('${teamList.join(',')}') ORDER BY Name`)
       .then(data=>{
         console.log(data.rows);
+        response.send(data.rows);
       });
-      response.send(contactQueryResult.rows);
+      
     
   })
   .catch((contactQueryError) => {
