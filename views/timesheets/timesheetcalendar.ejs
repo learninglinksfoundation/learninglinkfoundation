@@ -1199,8 +1199,7 @@ function handleChange(e){
         var ele = document.getElementsByClassName('dynamicRow');
         var dummyRecord = document.getElementById('dummyRecord').cloneNode(true);
         var insideData = $('#taskformRow');
-        insideData.append(`<div class="dynamicRow" id="formRowTask${ele.length + 1}">` + dummyRecord.innerHTML.replaceAll('{data}',ele.length + 1).replaceAll('{class}','') + '</div>'); 
-         
+        insideData.append(`<div class="dynamicRow" id="formRowTask${ele.length + 1}">` + dummyRecord.innerHTML.replaceAll('{data}',ele.length + 1) + '</div>'); 
         $('.datepic').val(datePic);
         bindEvent();
     });
@@ -1478,7 +1477,7 @@ function handleTimeSheet(event){
 
 <div style="display:none;opacity:0" >
 <div id="dummyRecord" class="dummyRecord">
-                <i class="fa fa-trash recordD{class}" data-label="{data}" style="float: right; color: white; background: #116288; padding: 9px; border-radius: 5px;font-size: 14px; cursor: pointer;"></i>
+                <i class="fa fa-trash recordD" data-label="{data}" style="float: right; color: white; background: #116288; padding: 9px; border-radius: 5px;font-size: 14px; cursor: pointer;"></i>
                 <div  style="font-weight: bold;margin: 30px 0;font-family: system-ui;">New Task {data}</div>
                 <div class="form-group">  
                   <div class="row">
@@ -1533,7 +1532,7 @@ function handleTimeSheet(event){
                   </div>
                   <div class="col-md-6">
                     <label for="validationTooltip04">Task Date</label>
-                    <input type="text" class="form-control datepic{class} datePicker{class}"   id="datePicker{data}" required readonly name="taskdate{data}">
+                    <input type="text" class="form-control datepic datePicker"   id="datePicker{data}" required readonly name="taskdate{data}">
                     
                   </div>
                 </div>
@@ -1543,7 +1542,7 @@ function handleTimeSheet(event){
                   <div class="row">
                     <div class="col-md-6">
                       <label for="validationTooltip02">Assign to Heroku user <span style="color: red;">*</span></label>
-                      <select class="custom-select custom-select-sm form-control assignedresource{class}" name="assignedresource{data}" id="assignedresource{data}">
+                      <select class="custom-select custom-select-sm form-control assignedresource" name="assignedresource{data}" id="assignedresource{data}">
                         <option value="">None</option>
                        </select>
 
@@ -1566,12 +1565,12 @@ function handleTimeSheet(event){
                   <div class="row">
                     <div class="col-md-6">
                       <label for="validationTooltip02">Planned Start Time</label>
-                      <input type="time" class="form-control plannedstarttimeTask{class}" id="plannedstarttimeTask{data}" name="plannedstarttime{data}" required>
+                      <input type="time" class="form-control plannedstarttimeTask" id="plannedstarttimeTask{data}" name="plannedstarttime{data}" required>
                     </div>
                     
                     <div class="col-md-6">
                       <label for="validationTooltip02">Planned End Time</label>
-                      <input type="time" class="form-control plannedendtimeTask{class}" id="plannedendtimeTask{data}" name="plannedendtime{data}" required>
+                      <input type="time" class="form-control plannedendtimeTask" id="plannedendtimeTask{data}" name="plannedendtime{data}" required>
                     </div>
                   </div>  
                 </div>
@@ -1580,7 +1579,7 @@ function handleTimeSheet(event){
                   <div class="row">
                     <div class="col-md-6">
                       <label for="validationTooltipUsername">Deadline Type</label>
-                      <select class="custom-select custom-select-sm form-control deadline{class}" id="deadline{data}" name="deadline{data}" >
+                      <select class="custom-select custom-select-sm form-control deadline" id="deadline{data}" name="deadline{data}" >
                         <option selected>Select</option>
                         <option value="Deadlines">Deadlines</option>
                         <option value="Block Time">Block Time</option>
