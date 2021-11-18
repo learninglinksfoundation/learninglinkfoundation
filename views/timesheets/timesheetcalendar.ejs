@@ -718,17 +718,17 @@
                         type : 'get'
                     })
                     .done((response) => {
-                        console.log('response  '+JSON.stringify(response));
-                        if(response.length > 0)
+                        console.log('response  ',response);
+                        /*if(response.length > 0)
                             {
                             response.forEach((eachContact) => {
-                            console.log('eachContact.name '+eachContact.name);
+                            console.log('eachContact.name '+eachContact);
                             $('.assignedresource')
                             .append($("<option></option>")
                             .attr("value",eachContact.sfid)
                             .text(eachContact.name))
                             }); 
-                            }
+                            }*/
                     })
                     .fail((jqXHR,text,err) => {
                         console.log('text  '+text + '  err '+err);
