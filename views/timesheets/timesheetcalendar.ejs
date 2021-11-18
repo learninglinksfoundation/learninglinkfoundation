@@ -1033,7 +1033,7 @@ function handleChange(e){
                           <option value="Operations">Operations</option>
                           <option value="Project">Project</option>
                           <option value="Self_Management">Self Management</option>
-                          <option value="Beneficiary">Project - Beneficiary Engagement</option>
+                          <option value="Beneficiary">Beneficiary Engagement</option>
                           <option value="Internal">Internal - LLF</option>
                       </select>
                     </div>
@@ -1229,9 +1229,15 @@ function handleChange(e){
         bindEvent();
 
     });
-
-
 }
+
+
+function handleTimeSheet(event){
+    let dt = event.target.dataset.label;
+    console.log(dt);
+    $('.taskModal').modal("show");
+}
+
 </script>
 
 
@@ -1273,7 +1279,7 @@ function handleChange(e){
                     </thead>
                     <tbody>
                         <tr>
-                            <td scope="row"><button type="button" class="btn btn-primary">Add Timesheets</button></td>
+                            <td scope="row"><button type="button" onclick="handleTimeSheet(event)" data-label="1" class="btn btn-primary">Add Timesheets</button></td>
                             <td> <input style="height: 14px; width: 14px;" type="checkbox" id="Allcheckbox" />   </td>
                             <td>Test</td>
                             <td>Test-Test</td>
@@ -1317,27 +1323,104 @@ function handleChange(e){
 </div>
 
 
+ <! Task Modal -->
+
+<div id="taskModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <center><h5 class="modal-title" id="taskModalHead">Fill Timesheet</h5></center> 
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="overflow-y: auto;">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="validationTooltip01">Project<span style="color: red;">*</span></label>
+                        <input type="text" id="project1" readonly required />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="validationTooltip04">Date Incurred</label>
+                        <input type="text" class="form-control datepic" class="dateIncurred" id="dateIncurred" readonly name="dateIncurred" required> </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="selectedTask">Task Name <span style="color: red;">*</span></label>
+                        <input type="text" id="task1" readonly required />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="validationTooltipUsername">Status <span style="color: red;">*</span></label>
+                        <select class="custom-select custom-select-sm form-control" name="statusTimesheet">
+                            <option selected>None</option>
+                            <option value="Started">Started</option>
+                            <option value="On Hold">On Hold</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="validationTooltip02">Actual Start Time <span style="color: red;">*</span></label>
+                        <input type="time" class="form-control" id="startTime" placeholder="Last name" value="Otto" name="plannedStartTimeTimesheet" required> </div>
+                    <div class="col-md-6">
+                        <label for="validationTooltip02">Actual End Time <span style="color: red;">*</span></label>
+                        <input type="time" class="form-control" id="endTime" placeholder="Last name" value="Otto" name="plannedEndTimeTimesheet" required> </div>
+                    </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    
+                    <div class="col-md-6">
+                        <label>Incurred By User</label>
+                        <input type="text" id="user1" readonly required />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="validationTooltip02">Description <span style="color: red;">*</span></label>
+                        <textarea class="form-control" id="descriptionTimesheet" rows="3" autocomplete="off" name="descriptionTimesheet"></textarea>
+                    </div>
+                </div>
+            </div>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="SaveBtn">Save</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+
+
 
 <!-- Details  Modal -->
 <div id="detailsModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-<div class="modal-dialog modal-lg" role="document">
-  <div class="modal-content">
-    <div class="modal-header">
-   <center><h5 class="modal-title" id="detailsModal">Project Tasks Detail</h5></center> 
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+       <center><h5 class="modal-title" id="detailsModal">Project Tasks Detail</h5></center> 
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="overflow-y: auto;">
+          <table id="taskDetails" class="table table-hover striped table-responsive" >
+            
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
     </div>
-    <div class="modal-body" style="overflow-y: auto;">
-      <table id="taskDetails" class="table table-hover striped table-responsive" >
-        
-      </table>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-    </div>
-  </div>
-</div>
 </div>
 
 <div style="display:none;opacity:0" >
@@ -1461,3 +1544,11 @@ function handleChange(e){
 
 </body>
 </html>
+
+
+
+
+
+
+
+
