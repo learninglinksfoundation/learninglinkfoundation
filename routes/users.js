@@ -281,7 +281,7 @@ router.get('/getuser',verify, (request, response) => {
 router.get('/getContact',verify, (request, response) => {
 
   console.log('request.user '+JSON.stringify(request.user),request.query);
- /* pool
+  pool
   .query('SELECT sfid, Name FROM salesforce.Contact')
   .then((contactQueryResult) => {
     console.log('contactQueryResult  : '+JSON.stringify(contactQueryResult.rows));
@@ -292,8 +292,28 @@ router.get('/getContact',verify, (request, response) => {
     console.error('Error executing contact query', contactQueryError.stack);
     response.send(403);
 });
-*/
+
 });
+
+
+router.get('/getProjectMemeber',verify, (request, response) => {
+
+  console.log('request.user '+JSON.stringify(request.user),request.query);
+  pool
+  .query('SELECT sfid, Name FROM salesforce.Contact')
+  .then((contactQueryResult) => {
+    console.log('contactQueryResult  : '+JSON.stringify(contactQueryResult.rows));
+      response.send(contactQueryResult.rows);
+    
+  })
+  .catch((contactQueryError) => {
+    console.error('Error executing contact query', contactQueryError.stack);
+    response.send(403);
+});
+
+});
+
+
 
 router.get('/timesheet',verify,function(request,response){ 
 

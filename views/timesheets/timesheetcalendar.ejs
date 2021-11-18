@@ -1162,9 +1162,9 @@ function handleChange(e){
               $('#assignedresource'+index).attr("disabled", false); 
               $('#assignedresource'+index).val(''); 
               $.ajax({
-                            url : '/users/getContact',
+                            url : '/users/getProjectMemeber',
                             data : {
-                              projectName : value
+                              projectId : value
                             },
                             dataType : 'json',
                             type : 'get'
