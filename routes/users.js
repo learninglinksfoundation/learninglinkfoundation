@@ -306,7 +306,7 @@ router.get('/getProjectMemeber',verify, (request, response) => {
     console.log('contactQueryResult  : '+JSON.stringify(contactQueryResult.rows));
     let teamList = [];
     contactQueryResult.rows.forEach(dt=>{
-        teamList.push(dt.team__c});
+        teamList.push(dt.team__c);
     });
     console.log('1');
     pool.query(`SELECT Team__c, Representative__c, sfId, Name FROM salesforce.Team_Member__c WHERE Team__c IN ('${teamList.join(',')}') ORDER BY Name`)
