@@ -689,15 +689,12 @@
                      console.log('Selected view ++ '+selectedView);
                          // selectedView=this.value;
                         console.log('hii i m inside current user view');
-                        $('.assignedresource').val('');
+                        //$('.assignedresource').val('');
 
                         if(selectedView == 'currentuser')
                         {
                           $('.assignedresource').attr("readonly","readonly");
-                          $('.assignedresource')
-                          .append($("<option></option>")
-                          .attr("value",objUserId)
-                          .text(objUserName))                        
+                          //$('.assignedresource').val('');                   
                         }
 
                         if(selectedView == 'teamview')
@@ -1076,7 +1073,7 @@ function handleChange(e){
                   <div class="row">
                     <div class="col-md-6">
                       <label for="validationTooltip02">Assign to Heroku user <span style="color: red;">*</span></label>
-                      <input class="form-control assignedresource" name="assignedresource" required readonly value="<%= objUser %>" id="assignedresource"/>
+                      <input class="form-control assignedresource" name="assignedresource" required readonly value="<%= objusername %>" id="assignedresource"/>
                         
                     </div>
 
