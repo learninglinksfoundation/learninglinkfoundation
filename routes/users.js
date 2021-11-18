@@ -311,12 +311,12 @@ router.get('/getProjectMemeber',verify, (request, response) => {
     pool.query(`SELECT Team__c, Representative__c, sfId, Name FROM salesforce.Team_Member__c WHERE Team__c IN (${teamList.join(',')}) ORDER BY Name`)
       .then(data=>{
         let conId = [];
-        console.log(`SELECT Team__c, Representative__c, sfId, Name FROM salesforce.Team_Member__c WHERE Team__c IN (${teamList.join(',')}) ORDER BY Name`);
+        console.log(`SELECT Team__c, Representative__c, sfId, Name FROM salesforce.Team_Member__c WHERE Team__c IN (${teamList.join(',')}) ORDER BY Name`)
         data.rows.forEach(dt=>{
           conId.push( `'${dt.representative__c}'`);
         });
         console.log(conId,`SELECT sfid, Name FROM salesforce.Contact WHERE sfid IN (${conId.join(',')}) ORDER BY Name`);
-        pool.query(`SELECT sfid, Name FROM salesforce.Contact WHERE sfid IN ('${conId.join(',')}') ORDER BY Name`)
+        pool.query(`SELECT sfid, Name FROM salesforce.Contact WHERE sfid IN (${conId.join(',')}) ORDER BY Name`)
         .then(data1=>{
           console.log(data1.rows);
           response.send(data1.rows);
