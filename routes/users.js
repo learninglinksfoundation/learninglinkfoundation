@@ -282,7 +282,7 @@ router.get('/getContact',verify, (request, response) => {
 
   console.log(req.query,request.user);
 
-  response.send({test:req.query,user:request.user});
+  response.send('Hello ');
   /*pool
   .query('SELECT sfid, Name FROM salesforce.Contact')
   .then((contactQueryResult) => {
