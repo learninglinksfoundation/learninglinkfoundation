@@ -695,7 +695,11 @@
                         if(selectedView == 'currentuser')
                         {
                           $('.assignedresource').attr("readonly","readonly");
-                          $('.assignedresource option:not(:first)').remove();
+                          $('.assignedresource option').each(function() {
+                                if ( $(this).val() != '' ) {
+                                    $(this).remove();
+                                }
+                            });
                           $('.assignedresource')
                           .append($("<option></option>")
                           .attr("value",objUserId)
@@ -710,7 +714,11 @@
                           $('.assignedresource').attr("readonly",false);
                           $('.assignedresource').attr("disabled", true); 
                           $('.assignedresource').val('');
-                          $('.assignedresource option:not(:first)').remove();
+                          $('.assignedresource option').each(function() {
+                                if ( $(this).val() != '' ) {
+                                    $(this).remove();
+                                }
+                            });
                           
                           /* $.ajax({
                             url : '/users/getContact',
