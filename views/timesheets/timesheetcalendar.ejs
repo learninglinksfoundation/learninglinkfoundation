@@ -1076,11 +1076,8 @@ function handleChange(e){
                   <div class="row">
                     <div class="col-md-6">
                       <label for="validationTooltip02">Assign to Heroku user <span style="color: red;">*</span></label>
-                      <select class="custom-select custom-select-sm form-control assignedresource" name="assignedresource" id="assignedresource">
-                        <option value="">None</option>
-                       </select>
-
-
+                      <input class="form-control assignedresource" name="assignedresource" required readonly value="<%= objUser %>" id="assignedresource"/>
+                        
                     </div>
 
                     <div class="col-md-6">
@@ -1490,11 +1487,7 @@ function handleTimeSheet(event){
                   <div class="row">
                     <div class="col-md-6">
                       <label for="validationTooltip02">Assign to Heroku user <span style="color: red;">*</span></label>
-                      <select class="custom-select custom-select-sm form-control assignedresource" name="assignedresource{data}" id="assignedresource{data}">
-                        <option value="">None</option>
-                       </select>
-
-
+                      <input class="form-control assignedresource" name="assignedresource{data}" value="<%= objUser %>" required readonly id="assignedresource{data}"/>
                     </div>
 
                     <div class="col-md-6">
