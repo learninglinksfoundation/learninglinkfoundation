@@ -707,16 +707,16 @@
                         {
                           console.log('hii i m inside team view');
                           $('.assignedresource').attr("readonly",false);
-                          $('.assignedresource').attr("disabled", false); 
-                          $('.assignedresource').val(''); 
-                          $.ajax({
-                        url : '/users/getContact',
-                        data : {
-                          
-                        },
-                        dataType : 'json',
-                        type : 'get'
-                    })
+                          $('.assignedresource').attr("disabled", true); 
+                          $('.assignedresource').val('');
+                          /* $.ajax({
+                            url : '/users/getContact',
+                            data : {
+                              
+                            },
+                            dataType : 'json',
+                            type : 'get'
+                        })
                     .done((response) => {
                         console.log('response  ',response);
                         /*if(response.length > 0)
@@ -728,15 +728,13 @@
                             .attr("value",eachContact.sfid)
                             .text(eachContact.name))
                             }); 
-                            }*/
+                            }
                     })
                     .fail((jqXHR,text,err) => {
                         console.log('text  '+text + '  err '+err);
                         console.log('jqXHR '+JSON.stringify(jqXHR));
 
-                    })
-
-
+                    }) */ 
                         }
                       
                     }
@@ -1060,7 +1058,7 @@ function handleChange(e){
                   <div class="row">
                   <div class="col-md-6">
                     <label for="validationTooltip03">Project <span style="color: red;">*</span></label>
-                    <select class="custom-select custom-select-sm form-control" name="projectname">
+                    <select class="custom-select custom-select-sm form-control" onchange="handleProject(event)" name="projectname">
                       <option value="" >None</option>
                       <% if(projectList.length != 0) { %>
                        <% projectList.forEach((eachProject) => { %>
@@ -1145,7 +1143,12 @@ function handleChange(e){
 <script>
     bindEvent();
 
-    function handleProject (index){
+    function handleProject (event){
+        let index = event.target.dataset.label;
+        let value = event.target.value;
+        if(index == 'undefined' || index == '' || index == null)
+            index = '';
+        console.log(value,index);
         let selectedView = $('#Selectview').val();
         if(selectedView == 'currentuser')
         {
@@ -1164,6 +1167,34 @@ function handleChange(e){
               $('#assignedresource'+index).attr("readonly",false);
               $('#assignedresource'+index).attr("disabled", false); 
               $('#assignedresource'+index).val(''); 
+              $.ajax({
+                            url : '/users/getContact',
+                            data : {
+                              projectName : value
+                            },
+                            dataType : 'json',
+                            type : 'get'
+                        })
+                    .done((response) => {
+                        console.log('response  ',response);
+                        if(response.length > 0)
+                            {
+                            response.forEach((eachContact) => {
+                            console.log('eachContact.name '+eachContact);
+                            $('#assignedresource'+index)
+                            .append($("<option></option>")
+                            .attr("value",eachContact.sfid)
+                            .text(eachContact.name))
+                            }); 
+                            }
+                    })
+                    .fail((jqXHR,text,err) => {
+                        console.log('text  '+text + '  err '+err);
+                        console.log('jqXHR '+JSON.stringify(jqXHR));
+
+                    }) 
+
+
         }
     }
 
