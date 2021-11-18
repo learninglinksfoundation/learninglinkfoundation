@@ -310,10 +310,27 @@ router.get('/getProjectMemeber',verify, (request, response) => {
     });
     console.log(teamList);
     console.log(`SELECT Team__c, Representative__c, sfId, Name FROM salesforce.Team_Member__c WHERE Team__c IN ('${teamList.join(',')}') ORDER BY Name`);
-    pool.query(`SELECT Team__c, Representative__c,Representative__r.Name sfId, Name FROM salesforce.Team_Member__c WHERE Team__c IN ('${teamList.join(',')}') ORDER BY Name`)
+    pool.query(`SELECT Team__c, Representative__c, sfId, Name FROM salesforce.Team_Member__c WHERE Team__c IN ('${teamList.join(',')}') ORDER BY Name`)
       .then(data=>{
         console.log(data.rows);
-        response.send(data.rows);
+        let conId = [];
+        data.rows.forEach(dt=>{
+          conId.push(dt.sfid);
+        });
+        console.log(conId);
+        pool.query(`SELECT sfid, Name FROM salesforce.Contact WHERE sfid IN ('${conId.join(',')}') ORDER BY Name`)
+        then(data1=>{
+          response.send(data1.rows);
+        })
+        .catch((contactQueryError) => {
+            console.error('Error executing contact query', contactQueryError.stack);
+            response.send(403);
+        });
+        
+      })
+      .catch((contactQueryError) => {
+        console.error('Error executing contact query', contactQueryError.stack);
+        response.send(403);
       });
       
     
