@@ -315,11 +315,11 @@ router.get('/getProjectMemeber',verify, (request, response) => {
         console.log(data.rows);
         let conId = [];
         data.rows.forEach(dt=>{
-          conId.push(dt.sfid);
+          conId.push(dt.representative__c);
         });
         console.log(conId);
         pool.query(`SELECT sfid, Name FROM salesforce.Contact WHERE sfid IN ('${conId.join(',')}') ORDER BY Name`)
-        then(data1=>{
+        .then(data1=>{
           response.send(data1.rows);
         })
         .catch((contactQueryError) => {
