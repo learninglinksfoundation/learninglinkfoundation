@@ -309,7 +309,7 @@ router.get('/getProjectMemeber',verify, (request, response) => {
         teamList.push(`'${dt.team__c}'`);
     });
     console.log('1');
-    pool.query(`SELECT Team__c, Representative__c, sfId, Name FROM salesforce.Team_Member__c WHERE Team__c IN (${teamList.join(',')}) ORDER BY Name`)
+    pool.query(`SELECT Team__c, Representative__c, sfId, Name FROM salesforce.Team_Member__c WHERE Team__c IN ('${teamList.join(',')}') ORDER BY Name`)
       .then(data=>{
         console.log('2');
         let conId = [];
@@ -317,7 +317,7 @@ router.get('/getProjectMemeber',verify, (request, response) => {
           conId.push( `'${dt.representative__c}'`);
         });
         console.log(conId);
-        pool.query(`SELECT sfid, Name FROM salesforce.Contact WHERE sfid IN (${conId.join(',')}) ORDER BY Name`)
+        pool.query(`SELECT sfid, Name FROM salesforce.Contact WHERE sfid IN ('${conId.join(',')}') ORDER BY Name`)
         .then(data1=>{
           console.log(data1.rows);
           response.send(data1.rows);
