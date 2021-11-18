@@ -280,7 +280,7 @@ router.get('/getuser',verify, (request, response) => {
 
 router.get('/getContact',verify, (request, response) => {
 
-  console.log(req.query,request.user);
+  console.log(req.query);
 
   response.send('Hello ');
   /*pool
