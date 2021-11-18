@@ -1192,8 +1192,6 @@ function handleChange(e){
     }
 
 
-
-
     $('#newRowBtn').click(function() {
         $('.recordD').unbind('click');
         $('.deadline').unbind('change');
@@ -1524,7 +1522,7 @@ function handleTimeSheet(event){
                   <div class="row">
                   <div class="col-md-6">
                     <label for="validationTooltip03">Project <span style="color: red;">*</span></label>
-                    <select class="custom-select custom-select-sm form-control" onchange="handleProject(event)" name="projectname{data}">
+                    <select class="custom-select custom-select-sm form-control" data-label="{data}" onchange="handleProject(event)" name="projectname{data}">
                       <option value="" >None</option>
                       <% if(projectList.length != 0) { %>
                        <% projectList.forEach((eachProject) => { %>
