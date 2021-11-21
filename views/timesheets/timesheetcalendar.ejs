@@ -434,27 +434,27 @@
             let flag = true;
             tempList.forEach((dt,i)=>{
                 if(!dt.taskname){
-                    callToast('Please enter Task Description!');
+                    callToast(`Please enter Task Description ${i+1}!`);
                     flag = false;
                     return;
                 }
                 if(!dt.function){
-                    callToast('Please enter Task function!');
+                    callToast(`Please enter Task function ${i+1}!`);
                     flag = false;
                     return;
                 }
                 if(!dt.tasktype){
-                    callToast('Please enter Task type!');
+                    callToast(`Please enter Task type ${i+1}!`);
                     flag = false;
                     return;
                 }
                 if(!dt.projectname){
-                    callToast('Please enter Project Name!');
+                    callToast(`Please enter Project Name ${i+1}!`);
                     flag = false;
                     return;
                 }
                 if(!dt.status || dt.status.toLowerCase() == 'none'  ){
-                    callToast('Please enter Task Status!');
+                    callToast(`Please enter Task Status ${i+1}`);
                     flag = false;
                     return;
                 }
