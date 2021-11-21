@@ -424,19 +424,47 @@
                     }
                 }}
             });
-            //var tempObj = {"taskname":'',"function":'',"tasktype":'',"projectname":'',"taskdate":'',"assignedresource":'',"status":'',"plannedstarttime":'',"plannedendtime":'',"deadline":''}; 
             var tempList = [];
-           // var objt = Object.keys(tempObj);
-            let ind = 0;
             for(let j=0;j< aryData.length / 10; j++){
                 let i = 10*j;
                 let tempObj = {"taskname":aryData[i]?.value,"function":aryData[i+1]?.value,"tasktype":aryData[i+2]?.value,"projectname":aryData[i+3]?.value,"taskdate":aryData[i+4]?.value,"assignedresource":aryData[i+5]?.value,"status":aryData[i+6]?.value,"plannedstarttime":aryData[i+7]?.value,"plannedendtime":aryData[i+8]?.value,"deadline":aryData[i+9]?.value}; 
                 tempList.push(tempObj);
             }
             console.log(tempList,'tempList');
+            let flag = true;
+            tempList.forEach((dt,i)=>{
+                if(!dt.taskname){
+                    callToast('Please enter Task Description!');
+                    flag = false;
+                    return;
+                }
+                if(!dt.function){
+                    callToast('Please enter Task function!');
+                    flag = false;
+                    return;
+                }
+                if(!dt.tasktype){
+                    callToast('Please enter Task type!');
+                    flag = false;
+                    return;
+                }
+                if(!dt.projectname){
+                    callToast('Please enter Project Name!');
+                    flag = false;
+                    return;
+                }
+                if(!dt.status || dt.status.toLowerCase() == 'none'  ){
+                    callToast('Please enter Task Status!');
+                    flag = false;
+                    return;
+                }
+
+            });
+
+
 
            
-           if(i.a == 0 && i.b == 0 && i.c == 0 && i.d == 0 && i.e == 0){
+           if(i.a == 0 && i.b == 0 && i.c == 0 && i.d == 0 && i.e == 0 && flag){
                 $("#submitbutton").attr("disabled", true);
                 $.ajax({
                         url: "/timesheets/createtask",
@@ -543,6 +571,19 @@
                             });
             }*/
         /*Timesheet Form post method */
+
+        function callToast(resp){
+            let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">' + resp +
+                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                '<span aria-hidden="true">&times;</span>' +
+                '</button>' +
+                '</div>';
+            $('#errorMessages').empty();
+            $('#errorMessages').append(errorHtml);
+            $("#submitbutton").attr("disabled", false);
+        }
+
+
         $('#fillActualsForm').submit(function(e){
         e.preventDefault();
         var values = $(this).serialize();
