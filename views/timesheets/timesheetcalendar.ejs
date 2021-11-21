@@ -424,6 +424,15 @@
                     }
                 }}
             });
+            //var tempObj = {"taskname":'',"function":'',"tasktype":'',"projectname":'',"taskdate":'',"assignedresource":'',"status":'',"plannedstarttime":'',"plannedendtime":'',"deadline":''}; 
+            var tempList = [];
+           // var objt = Object.keys(tempObj);
+            let ind = 0;
+            for(let i=0;i< aryData.length / 10; i++){
+                let tempObj = {"taskname":aryData[i]?.value,"function":aryData[i+1]?.value,"tasktype":aryData[i+2]?.value,"projectname":aryData[i+3]?.value,"taskdate":aryData[i+4]?.value,"assignedresource":aryData[i+5]?.value,"status":aryData[i+6]?.value,"plannedstarttime":aryData[i+7]?.value,"plannedendtime":aryData[i+8]?.value,"deadline":aryData[i+9]?.value}; 
+                tempList.push(tempObj);
+            }
+            console.log(tempList,'tempList');
 
            
            if(i.a == 0 && i.b == 0 && i.c == 0 && i.d == 0 && i.e == 0){
@@ -999,12 +1008,14 @@ function handleChange(e){
              $('#tasktype'+index).append('<option value="">None</option>');
             data.forEach((dt)=>{
                 $('#tasktype'+index).append(`<option value="${dt}">${dt}</option>`);
-                $('#tasktype'+index).attr('disabled',false);
+                $('#tasktype'+index).attr('readonly',false);
+                $('#tasktype'+index).css('pointer-events','visible');
             });
         }
         else {
             $('#tasktype'+index).find('option').remove().end().append(`<option value="">None</option>`);
-            $('#tasktype'+index).attr('disabled',true);
+            $('#tasktype'+index).attr('readonly',true);
+            $('#tasktype'+index).css('pointer-events','none');
         }
     }
 
