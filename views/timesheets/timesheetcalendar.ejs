@@ -1005,6 +1005,7 @@ function handleChange(e){
         var data = taskType[value];
         if(data && data.length > 0){
             $('#tasktype'+index).find('option').remove().end();
+            $('#tasktype'+index).attr('disabled',false);
              $('#tasktype'+index).append('<option value="">None</option>');
             data.forEach((dt)=>{
                 $('#tasktype'+index).append(`<option value="${dt}">${dt}</option>`);
