@@ -217,6 +217,13 @@ router.get('/getdata',verify, function(req, response, next)
         });
 });
 
+
+router.post('/createMultipletask', async (request, response) => {
+    var formData = request.body;
+    console.log(formData);
+
+});
+
 router.post('/createtask', async (request, response) => {
   var formData = request.body;
   console.log('formData  ' + JSON.stringify(formData));
