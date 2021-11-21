@@ -424,6 +424,7 @@
                     }
                 }}
             });
+
            
            if(i.a == 0 && i.b == 0 && i.c == 0 && i.d == 0 && i.e == 0){
                 $("#submitbutton").attr("disabled", true);
@@ -705,14 +706,14 @@
                           .attr("value",objUserId)
                           .text(objUserName)) 
                           $('.assignedresource').val(objUserId); 
-                          $('.assignedresource').attr("disabled", true);                       
+                          $('.assignedresource').css('pointer-events','none');                       
                         }
 
                         if(selectedView == 'teamview')
                         {
                           console.log('hii i m inside team view');
                           $('.assignedresource').attr("readonly",false);
-                          $('.assignedresource').attr("disabled", true); 
+                          $('.assignedresource').css('pointer-events','none'); 
                           $('.assignedresource').val('');
                           $('.assignedresource option').each(function() {
                                 if ( $(this).val() != '' ) {
@@ -1154,6 +1155,27 @@ function handleChange(e){
 <script>
     bindEvent();
 
+    function handleCurrentUser(){
+        let selectedView = $('#Selectview').val();
+        if(selectedView == 'currentuser')
+        {
+          $('.assignedresource').attr("readonly","readonly");
+          $('.assignedresource option').each(function() {
+                if ( $(this).val() != '' ) {
+                    $(this).remove();
+                }
+            });
+          $('.assignedresource')
+          .append($("<option></option>")
+          .attr("value",objUserId)
+          .text(objUserName)) 
+          $('.assignedresource').val(objUserId); 
+          $('.assignedresource').css('pointer-events','none');                       
+        }
+
+    }
+
+
     function handleProject (event){
         let index = event.target.dataset.label;
         let value = event.target.value;
@@ -1167,7 +1189,7 @@ function handleChange(e){
         {
           console.log('hii i m inside team view');
           $('#assignedresource'+index).attr("readonly",false);
-          $('#assignedresource'+index).attr("disabled", false); 
+          $('#assignedresource'+index).css('pointer-events','visible');  
           $('#assignedresource'+index).val(''); 
           $.ajax({
                 url : '/users/getProjectMemeber',
@@ -1209,6 +1231,7 @@ function handleChange(e){
         var insideData = $('#taskformRow');
         insideData.append(`<div class="dynamicRow" id="formRowTask${ele.length + 1}">` + dummyRecord.innerHTML.replaceAll('{data}',ele.length + 1) + '</div>'); 
         $('.datepic').val(datePic);
+        handleCurrentUser();
         bindEvent();
     });
     function bindEvent(){
