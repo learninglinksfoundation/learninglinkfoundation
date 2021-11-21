@@ -655,15 +655,15 @@
                     });
                     if(seletedDate.getTime() < currentDate.getTime())
                     {
-                        $('.plannedstarttimeTask').prop("disabled",true);
-                        $('.plannedendtimeTask').prop("disabled",true);
-                        $('.deadline').prop("disabled",true);
+                        $('.plannedstarttimeTask').css('pointer-events','none');
+                        $('.plannedendtimeTask').css('pointer-events','none');
+                        $('.deadline').css('pointer-events','none');
                     }
                     else
                     {
-                        $('.deadline').prop("disabled",false);
-                        $('.plannedstarttimeTask').prop("disabled",true);
-                        $('.plannedendtimeTask').prop("disabled",true);
+                        $('.deadline').css('pointer-events','visible');
+                        $('.plannedstarttimeTask').css('pointer-events','none');
+                        $('.plannedendtimeTask').css('pointer-events','none');
                        /* $('.deadline').on('change',function(){
                           let deadValue=this.value;
                           console.log('deadValue' +deadValue);
@@ -1157,6 +1157,8 @@ function handleChange(e){
 
     function handleCurrentUser(){
         let selectedView = $('#Selectview').val();
+        let objUserName = document.getElementById('objname').innerHTML; 
+        let objUserId = document.getElementById('objUserId').innerHTML; 
         if(selectedView == 'currentuser')
         {
           $('.assignedresource').attr("readonly","readonly");
@@ -1279,33 +1281,33 @@ function handleChange(e){
         if(index != ''){
             if(deadValue=='Deadlines')
             {
-                $('#plannedstarttimeTask'+index).prop("disabled",true);
-                $('#plannedendtimeTask'+index).prop("disabled",false);
+                $('#plannedstarttimeTask'+index).css('pointer-events','visible');
+                $('#plannedendtimeTask'+index).css('pointer-events','visible');
             }
             else if(deadValue=='Block Time'){
-                 $('#plannedstarttimeTask'+index).prop("disabled",false);
-                $('#plannedendtimeTask'+index).prop("disabled",false);
+                 $('#plannedstarttimeTask'+index).css('pointer-events','visible');
+                $('#plannedendtimeTask'+index).css('pointer-events','visible');
             }
             else
             {
-                $('#plannedstarttimeTask'+index).prop("disabled",true);
-                $('#plannedendtimeTask'+index).prop("disabled",true);
+                $('#plannedstarttimeTask'+index).css('pointer-events','none');
+                $('#plannedendtimeTask'+index).css('pointer-events','none');
             }
         }
         else{
             if(deadValue=='Deadlines')
             {
-                $('#plannedstarttimeTask').prop("disabled",true);
-                $('#plannedendtimeTask').prop("disabled",false);
+                $('#plannedstarttimeTask').css('pointer-events','none');
+                $('#plannedendtimeTask').css('pointer-events','visible');
             }
             else if(deadValue=='Block Time'){
-                 $('#plannedstarttimeTask').prop("disabled",false);
-                $('#plannedendtimeTask').prop("disabled",false);
+                 $('#plannedstarttimeTask').css('pointer-events','visible');
+                $('#plannedendtimeTask').css('pointer-events','visible');
             }
             else
             {
-                $('#plannedstarttimeTask').prop("disabled",true);
-                $('#plannedendtimeTask').prop("disabled",true);
+                $('#plannedstarttimeTask').css('pointer-events','none');
+                $('#plannedendtimeTask').css('pointer-events','none');
             }
         }
         $('.deadline').unbind('change');
