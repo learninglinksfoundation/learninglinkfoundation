@@ -1078,7 +1078,7 @@ function handleChange(e){
                   <div class="row">
                       <div class="col-md-6">
                            <label for="validationTooltip03">Task Type <span style="color: red;">*</span></label>
-                            <select class="custom-select custom-select-sm form-control" disabled id="tasktype" name="tasktype">
+                            <select class="custom-select custom-select-sm form-control" readonly style="pointer-events:none" id="tasktype" name="tasktype">
                                 <option value=''>None</option>
                             </select>
                       </div>
@@ -1574,7 +1574,7 @@ function handleTimeSheet(event){
                   <div class="row">
                       <div class="col-md-6">
                            <label for="validationTooltip03">Task Type <span style="color: red;">*</span></label>
-                            <select class="custom-select custom-select-sm form-control" data-label="{data}" disabled id="tasktype{data}" name="tasktype{data}">
+                            <select class="custom-select custom-select-sm form-control" data-label="{data}" readonly style="pointer-events:none" id="tasktype{data}" name="tasktype{data}">
                                 <option value=''>None</option>
                             </select>
                       </div>
