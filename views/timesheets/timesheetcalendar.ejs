@@ -658,10 +658,16 @@
                         $('.plannedstarttimeTask').css('pointer-events','none');
                         $('.plannedendtimeTask').css('pointer-events','none');
                         $('.deadline').css('pointer-events','none');
+                        $('.plannedstarttimeTask').attr("readonly",true);
+                        $('.plannedendtimeTask').attr("readonly",true);
+                        $('.deadline').attr("readonly",true);
                     }
                     else
                     {
                         $('.deadline').css('pointer-events','visible');
+                        $('.deadline').attr("readonly",false);
+                        $('.plannedstarttimeTask').attr("readonly",true);
+                        $('.plannedendtimeTask').attr("readonly",true);
                         $('.plannedstarttimeTask').css('pointer-events','none');
                         $('.plannedendtimeTask').css('pointer-events','none');
                        /* $('.deadline').on('change',function(){
@@ -1283,15 +1289,21 @@ function handleChange(e){
             {
                 $('#plannedstarttimeTask'+index).css('pointer-events','visible');
                 $('#plannedendtimeTask'+index).css('pointer-events','visible');
+                $('.plannedstarttimeTask').attr("readonly",false);
+                $('.plannedendtimeTask').attr("readonly",false);
             }
             else if(deadValue=='Block Time'){
                  $('#plannedstarttimeTask'+index).css('pointer-events','visible');
                 $('#plannedendtimeTask'+index).css('pointer-events','visible');
+                $('.plannedstarttimeTask').attr("readonly",false);
+                $('.plannedendtimeTask').attr("readonly",false);
             }
             else
             {
                 $('#plannedstarttimeTask'+index).css('pointer-events','none');
                 $('#plannedendtimeTask'+index).css('pointer-events','none');
+                $('.plannedstarttimeTask').attr("readonly",true);
+                $('.plannedendtimeTask').attr("readonly",true);
             }
         }
         else{
@@ -1299,13 +1311,19 @@ function handleChange(e){
             {
                 $('#plannedstarttimeTask').css('pointer-events','none');
                 $('#plannedendtimeTask').css('pointer-events','visible');
+                $('.plannedstarttimeTask').attr("readonly",true);
+                $('.plannedendtimeTask').attr("readonly",false);
             }
             else if(deadValue=='Block Time'){
                  $('#plannedstarttimeTask').css('pointer-events','visible');
                 $('#plannedendtimeTask').css('pointer-events','visible');
+                $('.plannedstarttimeTask').attr("readonly",false);
+                $('.plannedendtimeTask').attr("readonly",false);
             }
             else
             {
+                $('.plannedstarttimeTask').attr("readonly",true);
+                $('.plannedendtimeTask').attr("readonly",true);
                 $('#plannedstarttimeTask').css('pointer-events','none');
                 $('#plannedendtimeTask').css('pointer-events','none');
             }
