@@ -474,7 +474,7 @@
                 $.ajax({
                         url: "/timesheets/createMultipletask",
                         type: "post",
-                        data: values,
+                        data: tempList,
                     })
                     .done((data) => {
                         console.log('data ' + JSON.stringify(data))
