@@ -219,7 +219,7 @@ router.get('/getdata',verify, function(req, response, next)
 
 
 router.post('/createMultipletask', async (request, response) => {
-    var formData = request.body;
+    var formData = JSON.parse(request.body);
     console.log(formData);
     let values = '';
     let projectList = '';
