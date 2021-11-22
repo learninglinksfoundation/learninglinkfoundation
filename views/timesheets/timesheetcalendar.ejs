@@ -844,10 +844,69 @@
                     {
                             //document.getElementById("fillActualsForm").reset();
                             //$('#dateIncurred').val(selectedDate);
+
+                            fetch('/timesheets/getTasklist')
+                            .then(resp=>{
+                                let temp = document.getElementById('dummyTableBody').innerHTML;
+                                resp.forEach((dt,i)=>{
+                                    temp = temp.replaceAll('{index}',i);
+                                    temp = temp.replaceAll('{projectname}',dt.projectname);
+                                    temp = temp.replaceAll('{taskname}',dt.name);
+                                    temp = temp.replaceAll('{taskdate}',dt.plandate);
+                                    temp = temp.replaceAll('{tasktype}',dt.taskType);
+                                    temp = temp.replaceAll('{startTime}','');
+                                    temp = temp.replaceAll('{function}','');
+                                    temp = temp.replaceAll('{endTime}','');
+                                    temp = temp.replaceAll('{description}','');
+                                    temp = temp.replaceAll('{AstartTime}','');
+                                    temp = temp.replaceAll('{AendTime}','');
+                                    temp = temp.replaceAll('{pHours}','');
+                                    temp = temp.replaceAll('{aHours}','');
+                                    temp = temp.replaceAll('{currentuser}',dt.assigned);
+                                    temp = temp.replaceAll('{sfdcUser}','');
+                                    document.getElementById('fillActualtBody').innerHTML = temp;
+                                });
+                                
+
+                                $("#fillActualsModal").modal("show");
+
+                            })
+                            .catch(console.log);
+
+
+<tr data-label="{index}" >
+            <td scope="row"><button type="button" onclick="handleTimeSheet(event)" data-label="{index}" class="btn btn-primary">Add Timesheets</button></td>
+            <td> <input style="height: 14px; width: 14px;" type="checkbox" class="chckbox" id="Allcheckbox{index}" />   </td>
+            <td>{projectname}</td>
+            <td>{taskname}</td>
+            <td> {taskdate} </td>
+            <td>
+                <select id="taskSelect{index}" class="form-control" style="width:auto;" >  
+                    <option value="" > None </option>
+                    <option value="Started" > Started </option>
+                    <option value="Hold" > On Hold </option>
+                    <option value="Completed" > Completed </option>
+                    <option value="Yet" > Yet to Start </option>
+                </select>
+            </td>
+            <td>{function}</td>
+            <td> {tasktype}</td>
+            <td>{startTime}</td>
+            <td>{endTime}</td>
+            <td> <textarea class="form-control"  >{description} </textarea> </td>
+            <td><input class="form-control" type="time" />{AstartTime}</td>
+            <td><input class="form-control" type="time" />{AendTime}</td>
+            <td> {pHours} </td>
+            <td>{aHours}</td>
+            <td>{currentuser}</td>
+            <td> {sfdcUser} </td>
+        </tr>
+
+
+
                             
                             
-                            $("#fillActualsModal").modal("show");
-                            
+
 
 
                             /*$('#projectName').change(() => {            
@@ -1457,34 +1516,8 @@ function handleTimeSheet(event){
                             <th scope="col">ASSIGNED TO SALESFORCE USER  </th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td scope="row"><button type="button" onclick="handleTimeSheet(event)" data-label="1" class="btn btn-primary">Add Timesheets</button></td>
-                            <td> <input style="height: 14px; width: 14px;" type="checkbox" id="Allcheckbox" />   </td>
-                            <td>Test</td>
-                            <td>Test-Test</td>
-                            <td> 2021-11-18 </td>
-                            <td>
-                                <select class="form-control" style="width:auto;" >  
-                                    <option value="" > None </option>
-                                    <option value="Started" > Started </option>
-                                    <option value="Hold" > On Hold </option>
-                                    <option value="Completed" > Completed </option>
-                                    <option value="Yet" > Yet to Start </option>
-                                </select>
-                            </td>
-                            <td>Accounts</td>
-                            <td> Review of Grants agreements & budget approval</td>
-                            <td>Test</td>
-                            <td>Test-Test</td>
-                            <td> <textarea class="form-control" > </textarea> </td>
-                            <td><input class="form-control" type="time" /></td>
-                            <td><input class="form-control" type="time" /></td>
-                            <td> 0 </td>
-                            <td>0</td>
-                            <td></td>
-                            <td> Test (User) </td>
-                        </tr>
+                    <tbody id="fillActualtBody" >
+                       
                         
                     </tbody>
                 </table>
@@ -1720,6 +1753,41 @@ function handleTimeSheet(event){
 
 
 </div>
+
+
+    <tbody id="dummyTableBody" style="display:none;opacity:0;" >
+        <tr data-label="{index}" >
+            <td scope="row"><button type="button" onclick="handleTimeSheet(event)" data-label="{index}" class="btn btn-primary">Add Timesheets</button></td>
+            <td> <input style="height: 14px; width: 14px;" type="checkbox" class="chckbox" id="Allcheckbox{index}" />   </td>
+            <td>{projectname}</td>
+            <td>{taskname}</td>
+            <td> {taskdate} </td>
+            <td>
+                <select id="taskSelect{index}" class="form-control" style="width:auto;" >  
+                    <option value="" > None </option>
+                    <option value="Started" > Started </option>
+                    <option value="Hold" > On Hold </option>
+                    <option value="Completed" > Completed </option>
+                    <option value="Yet" > Yet to Start </option>
+                </select>
+            </td>
+            <td>{function}</td>
+            <td> {tasktype}</td>
+            <td>{startTime}</td>
+            <td>{endTime}</td>
+            <td> <textarea class="form-control"  >{description} </textarea> </td>
+            <td><input class="form-control" type="time" />{AstartTime}</td>
+            <td><input class="form-control" type="time" />{AendTime}</td>
+            <td> {pHours} </td>
+            <td>{aHours}</td>
+            <td>{currentuser}</td>
+            <td> {sfdcUser} </td>
+        </tr>
+        
+    </tbody>
+
+
+
 
 
 </body>
