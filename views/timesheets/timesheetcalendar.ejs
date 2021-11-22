@@ -853,7 +853,6 @@
                                 console.log(resp);
                                 let temp = document.getElementById('dummyTableBody').innerHTML;
                                 resp.forEach((dt,i)=>{
-
                                     temp = temp.replaceAll('{index}',i);
                                     temp = temp.replaceAll('{projectname}',dt.projectname);
                                     temp = temp.replaceAll('{taskname}',dt.name);
@@ -869,7 +868,8 @@
                                     temp = temp.replaceAll('{aHours}','');
                                     temp = temp.replaceAll('{currentuser}',dt.assigned);
                                     temp = temp.replaceAll('{sfdcUser}','');
-                                    document.getElementById('fillActualtBody').innerHTML = temp;
+                                    let list = document.getElementById('fillActualtBody');
+                                    list.innerHTML = list.innerHTML + temp;
                                 });
 
                                 $("#fillActualsModal").modal("show");
