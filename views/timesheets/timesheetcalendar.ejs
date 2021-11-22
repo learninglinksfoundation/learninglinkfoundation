@@ -476,6 +476,8 @@
                         type: "post",
                         data: JSON.stringify(tempList),
                         dataType: 'json',
+                        contentType: 'application/json',
+
                     })
                     .done((data) => {
                         console.log('data ' + JSON.stringify(data))
