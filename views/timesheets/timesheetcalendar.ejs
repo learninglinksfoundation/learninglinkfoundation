@@ -845,8 +845,11 @@
                             //document.getElementById("fillActualsForm").reset();
                             //$('#dateIncurred').val(selectedDate);
 
-                            fetch('/timesheets/getTasklist')
-                            .then(resp=>{
+                            $.ajax({ 
+                                type: 'GET',
+                                url: '/timesheets/getTasklist',       
+                                })
+                            .done(resp=>{
                                 console.log(resp);
                                 let temp = document.getElementById('dummyTableBody').innerHTML;
                                 resp.forEach((dt,i)=>{
@@ -871,7 +874,7 @@
 
                                 $("#fillActualsModal").modal("show");
                             })
-                            .catch(console.log);
+                            .fail(console.log);
 
 
                             /*$('#projectName').change(() => {            
