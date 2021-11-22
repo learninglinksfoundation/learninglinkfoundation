@@ -521,7 +521,7 @@
                     .fail((jqXHR, status, error) => {
                         console.log('jqXHR  : ' + JSON.stringify(jqXHR));
                         console.log('error  : ' + error);
-                        let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">' + resp +
+                        let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">' + error +
                             '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
                             '<span aria-hidden="true">&times;</span>' +
                             '</button>' +
@@ -843,10 +843,14 @@
                     else
                     {
                             //document.getElementById("fillActualsForm").reset();
-                            $('#dateIncurred').val(selectedDate);
+                            //$('#dateIncurred').val(selectedDate);
+                            
                             
                             $("#fillActualsModal").modal("show");
-                            $('#projectName').change(() => {            
+                            
+
+
+                            /*$('#projectName').change(() => {            
                             var selectedProject = $("#projectName option:selected").val();
                           //  alert("You have selected the project : " + selectedProject );
                             let select = document.getElementById("selectedTask");
@@ -888,7 +892,7 @@
                                 $("#selectedTask option[value !='None']").remove();  
                             }
                           
-                        });
+                        });*/
                     }
                 }
                /* else if(calEvent.title == 'Details') {
