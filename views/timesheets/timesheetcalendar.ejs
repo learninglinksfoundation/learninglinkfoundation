@@ -874,41 +874,6 @@
                             .catch(console.log);
 
 
-<tr data-label="{index}" >
-            <td scope="row"><button type="button" onclick="handleTimeSheet(event)" data-label="{index}" class="btn btn-primary">Add Timesheets</button></td>
-            <td> <input style="height: 14px; width: 14px;" type="checkbox" class="chckbox" id="Allcheckbox{index}" />   </td>
-            <td>{projectname}</td>
-            <td>{taskname}</td>
-            <td> {taskdate} </td>
-            <td>
-                <select id="taskSelect{index}" class="form-control" style="width:auto;" >  
-                    <option value="" > None </option>
-                    <option value="Started" > Started </option>
-                    <option value="Hold" > On Hold </option>
-                    <option value="Completed" > Completed </option>
-                    <option value="Yet" > Yet to Start </option>
-                </select>
-            </td>
-            <td>{function}</td>
-            <td> {tasktype}</td>
-            <td>{startTime}</td>
-            <td>{endTime}</td>
-            <td> <textarea class="form-control"  >{description} </textarea> </td>
-            <td><input class="form-control" type="time" />{AstartTime}</td>
-            <td><input class="form-control" type="time" />{AendTime}</td>
-            <td> {pHours} </td>
-            <td>{aHours}</td>
-            <td>{currentuser}</td>
-            <td> {sfdcUser} </td>
-        </tr>
-
-
-
-                            
-                            
-
-
-
                             /*$('#projectName').change(() => {            
                             var selectedProject = $("#projectName option:selected").val();
                           //  alert("You have selected the project : " + selectedProject );
