@@ -253,12 +253,14 @@ router.post('/createMultipletask', async (request, response) => {
             console.log('saveTaskResult =====>>>>>>>>>>>>  : ' + JSON.stringify(saveTaskResult.rows));
             //  response.send('savedInserted');
             //  console.log('inserted Id '+saveTaskResult.rows[0]);
+            response.status(200);
             response.send('Task saved Successfully');
           })
           .catch((saveTaskError) => {
             console.log('saveTaskError  ' + saveTaskError.stack);
             console.log('saveTaskError._hc_err  : ' + saveTaskError._hc_err.msg);
             response.send('Error Occured');
+            
           })
 
       }
