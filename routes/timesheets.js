@@ -235,6 +235,7 @@ router.post('/createMultipletask', async (request, response) => {
       console.log(resp.rows);
 
       if (resp.rowCount > 0) {
+        console.log('inner');
         let temp = {};
         p.rows.forEach(dt => {
           temp[dt.project__c] = dt.sfid;
