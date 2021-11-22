@@ -1718,8 +1718,8 @@ function handleTimeSheet(event){
 
 </div>
 
-
-    <div id="dummyTableBody" style="display:none;opacity:0;" >
+<table style="display:none;opacity:0;" >
+    <tbody id="dummyTableBody" style="display:none;opacity:0;" >
         <tr data-label="{index}" >
             <td scope="row"><button type="button" onclick="handleTimeSheet(event)" data-label="{index}" class="btn btn-primary">Add Timesheets</button></td>
             <td> <input style="height: 14px; width: 14px;" type="checkbox" class="chckbox" id="Allcheckbox{index}" />   </td>
@@ -1748,9 +1748,9 @@ function handleTimeSheet(event){
             <td> {sfdcUser} </td>
         </tr>
         
-    </div>
+    </tbody>
 
-
+</table>
 
 
 
