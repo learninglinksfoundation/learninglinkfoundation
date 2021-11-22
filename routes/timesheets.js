@@ -221,6 +221,27 @@ router.get('/getdata',verify, function(req, response, next)
 router.post('/createMultipletask', async (request, response) => {
     var formData = request.body;
     console.log(formData);
+    let values = '';
+    let projectList = '';
+    formData.forEach(dt=>{
+      projectList = `${projectList},'${dt.projectname}'`;
+      //values = `${values},()`
+
+    });
+    projectList = projectList.substring(1);
+    console.log(projectList);
+    let queryText = `SELECT Id,sfid, Name,project__c FROM salesforce.Milestone1_Milestone__c WHERE project__c IN (${projectList}) AND Name = 'Timesheets'`;
+    console.log(queryText);
+    pool.query(queryText)
+    .then(resp=>{
+      console.log(resp.rows);
+        response.send('Done');
+
+    })
+    .catch(error=>{
+      response.send('Some Error Occured');
+    });
+
 
 });
 
