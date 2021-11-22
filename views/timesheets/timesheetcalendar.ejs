@@ -851,8 +851,9 @@
                                 })
                             .done(resp=>{
                                 console.log(resp);
-                                let temp = document.getElementById('dummyTableBody').innerHTML;
+                                
                                 resp.forEach((dt,i)=>{
+                                    let temp = document.getElementById('dummyTableBody').innerHTML;
                                     temp = temp.replaceAll('{index}',i);
                                     temp = temp.replaceAll('{projectname}',dt.projectname);
                                     temp = temp.replaceAll('{taskname}',dt.name);
