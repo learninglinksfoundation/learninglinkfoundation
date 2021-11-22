@@ -374,6 +374,14 @@
                     if(index == 'undefined' || index == '' || index == undefined || index == null){
                         index = '';
                     }
+                    if(deadlin == 'deadline'){
+                        var endDate = $('#plannedendtimeTask'+index).val();
+                        if (endDate == '') {
+                            i.b++;
+                            alert('Error: Please Fill Planned End  Time');
+                            return;
+                        }
+                    }
 
                     console.log('deadline ++++  ' + deadlin,index);
                     if (deadlin == 'Block Time') {
@@ -422,7 +430,10 @@
                                 return ;
                             }
                     }
-                }}
+                }
+
+
+            }
             });
             var tempList = [];
             for(let j=0;j< aryData.length / 10; j++){

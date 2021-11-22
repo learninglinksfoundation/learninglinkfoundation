@@ -242,7 +242,7 @@ router.post('/createMultipletask', async (request, response) => {
         });
         console.log(temp);
         formData.forEach((dt, i) => {
-          values = `${values},('${dt.taskname}','${temp[dt.projectname]}','0122y00000005mMAAQ','${dt.status}','${dt.projectname}','${dt.taskdate}','${dt.assignedresource}','${dt.tasktype}','${dt.plannedstarttime ? dt.plannedstarttime: null }','${dt.plannedendtime ? dt.plannedendtime : null}','${dt.deadline}')`;
+          values = `${values},('${dt.taskname}','${temp[dt.projectname]}','0122y00000005mMAAQ','${dt.status}','${dt.projectname}','${dt.taskdate}','${dt.assignedresource}','${dt.tasktype}','${dt.plannedstarttime ? dt.plannedstarttime : '00:00'}','${dt.plannedendtime ? dt.plannedendtime : '00:00'}','${dt.deadline}')`;
         });
         values = values.substring(1);
         console.log(values);
@@ -253,14 +253,12 @@ router.post('/createMultipletask', async (request, response) => {
             console.log('saveTaskResult =====>>>>>>>>>>>>  : ' + JSON.stringify(saveTaskResult.rows));
             //  response.send('savedInserted');
             //  console.log('inserted Id '+saveTaskResult.rows[0]);
-            response.status(200);
             response.send('Task saved Successfully');
           })
           .catch((saveTaskError) => {
             console.log('saveTaskError  ' + saveTaskError.stack);
             console.log('saveTaskError._hc_err  : ' + saveTaskError._hc_err.msg);
             response.send('Error Occured');
-            
           })
 
       }
