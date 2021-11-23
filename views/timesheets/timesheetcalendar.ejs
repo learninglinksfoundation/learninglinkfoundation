@@ -899,19 +899,21 @@
                                 $('.chckbox').change(function(){
 
                                     let count = 0;
+                                    let flag = false;
                                     $('.chckbox').each(function(){
                                         let t = $(this).is(":checked");
                                         if(t){
                                            count++;
+                                           flag = true;
                                         }
                                         else{
                                             count--;
                                         }
                                     })
-                                    if(count == 0){
+                                    if(!flag){
                                         $('#deleteRec').prop('disabled',true); 
                                     }
-                                    if(count > 0){
+                                    if(flag){
                                         $('#deleteRec').prop('disabled',false); 
                                     }
                                     if($('.chckbox').length == count){
