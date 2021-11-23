@@ -1488,7 +1488,7 @@ router.get('/getTasklist',verify,(request,response)=>{
  if(date){
     let s = new Date(date);
     let dt = `${s.getFullYear()}-${s.getMonth()+1}-${s.getDate()}`;
-    queryText = queryText + ` AND tsk.start_date__c = cast(${dt} as date)`;
+    queryText = queryText + ` AND tsk.start_date__c = cast('${dt}' as date)`;
  }
  console.log('queryText  taskkkkkkkkkkkkkkkkkkk',queryText);
   pool
