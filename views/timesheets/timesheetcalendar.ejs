@@ -888,19 +888,32 @@
                                 $('#Allcheckbox').change(function(){
                                     var status = $(this).is(":checked") ? true : false;
                                     $(".chckbox").prop("checked",status);
+                                    if(status){
+                                        $('#deleteRec').prop('disabled',false);
+                                    }
+                                    else{
+                                        $('#deleteRec').prop('disabled',true);
+                                    }
                                 });
 
                                 $('.chckbox').change(function(){
+
                                     let count = 0;
                                     $('.chckbox').each(function(){
                                         let t = $(this).is(":checked");
                                         if(t){
-                                           count++; 
+                                           count++;
                                         }
                                         else{
                                             count--;
                                         }
                                     })
+                                    if(count == 0){
+                                        $('#deleteRec').prop('disabled',true); 
+                                    }
+                                    if(count > 0){
+                                        $('#deleteRec').prop('disabled',false); 
+                                    }
                                     if($('.chckbox').length == count){
                                         $("#Allcheckbox").prop("checked",true);
                                     }
