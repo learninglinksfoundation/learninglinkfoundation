@@ -652,6 +652,7 @@
                     else
                     {
                       //document.getElementById("taskForm").reset()
+                      $("#submitbuttonnn").attr("disabled", false);
                       let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+ resp+
                         '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
                         '<span aria-hidden="true">&times;</span>'+
@@ -1115,7 +1116,18 @@ function handleChange(e){
         }
     }
 
-    
+    $('#Allcheckbox').click(function(){
+        if(this.checked){
+            $('.chckbox').attr("checked",true);
+            $('#deleteRec').attr('disabled',false);
+        }
+        else{
+            $('.chckbox').attr("checked",false);
+            $('#deleteRec').attr('disabled',true);
+        }
+
+
+    });
 
 
 </script>
@@ -1495,6 +1507,7 @@ function handleTimeSheet(event){
             </div>
                
                <div class="modal-footer">
+                  <button type="button" class="btn btn-warning" disabled id="deleteRec">Delete</button>
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                   <button type="button" class="btn btn-primary" id="submitbuttonnn">Save</button>
                </div>
