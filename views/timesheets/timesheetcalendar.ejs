@@ -899,6 +899,10 @@
 
                                 $('.editIcon').click(function(){
                                     let index = this.dataset.label;
+                                     $('#taskSelect'+index).prop('disabled',false);
+                                    $('#descp'+index).prop('disabled',false);
+                                    $('#actualSt'+index).prop('disabled',false);
+                                    $('#actualEd'+index).prop('disabled',false);
                                     console.log(index);
                                 });
 
