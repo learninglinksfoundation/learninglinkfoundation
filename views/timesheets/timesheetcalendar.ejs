@@ -874,9 +874,20 @@
                                     temp = temp.replaceAll('{sfdcUser}','');
                                     let list = document.getElementById('fillActualtBody');
                                     list.innerHTML = list.innerHTML + temp;
+                                    $('#taskSelect'+i).val(dt.status);
                                 });
 
                                 $("#fillActualsModal").modal("show");
+                                $('.chckbox').click(function(){
+                                    if(this.checked){
+                                        $('#Allcheckbox').attr('checked',false);
+                                    }
+                                    else{
+                                        $('#Allcheckbox').attr('checked',false);
+                                    }
+                                });
+
+                                
                             })
                             .fail(console.log);
 
@@ -1115,19 +1126,6 @@ function handleChange(e){
             $('#tasktype'+index).css('pointer-events','none');
         }
     }
-
-    $('#Allcheckbox').click(function(){
-        if(this.checked){
-            $('.chckbox').attr("checked",true);
-            $('#deleteRec').attr('disabled',false);
-        }
-        else{
-            $('.chckbox').attr("checked",false);
-            $('#deleteRec').attr('disabled',true);
-        }
-
-
-    });
 
 
 </script>
@@ -1460,6 +1458,20 @@ function handleTimeSheet(event){
     $('#taskModal').modal("show");
 }
 
+
+$('#Allcheckbox').click(function(){
+        if(this.checked){
+            $('.chckbox').attr("checked",true);
+            $('#deleteRec').attr('disabled',false);
+        }
+        else{
+            $('.chckbox').attr("checked",false);
+            $('#deleteRec').attr('disabled',true);
+        }
+
+
+    });
+
 </script>
 
 
@@ -1750,9 +1762,9 @@ function handleTimeSheet(event){
                 <select id="taskSelect{index}" class="form-control" style="width:auto;" >  
                     <option value="" > None </option>
                     <option value="Started" > Started </option>
-                    <option value="Hold" > On Hold </option>
+                    <option value="On Hold" > On Hold </option>
                     <option value="Completed" > Completed </option>
-                    <option value="Yet" > Yet to Start </option>
+                    <option value="Yet to Start" > Yet to Start </option>
                 </select>
             </td>
             <td>{function}</td>
