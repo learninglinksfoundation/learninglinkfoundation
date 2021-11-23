@@ -1533,12 +1533,12 @@ function handleTimeSheet(event){
     let dt = event.target.dataset.label;
     let tmp = event.target.dataset.value;
     let obj = JSON.parse(window.atob(tmp));
-    console.log(obj,tmp,dt);
+    let date = new Date(obj.plandate);
     $('#project1').val(obj.projectname);
-    $('#dateIncurred').val(obj.plandate);
-    $('#task1').val(obj.name);
+    $('#dateIncurred').val(`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`);
+    $('#task1').val(obj.taskName);
     $('#user1').val(obj.assigned);
-    $('#selectTime1').val(obj.taskType);
+    $('#selectTime1').val(obj.status);
     $('#taskModal').modal("show");
 }
 

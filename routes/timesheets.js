@@ -1512,6 +1512,7 @@ router.get('/getTasklist',verify,(request,response)=>{
 
           //obj.function = eachRecord.function;
           obj.status = eachRecord.stage;
+          obj.taskName = eachRecord.tskname;
           obj.sequence = i;
           obj.id = eachRecord.sfids;
           obj.projectname = eachRecord.projname;
