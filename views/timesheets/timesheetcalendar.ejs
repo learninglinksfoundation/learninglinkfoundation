@@ -897,6 +897,11 @@
                                     }
                                 });
 
+                                $('.editIcon').click(function(){
+                                    let index = this.dataset.label;
+                                    console.log(index);
+                                });
+
                                 $('.chckbox').change(function(){
 
                                     let count = 0;
@@ -1786,25 +1791,25 @@ function handleTimeSheet(event){
             <td> {taskdate} </td>
             <td>
              <div style="display: flex;align-items: center;" >
-                <select id="taskSelect{index}" disabled class="form-control" >  
+                <select id="taskSelect{index}" disabled class="form-control" style="width:auto" >  
                     <option value="" > None </option>
                     <option value="Started" > Started </option>
                     <option value="On hold" > On Hold </option>
                     <option value="Completed" > Completed </option>
                     <option value="Yet to Start" > Yet to Start </option>
                 </select>
-                <i class="fas fa-pencil-alt" style="padding: 0 0 0 10px;cursor: pointer; color: #706e6b;"></i>
+                <i class="fas fa-pencil-alt editIcon" data-label="{index}" style="padding: 0 0 0 10px;cursor: pointer; color: #706e6b;"></i>
              </div>
             </td>
             <td>{function}</td>
             <td> {tasktype}</td>
             <td>{startTime}</td>
             <td>{endTime}</td>
-            <td><div style="display: flex;align-items: center;" > <textarea class="form-control" disabled id="descp{index}" >{description} </textarea><i class="fas fa-pencil-alt" style="padding: 0 0 0 10px;cursor: pointer; color: #706e6b;"></i>
+            <td><div style="display: flex;align-items: center;" > <textarea class="form-control" disabled id="descp{index}" >{description} </textarea><i class="fas fa-pencil-alt editIcon" data-label="{index}" style="padding: 0 0 0 10px;cursor: pointer; color: #706e6b;"></i>
              </div> </td>
-             <td><div style="display: flex;align-items: center;" ><input class="form-control" type="time" disabled id="actualSt{index}" value="{AstartTime}" /><i class="fas fa-pencil-alt" style="padding: 0 0 0 10px;cursor: pointer; color: #706e6b;"></i>
+             <td><div style="display: flex;align-items: center;" ><input class="form-control" type="time" disabled id="actualSt{index}" value="{AstartTime}" /><i class="fas fa-pencil-alt editIcon" data-label="{index}" style="padding: 0 0 0 10px;cursor: pointer; color: #706e6b;"></i>
              </div> </td>
-            <td><div style="display: flex;align-items: center;" ><input class="form-control" type="time" disabled id="actualEd{index}" value="{AendTime}" /><i class="fas fa-pencil-alt" style="padding: 0 0 0 10px;cursor: pointer; color: #706e6b;"></i> </div></td>
+            <td><div style="display: flex;align-items: center;" ><input class="form-control" type="time" disabled id="actualEd{index}" value="{AendTime}" /><i class="fas fa-pencil-alt editIcon" data-label="{index}" style="padding: 0 0 0 10px;cursor: pointer; color: #706e6b;"></i> </div></td>
             <td> {pHours} </td>
             <td>{aHours}</td>
             <td>{currentuser}</td>
