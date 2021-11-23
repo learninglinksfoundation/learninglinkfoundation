@@ -882,9 +882,33 @@
 
                                 resp.forEach((dt,i)=>{
                                     $('#taskSelect'+i).val(dt.status);
-                                })
+                                });
 
                                 $("#fillActualsModal").modal("show");
+
+                                $('#deleteRec').click(function(){//deleteTask
+                                    let list = [];
+                                     $('.chckbox').each(function(e){
+                                        if($(this).is(":checked")){
+                                           list.push($(this)[0].dataset.label); 
+                                        }  
+                                     });
+                                     console.log(list);
+                                     if(list.length > 0){
+                                        console.log('inside');
+                                        $.ajax({
+                                                url : '/timesheets/deleteMultipleTask',
+                                                data : JSON.stringify(list),
+                                                type : 'post',
+                                                contentType: 'application/json',
+                                        })
+                                            .done((response) => {
+                                                console.log(response);
+                                            })
+                                            .fail(console.log);
+                                     }
+
+                                });
 
                                 $('#Allcheckbox').change(function(){
                                     var status = $(this).is(":checked") ? true : false;
@@ -1503,32 +1527,6 @@ function handleTimeSheet(event){
     console.log(dt);
     $('#taskModal').modal("show");
 }
-
-$('#deleteRec').click(function(){//deleteTask
-    let list = [];
-     $('.chckbox').each(function(e){
-        if($(this).is(":checked")){
-           list.push($(this)[0].dataset.label); 
-        }  
-     });
-     console.log(list);
-     if(list.length > 0){
-        console.log('inside');
-        $.ajax({
-                url : '/timesheets/deleteMultipleTask',
-                data : JSON.stringify(list),
-                type : 'post',
-                contentType: 'application/json',
-        })
-            .done((response) => {
-                console.log(response);
-            })
-            .fail(console.log);
-     }
-
-});
-
-
 
 
 </script>
