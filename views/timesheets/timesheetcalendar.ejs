@@ -843,8 +843,7 @@
                     }
                     else
                     {
-                        window.saveDom = calEvent;
-                        console.log(jsEvent,calEvent);
+                        window.saveDom = jsEvent;
                             //document.getElementById("fillActualsForm").reset();
                             //$('#dateIncurred').val(selectedDate);
 
@@ -906,9 +905,12 @@
                                         })
                                             .done((response) => {
                                                 console.log(response);
+                                                window.saveDom.target.click();
 
                                             })
-                                            .fail(console.log);
+                                            .fail(resp=>{
+                                                alert('Some Error occured');
+                                            });
                                      }
 
                                 });
