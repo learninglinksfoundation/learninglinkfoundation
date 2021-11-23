@@ -1511,20 +1511,20 @@ $('#deleteRec').click(function(){//deleteTask
            list.push($(this)[0].dataset.label); 
         }  
      });
+     console.log(list);
      if(list.length > 0){
+        console.log('inside');
         $.ajax({
                 url : '/timesheets/deleteMultipleTask',
-                data : {
-                  list : list
-                },
-                type : 'get'
-           })
+                data : JSON.stringify(list),
+                type : 'post',
+                contentType: 'application/json',
+        })
             .done((response) => {
                 console.log(response);
             })
             .fail(console.log);
      }
-
 
 });
 

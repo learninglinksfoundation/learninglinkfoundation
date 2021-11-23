@@ -1610,9 +1610,9 @@ console.log('taskId Id1111 ='+taskId);
 })
 
 
-router.get('/deleteMultipleTask/',(request,response)=>{
+router.post('/deleteMultipleTask/',verify,(request,response)=>{
 
-  let idList = request.query.list;
+  let idList = request.body;
   console.log(idList,typeof idList);
   let lists = idList.join("','");
   let deleteQuerry = `DELETE FROM salesforce.Milestone1_Task__c WHERE sfid IN ('${lists}')`;
