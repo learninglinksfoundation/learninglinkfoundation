@@ -874,10 +874,29 @@
                                     temp = temp.replaceAll('{sfdcUser}','');
                                     let list = document.getElementById('fillActualtBody');
                                     list.innerHTML = list.innerHTML + temp;
-                                    $('#taskSelect'+i).val(dt.status);
+                                    console.log(dt.status);
+                                    
                                 });
 
+                                resp.forEach((dt,i)=>{
+                                    $('#taskSelect'+i).val(dt.status);
+                                })
+
                                 $("#fillActualsModal").modal("show");
+
+                                $('#Allcheckbox').click(function(){
+                                    if(this.checked){
+                                        $('.chckbox').attr("checked",true);
+                                        $('#deleteRec').attr('disabled',false);
+                                    }
+                                    else{
+                                        $('.chckbox').attr("checked",false);
+                                        $('#deleteRec').attr('disabled',true);
+                                    }
+
+
+                                 });
+
                                 $('.chckbox').click(function(){
                                     if(this.checked){
                                         $('#Allcheckbox').attr('checked',false);
@@ -1459,18 +1478,7 @@ function handleTimeSheet(event){
 }
 
 
-$('#Allcheckbox').click(function(){
-        if(this.checked){
-            $('.chckbox').attr("checked",true);
-            $('#deleteRec').attr('disabled',false);
-        }
-        else{
-            $('.chckbox').attr("checked",false);
-            $('#deleteRec').attr('disabled',true);
-        }
 
-
-    });
 
 </script>
 
