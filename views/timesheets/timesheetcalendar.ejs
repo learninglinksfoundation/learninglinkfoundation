@@ -867,6 +867,7 @@
                                     temp = temp.replaceAll('{endTime}','');
                                     temp = temp.replaceAll('{description}','');
                                     temp = temp.replaceAll('{AstartTime}','');
+                                    temp = temp.replaceAll('{recId}',dt.id);
                                     temp = temp.replaceAll('{AendTime}','');
                                     temp = temp.replaceAll('{pHours}','');
                                     temp = temp.replaceAll('{aHours}','');
@@ -1779,26 +1780,31 @@ function handleTimeSheet(event){
     <tbody id="dummyTableBody" style="display:none;opacity:0;" >
         <tr data-label="{index}" >
             <td scope="row"><button type="button" onclick="handleTimeSheet(event)" data-label="{index}" class="btn btn-primary">Add Timesheets</button></td>
-            <td> <input style="height: 14px; width: 14px;" type="checkbox" class="chckbox{dummy}" id="Allcheckbox{index}" />   </td>
+            <td> <input style="height: 14px; width: 14px;" type="checkbox" class="chckbox{dummy}" data-label="{recId}" id="Allcheckbox{index}" />   </td>
             <td>{projectname}</td>
             <td>{taskname}</td>
             <td> {taskdate} </td>
             <td>
-                <select id="taskSelect{index}" class="form-control" style="width:auto;" >  
+             <div style="display: flex;align-items: center;" >
+                <select id="taskSelect{index}" disabled class="form-control" >  
                     <option value="" > None </option>
                     <option value="Started" > Started </option>
                     <option value="On hold" > On Hold </option>
                     <option value="Completed" > Completed </option>
                     <option value="Yet to Start" > Yet to Start </option>
                 </select>
+                <i class="fas fa-pencil-alt" style="padding: 0 0 0 10px;cursor: pointer; color: #706e6b;"></i>
+             </div>
             </td>
             <td>{function}</td>
             <td> {tasktype}</td>
             <td>{startTime}</td>
             <td>{endTime}</td>
-            <td> <textarea class="form-control"  >{description} </textarea> </td>
-            <td><input class="form-control" type="time" />{AstartTime}</td>
-            <td><input class="form-control" type="time" />{AendTime}</td>
+            <td><div style="display: flex;align-items: center;" > <textarea class="form-control" disabled id="descp{index}" >{description} </textarea><i class="fas fa-pencil-alt" style="padding: 0 0 0 10px;cursor: pointer; color: #706e6b;"></i>
+             </div> </td>
+             <td><div style="display: flex;align-items: center;" ><input class="form-control" type="time" disabled id="actualSt{index}" value="{AstartTime}" /><i class="fas fa-pencil-alt" style="padding: 0 0 0 10px;cursor: pointer; color: #706e6b;"></i>
+             </div> </td>
+            <td><div style="display: flex;align-items: center;" ><input class="form-control" type="time" disabled id="actualEd{index}" value="{AendTime}" /><i class="fas fa-pencil-alt" style="padding: 0 0 0 10px;cursor: pointer; color: #706e6b;"></i> </div></td>
             <td> {pHours} </td>
             <td>{aHours}</td>
             <td>{currentuser}</td>
