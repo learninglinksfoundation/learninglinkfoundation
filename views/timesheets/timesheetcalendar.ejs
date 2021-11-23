@@ -869,7 +869,7 @@
                                     temp = temp.replaceAll('{description}','');
                                     temp = temp.replaceAll('{AstartTime}','');
                                     temp = temp.replaceAll('{recId}',dt.id);
-                                    temp = temp.replaceAll('{object}',dt);
+                                    temp = temp.replaceAll('{object}', window.btoa(JSON.stringify(dt)));
                                     temp = temp.replaceAll('{AendTime}','');
                                     temp = temp.replaceAll('{pHours}','');
                                     temp = temp.replaceAll('{aHours}','');
@@ -1531,8 +1531,9 @@ function handleChange(e){
 
 function handleTimeSheet(event){
     let dt = event.target.dataset.label;
-    let obj = event.target.dataset.value;
-    console.log(dt,obj);
+    let tmp = event.target.dataset.value;
+    let obj = JSON.parse(window.atob(tmp));
+    console.log(obj,tmp,dt);
     $('#project1').val(obj.projectname);
     $('#dateIncurred').val(obj.plandate);
     $('#task1').val(obj.name);
