@@ -853,7 +853,7 @@
                                 })
                             .done(resp=>{
                                 console.log(resp);
-                                
+                                document.getElementById('fillActualtBody').innerHTML = '';
                                 resp.forEach((dt,i)=>{
                                     let temp = document.getElementById('dummyTableBody').innerHTML;
                                     temp = temp.replaceAll('{index}',i);

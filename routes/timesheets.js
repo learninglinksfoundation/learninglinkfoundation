@@ -1478,7 +1478,6 @@ router.get('/getTeamdetails',verify,async(request,response)=>{
 router.get('/getTasklist',verify,(request,response)=>{
   let date = request.query.date;
   let objUser=request.user;
-  console.log('objUser.sfid '+objUser.sfid,date,typeof date);
   let queryText = 'SELECT tsk.Id,tsk.sfid as sfids,tsk.name as tskname,tsk.Task_Stage__c as stage,tsk.start_date__c ,tsk.Project_Name__c, tsk.assigned_manager__c,tsk.end_time__c,tsk.Task_Type__c,tsk.Planned_Hours__c,tsk.Start_Time__c,cont.sfid as contid ,cont.name as contname,proj.name as projname,tsk.createddate '+
                    'FROM salesforce.Milestone1_Task__c tsk '+ 
                    'INNER JOIN salesforce.Contact cont ON tsk.assigned_manager__c = cont.sfid '+
@@ -1487,7 +1486,7 @@ router.get('/getTasklist',verify,(request,response)=>{
                    
  if(date){
     let s = new Date(date);
-    let dt = `${s.getFullYear()}-${s.getMonth()+1}-${s.getDate()}`;
+    let dt = `${s.getFullYear()}-${s.getMonth()+1}-${s.getDate()+1}`;
     queryText = queryText + ` AND tsk.start_date__c = cast('${dt}' as date)`;
  }
  console.log('queryText  taskkkkkkkkkkkkkkkkkkk',queryText);
