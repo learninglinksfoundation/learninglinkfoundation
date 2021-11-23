@@ -1513,6 +1513,7 @@ router.get('/getTasklist',verify,(request,response)=>{
           //obj.function = eachRecord.function;
           obj.status = eachRecord.stage;
           obj.sequence = i;
+          obj.id = eachRecord.sfids;
           obj.projectname = eachRecord.projname;
           obj.name = '<a href="#" class="taskreferenceTag" id="'+eachRecord.sfids+'" >'+eachRecord.tskname+'</a>';
           obj.assigned = eachRecord.contname;

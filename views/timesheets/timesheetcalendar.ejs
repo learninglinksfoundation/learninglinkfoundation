@@ -1504,6 +1504,16 @@ function handleTimeSheet(event){
     $('#taskModal').modal("show");
 }
 
+$('#deleteRec').click(function(){//deleteTask
+    let list = [];
+     $('.chckbox').each(function(){
+        if($(this).is(":checked")){
+           list.push($(this).dataset.label); 
+        }  
+     });
+     console.log(list);
+});
+
 
 
 
