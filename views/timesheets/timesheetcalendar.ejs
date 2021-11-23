@@ -843,6 +843,8 @@
                     }
                     else
                     {
+                        window.saveDom = calEvent;
+                        console.log(jsEvent,calEvent);
                             //document.getElementById("fillActualsForm").reset();
                             //$('#dateIncurred').val(selectedDate);
 
@@ -886,7 +888,7 @@
 
                                 $("#fillActualsModal").modal("show");
 
-                                $('#deleteRec').click(function(){//deleteTask
+                                $('#deleteRec').click(function(){
                                     let list = [];
                                      $('.chckbox').each(function(e){
                                         if($(this).is(":checked")){
@@ -904,6 +906,7 @@
                                         })
                                             .done((response) => {
                                                 console.log(response);
+
                                             })
                                             .fail(console.log);
                                      }

@@ -1617,16 +1617,16 @@ router.post('/deleteMultipleTask/',verify,(request,response)=>{
   let lists = idList.join("','");
   let deleteQuerry = `DELETE FROM salesforce.Milestone1_Task__c WHERE sfid IN ('${lists}')`;
   console.log('deleteQuerry  '+deleteQuerry);
-  /*pool
-  .query(deleteQuerry,[taskId])
+  pool
+  .query(deleteQuerry)
   .then((deleteQuerry) => {     
-  console.log('deleteQuerry =>>'+JSON.stringify(deleteQuerry));
-  response.send(200);
+      console.log('deleteQuerry =>>'+JSON.stringify(deleteQuerry));
+      response.send(200);
   })
   .catch((deleteError) => {
-  console.log('deleteError'+deleteError.stack);
-  response.send('Error');
-  })*/
+      console.log('deleteError'+deleteError.stack);
+      response.send('Error');
+  })
 })
 
 
