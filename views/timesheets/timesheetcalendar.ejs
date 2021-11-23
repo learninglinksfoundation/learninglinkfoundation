@@ -861,7 +861,8 @@
                                     temp = temp.replaceAll('{index}',i);
                                     temp = temp.replaceAll('{projectname}',dt.projectname);
                                     temp = temp.replaceAll('{taskname}',dt.name);
-                                    temp = temp.replaceAll('{taskdate}',dt.plandate);
+                                    let strDate = new Date(dt.plandate);
+                                    temp = temp.replaceAll('{taskdate}',`${strDate.getFullYear()}-${strDate.getMonth()+1}-${strDate.getDate()}`);
                                     temp = temp.replaceAll('{tasktype}',dt.taskType);
                                     temp = temp.replaceAll('{startTime}','');
                                     temp = temp.replaceAll('{function}','');
