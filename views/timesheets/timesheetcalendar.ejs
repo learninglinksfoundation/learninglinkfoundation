@@ -869,6 +869,7 @@
                                     temp = temp.replaceAll('{description}','');
                                     temp = temp.replaceAll('{AstartTime}','');
                                     temp = temp.replaceAll('{recId}',dt.id);
+                                    temp = temp.replaceAll('{object}',dt);
                                     temp = temp.replaceAll('{AendTime}','');
                                     temp = temp.replaceAll('{pHours}','');
                                     temp = temp.replaceAll('{aHours}','');
@@ -906,6 +907,7 @@
                                             .done((response) => {
                                                 console.log(response);
                                                 window.saveDom.target.click();
+                                                $('#deleteRec').prop('disabled',true);
 
                                             })
                                             .fail(resp=>{
@@ -1529,7 +1531,13 @@ function handleChange(e){
 
 function handleTimeSheet(event){
     let dt = event.target.dataset.label;
-    console.log(dt);
+    let obj = event.target.dataset.value;
+    console.log(dt,obj);
+    $('#project1').val(obj.projectname);
+    $('#dateIncurred').val(obj.plandate);
+    $('#task1').val(obj.name);
+    $('#user1').val(obj.assigned);
+    $('#selectTime1').val(obj.taskType);
     $('#taskModal').modal("show");
 }
 
@@ -1594,7 +1602,7 @@ function handleTimeSheet(event){
 </div>
 
 
- <! Task Modal -->
+ <!-- Task Modal -->
 
 <div id="taskModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
     <div class="modal-dialog modal-lg" role="document">
@@ -1614,7 +1622,7 @@ function handleTimeSheet(event){
                     </div>
                     <div class="col-md-6">
                         <label for="validationTooltip04">Date Incurred</label>
-                        <input type="text" class="form-control datepic" class="dateIncurred" id="dateIncurred" readonly name="dateIncurred" required> </div>
+                        <input type="text" class="form-control datepic dateIncurred"  id="dateIncurred" readonly name="dateIncurred" required> </div>
                 </div>
             </div>
             <div class="form-group">
@@ -1625,10 +1633,10 @@ function handleTimeSheet(event){
                     </div>
                     <div class="col-md-6">
                         <label for="validationTooltipUsername">Status <span style="color: red;">*</span></label>
-                        <select class="custom-select custom-select-sm form-control" name="statusTimesheet">
+                        <select class="custom-select custom-select-sm form-control" id="selectTime1" name="statusTimesheet">
                             <option selected>None</option>
                             <option value="Started">Started</option>
-                            <option value="On Hold">On Hold</option>
+                            <option value="On hold">On Hold</option>
                             <option value="Completed">Completed</option>
                         </select>
                     </div>
@@ -1815,7 +1823,7 @@ function handleTimeSheet(event){
 <table style="display:none;opacity:0;" >
     <tbody id="dummyTableBody" style="display:none;opacity:0;" >
         <tr data-label="{index}" >
-            <td scope="row"><button type="button" onclick="handleTimeSheet(event)" data-label="{index}" class="btn btn-primary">Add Timesheets</button></td>
+            <td scope="row"><button type="button" data-value="{object}" onclick="handleTimeSheet(event)" data-label="{index}" class="btn btn-primary">Add Timesheets</button></td>
             <td> <input style="height: 14px; width: 14px;" type="checkbox" class="chckbox{dummy}" data-label="{recId}" id="Allcheckbox{index}" />   </td>
             <td>{projectname}</td>
             <td>{taskname}</td>
