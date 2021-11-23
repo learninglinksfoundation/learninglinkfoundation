@@ -1592,11 +1592,30 @@ router.post('/updateTask',verify,(request,response)=>{
 router.get('/deleteTask/:parentId',(request,response)=>{
 
   var taskId  = request.params.parentId;
+console.log('taskId Id1111 ='+taskId);
+
+    let deleteQuerry = 'DELETE FROM salesforce.Milestone1_Task__c '+
+    'WHERE sfid = $1';
+  console.log('deleteQuerry  '+deleteQuerry);
+  pool
+  .query(deleteQuerry,[taskId])
+  .then((deleteQuerry) => {     
+  console.log('deleteQuerry =>>'+JSON.stringify(deleteQuerry));
+  response.send(200);
+  })
+  .catch((deleteError) => {
+  console.log('deleteError'+deleteError.stack);
+  response.send('Error');
+  })
+})
+
+
+router.get('/deleteMultipleTask/',(request,response)=>{
+
   let idList = request.query.list;
   console.log(idList,typeof idList);
-  console.log('taskId Id1111 ='+taskId);
-
-  let deleteQuerry = 'DELETE FROM salesforce.Milestone1_Task__c '+'WHERE sfid = $1';
+  let lists = idList.join("','");
+  let deleteQuerry = `DELETE FROM salesforce.Milestone1_Task__c WHERE sfid IN ('${lists}')`;
   console.log('deleteQuerry  '+deleteQuerry);
   /*pool
   .query(deleteQuerry,[taskId])

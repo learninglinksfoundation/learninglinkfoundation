@@ -1511,7 +1511,21 @@ $('#deleteRec').click(function(){//deleteTask
            list.push($(this)[0].dataset.label); 
         }  
      });
-     console.log(list);
+     if(list.length > 0){
+        $.ajax({
+                url : '/timesheets/deleteMultipleTask',
+                data : {
+                  list : list
+                },
+                type : 'get'
+           })
+            .done((response) => {
+                console.log(response);
+            })
+            .fail(console.log);
+     }
+
+
 });
 
 
