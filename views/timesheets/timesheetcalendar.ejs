@@ -847,7 +847,9 @@
 
                             $.ajax({ 
                                 type: 'GET',
-                                url: '/timesheets/getTasklist',       
+                                url: '/timesheets/getTasklist',  
+                                data : {date:seletedDate},
+                                dataType: 'json'     
                                 })
                             .done(resp=>{
                                 console.log(resp);

@@ -1476,14 +1476,18 @@ router.get('/getTeamdetails',verify,async(request,response)=>{
 })
 
 router.get('/getTasklist',verify,(request,response)=>{
+  let date = request.query.date;
   let objUser=request.user;
-  console.log('objUser.sfid '+objUser.sfid);
+  console.log('objUser.sfid '+objUser.sfid,date);
   let queryText = 'SELECT tsk.Id,tsk.sfid as sfids,tsk.name as tskname,tsk.Task_Stage__c as stage,tsk.start_date__c ,tsk.Project_Name__c, tsk.assigned_manager__c,tsk.end_time__c,tsk.Task_Type__c,tsk.Planned_Hours__c,tsk.Start_Time__c,cont.sfid as contid ,cont.name as contname,proj.name as projname,tsk.createddate '+
                    'FROM salesforce.Milestone1_Task__c tsk '+ 
                    'INNER JOIN salesforce.Contact cont ON tsk.assigned_manager__c = cont.sfid '+
                    'INNER JOIN salesforce.Milestone1_Project__c proj ON tsk.Project_Name__c= proj.sfid '+
                    'WHERE  tsk.Assigned_Manager__c= $1 AND tsk.sfid IS NOT NULL ';
                    
+ if(date){
+    queryText = queryText + ` AND tsk.start_date__c = ${date}`;
+ }
  console.log('queryText  taskkkkkkkkkkkkkkkkkkk',queryText);
   pool
    .query(queryText,[objUser.sfid])
