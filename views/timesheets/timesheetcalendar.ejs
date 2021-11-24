@@ -959,10 +959,19 @@
                                     let listData = [];
                                     indexList.forEach(dt=>{
                                        let obj =  $('#addBtns'+dt)[0].dataset.value;
+                                       let temp = {};
                                        let objs = JSON.parse(window.atob(obj));
-                                       console.log(objs);
-
+                                       temp.status = $('#taskSelect'+dt).val();
+                                       temp.actualStart = $('#actualSt'+dt).val();
+                                       temp.descp = $('#descp'+dt).val();
+                                       temp.actualEnd = $('#actualEd'+dt).val();
+                                       temp.proId = objs.proId;
+                                       temp.taskId = objs.id;
+                                       temp.user = objs.userId;
+                                       temp.date = objs.createDdate;
+                                       listData.push(temp);
                                     });
+                                    console.log(listData);
 
                                 });
 
