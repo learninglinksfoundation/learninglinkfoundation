@@ -504,7 +504,11 @@
                             $('#errorMessages').empty();
                             $('#errorMessages').append(errorHtml);
                             $("#submitbutton").attr("disabled", false);
-                            window.location.reload()
+                            $('#createTaskModal').scrollTop(0);
+                            window.setTimeout(function(){
+                                 window.location.reload();
+                            },1500);
+                            
                         } else {
                             //document.getElementById("taskForm").reset()
                             let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">' + resp +
@@ -864,16 +868,16 @@
                                     let strDate = new Date(dt.plandate);
                                     temp = temp.replaceAll('{taskdate}',`${strDate.getFullYear()}-${strDate.getMonth()+1}-${strDate.getDate()}`);
                                     temp = temp.replaceAll('{tasktype}',dt.taskType);
-                                    temp = temp.replaceAll('{startTime}','');
+                                    temp = temp.replaceAll('{startTime}',dt.startTime);
                                     temp = temp.replaceAll('{function}','');
-                                    temp = temp.replaceAll('{endTime}','');
+                                    temp = temp.replaceAll('{endTime}',dt.endtime);
                                     temp = temp.replaceAll('{description}','');
                                     temp = temp.replaceAll('{AstartTime}','');
                                     temp = temp.replaceAll('{recId}',dt.id);
                                     temp = temp.replaceAll('{object}', window.btoa(JSON.stringify(dt)));
                                     temp = temp.replaceAll('{AendTime}','');
-                                    temp = temp.replaceAll('{pHours}','');
-                                    temp = temp.replaceAll('{aHours}','');
+                                    temp = temp.replaceAll('{pHours}',dt.hrs);
+                                    temp = temp.replaceAll('{aHours}',dt.actualHours);
                                     temp = temp.replaceAll('{currentuser}',dt.assigned);
                                     temp = temp.replaceAll('{sfdcUser}','');
                                     temp = temp.replaceAll('{dummy}','');

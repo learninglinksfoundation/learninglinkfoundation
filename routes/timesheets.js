@@ -1478,7 +1478,7 @@ router.get('/getTeamdetails',verify,async(request,response)=>{
 router.get('/getTasklist',verify,(request,response)=>{
   let date = request.query.date;
   let objUser=request.user;
-  let queryText = 'SELECT tsk.Id,tsk.sfid as sfids,tsk.name as tskname,tsk.Task_Stage__c as stage,tsk.start_date__c ,tsk.Project_Name__c, tsk.assigned_manager__c,tsk.end_time__c,tsk.Task_Type__c,tsk.Planned_Hours__c,tsk.Start_Time__c,cont.sfid as contid ,cont.name as contname,proj.name as projname,tsk.createddate '+
+  let queryText = 'SELECT tsk.Id,tsk.sfid as sfids,tsk.name as tskname,tsk.Task_Stage__c as stage,tsk.start_date__c ,tsk.Project_Name__c,tsk.Total_Hours__c ,tsk.assigned_manager__c,tsk.end_time__c,tsk.Task_Type__c,tsk.Planned_Hours__c,tsk.Start_Time__c,cont.sfid as contid ,cont.name as contname,proj.name as projname,tsk.createddate '+
                    'FROM salesforce.Milestone1_Task__c tsk '+ 
                    'INNER JOIN salesforce.Contact cont ON tsk.assigned_manager__c = cont.sfid '+
                    'INNER JOIN salesforce.Milestone1_Project__c proj ON tsk.Project_Name__c= proj.sfid '+
@@ -1524,6 +1524,7 @@ router.get('/getTasklist',verify,(request,response)=>{
           obj.taskType=eachRecord.task_type__c;
           obj.plandate=strplanDate;
           obj.createDdate = strDate;
+          obj.actualHours = eachRecord.Total_Hours__c;
           obj.deleteAction = '<button href="#" class="btn btn-primary deleteTask" id="'+eachRecord.sfids+'" >Delete</button>'     
        //   obj.editAction = '<button href="#" class="btn btn-primary editTask" id="'+eachRecord.sfids+'" >Edit</button>'
           i= i+1;
