@@ -483,9 +483,8 @@ router.post('/fillactualsTimeSheet',(request, response) => {
     values = values.substring(1);
     console.log(values);
     
-    response.send('Successfully Inserted');
-    /*pool
-    .query('INSERT INTO salesforce.Milestone1_Time__c (Projecttimesheet__c, Date__c, Project_Task__c, Representative__c,Related_Task_Status__c,Start_Time__c, End_Time__c, Description__c) VALUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING sfid',[projectName,dateIncurred,selectedTask,representative,statusTimesheet,actualStartTimeTimesheet,actualEndTimeTimesheet,descriptionTimesheet])
+    pool
+    .query('INSERT INTO salesforce.Milestone1_Time__c (Projecttimesheet__c, Date__c, Project_Task__c, Representative__c,Related_Task_Status__c,Start_Time__c, End_Time__c, Description__c) VALUES'+ values +' RETURNING sfid')
     .then((timesheetQueryResult) => {
       
       console.log('timesheetQueryResult  '+JSON.stringify(timesheetQueryResult));
@@ -494,7 +493,7 @@ router.post('/fillactualsTimeSheet',(request, response) => {
     .catch((timesheetQueryError) => {
       console.log('timesheetQueryError  '+timesheetQueryError.stack)
       response.send('Exception Occured');
-    })*/
+    })
 
 });
 

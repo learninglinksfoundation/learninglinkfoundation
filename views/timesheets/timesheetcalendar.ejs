@@ -968,7 +968,8 @@
                                        temp.proId = objs.proId;
                                        temp.taskId = objs.id;
                                        temp.user = objs.userId;
-                                       temp.date = objs.createDdate;
+                                       let strDate = new Date(objs.createDdate);
+                                       temp.date = `${strDate.getFullYear()}-${strDate.getMonth()+1}-${strDate.getDate()}`;
                                        listData.push(temp);
                                     });
                                     console.log(listData);
@@ -984,7 +985,7 @@
                                                 console.log(response);
                                                 window.saveDom.target.click();
                                                 $('#submitbuttonnn').prop('disabled',false);
-                                                
+                                                window.editIndex.length = 0;
 
                                             })
                                             .fail(resp=>{
