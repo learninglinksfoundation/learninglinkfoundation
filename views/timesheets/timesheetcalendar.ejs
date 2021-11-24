@@ -28,7 +28,7 @@
            </div>
   <div class="col-md-6">
     <label for="validationTooltip02">Select View</label>
-    <select class="custom-select custom-select-sm form-control" readonly="true" id="Selectview" readonly="true" name="Selectview">
+    <select class="custom-select custom-select-sm form-control" readonly="<%= objUser.isManager ? false : true %>" id="Selectview" name="Selectview">
         <!-- <option value''>None</option> -->
         <option  value="currentuser" selected >current User View</option>
         <% if(objUser.isManager) { %>
@@ -886,7 +886,6 @@
                                     temp = temp.replaceAll('{dummy}','');
                                     let list = document.getElementById('fillActualtBody');
                                     list.innerHTML = list.innerHTML + temp;
-                                    console.log(dt.status);
                                     
                                 });
 
