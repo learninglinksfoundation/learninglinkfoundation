@@ -872,7 +872,7 @@
                                     temp = temp.replaceAll('{taskdate}',`${strDate.getFullYear()}-${strDate.getMonth()+1}-${strDate.getDate()}`);
                                     temp = temp.replaceAll('{tasktype}',dt.taskType);
                                     temp = temp.replaceAll('{startTime}',dt.startTime);
-                                    temp = temp.replaceAll('{function}','');
+                                    temp = temp.replaceAll('{function}',dt.function);
                                     temp = temp.replaceAll('{endTime}',dt.endtime);
                                     temp = temp.replaceAll('{description}','');
                                     temp = temp.replaceAll('{AstartTime}','');
@@ -935,6 +935,11 @@
                                         $('#deleteRec').prop('disabled',true);
                                     }
                                 });
+                                if( ! (seletedDate.getTime() > currentDate.getTime()))
+                                {
+                                      $('.editIcon').css('display','block');
+                                }
+                                
 
                                 $('.editIcon').click(function(){
                                     let index = this.dataset.label;
