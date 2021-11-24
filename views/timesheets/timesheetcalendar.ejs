@@ -110,6 +110,7 @@
       console.log('objuser name +++'+objUserName);
       console.log('objuser objUserId +++'+objUserId);
       console.log('contactList +++'+contactList);
+      window.editIndex = [];
         var today = new Date();
         var eventsData ; 
         let dt = <%- objUser.isManager %>;
@@ -945,7 +946,6 @@
 
                                 $('.editIcon').click(function(){
                                     let index = this.dataset.label;
-                                    window.editIndex = [];
                                     window.editIndex.push(index);
                                      $('#taskSelect'+index).prop('disabled',false);
                                     $('#descp'+index).prop('disabled',false);
@@ -961,7 +961,7 @@
                                        let obj =  $('#addBtns'+dt)[0].dataset.value;
                                        let objs = JSON.parse(window.atob(obj));
                                        console.log(objs);
-                                       
+
                                     });
 
                                 });
