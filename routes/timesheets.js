@@ -476,6 +476,13 @@ router.post('/createtask', async (request, response) => {
 router.post('/fillactualsTimeSheet',(request, response) => {
     var data = request.body;
     console.log('test',JSON.stringify(data));
+    let values = '';
+    data.forEach(dt=>{
+      values = `${values},('${dt.proId}','${dt.date}','${dt.taskId}','${dt.user}','${dt.status}','${dt.actualStart ? dt.actualStart : '00:00'}','${dt.actualEnd ? dt.actualEnd : '00:00'}','${dt.descp}')`;
+    });
+    values = values.substring(1);
+    console.log(values);
+    
     response.send('Successfully Inserted');
     /*pool
     .query('INSERT INTO salesforce.Milestone1_Time__c (Projecttimesheet__c, Date__c, Project_Task__c, Representative__c,Related_Task_Status__c,Start_Time__c, End_Time__c, Description__c) VALUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING sfid',[projectName,dateIncurred,selectedTask,representative,statusTimesheet,actualStartTimeTimesheet,actualEndTimeTimesheet,descriptionTimesheet])
@@ -1529,7 +1536,7 @@ router.get('/getTasklist',verify,(request,response)=>{
             let strplanDate = planDate.toLocaleString();
 
           obj.userId = eachRecord.contid;
-          obj.proId = eachRecord.Project_Name__c;
+          obj.proId = eachRecord.project_name__c;
           obj.function = eachRecord.function;
           obj.status = eachRecord.stage;
           obj.taskName = eachRecord.tskname;
