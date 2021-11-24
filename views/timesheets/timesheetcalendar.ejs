@@ -945,12 +945,28 @@
 
                                 $('.editIcon').click(function(){
                                     let index = this.dataset.label;
+                                    window.editIndex = [];
+                                    window.editIndex.push(index);
                                      $('#taskSelect'+index).prop('disabled',false);
                                     $('#descp'+index).prop('disabled',false);
                                     $('#actualSt'+index).prop('disabled',false);
                                     $('#actualEd'+index).prop('disabled',false);
                                     console.log(index);
                                 });
+
+                                $('#submitbuttonnn').click(function(){
+                                    let indexList = window.editIndex;
+                                    let listData = [];
+                                    indexList.forEach(dt=>{
+                                       let obj =  $('#addBtns'+dt)[0].dataset.value;
+                                       let objs = JSON.parse(window.atob(obj));
+                                       console.log(objs);
+                                       
+                                    });
+
+                                });
+
+
 
                                 $('.chckbox').change(function(){
 
@@ -1839,7 +1855,7 @@ function handleTimeSheet(event){
 <table style="display:none;opacity:0;" >
     <tbody id="dummyTableBody" style="display:none;opacity:0;" >
         <tr data-label="{index}" >
-            <td scope="row"><button type="button" data-value="{object}" onclick="handleTimeSheet(event)" data-label="{index}" class="btn btn-primary">Add Timesheets</button></td>
+            <td scope="row"><button type="button" id="addBtns{index}" data-value="{object}" onclick="handleTimeSheet(event)" data-label="{index}" class="btn btn-primary">Add Timesheets</button></td>
             <td> <input style="height: 14px; width: 14px;" type="checkbox" class="chckbox{dummy}" data-label="{recId}" id="Allcheckbox{index}" />   </td>
             <td>{projectname}</td>
             <td>{taskname}</td>

@@ -473,6 +473,25 @@ router.post('/createtask', async (request, response) => {
 
 });
 
+router.post('/fillactualsTimeSheet',(request, response) => {
+    var data = request.body;
+    console.log('test',JSON.stringify(data));
+    response.send('Successfully Inserted');
+    /*pool
+    .query('INSERT INTO salesforce.Milestone1_Time__c (Projecttimesheet__c, Date__c, Project_Task__c, Representative__c,Related_Task_Status__c,Start_Time__c, End_Time__c, Description__c) VALUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING sfid',[projectName,dateIncurred,selectedTask,representative,statusTimesheet,actualStartTimeTimesheet,actualEndTimeTimesheet,descriptionTimesheet])
+    .then((timesheetQueryResult) => {
+      
+      console.log('timesheetQueryResult  '+JSON.stringify(timesheetQueryResult));
+      response.send('Successfully Inserted');
+    })
+    .catch((timesheetQueryError) => {
+      console.log('timesheetQueryError  '+timesheetQueryError.stack)
+      response.send('Exception Occured');
+    })*/
+
+});
+
+
 router.post('/fillactuals',(request, response) => {
     var fillActualsFormData = request.body;
     console.log('fillActualsFormData  '+JSON.stringify(fillActualsFormData));
