@@ -843,9 +843,9 @@
                 
                     if(seletedDate.getTime() > currentDate.getTime())
                     {
-                          alert('You cannot fill timesheet of the today date !');
+                          $('.editIcon').css('display','none');
                     }
-                    else
+                    
                     {
                         window.saveDom = jsEvent;
                             //document.getElementById("fillActualsForm").reset();
