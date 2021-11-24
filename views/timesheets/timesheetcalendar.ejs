@@ -972,6 +972,26 @@
                                        listData.push(temp);
                                     });
                                     console.log(listData);
+                                    $('#submitbuttonnn').prop('disabled',true);
+                                    if(listData.length > 0){
+                                        $.ajax({
+                                                url : '/timesheets/fillactualsTimeSheet',
+                                                data : JSON.stringify(listData),
+                                                type : 'post',
+                                                contentType: 'application/json',
+                                        })
+                                            .done((response) => {
+                                                console.log(response);
+                                                window.saveDom.target.click();
+                                                $('#submitbuttonnn').prop('disabled',false);
+                                                
+
+                                            })
+                                            .fail(resp=>{
+                                                $('#submitbuttonnn').prop('disabled',false);
+                                                alert('Some Error occured');
+                                            });
+                                    }
 
                                 });
 
