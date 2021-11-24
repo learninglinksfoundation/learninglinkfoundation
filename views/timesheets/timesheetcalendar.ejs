@@ -28,7 +28,7 @@
            </div>
   <div class="col-md-6">
     <label for="validationTooltip02">Select View</label>
-    <select class="custom-select custom-select-sm form-control" readonly="<%= objUser.isManager ? false : true %>" id="Selectview" name="Selectview">
+    <select class="custom-select custom-select-sm form-control" readonly="true" id="Selectview" name="Selectview">
         <!-- <option value''>None</option> -->
         <option  value="currentuser" selected >current User View</option>
         <% if(objUser.isManager) { %>
@@ -111,7 +111,10 @@
       console.log('objuser objUserId +++'+objUserId);
       console.log('contactList +++'+contactList);
         var today = new Date();
-        var eventsData ;  
+        var eventsData ; 
+        let dt = <%- objUser.isManager %>;
+        console.log(dt); 
+        $('#Selectview').attr('readonly',!dt);
 
          var  months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; 
        // $('calMonth').append('welcome to gohilinfotech.in');
@@ -170,10 +173,10 @@
           // $('#Selectview').val('None');
            if(selectProj=='None')
            {
-            $('#Selectview').attr("readonly",true);
+            //$('#Selectview').attr("readonly",true);
            }
            else{
-            $('#Selectview').attr("readonly",false);
+            //$('#Selectview').attr("readonly",false);
 
            }
         });
