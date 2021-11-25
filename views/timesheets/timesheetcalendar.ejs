@@ -855,6 +855,7 @@
                     
                     {
                         window.saveDom = jsEvent;
+                        window.editIndex.length = 0;
                             //document.getElementById("fillActualsForm").reset();
                             //$('#dateIncurred').val(selectedDate);
 
@@ -986,6 +987,7 @@
                                                 window.saveDom.target.click();
                                                 $('#submitbuttonnn').prop('disabled',false);
                                                 window.editIndex.length = 0;
+                                                listData = [];
 
                                             })
                                             .fail(resp=>{
@@ -1030,7 +1032,38 @@
                             .fail(console.log);
 
 
-                            /*$('#projectName').change(() => {            
+                            /*
+var startDate = $('#startTime').val();
+        console.log('startTime '+startDate);
+        var endDate = $('#endTime').val();
+            console.log('endTime '+endDate);
+           if(startDate == '')
+            {
+              alert('Error: Please Fill Actual Start Time');
+            }
+          
+          else if(endDate == '')
+            {
+              alert('Error: Please Fill Actual End Time');
+            }
+           else if(startDate > endDate)
+            {
+              alert('Error: Actual Start Time should be less than Actual End Time. !')
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            $('#projectName').change(() => {            
                             var selectedProject = $("#projectName option:selected").val();
                           //  alert("You have selected the project : " + selectedProject );
                             let select = document.getElementById("selectedTask");

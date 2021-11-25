@@ -1545,12 +1545,12 @@ router.get('/getTasklist',verify,(request,response)=>{
           obj.name = '<a href="#" class="taskreferenceTag" id="'+eachRecord.sfids+'" >'+eachRecord.tskname+'</a>';
           obj.assigned = eachRecord.contname;
           obj.hrs=eachRecord.planned_hours__c;
-          obj.startTime= (!eachRecord.start_time__c || eachRecord.start_time__c == "00:00:00" ? '' : eachRecord.start_time__c );
-          obj.endtime= (!eachRecord.end_time__c || eachRecord.end_time__c == "00:00:00" ? '' : eachRecord.end_time__c );
+          obj.startTime= eachRecord.start_time__c;// (!eachRecord.start_time__c || eachRecord.start_time__c == "00:00:00" ? '' : eachRecord.start_time__c );
+          obj.endtime= eachRecord.end_time__c;//(!eachRecord.end_time__c || eachRecord.end_time__c == "00:00:00" ? '' : eachRecord.end_time__c );
           obj.taskType=eachRecord.task_type__c;
           obj.plandate=strplanDate;
           obj.createDdate = strDate;
-          obj.actualHours = (!eachRecord.Total_Hours__c || eachRecord.Total_Hours__c == 'undefined' ? 0 : eachRecord.Total_Hours__c );
+          obj.actualHours = eachRecord.total_hours__c;//(!eachRecord.total_hours__c || eachRecord.total_hours__c == 'undefined' ? 0 : eachRecord.total_hours__c );
           obj.deleteAction = '<button href="#" class="btn btn-primary deleteTask" id="'+eachRecord.sfids+'" >Delete</button>'     
        //   obj.editAction = '<button href="#" class="btn btn-primary editTask" id="'+eachRecord.sfids+'" >Edit</button>'
           i= i+1;
