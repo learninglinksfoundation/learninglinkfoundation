@@ -985,10 +985,7 @@
                                         })
                                             .done((response) => {
                                                 console.log(response);
-                                                window.saveDom.target.click();
-                                                $('#submitbuttonnn').prop('disabled',false);
-                                                window.editIndex.length = 0;
-                                                listData = [];
+                                                window.location.reload();
 
                                             })
                                             .fail(resp=>{
