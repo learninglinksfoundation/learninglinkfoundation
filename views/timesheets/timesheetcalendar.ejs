@@ -947,7 +947,8 @@
 
                                 $('.editIcon').click(function(){
                                     let index = this.dataset.label;
-                                    window.editIndex.push(index);
+                                    if(!window.editIndex.includes(index))
+                                        window.editIndex.push(index);
                                      $('#taskSelect'+index).prop('disabled',false);
                                     $('#descp'+index).prop('disabled',false);
                                     $('#actualSt'+index).prop('disabled',false);
