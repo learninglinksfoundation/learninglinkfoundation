@@ -181,153 +181,149 @@
 
            }
         });
-         $('#Selectview').on('change',function(){
-          selectedView=this.value;
-          console.log('selected' +selectedView);
-          let selecteddate = document.getElementById('calMonth').innerHTML;
-          console.log('slected months '+selecteddate);
+
+        $('#Selectview').on('change', function() {
+            selectedView = this.value;
+            console.log('selected' + selectedView);
+            let selecteddate = document.getElementById('calMonth').innerHTML;
+            console.log('slected months ' + selecteddate);
 
 
-          if(selectProj=='allproject' && selectedView=='currentuser')
-          {
+            if (selectProj == 'allproject' && selectedView == 'currentuser') {
 
-        $.ajax({ 
-            type: 'GET',
-            url: '/users/getevents',
-            data : {
-                'date': selecteddate
-            },
-            dataType: 'json'
-        })
-        .done(function( data ) {
-            console.log( "Sample of data:", data );
-            eventsData = data;
-            console.log('JSON.Stringied Data of events : '+JSON.stringify(eventsData));
-            $('#bootstrapModalFullCalendar').fullCalendar( 'removeEvents');
-            $('#bootstrapModalFullCalendar').fullCalendar( 'addEventSource', eventsData);         
-            $('#bootstrapModalFullCalendar').fullCalendar( 'rerenderEvents' );
-        })
-        .fail(function(jqXHR, textStatus, err){
-            console.log('AJAX error response :',textStatus);
-        }) 
-      }
-      else if(selectProj=='allproject' && selectedView=='teamview')
-          {
-         //   alert("team view & all project");
-            $.ajax({ 
-              type: 'GET',
-              url: '/users/geteventsTeams',
-              data : {
-                  'date': selecteddate
-              },
-              dataType: 'json'
-          })
-          .done(function( data ) {
-              console.log( "Team view Sample of data:", data );
-              eventsData = data;
-              console.log('JSON.Stringied Data of events Team View : '+JSON.stringify(eventsData));
-              $('#bootstrapModalFullCalendar').fullCalendar( 'removeEvents');
-              $('#bootstrapModalFullCalendar').fullCalendar( 'addEventSource', eventsData);         
-              $('#bootstrapModalFullCalendar').fullCalendar( 'rerenderEvents' );
-          })
-          .fail(function(jqXHR, textStatus, err){
-              console.log('AJAX error response :',textStatus);
-          }) 
-          }
-          else if(selectProj!='allproject' && selectedView=='currentuser'){
-            console.log('selected project for current User '+selectProj);
-            $.ajax({ 
-              type: 'GET',
-              url: '/users/geteventsProj',
-              data : {
-                  'projectid': selectProj,
-                  'date': selecteddate
-              },
-              dataType: 'json'
-          })
-          .done(function( data ) {
-              console.log( "current view on particuar project Sample of data:", data );
-              eventsData = data;
-              console.log('JSON.Stringied Data of events Team View : '+JSON.stringify(eventsData));
-              $('#bootstrapModalFullCalendar').fullCalendar( 'removeEvents');
-              $('#bootstrapModalFullCalendar').fullCalendar( 'addEventSource', eventsData);         
-              $('#bootstrapModalFullCalendar').fullCalendar( 'rerenderEvents' );
-          })
-          .fail(function(jqXHR, textStatus, err){
-              console.log('AJAX error response :',textStatus);
-          })
-        }
-          else if(selectProj!='allproject' && selectedView=='teamview'){
-            console.log('Team View & particula project'+selectProj);
-         /*   $.ajax({ 
-              type: 'GET',
-              url: '/users/getProjectRealted',
-              data : {
-                  'projectid': selectProj,
-                  'date': today
-              },
-              dataType: 'json'
-          })
-          .done((data)=>{
-            console.log('data  '+JSON.stringify(data));   
-          })
-          .fail(function(jqXHR, textStatus, err){
-            console.log('AJAX error response :',textStatus);
-        })
-        */
+                $.ajax({
+                        type: 'GET',
+                        url: '/users/getevents',
+                        data: {
+                            'date': selecteddate
+                        },
+                        dataType: 'json'
+                    })
+                    .done(function(data) {
+                        console.log("Sample of data:", data);
+                        eventsData = data;
+                        console.log('JSON.Stringied Data of events : ' + JSON.stringify(eventsData));
+                        $('#bootstrapModalFullCalendar').fullCalendar('removeEvents');
+                        $('#bootstrapModalFullCalendar').fullCalendar('addEventSource', eventsData);
+                        $('#bootstrapModalFullCalendar').fullCalendar('rerenderEvents');
+                    })
+                    .fail(function(jqXHR, textStatus, err) {
+                        console.log('AJAX error response :', textStatus);
+                    })
+            } else if (selectProj == 'allproject' && selectedView == 'teamview') {
+                //   alert("team view & all project");
+                $.ajax({
+                        type: 'GET',
+                        url: '/users/geteventsTeams',
+                        data: {
+                            'date': selecteddate
+                        },
+                        dataType: 'json'
+                    })
+                    .done(function(data) {
+                        console.log("Team view Sample of data:", data);
+                        eventsData = data;
+                        console.log('JSON.Stringied Data of events Team View : ' + eventsData);
+                        $('#bootstrapModalFullCalendar').fullCalendar('removeEvents');
+                        $('#bootstrapModalFullCalendar').fullCalendar('addEventSource', eventsData);
+                        $('#bootstrapModalFullCalendar').fullCalendar('rerenderEvents');
+                    })
+                    .fail(function(jqXHR, textStatus, err) {
+                        console.log('AJAX error response :', textStatus);
+                    })
+            } else if (selectProj != 'allproject' && selectedView == 'currentuser') {
+                console.log('selected project for current User ' + selectProj);
+                $.ajax({
+                        type: 'GET',
+                        url: '/users/geteventsProj',
+                        data: {
+                            'projectid': selectProj,
+                            'date': selecteddate
+                        },
+                        dataType: 'json'
+                    })
+                    .done(function(data) {
+                        console.log("current view on particuar project Sample of data:", data);
+                        eventsData = data;
+                        console.log('JSON.Stringied Data of events Team View : ' + JSON.stringify(eventsData));
+                        $('#bootstrapModalFullCalendar').fullCalendar('removeEvents');
+                        $('#bootstrapModalFullCalendar').fullCalendar('addEventSource', eventsData);
+                        $('#bootstrapModalFullCalendar').fullCalendar('rerenderEvents');
+                    })
+                    .fail(function(jqXHR, textStatus, err) {
+                        console.log('AJAX error response :', textStatus);
+                    })
+            } else if (selectProj != 'allproject' && selectedView == 'teamview') {
+                console.log('Team View & particula project' + selectProj);
+                /*   $.ajax({ 
+                      type: 'GET',
+                      url: '/users/getProjectRealted',
+                      data : {
+                          'projectid': selectProj,
+                          'date': today
+                      },
+                      dataType: 'json'
+                  })
+                  .done((data)=>{
+                    console.log('data  '+JSON.stringify(data));   
+                  })
+                  .fail(function(jqXHR, textStatus, err){
+                    console.log('AJAX error response :',textStatus);
+                })
+                */
 
-            $.ajax({ 
-              type: 'GET',
-              url: '/users/geteventsProjteam',
-              data : {
-                  'projectid': selectProj,
-                  'date': selecteddate
-              },
-              dataType: 'json'
-          })
-          .done(function( data ) {
-              console.log( "Team view on particuar project Sample of data:", data );
-              eventsData = data;
-              console.log('JSON.Stringied Data of events Team View : '+JSON.stringify(eventsData));
-              $('#bootstrapModalFullCalendar').fullCalendar( 'removeEvents');
-              $('#bootstrapModalFullCalendar').fullCalendar( 'addEventSource', eventsData);         
-              $('#bootstrapModalFullCalendar').fullCalendar( 'rerenderEvents' );
-          })
-          .fail(function(jqXHR, textStatus, err){
-              console.log('AJAX error response :',textStatus);
-          })
-                  }
-          
-      });
-        /*updating values on next click */
-        $('body').on('click', 'button.fc-next-button', function() {
-            var b = $('#bootstrapModalFullCalendar').fullCalendar('getDate');
-         //    alert(b.format('L'));
-            var date = b.format('L');
-            console.log('date '+date);
-            monthNumber=date.split('/')[0];
-            document.getElementById('calMonth').innerHTML= months[monthNumber-1]+' '+date.split('/')[2];
-            $('#Selectview').val('None');
-            $('#selproject').val('None');
-        
-            $.ajax({ 
-                type: 'GET',
-                url: '/users/getNullevents',
-                data : {
-                    'date': date
-                },
-                dataType: 'json'
-            })
-            .done(function( data ) {
-                console.log( "Sample of data:", data );
-            //  eventsData = data;
-                $('#bootstrapModalFullCalendar').fullCalendar( 'removeEvents');
-                $('#bootstrapModalFullCalendar').fullCalendar( 'addEventSource', data);         
-                $('#bootstrapModalFullCalendar').fullCalendar( 'rerenderEvents' );
-            })
-            .fail(function(jqXHR, textStatus, err){
-                console.log('AJAX error response :',textStatus);
-            })     
+                $.ajax({
+                        type: 'GET',
+                        url: '/users/geteventsProjteam',
+                        data: {
+                            'projectid': selectProj,
+                            'date': selecteddate
+                        },
+                        dataType: 'json'
+                    })
+                    .done(function(data) {
+                        console.log("Team view on particuar project Sample of data:", data);
+                        eventsData = data;
+                        console.log('JSON.Stringied Data of events Team View : ' + JSON.stringify(eventsData));
+                        $('#bootstrapModalFullCalendar').fullCalendar('removeEvents');
+                        $('#bootstrapModalFullCalendar').fullCalendar('addEventSource', eventsData);
+                        $('#bootstrapModalFullCalendar').fullCalendar('rerenderEvents');
+                    })
+                    .fail(function(jqXHR, textStatus, err) {
+                        console.log('AJAX error response :', textStatus);
+                    })
+            }
+
+        });
+                /*updating values on next click */
+                $('body').on('click', 'button.fc-next-button', function() {
+                    var b = $('#bootstrapModalFullCalendar').fullCalendar('getDate');
+                 //    alert(b.format('L'));
+                    var date = b.format('L');
+                    console.log('date '+date);
+                    monthNumber=date.split('/')[0];
+                    document.getElementById('calMonth').innerHTML= months[monthNumber-1]+' '+date.split('/')[2];
+                    $('#Selectview').val('None');
+                    $('#selproject').val('None');
+                
+                    $.ajax({ 
+                        type: 'GET',
+                        url: '/users/getNullevents',
+                        data : {
+                            'date': date
+                        },
+                        dataType: 'json'
+                    })
+                    .done(function( data ) {
+                        console.log( "Sample of data:", data );
+                    //  eventsData = data;
+                        $('#bootstrapModalFullCalendar').fullCalendar( 'removeEvents');
+                        $('#bootstrapModalFullCalendar').fullCalendar( 'addEventSource', data);         
+                        $('#bootstrapModalFullCalendar').fullCalendar( 'rerenderEvents' );
+                    })
+                    .fail(function(jqXHR, textStatus, err){
+                        console.log('AJAX error response :',textStatus);
+                    })     
         });
         /*updating values on prev click */
         $('body').on('click', 'button.fc-prev-button', function() {
