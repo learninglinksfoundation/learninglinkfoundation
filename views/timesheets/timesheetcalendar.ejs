@@ -121,7 +121,7 @@
        // $('calMonth').append('welcome to gohilinfotech.in');
         var monthNumber = today.getMonth();
         document.getElementById('calMonth').innerHTML= months[monthNumber]+' '+today.getFullYear();     
-
+        /*
        $.ajax({ 
           type: 'GET',
           url: '/users/getNullevents',
@@ -143,7 +143,7 @@
     }) 
 
     
-       /*  initial data Load    
+         initial data Load   */ 
         $.ajax({ 
           type: 'GET',
           url: '/users/getevents',
@@ -164,7 +164,7 @@
           console.log('AJAX error response :',textStatus);
       }) 
 
-       */
+       
         /*  initial data Load END   */
         var selectProj;
         var selectedView; 
