@@ -1046,15 +1046,16 @@
 
                             $('#submitbuttonnn').click(function(){
                                 let indexList = window.editIndex;
+                                let tempO = {ast:0,pEnd:0};
                                 let listData = [];
                                 indexList.forEach(dt=>{
                                    let obj =  $('#addBtns'+dt)[0].dataset.value;
                                    let temp = {};
                                    let objs = JSON.parse(window.atob(obj));
                                    temp.status = $('#taskSelect'+dt).val();
-                                   temp.actualStart = $('#actualSt'+dt).val();
+                                   temp.actualStart = $('#actualSt'+dt).val() ? $('#actualSt'+dt).val() : tempO.ast++  ;
                                    temp.descp = $('#descp'+dt).val();
-                                   temp.actualEnd = $('#actualEd'+dt).val();
+                                   temp.actualEnd = $('#actualEd'+dt).val() ? $('#actualEd'+dt).val() : tempO.pEnd++;
                                    temp.proId = objs.proId;
                                    temp.taskId = objs.id;
                                    temp.user = objs.userId;
@@ -1063,27 +1064,31 @@
                                    listData.push(temp);
                                 });
                                 console.log(listData);
-                                $('#submitbuttonnn').prop('disabled',true);
-                                if(listData.length > 0){
-                                    $.ajax({
-                                            url : '/timesheets/fillactualsTimeSheet',
-                                            data : JSON.stringify(listData),
-                                            type : 'post',
-                                            contentType: 'application/json',
-                                    })
-                                        .done((response) => {
-                                            console.log(response);
-                                            window.location.reload();
-
+                                if(tempO.ast == indexList.length && tempO.pEnd == indexList.length  ){
+                                    if(listData.length > 0){
+                                        $('#submitbuttonnn').prop('disabled',true);
+                                        $.ajax({
+                                                url : '/timesheets/fillactualsTimeSheet',
+                                                data : JSON.stringify(listData),
+                                                type : 'post',
+                                                contentType: 'application/json',
                                         })
-                                        .fail(resp=>{
-                                            $('#submitbuttonnn').prop('disabled',false);
-                                            alert('Some Error occured');
-                                        });
+                                            .done((response) => {
+                                                console.log(response);
+                                                window.location.reload();
+
+                                            })
+                                            .fail(resp=>{
+                                                $('#submitbuttonnn').prop('disabled',false);
+                                                alert('Some Error occured');
+                                            });
+                                    }
+                                }
+                                else{
+                                    alert('Please Enter ACTUAL START TIME Or ACTUAL END TIME');
                                 }
 
                             });
-
 
 
                             $('.chckbox').change(function(){
