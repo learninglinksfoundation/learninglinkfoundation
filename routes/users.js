@@ -2387,7 +2387,7 @@ router.get('/geteventsTeams',verify,async function(req,res,next){
             }
       
             var date = year+'-'+twoDigitMonth+'-'+day;
-           // console.log('date inside events '+date);
+            console.log('date inside events '+date);
           //  console.log('plannedHoursMap.has(date)  '+plannedHoursMap.has(date))
             if(plannedHoursMap.has(date))
             {
