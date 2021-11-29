@@ -718,7 +718,7 @@
               let before=new Date().getTime()-604800000;
                 let beforedate=new Date(before);
                 console.log('15 day before today '+ beforedate);
-            
+                let selectProj = $('#selproject').val();
                 if(calEvent.title == 'Create Task')
                 {
                      selectedView = $('#Selectview').val();
@@ -852,178 +852,275 @@
                     {
                         window.saveDom = jsEvent;
                         window.editIndex.length = 0;
-                            //document.getElementById("fillActualsForm").reset();
-                            //$('#dateIncurred').val(selectedDate);
-
+                        
+                        if (selectProj == 'allproject' && selectedView == 'currentuser') {
                             $.ajax({ 
-                                type: 'GET',
-                                url: '/timesheets/getTasklist',  
-                                data : {date:seletedDate},
-                                dataType: 'json'     
-                                })
+                            type: 'GET',
+                            url: '/timesheets/getTasklist',  
+                            data : {date:seletedDate},
+                            dataType: 'json'     
+                            })
                             .done(resp=>{
-                                console.log(resp);
-                                document.getElementById('fillActualtBody').innerHTML = '';
-                                resp.forEach((dt,i)=>{
-                                    let temp = document.getElementById('dummyTableBody').innerHTML;
-                                    temp = temp.replaceAll('{index}',i);
-                                    temp = temp.replaceAll('{projectname}',dt.projectname);
-                                    temp = temp.replaceAll('{taskname}',dt.name);
-                                    let strDate = new Date(dt.plandate);
-                                    temp = temp.replaceAll('{taskdate}',`${strDate.getFullYear()}-${strDate.getMonth()+1}-${strDate.getDate()}`);
-                                    temp = temp.replaceAll('{tasktype}',dt.taskType);
-                                    temp = temp.replaceAll('{startTime}',dt.startTime);
-                                    temp = temp.replaceAll('{function}',dt.function);
-                                    temp = temp.replaceAll('{endTime}',dt.endtime);
-                                    temp = temp.replaceAll('{description}','');
-                                    temp = temp.replaceAll('{AstartTime}','');
-                                    temp = temp.replaceAll('{recId}',dt.id);
-                                    temp = temp.replaceAll('{object}', window.btoa(JSON.stringify(dt)));
-                                    temp = temp.replaceAll('{AendTime}','');
-                                    temp = temp.replaceAll('{pHours}',dt.hrs);
-                                    temp = temp.replaceAll('{aHours}',dt.actualHours);
-                                    temp = temp.replaceAll('{currentuser}',dt.assigned);
-                                    temp = temp.replaceAll('{sfdcUser}','');
-                                    temp = temp.replaceAll('{dummy}','');
-                                    let list = document.getElementById('fillActualtBody');
-                                    list.innerHTML = list.innerHTML + temp;
-                                    
-                                });
-
-                                resp.forEach((dt,i)=>{
-                                    $('#taskSelect'+i).val(dt.status);
-                                });
-
-                                $("#fillActualsModal").modal("show");
-
-                                $('#deleteRec').click(function(){
-                                    let list = [];
-                                     $('.chckbox').each(function(e){
-                                        if($(this).is(":checked")){
-                                           list.push($(this)[0].dataset.label); 
-                                        }  
-                                     });
-                                     console.log(list);
-                                     if(list.length > 0){
-                                        console.log('inside');
-                                        $.ajax({
-                                                url : '/timesheets/deleteMultipleTask',
-                                                data : JSON.stringify(list),
-                                                type : 'post',
-                                                contentType: 'application/json',
-                                        })
-                                            .done((response) => {
-                                                console.log(response);
-                                                window.saveDom.target.click();
-                                                $('#deleteRec').prop('disabled',true);
-
-                                            })
-                                            .fail(resp=>{
-                                                alert('Some Error occured');
-                                            });
-                                     }
-
-                                });
-
-                                $('#Allcheckbox').change(function(){
-                                    var status = $(this).is(":checked") ? true : false;
-                                    $(".chckbox").prop("checked",status);
-                                    if(status){
-                                        $('#deleteRec').prop('disabled',false);
-                                    }
-                                    else{
-                                        $('#deleteRec').prop('disabled',true);
-                                    }
-                                });
-                                if( ! (seletedDate.getTime() > currentDate.getTime()))
-                                {
-                                      $('.editIcon').css('display','block');
-                                }
-                                
-
-                                $('.editIcon').click(function(){
-                                    let index = this.dataset.label;
-                                    if(!window.editIndex.includes(index))
-                                        window.editIndex.push(index);
-                                     $('#taskSelect'+index).prop('disabled',false);
-                                    $('#descp'+index).prop('disabled',false);
-                                    $('#actualSt'+index).prop('disabled',false);
-                                    $('#actualEd'+index).prop('disabled',false);
-                                    console.log(index);
-                                });
-
-                                $('#submitbuttonnn').click(function(){
-                                    let indexList = window.editIndex;
-                                    let listData = [];
-                                    indexList.forEach(dt=>{
-                                       let obj =  $('#addBtns'+dt)[0].dataset.value;
-                                       let temp = {};
-                                       let objs = JSON.parse(window.atob(obj));
-                                       temp.status = $('#taskSelect'+dt).val();
-                                       temp.actualStart = $('#actualSt'+dt).val();
-                                       temp.descp = $('#descp'+dt).val();
-                                       temp.actualEnd = $('#actualEd'+dt).val();
-                                       temp.proId = objs.proId;
-                                       temp.taskId = objs.id;
-                                       temp.user = objs.userId;
-                                       let strDate = new Date(objs.createDdate);
-                                       temp.date = `${strDate.getFullYear()}-${strDate.getMonth()+1}-${strDate.getDate()}`;
-                                       listData.push(temp);
-                                    });
-                                    console.log(listData);
-                                    $('#submitbuttonnn').prop('disabled',true);
-                                    if(listData.length > 0){
-                                        $.ajax({
-                                                url : '/timesheets/fillactualsTimeSheet',
-                                                data : JSON.stringify(listData),
-                                                type : 'post',
-                                                contentType: 'application/json',
-                                        })
-                                            .done((response) => {
-                                                console.log(response);
-                                                window.location.reload();
-
-                                            })
-                                            .fail(resp=>{
-                                                $('#submitbuttonnn').prop('disabled',false);
-                                                alert('Some Error occured');
-                                            });
-                                    }
-
-                                });
-
-
-
-                                $('.chckbox').change(function(){
-
-                                    let count = 0;
-                                    let flag = false;
-                                    $('.chckbox').each(function(){
-                                        let t = $(this).is(":checked");
-                                        if(t){
-                                           count++;
-                                           flag = true;
-                                        }
-                                        else{
-                                            count--;
-                                        }
-                                    })
-                                    if(!flag){
-                                        $('#deleteRec').prop('disabled',true); 
-                                    }
-                                    if(flag){
-                                        $('#deleteRec').prop('disabled',false); 
-                                    }
-                                    if($('.chckbox').length == count){
-                                        $("#Allcheckbox").prop("checked",true);
-                                    }
-                                    else{
-                                        $("#Allcheckbox").prop("checked",false);
-                                    }
-                                });
+                                loadDataOnClick(resp);
                                 
                             })
                             .fail(console.log);
+                            
+                        } else if (selectProj == 'allproject' && selectedView == 'teamview') {
+                            //   alert("team view & all project");
+                            $.ajax({
+                                    type: 'GET',
+                                    url: '/users/geteventsTeams',
+                                    data: {
+                                        'date': selecteddate
+                                    },
+                                    dataType: 'json'
+                                })
+                                .done(function(data) {
+                                    console.log("Team view Sample of data:", data);
+                                    eventsData = data;
+                                    console.log('JSON.Stringied Data of events Team View : ' + eventsData);
+                                    $('#bootstrapModalFullCalendar').fullCalendar('removeEvents');
+                                    $('#bootstrapModalFullCalendar').fullCalendar('addEventSource', eventsData);
+                                    $('#bootstrapModalFullCalendar').fullCalendar('rerenderEvents');
+                                })
+                                .fail(function(jqXHR, textStatus, err) {
+                                    console.log('AJAX error response :', textStatus);
+                                })
+                        } else if (selectProj != 'allproject' && selectedView == 'currentuser') {
+                            console.log('selected project for current User ' + selectProj);
+                            $.ajax({
+                                    type: 'GET',
+                                    url: '/users/geteventsProj',
+                                    data: {
+                                        'projectid': selectProj,
+                                        'date': selecteddate
+                                    },
+                                    dataType: 'json'
+                                })
+                                .done(function(data) {
+                                    console.log("current view on particuar project Sample of data:", data);
+                                    eventsData = data;
+                                    console.log('JSON.Stringied Data of events Team View : ' + JSON.stringify(eventsData));
+                                    $('#bootstrapModalFullCalendar').fullCalendar('removeEvents');
+                                    $('#bootstrapModalFullCalendar').fullCalendar('addEventSource', eventsData);
+                                    $('#bootstrapModalFullCalendar').fullCalendar('rerenderEvents');
+                                })
+                                .fail(function(jqXHR, textStatus, err) {
+                                    console.log('AJAX error response :', textStatus);
+                                })
+                        } else if (selectProj != 'allproject' && selectedView == 'teamview') {
+                            console.log('Team View & particula project' + selectProj);
+                            /*   $.ajax({ 
+                                  type: 'GET',
+                                  url: '/users/getProjectRealted',
+                                  data : {
+                                      'projectid': selectProj,
+                                      'date': today
+                                  },
+                                  dataType: 'json'
+                              })
+                              .done((data)=>{
+                                console.log('data  '+JSON.stringify(data));   
+                              })
+                              .fail(function(jqXHR, textStatus, err){
+                                console.log('AJAX error response :',textStatus);
+                            })
+                            */
+
+                            $.ajax({
+                                    type: 'GET',
+                                    url: '/users/geteventsProjteam',
+                                    data: {
+                                        'projectid': selectProj,
+                                        'date': selecteddate
+                                    },
+                                    dataType: 'json'
+                                })
+                                .done(function(data) {
+                                    console.log("Team view on particuar project Sample of data:", data);
+                                    eventsData = data;
+                                    console.log('JSON.Stringied Data of events Team View : ' + JSON.stringify(eventsData));
+                                    $('#bootstrapModalFullCalendar').fullCalendar('removeEvents');
+                                    $('#bootstrapModalFullCalendar').fullCalendar('addEventSource', eventsData);
+                                    $('#bootstrapModalFullCalendar').fullCalendar('rerenderEvents');
+                                })
+                                .fail(function(jqXHR, textStatus, err) {
+                                    console.log('AJAX error response :', textStatus);
+                                })
+                        }
+
+
+
+                        function loadDataOnClick(resp){
+                            console.log(resp);
+                            document.getElementById('fillActualtBody').innerHTML = '';
+                            resp.forEach((dt,i)=>{
+                                let temp = document.getElementById('dummyTableBody').innerHTML;
+                                temp = temp.replaceAll('{index}',i);
+                                temp = temp.replaceAll('{projectname}',dt.projectname);
+                                temp = temp.replaceAll('{taskname}',dt.name);
+                                let strDate = new Date(dt.plandate);
+                                temp = temp.replaceAll('{taskdate}',`${strDate.getFullYear()}-${strDate.getMonth()+1}-${strDate.getDate()}`);
+                                temp = temp.replaceAll('{tasktype}',dt.taskType);
+                                temp = temp.replaceAll('{startTime}',dt.startTime);
+                                temp = temp.replaceAll('{function}',dt.function);
+                                temp = temp.replaceAll('{endTime}',dt.endtime);
+                                temp = temp.replaceAll('{description}','');
+                                temp = temp.replaceAll('{AstartTime}','');
+                                temp = temp.replaceAll('{recId}',dt.id);
+                                temp = temp.replaceAll('{object}', window.btoa(JSON.stringify(dt)));
+                                temp = temp.replaceAll('{AendTime}','');
+                                temp = temp.replaceAll('{pHours}',dt.hrs);
+                                temp = temp.replaceAll('{aHours}',dt.actualHours);
+                                temp = temp.replaceAll('{currentuser}',dt.assigned);
+                                temp = temp.replaceAll('{sfdcUser}','');
+                                temp = temp.replaceAll('{dummy}','');
+                                let list = document.getElementById('fillActualtBody');
+                                list.innerHTML = list.innerHTML + temp;
+                                
+                            });
+
+                            resp.forEach((dt,i)=>{
+                                $('#taskSelect'+i).val(dt.status);
+                            });
+
+                            $("#fillActualsModal").modal("show");
+
+                            $('#deleteRec').click(function(){
+                                let list = [];
+                                 $('.chckbox').each(function(e){
+                                    if($(this).is(":checked")){
+                                       list.push($(this)[0].dataset.label); 
+                                    }  
+                                 });
+                                 console.log(list);
+                                 if(list.length > 0){
+                                    console.log('inside');
+                                    $.ajax({
+                                            url : '/timesheets/deleteMultipleTask',
+                                            data : JSON.stringify(list),
+                                            type : 'post',
+                                            contentType: 'application/json',
+                                    })
+                                        .done((response) => {
+                                            console.log(response);
+                                            window.saveDom.target.click();
+                                            $('#deleteRec').prop('disabled',true);
+
+                                        })
+                                        .fail(resp=>{
+                                            alert('Some Error occured');
+                                        });
+                                 }
+
+                            });
+
+                            $('#Allcheckbox').change(function(){
+                                var status = $(this).is(":checked") ? true : false;
+                                $(".chckbox").prop("checked",status);
+                                if(status){
+                                    $('#deleteRec').prop('disabled',false);
+                                }
+                                else{
+                                    $('#deleteRec').prop('disabled',true);
+                                }
+                            });
+                            if( ! (seletedDate.getTime() > currentDate.getTime()))
+                            {
+                                  $('.editIcon').css('display','block');
+                            }
+                            
+
+                            $('.editIcon').click(function(){
+                                let index = this.dataset.label;
+                                if(!window.editIndex.includes(index))
+                                    window.editIndex.push(index);
+                                 $('#taskSelect'+index).prop('disabled',false);
+                                $('#descp'+index).prop('disabled',false);
+                                $('#actualSt'+index).prop('disabled',false);
+                                $('#actualEd'+index).prop('disabled',false);
+                                console.log(index);
+                            });
+
+                            $('#submitbuttonnn').click(function(){
+                                let indexList = window.editIndex;
+                                let listData = [];
+                                indexList.forEach(dt=>{
+                                   let obj =  $('#addBtns'+dt)[0].dataset.value;
+                                   let temp = {};
+                                   let objs = JSON.parse(window.atob(obj));
+                                   temp.status = $('#taskSelect'+dt).val();
+                                   temp.actualStart = $('#actualSt'+dt).val();
+                                   temp.descp = $('#descp'+dt).val();
+                                   temp.actualEnd = $('#actualEd'+dt).val();
+                                   temp.proId = objs.proId;
+                                   temp.taskId = objs.id;
+                                   temp.user = objs.userId;
+                                   let strDate = new Date(objs.createDdate);
+                                   temp.date = `${strDate.getFullYear()}-${strDate.getMonth()+1}-${strDate.getDate()}`;
+                                   listData.push(temp);
+                                });
+                                console.log(listData);
+                                $('#submitbuttonnn').prop('disabled',true);
+                                if(listData.length > 0){
+                                    $.ajax({
+                                            url : '/timesheets/fillactualsTimeSheet',
+                                            data : JSON.stringify(listData),
+                                            type : 'post',
+                                            contentType: 'application/json',
+                                    })
+                                        .done((response) => {
+                                            console.log(response);
+                                            window.location.reload();
+
+                                        })
+                                        .fail(resp=>{
+                                            $('#submitbuttonnn').prop('disabled',false);
+                                            alert('Some Error occured');
+                                        });
+                                }
+
+                            });
+
+
+
+                            $('.chckbox').change(function(){
+
+                                let count = 0;
+                                let flag = false;
+                                $('.chckbox').each(function(){
+                                    let t = $(this).is(":checked");
+                                    if(t){
+                                       count++;
+                                       flag = true;
+                                    }
+                                    else{
+                                        count--;
+                                    }
+                                })
+                                if(!flag){
+                                    $('#deleteRec').prop('disabled',true); 
+                                }
+                                if(flag){
+                                    $('#deleteRec').prop('disabled',false); 
+                                }
+                                if($('.chckbox').length == count){
+                                    $("#Allcheckbox").prop("checked",true);
+                                }
+                                else{
+                                    $("#Allcheckbox").prop("checked",false);
+                                }
+                            });
+
+                        }
+
+
+
+
+
+
+                        
 
 
                             /*
