@@ -719,9 +719,10 @@
                 let beforedate=new Date(before);
                 console.log('15 day before today '+ beforedate);
                 let selectProj = $('#selproject').val();
+                selectedView = $('#Selectview').val();
                 if(calEvent.title == 'Create Task')
                 {
-                     selectedView = $('#Selectview').val();
+                     
                     console.log('calEvent.start '+calEvent.start);
                     $('.datepic').val(selectedDate);
                     $('.dynamicRow').each(function(){
