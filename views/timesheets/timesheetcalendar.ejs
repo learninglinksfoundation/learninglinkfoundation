@@ -895,34 +895,13 @@
                                     dataType: 'json'
                                 })
                                 .done(function(data) {
-                                    console.log("current view on particuar project Sample of data:", data);
-                                    eventsData = data;
-                                    console.log('JSON.Stringied Data of events Team View : ' + JSON.stringify(eventsData));
-                                    $('#bootstrapModalFullCalendar').fullCalendar('removeEvents');
-                                    $('#bootstrapModalFullCalendar').fullCalendar('addEventSource', eventsData);
-                                    $('#bootstrapModalFullCalendar').fullCalendar('rerenderEvents');
+                                    
                                 })
                                 .fail(function(jqXHR, textStatus, err) {
                                     console.log('AJAX error response :', textStatus);
                                 })
                         } else if (selectProj != 'allproject' && selectedView == 'teamview') {
-                            console.log('Team View & particula project' + selectProj);
-                            /*   $.ajax({ 
-                                  type: 'GET',
-                                  url: '/users/getProjectRealted',
-                                  data : {
-                                      'projectid': selectProj,
-                                      'date': today
-                                  },
-                                  dataType: 'json'
-                              })
-                              .done((data)=>{
-                                console.log('data  '+JSON.stringify(data));   
-                              })
-                              .fail(function(jqXHR, textStatus, err){
-                                console.log('AJAX error response :',textStatus);
-                            })
-                            */
+                            
 
                             $.ajax({
                                     type: 'GET',
@@ -934,12 +913,7 @@
                                     dataType: 'json'
                                 })
                                 .done(function(data) {
-                                    console.log("Team view on particuar project Sample of data:", data);
-                                    eventsData = data;
-                                    console.log('JSON.Stringied Data of events Team View : ' + JSON.stringify(eventsData));
-                                    $('#bootstrapModalFullCalendar').fullCalendar('removeEvents');
-                                    $('#bootstrapModalFullCalendar').fullCalendar('addEventSource', eventsData);
-                                    $('#bootstrapModalFullCalendar').fullCalendar('rerenderEvents');
+                                    
                                 })
                                 .fail(function(jqXHR, textStatus, err) {
                                     console.log('AJAX error response :', textStatus);
@@ -976,8 +950,15 @@
                                 list.innerHTML = list.innerHTML + temp;
                                 
                             });
-
+                            let currentUser = <%- JSON.stringify(objUserId) %>;
+                            console.log('qqwww',currentUser);
                             resp.forEach((dt,i)=>{
+                                if(dt.userId != currentUser){
+                                    $('.editIconId'+i).css('display','none');
+                                }
+                                else{
+                                    $('.editIcon').css('display','block');
+                                }
                                 $('#taskSelect'+i).val(dt.status);
                             });
 
@@ -1024,7 +1005,7 @@
                             });
                             if( ! (seletedDate.getTime() > currentDate.getTime()))
                             {
-                                  $('.editIcon').css('display','block');
+                                  //$('.editIcon').css('display','block');
                             }
                             
 
@@ -2024,18 +2005,18 @@ function handleTimeSheet(event){
                     <option value="Completed" > Completed </option>
                     <option value="Yet to Start" > Yet to Start </option>
                 </select>
-                <i class="fas fa-pencil-alt editIcon" data-label="{index}" style="padding: 0 0 0 10px;cursor: pointer; color: #706e6b;"></i>
+                <i class="fas fa-pencil-alt editIcon editIconId{index}" data-label="{index}" style="padding: 0 0 0 10px;cursor: pointer; color: #706e6b;"></i>
              </div>
             </td>
             <td>{function}</td>
             <td> {tasktype}</td>
             <td>{startTime}</td>
             <td>{endTime}</td>
-            <td><div style="display: flex;align-items: center;" > <textarea class="form-control" disabled id="descp{index}" >{description} </textarea><i class="fas fa-pencil-alt editIcon" data-label="{index}" style="padding: 0 0 0 10px;cursor: pointer; color: #706e6b;"></i>
+            <td><div style="display: flex;align-items: center;" > <textarea class="form-control" disabled id="descp{index}" >{description} </textarea><i class="fas fa-pencil-alt editIconId{index} editIcon" data-label="{index}" style="padding: 0 0 0 10px;cursor: pointer; color: #706e6b;"></i>
              </div> </td>
-             <td><div style="display: flex;align-items: center;" ><input class="form-control" type="time" disabled id="actualSt{index}" value="{AstartTime}" /><i class="fas fa-pencil-alt editIcon" data-label="{index}" style="padding: 0 0 0 10px;cursor: pointer; color: #706e6b;"></i>
+             <td><div style="display: flex;align-items: center;" ><input class="form-control" type="time" disabled id="actualSt{index}" value="{AstartTime}" /><i class="fas fa-pencil-alt editIcon editIconId{index}" data-label="{index}" style="padding: 0 0 0 10px;cursor: pointer; color: #706e6b;"></i>
              </div> </td>
-            <td><div style="display: flex;align-items: center;" ><input class="form-control" type="time" disabled id="actualEd{index}" value="{AendTime}" /><i class="fas fa-pencil-alt editIcon" data-label="{index}" style="padding: 0 0 0 10px;cursor: pointer; color: #706e6b;"></i> </div></td>
+            <td><div style="display: flex;align-items: center;" ><input class="form-control" type="time" disabled id="actualEd{index}" value="{AendTime}" /><i class="fas fa-pencil-alt editIcon editIconId{index}" data-label="{index}" style="padding: 0 0 0 10px;cursor: pointer; color: #706e6b;"></i> </div></td>
             <td> {pHours} </td>
             <td>{aHours}</td>
             <td>{currentuser}</td>
