@@ -746,21 +746,7 @@
                         $('.plannedendtimeTask').attr("readonly",true);
                         $('.plannedstarttimeTask').css('pointer-events','none');
                         $('.plannedendtimeTask').css('pointer-events','none');
-                       /* $('.deadline').on('change',function(){
-                          let deadValue=this.value;
-                          console.log('deadValue' +deadValue);
-                          if(deadValue=='Deadlines')
-                          {
-                          $('#plannedstarttimeTask').prop("disabled",true);
-                          $('#plannedendtimeTask').prop("disabled",false);
-                        }
-                          else
-                          {
-                            $('#plannedstarttimeTask').prop("disabled",false);
-                            $('#plannedendtimeTask').prop("disabled",false);
-                          }
-                        });*/
-            
+                       
                     }
                  //   if(seletedDate.getTime()<todaydate && seletedDate.getTime()>before)
                       if(seletedDate.getTime()>before)
@@ -803,32 +789,6 @@
                                 }
                             });
                           
-                          /* $.ajax({
-                            url : '/users/getContact',
-                            data : {
-                              
-                            },
-                            dataType : 'json',
-                            type : 'get'
-                        })
-                    .done((response) => {
-                        console.log('response  ',response);
-                        /*if(response.length > 0)
-                            {
-                            response.forEach((eachContact) => {
-                            console.log('eachContact.name '+eachContact);
-                            $('.assignedresource')
-                            .append($("<option></option>")
-                            .attr("value",eachContact.sfid)
-                            .text(eachContact.name))
-                            }); 
-                            }
-                    })
-                    .fail((jqXHR,text,err) => {
-                        console.log('text  '+text + '  err '+err);
-                        console.log('jqXHR '+JSON.stringify(jqXHR));
-
-                    }) */ 
                         }
                       
                     }

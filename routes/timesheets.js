@@ -1461,6 +1461,41 @@ router.get('/getTeamdetails',verify,async(request,response)=>{
     
   })
 
+router.get('/getProjectById',verify,(request, response) => {
+    var selectedDate = request.query.date;
+    var proId = request.query.projectId;
+    let objUser=request.user;
+      console.log(selectedDate,objUser,proId); 
+    let queryText = 'SELECT tsk.Id,tsk.sfid as sfids,tsk.name as tskname,tsk.Task_Stage__c as stage,tsk.start_date__c ,tsk.Project_Name__c,tsk.Total_Hours__c ,tsk.assigned_manager__c,tsk.end_time__c,tsk.Task_Type__c,tsk.Planned_Hours__c,tsk.Start_Time__c,cont.sfid as contid ,cont.name as contname,proj.name as projname,tsk.createddate '+
+                       'FROM salesforce.Milestone1_Task__c tsk '+ 
+                       'INNER JOIN salesforce.Contact cont ON tsk.assigned_manager__c = cont.sfid '+
+                       'INNER JOIN salesforce.Milestone1_Project__c proj ON tsk.Project_Name__c= proj.sfid '+
+                       `WHERE tsk.sfid IS NOT NULL AND tsk.Assigned_Manager__c = ${objUser.sfid} AND tsk.Project_Name__c = ${proId}  `; 
+    console.log(queryText) ;
+    if(selectedDate){
+      let s = new Date(selectedDate);
+      let dt = `${s.getFullYear()}-${s.getMonth()+1}-${s.getDate()+1}`;
+      queryText = queryText + `AND tsk.start_date__c = cast('${dt}' as date)`;
+    }
+    console.log(queryText) ;
+    pool
+    .query(queryText)
+    .then(data=>{
+      if(data.rowCount > 0){
+        let modifiedTaskList = getMappedData(data);
+        response.send(modifiedTaskList);
+      }
+      else{
+        response.send([]);
+      }
+      
+    })
+    .catch(error=>{
+      console.log('catch');
+        response.send(error);
+    });
+})
+
 router.get('/getTeamsProject',verify,(request, response) => {
     var selectedDate = request.query.date;
       console.log(selectedDate)   ; 
@@ -1469,18 +1504,33 @@ router.get('/getTeamsProject',verify,(request, response) => {
                        'INNER JOIN salesforce.Contact cont ON tsk.assigned_manager__c = cont.sfid '+
                        'INNER JOIN salesforce.Milestone1_Project__c proj ON tsk.Project_Name__c= proj.sfid '+
                        'WHERE tsk.sfid IS NOT NULL '; 
-console.log(queryText) ;
+    console.log(queryText) ;
     if(selectedDate){
       let s = new Date(selectedDate);
       let dt = `${s.getFullYear()}-${s.getMonth()+1}-${s.getDate()+1}`;
       queryText = queryText + `AND tsk.start_date__c = cast('${dt}' as date)`;
     }
-console.log(queryText) ;
+    console.log(queryText) ;
     pool
     .query(queryText)
     .then(data=>{
       if(data.rowCount > 0){
-        let modifiedTaskList = [];
+        let modifiedTaskList = getMappedData(data);
+        response.send(modifiedTaskList);
+      }
+      else{
+        response.send([]);
+      }
+      
+    })
+    .catch(error=>{
+      console.log('catch');
+        response.send(error);
+    });
+})
+
+function getMappedData(data){
+  let modifiedTaskList = [];
         data.rows.forEach((eachRecord,i) => {
           let obj = {};
             let createdDate = new Date(eachRecord.createddate);
@@ -1511,21 +1561,10 @@ console.log(queryText) ;
             obj.deleteAction = '<button href="#" class="btn btn-primary deleteTask" id="'+eachRecord.sfids+'" >Delete</button>'     
          //   obj.editAction = '<button href="#" class="btn btn-primary editTask" id="'+eachRecord.sfids+'" >Edit</button>'
             modifiedTaskList.push(obj);
-        })
-        response.send(modifiedTaskList);
-      }
-      else{
-        response.send([]);
-      }
-      
-    })
-    .catch(error=>{
-      console.log('catch');
-        response.send(error);
-    });
-   
+        });
+        return modifiedTaskList;
+}
 
-})
   
  router.get('/getrelatedtasks',verify,(request, response) => {
 
@@ -1587,41 +1626,7 @@ router.get('/getTasklist',verify,(request,response)=>{
     console.log('taskQueryResult '+JSON.stringify(taskQueryResult.rows) +'Row COUNT => '+taskQueryResult.rowCount);
     if(taskQueryResult.rowCount > 0)
     {
-        let modifiedTaskList = [],i =1;
-        taskQueryResult.rows.forEach((eachRecord) => {
-          let obj = {};
-            let createdDate = new Date(eachRecord.createddate);
-            createdDate.setHours(createdDate.getHours() + 5);
-            createdDate.setMinutes(createdDate.getMinutes() + 30);
-            let strDate = createdDate.toLocaleString();
-
-            let planDate = new Date(eachRecord.start_date__c);
-            planDate.setHours(planDate.getHours() + 5);
-            createdDate.setMinutes(planDate.getMinutes() + 30);
-            let strplanDate = planDate.toLocaleString();
-
-          obj.userId = eachRecord.contid;
-          obj.proId = eachRecord.project_name__c;
-          obj.function = eachRecord.function;
-          obj.status = eachRecord.stage;
-          obj.taskName = eachRecord.tskname;
-          obj.sequence = i;
-          obj.id = eachRecord.sfids;
-          obj.projectname = eachRecord.projname;
-          obj.name = '<a href="#" class="taskreferenceTag" id="'+eachRecord.sfids+'" >'+eachRecord.tskname+'</a>';
-          obj.assigned = eachRecord.contname;
-          obj.hrs=eachRecord.planned_hours__c;
-          obj.startTime= eachRecord.start_time__c;// (!eachRecord.start_time__c || eachRecord.start_time__c == "00:00:00" ? '' : eachRecord.start_time__c );
-          obj.endtime= eachRecord.end_time__c;//(!eachRecord.end_time__c || eachRecord.end_time__c == "00:00:00" ? '' : eachRecord.end_time__c );
-          obj.taskType=eachRecord.task_type__c;
-          obj.plandate=strplanDate;
-          obj.createDdate = strDate;
-          obj.actualHours = eachRecord.total_hours__c;//(!eachRecord.total_hours__c || eachRecord.total_hours__c == 'undefined' ? 0 : eachRecord.total_hours__c );
-          obj.deleteAction = '<button href="#" class="btn btn-primary deleteTask" id="'+eachRecord.sfids+'" >Delete</button>'     
-       //   obj.editAction = '<button href="#" class="btn btn-primary editTask" id="'+eachRecord.sfids+'" >Edit</button>'
-          i= i+1;
-          modifiedTaskList.push(obj);
-        })
+        let modifiedTaskList = getMappedData(taskQueryResult);
         response.send(modifiedTaskList);
     }
     else
