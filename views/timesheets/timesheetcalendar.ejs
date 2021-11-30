@@ -847,40 +847,36 @@
                             console.log('selected project for current User ' + selectProj);
                             $.ajax({
                                     type: 'GET',
-                                    url: '/users/geteventsProj',
+                                    url: '/timesheets/getProjectById',
                                     data: {
-                                        'projectid': selectProj,
+                                        'projectId': selectProj,
                                         'date': seletedDate
                                     },
                                     dataType: 'json'
                                 })
                                 .done(function(data) {
-                                    
+                                    loadDataOnClick(data);
                                 })
                                 .fail(function(jqXHR, textStatus, err) {
                                     console.log('AJAX error response :', textStatus);
                                 })
                         } else if (selectProj != 'allproject' && selectedView == 'teamview') {
-                            
-
                             $.ajax({
                                     type: 'GET',
-                                    url: '/users/geteventsProjteam',
+                                    url: '/timesheets/getTeamsProject',
                                     data: {
-                                        'projectid': selectProj,
+                                        'projectId': selectProj,
                                         'date': seletedDate
                                     },
                                     dataType: 'json'
                                 })
                                 .done(function(data) {
-                                    
+                                    loadDataOnClick(data);
                                 })
                                 .fail(function(jqXHR, textStatus, err) {
                                     console.log('AJAX error response :', textStatus);
                                 })
                         }
-
-
 
                         function loadDataOnClick(resp){
                             console.log(resp);
