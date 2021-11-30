@@ -1476,12 +1476,48 @@ console.log(queryText) ;
       queryText = queryText + `AND tsk.start_date__c = cast('${dt}' as date)`;
     }
 console.log(queryText) ;
-
     pool
     .query(queryText)
     .then(data=>{
-      console.log(data.rows) ;
-        response.send(data.rows);
+      if(data.rowCount > 0){
+        let modifiedTaskList = [];
+        data.rows.forEach((eachRecord,i) => {
+          let obj = {};
+            let createdDate = new Date(eachRecord.createddate);
+            createdDate.setHours(createdDate.getHours() + 5);
+            createdDate.setMinutes(createdDate.getMinutes() + 30);
+            let strDate = createdDate.toLocaleString();
+            let planDate = new Date(eachRecord.start_date__c);
+            planDate.setHours(planDate.getHours() + 5);
+            createdDate.setMinutes(planDate.getMinutes() + 30);
+            let strplanDate = planDate.toLocaleString();
+            obj.userId = eachRecord.contid;
+            obj.proId = eachRecord.project_name__c;
+            obj.function = eachRecord.function;
+            obj.status = eachRecord.stage;
+            obj.taskName = eachRecord.tskname;
+            obj.sequence = i;
+            obj.id = eachRecord.sfids;
+            obj.projectname = eachRecord.projname;
+            obj.name = '<a href="#" class="taskreferenceTag" id="'+eachRecord.sfids+'" >'+eachRecord.tskname+'</a>';
+            obj.assigned = eachRecord.contname;
+            obj.hrs=eachRecord.planned_hours__c;
+            obj.startTime= eachRecord.start_time__c;// (!eachRecord.start_time__c || eachRecord.start_time__c == "00:00:00" ? '' : eachRecord.start_time__c );
+            obj.endtime= eachRecord.end_time__c;//(!eachRecord.end_time__c || eachRecord.end_time__c == "00:00:00" ? '' : eachRecord.end_time__c );
+            obj.taskType=eachRecord.task_type__c;
+            obj.plandate=strplanDate;
+            obj.createDdate = strDate;
+            obj.actualHours = eachRecord.total_hours__c;//(!eachRecord.total_hours__c || eachRecord.total_hours__c == 'undefined' ? 0 : eachRecord.total_hours__c );
+            obj.deleteAction = '<button href="#" class="btn btn-primary deleteTask" id="'+eachRecord.sfids+'" >Delete</button>'     
+         //   obj.editAction = '<button href="#" class="btn btn-primary editTask" id="'+eachRecord.sfids+'" >Edit</button>'
+            modifiedTaskList.push(obj);
+        })
+        response.send(modifiedTaskList);
+      }
+      else{
+        response.send([]);
+      }
+      
     })
     .catch(error=>{
       console.log('catch');

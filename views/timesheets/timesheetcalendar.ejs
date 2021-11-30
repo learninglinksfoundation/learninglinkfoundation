@@ -871,19 +871,14 @@
                             //   alert("team view & all project");
                             $.ajax({
                                     type: 'GET',
-                                    url: '/users/geteventsTeams',
+                                    url: '/timesheets/getTeamsProject',
                                     data: {
                                         'date': seletedDate
                                     },
                                     dataType: 'json'
                                 })
                                 .done(function(data) {
-                                    console.log("Team view Sample of data:", data);
-                                    eventsData = data;
-                                    console.log('JSON.Stringied Data of events Team View : ' + eventsData);
-                                    $('#bootstrapModalFullCalendar').fullCalendar('removeEvents');
-                                    $('#bootstrapModalFullCalendar').fullCalendar('addEventSource', eventsData);
-                                    $('#bootstrapModalFullCalendar').fullCalendar('rerenderEvents');
+                                    loadDataOnClick(resp);
                                 })
                                 .fail(function(jqXHR, textStatus, err) {
                                     console.log('AJAX error response :', textStatus);
