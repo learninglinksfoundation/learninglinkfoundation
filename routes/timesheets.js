@@ -1463,25 +1463,28 @@ router.get('/getTeamdetails',verify,async(request,response)=>{
 
 router.get('/getTeamsProject',verify,(request, response) => {
     var selectedDate = request.query.date;
-          
+      console.log(selectedDate)   ; 
     let queryText = 'SELECT tsk.Id,tsk.sfid as sfids,tsk.name as tskname,tsk.Task_Stage__c as stage,tsk.start_date__c ,tsk.Project_Name__c,tsk.Total_Hours__c ,tsk.assigned_manager__c,tsk.end_time__c,tsk.Task_Type__c,tsk.Planned_Hours__c,tsk.Start_Time__c,cont.sfid as contid ,cont.name as contname,proj.name as projname,tsk.createddate '+
                        'FROM salesforce.Milestone1_Task__c tsk '+ 
                        'INNER JOIN salesforce.Contact cont ON tsk.assigned_manager__c = cont.sfid '+
                        'INNER JOIN salesforce.Milestone1_Project__c proj ON tsk.Project_Name__c= proj.sfid'+
                        'WHERE tsk.sfid IS NOT NULL'; 
-
+console.log(queryText) ;
     if(selectedDate){
       let s = new Date(selectedDate);
       let dt = `${s.getFullYear()}-${s.getMonth()+1}-${s.getDate()+1}`;
       queryText = queryText + `AND tsk.start_date__c = cast('${dt}' as date)`;
     }
+console.log(queryText) ;
 
     pool
     .query(queryText)
     .then(data=>{
+      console.log(data.rows) ;
         response.send(data.rows);
     })
     .catch(error=>{
+      console.log('catch');
         response.send(error);
     });
    
