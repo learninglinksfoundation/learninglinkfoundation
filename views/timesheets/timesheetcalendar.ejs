@@ -955,9 +955,11 @@
                             resp.forEach((dt,i)=>{
                                 if(dt.userId != currentUser){
                                     $('.editIconId'+i).css('display','none');
+                                    $('#addBtns'+i).prop('disabled',true);
                                 }
                                 else{
                                     $('.editIconId'+i).css('display','block');
+                                    $('#addBtns'+i).prop('disabled',false);
                                 }
                                 $('#taskSelect'+i).val(dt.status);
                             });
