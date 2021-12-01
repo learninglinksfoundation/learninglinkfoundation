@@ -815,7 +815,7 @@
                         window.editIndex.length = 0;
                         
                         if (selectProj == 'allproject' && selectedView == 'currentuser') {
-                            console.log(seletedDate.toISOString().split('T')[0]);
+                            console.log(seletedDate,seletedDate.toISOString().split('T')[0]);
                             $.ajax({ 
                             type: 'GET',
                             url: '/timesheets/getTasklist',  
