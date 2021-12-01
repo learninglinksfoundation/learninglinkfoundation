@@ -1466,8 +1466,7 @@ router.get('/getProjectById',verify,(request, response) => {
                        `WHERE tsk.sfid IS NOT NULL AND tsk.Assigned_Manager__c = '${objUser.sfid}' AND tsk.Project_Name__c = '${proId}'  `; 
     console.log(queryText) ;
     if(selectedDate){
-      //let s = new Date(selectedDate);
-      //let dt = `${s.getFullYear()}-${s.getMonth()+1}-${s.getDate()+1}`;
+      
       queryText = queryText + `AND tsk.start_date__c = cast('${selectedDate}' as date)`;
     }
     console.log(queryText) ;
@@ -1504,9 +1503,7 @@ router.get('/getTeamsProject',verify,(request, response) => {
     }
 
     if(selectedDate){
-      //let s = new Date(selectedDate);
-      //console.log(s,s.getUTCDay());
-      //let dt = `${s.getFullYear()}-${s.getMonth()+1}-${s.getDate()+1}`;
+      
       queryText = queryText + ` AND tsk.start_date__c = cast('${selectedDate}' as date)`;
     }
     console.log(queryText) ;
