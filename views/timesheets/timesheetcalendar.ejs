@@ -807,7 +807,7 @@
                           $('.editIcon').css('display','none');
                     }
                     else{
-                        $('.editIcon').css('display','block');
+                        //$('.editIcon').css('display','block');
                     }
                     
                     {
@@ -1055,248 +1055,22 @@
                                 }
                             });
 
+                            $('#timeSheetBtn').click(function(){
+                                let htmText = $('#dummyTaskRow').html();
+                                console.log(htmText);
+                                let s = $('#taskModalBody');
+                                if(htmText){
+                                    htmText = htmText.replaceAll('{index}',s.children().length + 1);
+                                    s.append(htmText);
+                                }
+
+                            });
+
                         }
-
-
-
-
-
-
-                        
-
-
-                            /*
-var startDate = $('#startTime').val();
-        console.log('startTime '+startDate);
-        var endDate = $('#endTime').val();
-            console.log('endTime '+endDate);
-           if(startDate == '')
-            {
-              alert('Error: Please Fill Actual Start Time');
-            }
-          
-          else if(endDate == '')
-            {
-              alert('Error: Please Fill Actual End Time');
-            }
-           else if(startDate > endDate)
-            {
-              alert('Error: Actual Start Time should be less than Actual End Time. !')
-            }
-
-
-
-
-
-
-
-
-
-
-
-
-
-                            $('#projectName').change(() => {            
-                            var selectedProject = $("#projectName option:selected").val();
-                          //  alert("You have selected the project : " + selectedProject );
-                            let select = document.getElementById("selectedTask");
-                             let length = select.options.length;
-                              for (i = length-1; i > 0; i--) {
-                                      select.options[i] = null;
-                                      } 
-                            if(selectedProject != 'None')
-                            {
-                                $.ajax({ 
-                                type: 'GET',
-                                url: '/timesheets/getrelatedtasks',
-                                data : {
-                                        'projectId' : selectedProject,
-                                        'selectedDate' : selectedDate
-                                },
-                                dataType: 'json'
-                                })
-                                .done(function( taskData ) {
-                                    console.log( "Sample of data:", JSON.stringify(taskData));
-                                    if(taskData != null && taskData.length > 0)
-                                    {
-                                        var taskOptions = '';
-                                        taskData.forEach((eachTask) => {
-                                            taskOptions += '<option value="'+eachTask.sfid+'">'+eachTask.name+'</option>';
-                                        })
-                                        $('#selectedTask').append(taskOptions);
-                                        //$('#selectedTask').html(taskOptions);
-                                    }
-                                        
-                                })
-                                .fail(function(jqXHR, textStatus, err){
-                                    console.log('AJAX error response :',textStatus);
-                                    
-                                })
-                            }
-                            else
-                            {
-                                $("#selectedTask option[value !='None']").remove();  
-                            }
-                          
-                        });*/
+                           
                     }
                 }
-               /* else if(calEvent.title == 'Details') {
-                  var selecPro= $('#selproject').val();
-                  var selecView= $('#Selectview').val();
-                  console.log('selecPro : '+selecPro +' selecView: '+selecView);
-                  $("#detailsModal").modal("show");
-                  // start projectselected and curren user
-                  if(selecPro!='allproject' && selecView =='currentuser'){
-                //    alert('selected project & currentUSer');
-                    //  alert('select view is : '+$('#Selectview').val());
-                     $.ajax({ 
-                         type: 'GET',
-                         url: '/timesheets/getdetailsproject',
-                         data : {
-                             'date': selectedDate,
-                             'selproject':$('#selproject').val()
-                         },
-                         dataType: 'json'
-                     })
-                     .done(function( taskData ) {
-                         console.log( "Sample of data:", JSON.stringify(taskData));
-                         console.log('sleePROJ :'+selecPro +'& selected view ='+selecView);
-                         var tasktableData = ''; 
-                         tasktableData  += '<thead><tr><th>Project Name</th><th>Task Name</th><th>Task Date</th><th>Status</th><th>Planned Hours</th><th>Actual Hours</th><th>Assigned to Heroku User</th></tr></thead>';    
-                         taskData.forEach((eachTaskCol) => {  
-                                 console.log('dt '+eachTaskCol.date);
-                                 console.log('date str '+eachTaskCol.date.toString().split('T')[0]);
-                                 var strDate = eachTaskCol.date.toString().split('T')[0];
-                                 tasktableData += '<tr>';
-                                  tasktableData  += '<td>'+eachTaskCol.projectName+'</td>';
-                                 tasktableData  += '<td>'+eachTaskCol.name+'</td>';
-                                 tasktableData  += '<td>'+strDate+'</td>';
-                                 tasktableData  += '<td>'+eachTaskCol.status+'</td>';
-                                 tasktableData  += '<td>'+eachTaskCol.plannedHours+'</td>';
-                                 tasktableData  += '<td>'+eachTaskCol.actualHours+'</td>';
-                                 tasktableData  += '<td>'+eachTaskCol.userName+'</td>';
-                                 tasktableData += '</tr>';   
-                         });
-                        // $('#taskDetails').append(tasktableData);
-                         $('#taskDetails').html(tasktableData);
-                         $("#detailsModal").modal("show");
-                     })
-                     .fail(function(jqXHR, textStatus, err){
-                         console.log('AJAX error response :',textStatus);
-                         $("#detailsModal").modal("show");
-                     })     
-                   } 
-                  
-                //   <!-- End OF CurrenntUSER selected project -->
-
-                // all project current user 
-                if(selecPro=='allproject' && selecView =='currentuser'){
-                 //   alert('selected project & currentUSer');
-                    //  alert('select view is : '+$('#Selectview').val());
-                     $.ajax({ 
-                         type: 'GET',
-                         url: '/timesheets/getdetails',
-                         data : {
-                             'date': selectedDate,
-                             'selproject':$('#selproject').val()
-                         },
-                         dataType: 'json'
-                     })
-                     .done(function( taskData ) {
-                         console.log( "Sample of data:", JSON.stringify(taskData));
-                         console.log('sleePROJ :'+selecPro +'& selected view ='+selecView);
-                         var tasktableData = ''; 
-                         tasktableData  += '<thead><tr><th>Project Name</th><th>Task Name</th><th>Task Date</th><th>Status</th><th>Planned Hours</th><th>Actual Hours</th><th>Assigned to Heroku User</th></tr></thead>';    
-                         taskData.forEach((eachTaskCol) => {  
-                                 console.log('dt '+eachTaskCol.date);
-                                 console.log('date str '+eachTaskCol.date.toString().split('T')[0]);
-                                 var strDate = eachTaskCol.date.toString().split('T')[0];
-                                 tasktableData += '<tr>';
-                                  tasktableData  += '<td>'+eachTaskCol.projectName+'</td>';
-                                 tasktableData  += '<td>'+eachTaskCol.name+'</td>';
-                                 tasktableData  += '<td>'+strDate+'</td>';
-                                 tasktableData  += '<td>'+eachTaskCol.status+'</td>';
-                                 tasktableData  += '<td>'+eachTaskCol.plannedHours+'</td>';
-                                 tasktableData  += '<td>'+eachTaskCol.actualHours+'</td>';
-                                
-                               
-                                 tasktableData  += '<td>'+eachTaskCol.userName+'</td>';
-                                 tasktableData += '</tr>';   
-                         });
-                        // $('#taskDetails').append(tasktableData);
-                         $('#taskDetails').html(tasktableData);
-                         $("#detailsModal").modal("show");
-                     })
-                     .fail(function(jqXHR, textStatus, err){
-                         console.log('AJAX error response :',textStatus);
-                         $("#detailsModal").modal("show");
-                     })     
-                   } 
-                //end of current user all project
-
-                // start of team view 
-                if(selecView =='teamview'){
-                  console.log('Team view detail action');
-                  $("#detailsModal").modal("show");
-                  $.ajax({ 
-                    type: 'GET',
-                    url: '/timesheets/getTeamdetails',
-                    data : {
-                        'date': selectedDate,
-                        'selproject':$('#selproject').val()
-                    },
-                    dataType: 'json'
-                })
-                .done(function(tskdata){
-                  console.log('sample task team view dataxx :'+JSON.stringify(tskdata));
-                 // console.log('size of '+tskdata.length+'  ; '+tskdata[0].name);
-                  if(tskdata.length==0){
-                    var tasktableData='<h4>You are Not Team Manager for this Project or No task Available </h4>';
-                    $('#taskDetails').html(tasktableData);
-                      $("#detailsModal").modal("show");
-
-                  }
-                  else{
-                  var tasktableData = '';
-                      tasktableData  += '<thead>';
-                      tasktableData  += '<tr>';
-                      tasktableData  += ' <th>Project Name</th>';
-                      tasktableData  += ' <th>Task Name</th>';
-                      tasktableData  += ' <th>Task Date</th>';
-                      tasktableData  += '<th>Planned Hours</th>';
-                      tasktableData  += '<th>Actual Hours</th>';
-                      tasktableData  += ' <th>Assigned to Heroku User</th>';
-                      tasktableData  += '</tr>';
-                      tasktableData  += '</thead>'; 
-                      tskdata.forEach((eachTaskCol) => {
-                        console.log('achdad'+eachTaskCol);
-                        console.log('dt '+eachTaskCol.date);
-                        console.log('date str '+eachTaskCol.date.toString().split('T')[0]);
-                        var strDate = eachTaskCol.date.toString().split('T')[0];
-                        tasktableData += '<tr>';
-                        tasktableData  += '<td>'+eachTaskCol.projectName+'</td>';
-                        tasktableData  += '<td>'+eachTaskCol.name+'</td>';
-                        tasktableData  += '<td>'+strDate+'</td>';
-                        tasktableData  += '<td>'+eachTaskCol.plannedHours+'</td>';
-                        tasktableData  += '<td>'+eachTaskCol.actualHours+'</td>';
-                        tasktableData  += '<td>'+eachTaskCol.userName+'</td>';
-                        tasktableData += '</tr>';  
-                  })
-                  $('#taskDetails').html(tasktableData);
-                      $("#detailsModal").modal("show");
-                }
-                })
-                .fail(function(jqXHR, textStatus, err){
-                  console.log('AJAX error response :',textStatus);
-                  $("#detailsModal").modal("show");
-              })
-
-                }
-
-                // end of team view
-                
-                  } */
+              
             } 
         });
         var colorStyle = document.getElementsByClassName('fc-title');
@@ -1670,6 +1444,7 @@ function handleTimeSheet(event){
 }
 
 
+
 </script>
 
 
@@ -1742,7 +1517,8 @@ function handleTimeSheet(event){
           </button>
         </div>
         <div class="modal-body" id="taskModalBody" style="overflow-y: auto;">
-            <div id="taskModalBodyRow1" >   
+            <div id="taskModalBodyRow1" > 
+                <h4 style="font-weight: bold;" > Task 1 </h4>  
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-6">
@@ -1813,8 +1589,9 @@ function handleTimeSheet(event){
 
 <!-- Dummy timeSheet -->
 
-<div id="dummyTaskRow" >
-    <div id="taskModalBodyRow{index}" >   
+<div id="dummyTaskRow" style="display:none;opacity:0" >
+    <div id="taskModalBodyRow{index}" > 
+        <h4 style="font-weight: bold;" > Task {index} </h4>  
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-6">
@@ -1875,7 +1652,7 @@ function handleTimeSheet(event){
 
 
 <div style="display:none;opacity:0" >
-<div id="dummyRecord" class="dummyRecord">
+    <div id="dummyRecord" class="dummyRecord">
                 <i class="fa fa-trash recordD" data-label="{data}" style="float: right; color: white; background: #116288; padding: 9px; border-radius: 5px;font-size: 14px; cursor: pointer;"></i>
                 <div  style="font-weight: bold;margin: 30px 0;font-family: system-ui;">New Task {data}</div>
                 <div class="form-group">  
