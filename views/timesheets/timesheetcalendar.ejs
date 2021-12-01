@@ -919,6 +919,10 @@
                                     $('.editIconId'+i).css('display','block');
                                     $('#addBtns'+i).prop('disabled',false);
                                 }
+                                else if((seletedDate.getTime() > currentDate.getTime())) {
+                                    $('.editIconId'+i).css('display','none');
+                                    $('#addBtns'+i).prop('disabled',true);
+                                }
                                 $('#taskSelect'+i).val(dt.status);
                             });
 
@@ -1077,11 +1081,11 @@
                             $('#SaveBtnTime').click(function(){
                                 let indexList = window.editIndex;
                                 let tempO = {ast:0,pEnd:0};
+                                let obj = $('#SaveBtnTime').val();
+                                let objs = JSON.parse(window.atob(obj));
                                 let listData = [];
                                 indexList.forEach(dt=>{
-                                   let obj =  $('#addBtns'+dt)[0].dataset.value;
                                    let temp = {};
-                                   let objs = JSON.parse(window.atob(obj));
                                    temp.status = $('#selectTime'+dt).val();
                                    temp.actualStart = $('#startTime'+dt).val() ? $('#startTime'+dt).val() : tempO.ast++  ;
                                    temp.descp = $('#descriptionTimesheet'+dt).val();
@@ -1488,6 +1492,7 @@ function handleTimeSheet(event){
     let dt = event.target.dataset.label;
     let tmp = event.target.dataset.value;
     let obj = JSON.parse(window.atob(tmp));
+    $('#SaveBtnTime').val(tmp);
     let date = new Date(obj.plandate);
     $('#project1').val(obj.projectname);
     $('#dateIncurred1').val(`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`);
@@ -1654,7 +1659,7 @@ function handleDeleteTime(e){
 <div id="dummyTaskRow" style="display:none;opacity:0" >
     <div id="taskModalBodyRow{index}" style="margin-top: 30px;"> 
         <i class="fa fa-trash timeDel" onclick="handleDeleteTime(event)" data-label="{index}" style="float: right; color: white; background: #116288; padding: 9px; border-radius: 5px;font-size: 14px; cursor: pointer;"></i>
-        <h5 style="font-weight: bold;font-family: auto;" > Task {index} </h5>  
+        <h5 style="font-weight: bold;font-family: auto;margin-bottom: 10px;" > Task {index} </h5>  
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-6">
