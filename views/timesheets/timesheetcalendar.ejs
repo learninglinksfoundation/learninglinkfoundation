@@ -815,11 +815,11 @@
                         window.editIndex.length = 0;
                         
                         if (selectProj == 'allproject' && selectedView == 'currentuser') {
-                            console.log(seletedDate,seletedDate.toISOString().split('T')[0]);
+                            console.log(seletedDate,seletedDate.toLocaleDateString());
                             $.ajax({ 
                             type: 'GET',
                             url: '/timesheets/getTasklist',  
-                            data : {date:seletedDate.toISOString().split('T')[0]},
+                            data : {date:seletedDate.toLocaleDateString()},
                             dataType: 'json'     
                             })
                             .done(resp=>{
@@ -834,7 +834,7 @@
                                     type: 'GET',
                                     url: '/timesheets/getTeamsProject',
                                     data: {
-                                        'date': seletedDate.toISOString().split('T')[0]
+                                        'date': seletedDate.toLocaleDateString()
                                     },
                                     dataType: 'json'
                                 })
@@ -851,7 +851,7 @@
                                     url: '/timesheets/getProjectById',
                                     data: {
                                         'projectId': selectProj,
-                                        'date': seletedDate.toISOString().split('T')[0]
+                                        'date': seletedDate.toLocaleDateString()
                                     },
                                     dataType: 'json'
                                 })
@@ -867,7 +867,7 @@
                                     url: '/timesheets/getTeamsProject',
                                     data: {
                                         'projectId': selectProj,
-                                        'date': seletedDate.toISOString().split('T')[0]
+                                        'date': seletedDate.toLocaleDateString()
                                     },
                                     dataType: 'json'
                                 })
