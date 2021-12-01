@@ -956,7 +956,7 @@
                                  }
 
                             });
-
+                            $('#Allcheckbox').unbind('change');
                             $('#Allcheckbox').change(function(){
                                 var status = $(this).is(":checked") ? true : false;
                                 $(".chckbox").prop("checked",status);
@@ -972,7 +972,7 @@
                                   //$('.editIcon').css('display','block');
                             }
                             
-
+                            $('.editIcon').unbind('click');
                             $('.editIcon').click(function(){
                                 let index = this.dataset.label;
                                 if(!window.editIndex.includes(index))
@@ -983,7 +983,7 @@
                                 $('#actualEd'+index).prop('disabled',false);
                                 console.log(index);
                             });
-
+                            $('#submitbuttonnn').unbind('click');
                             $('#submitbuttonnn').click(function(){
                                 let indexList = window.editIndex;
                                 let tempO = {ast:0,pEnd:0};
@@ -1058,7 +1058,7 @@
                                     $("#Allcheckbox").prop("checked",false);
                                 }
                             });
-
+                            $('#timeSheetBtn').unbind('click');
                             $('#timeSheetBtn').click(function(){
                                 let htmText = $('#dummyTaskRow').html();
                                 console.log(htmText);
@@ -1077,7 +1077,7 @@
                                 }
 
                             });
-
+                            $('#SaveBtnTime').unbind('click');
                             $('#SaveBtnTime').click(function(){
                                 let indexList = window.editIndex;
                                 let tempO = {ast:0,pEnd:0};
