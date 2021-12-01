@@ -1060,8 +1060,16 @@
                                 console.log(htmText);
                                 let s = $('#taskModalBody');
                                 if(htmText){
-                                    htmText = htmText.replaceAll('{index}',s.children().length + 1);
+                                    let index = s.children().length + 1;
+                                    htmText = htmText.replaceAll('{index}',index);
                                     s.append(htmText);
+                                    $('#project'+index).val($('#project1').val());
+                                    $('#dateIncurred'+index).val($('#dateIncurred1').val());
+                                    $('#task'+index).val($('#task1').val());
+                                    $('#user'+index).val($('#user1').val());
+                                    $('#selectTime'+index).val($('#selectTime1').val());
+
+
                                 }
 
                             });
@@ -1436,7 +1444,7 @@ function handleTimeSheet(event){
     let obj = JSON.parse(window.atob(tmp));
     let date = new Date(obj.plandate);
     $('#project1').val(obj.projectname);
-    $('#dateIncurred').val(`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`);
+    $('#dateIncurred1').val(`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`);
     $('#task1').val(obj.taskName);
     $('#user1').val(obj.assigned);
     $('#selectTime1').val(obj.status);
@@ -1518,7 +1526,7 @@ function handleTimeSheet(event){
         </div>
         <div class="modal-body" id="taskModalBody" style="overflow-y: auto;">
             <div id="taskModalBodyRow1" > 
-                <h4 style="font-weight: bold;" > Task 1 </h4>  
+                <h5 style="font-weight: bold;font-family: auto;" > Task 1 </h5>  
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-6">
@@ -1527,7 +1535,7 @@ function handleTimeSheet(event){
                         </div>
                         <div class="col-md-6">
                             <label for="validationTooltip04">Date Incurred</label>
-                            <input type="text" class="form-control datepic dateIncurred"  id="dateIncurred" readonly name="dateIncurred" required> </div>
+                            <input type="text" class="form-control datepic dateIncurred"  id="dateIncurred1" readonly name="dateIncurred" required> </div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -1551,10 +1559,10 @@ function handleTimeSheet(event){
                     <div class="row">
                         <div class="col-md-6">
                             <label for="validationTooltip02">Actual Start Time <span style="color: red;">*</span></label>
-                            <input type="time" class="form-control" id="startTime" placeholder="Last name" value="Otto" name="plannedStartTimeTimesheet" required> </div>
+                            <input type="time" class="form-control" id="startTime1" placeholder="Last name"  name="plannedStartTimeTimesheet" required> </div>
                         <div class="col-md-6">
                             <label for="validationTooltip02">Actual End Time <span style="color: red;">*</span></label>
-                            <input type="time" class="form-control" id="endTime" placeholder="Last name" value="Otto" name="plannedEndTimeTimesheet" required> </div>
+                            <input type="time" class="form-control" id="endTime1" placeholder="Last name"  name="plannedEndTimeTimesheet" required> </div>
                         </div>
                 </div>
                 <div class="form-group">
@@ -1566,7 +1574,7 @@ function handleTimeSheet(event){
                         </div>
                         <div class="col-md-6">
                             <label for="validationTooltip02">Description <span style="color: red;">*</span></label>
-                            <textarea class="form-control" class="form-control" id="descriptionTimesheet" rows="3" autocomplete="off" name="descriptionTimesheet"></textarea>
+                            <textarea class="form-control" class="form-control" id="descriptionTimesheet1" rows="3" autocomplete="off" name="descriptionTimesheet"></textarea>
                         </div>
                     </div>
                 </div>
@@ -1590,8 +1598,9 @@ function handleTimeSheet(event){
 <!-- Dummy timeSheet -->
 
 <div id="dummyTaskRow" style="display:none;opacity:0" >
-    <div id="taskModalBodyRow{index}" > 
-        <h4 style="font-weight: bold;" > Task {index} </h4>  
+    <div id="taskModalBodyRow{index}" style="margin-top: 30px;"> 
+        <i class="fa fa-trash timeDel" onclick="handleDeleteTime(event)" data-label="{index}" style="float: right; color: white; background: #116288; padding: 9px; border-radius: 5px;font-size: 14px; cursor: pointer;"></i>
+        <h5 style="font-weight: bold;font-family: auto;" > Task {index} </h5>  
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-6">
@@ -1600,7 +1609,7 @@ function handleTimeSheet(event){
                     </div>
                     <div class="col-md-6">
                         <label for="validationTooltip04">Date Incurred</label>
-                        <input type="text" class="form-control datepic dateIncurred"  id="dateIncurred{index}" readonly name="dateIncurred" required> </div>
+                        <input type="text" class="form-control datepic dateIncurred"  id="dateIncurred{index}" readonly name="dateIncurred" required/> </div>
                 </div>
             </div>
             <div class="form-group">
