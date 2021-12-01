@@ -1068,11 +1068,57 @@
                                     $('#task'+index).val($('#task1').val());
                                     $('#user'+index).val($('#user1').val());
                                     $('#selectTime'+index).val($('#selectTime1').val());
-
+                                    window.editIndex.push(index);
 
                                 }
 
                             });
+
+                            $('#SaveBtnTime').click(function(){
+                                let indexList = window.editIndex;
+                                let tempO = {ast:0,pEnd:0};
+                                let listData = [];
+                                indexList.forEach(dt=>{
+                                   let obj =  $('#addBtns'+dt)[0].dataset.value;
+                                   let temp = {};
+                                   let objs = JSON.parse(window.atob(obj));
+                                   temp.status = $('#selectTime'+dt).val();
+                                   temp.actualStart = $('#startTime'+dt).val() ? $('#startTime'+dt).val() : tempO.ast++  ;
+                                   temp.descp = $('#descriptionTimesheet'+dt).val();
+                                   temp.actualEnd = $('#endTime'+dt).val() ? $('#endTime'+dt).val() : tempO.pEnd++;
+                                   temp.proId = objs.proId;
+                                   temp.taskId = objs.id;
+                                   temp.user = objs.userId;
+                                   let strDate = new Date(objs.createDdate);
+                                   temp.date = `${strDate.getFullYear()}-${strDate.getMonth()+1}-${strDate.getDate()}`;
+                                   listData.push(temp);
+                                });
+                                console.log(listData);
+                                if(tempO.ast == 0 && tempO.pEnd == 0  ){
+                                    if(listData.length > 0){
+                                        $('#SaveBtnTime').prop('disabled',true);
+                                        $.ajax({
+                                                url : '/timesheets/fillactualsTimeSheet',
+                                                data : JSON.stringify(listData),
+                                                type : 'post',
+                                                contentType: 'application/json',
+                                        })
+                                            .done((response) => {
+                                                console.log(response);
+                                                window.location.reload();
+
+                                            })
+                                            .fail(resp=>{
+                                                $('#SaveBtnTime').prop('disabled',false);
+                                                alert('Some Error occured');
+                                            });
+                                    }
+                                }
+                                else{
+                                    alert('Please Enter ACTUAL START TIME Or ACTUAL END TIME');
+                                }
+                            });
+
 
                         }
                            
@@ -1451,6 +1497,14 @@ function handleTimeSheet(event){
     $('#taskModal').modal("show");
 }
 
+function handleDeleteTime(e){
+    let index = e.target.dataset.label;
+    console.log(index);
+    $('#taskModalBodyRow'+index).remove();
+    let ss = window.editIndex.filter(dt=> dt != index);
+    window.editIndex = ss;
+
+}
 
 
 </script>
@@ -1526,7 +1580,7 @@ function handleTimeSheet(event){
         </div>
         <div class="modal-body" id="taskModalBody" style="overflow-y: auto;">
             <div id="taskModalBodyRow1" > 
-                <h5 style="font-weight: bold;font-family: auto;" > Task 1 </h5>  
+                <h5 style="font-weight: bold;font-family: auto;margin-bottom: 10px;" > Task 1 </h5>  
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-6">
@@ -1584,7 +1638,7 @@ function handleTimeSheet(event){
         <div class="modal-footer">
           <button type="button" id="timeSheetBtn" style="background: #3a87ad;" class="btn btn-primary"> Add New Row</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" id="SaveBtn">Save</button>
+          <button type="button" class="btn btn-primary" id="SaveBtnTime">Save</button>
         </div>
       </div>
     </div>
