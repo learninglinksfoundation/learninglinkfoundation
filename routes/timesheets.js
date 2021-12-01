@@ -1440,13 +1440,6 @@ router.get('/getTeamdetails',verify,async(request,response)=>{
      console.log('  lstTasksToShow  : '+JSON.stringify(lstTasksToShow));
      response.send(lstTasksToShow);
   
-  
-  
-  
-  
-  
-  
-  
     })
     .catch((timesheetQueryError) => {
           console.log('timesheetQueryError   :  '+timesheetQueryError.stack);
@@ -1473,9 +1466,9 @@ router.get('/getProjectById',verify,(request, response) => {
                        `WHERE tsk.sfid IS NOT NULL AND tsk.Assigned_Manager__c = '${objUser.sfid}' AND tsk.Project_Name__c = '${proId}'  `; 
     console.log(queryText) ;
     if(selectedDate){
-      let s = new Date(selectedDate);
-      let dt = `${s.getFullYear()}-${s.getMonth()+1}-${s.getDate()+1}`;
-      queryText = queryText + `AND tsk.start_date__c = cast('${dt}' as date)`;
+      //let s = new Date(selectedDate);
+      //let dt = `${s.getFullYear()}-${s.getMonth()+1}-${s.getDate()+1}`;
+      queryText = queryText + `AND tsk.start_date__c = cast('${selectedDate}' as date)`;
     }
     console.log(queryText) ;
     pool
@@ -1511,10 +1504,10 @@ router.get('/getTeamsProject',verify,(request, response) => {
     }
 
     if(selectedDate){
-      let s = new Date(selectedDate);
-      console.log(s,s.getUTCDay());
-      let dt = `${s.getFullYear()}-${s.getMonth()+1}-${s.getDate()+1}`;
-      queryText = queryText + ` AND tsk.start_date__c = cast('${dt}' as date)`;
+      //let s = new Date(selectedDate);
+      //console.log(s,s.getUTCDay());
+      //let dt = `${s.getFullYear()}-${s.getMonth()+1}-${s.getDate()+1}`;
+      queryText = queryText + ` AND tsk.start_date__c = cast('${selectedDate}' as date)`;
     }
     console.log(queryText) ;
     pool
@@ -1621,9 +1614,10 @@ router.get('/getTasklist',verify,(request,response)=>{
                    'WHERE  tsk.Assigned_Manager__c= $1 AND tsk.sfid IS NOT NULL ';
                    
  if(date){
-    let s = new Date(date);
-    let dt = `${s.getFullYear()}-${s.getMonth()+1}-${s.getDate()+1}`;
-    queryText = queryText + `AND tsk.start_date__c = cast('${dt}' as date)`;
+  console.log(date);
+    //let s = new Date(date);
+    //let dt = `${s.getFullYear()}-${s.getMonth()+1}-${s.getDate()+1}`;
+    queryText = queryText + `AND tsk.start_date__c = cast('${date}' as date)`;
  }
  console.log('queryText  taskkkkkkkkkkkkkkkkkkk',queryText);
   pool

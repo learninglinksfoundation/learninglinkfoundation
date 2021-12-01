@@ -818,7 +818,7 @@
                             $.ajax({ 
                             type: 'GET',
                             url: '/timesheets/getTasklist',  
-                            data : {date:seletedDate},
+                            data : {date:seletedDate.toISOString().split('T')[0]},
                             dataType: 'json'     
                             })
                             .done(resp=>{
@@ -833,7 +833,7 @@
                                     type: 'GET',
                                     url: '/timesheets/getTeamsProject',
                                     data: {
-                                        'date': seletedDate
+                                        'date': seletedDate.toISOString().split('T')[0]
                                     },
                                     dataType: 'json'
                                 })
@@ -850,7 +850,7 @@
                                     url: '/timesheets/getProjectById',
                                     data: {
                                         'projectId': selectProj,
-                                        'date': seletedDate
+                                        'date': seletedDate.toISOString().split('T')[0]
                                     },
                                     dataType: 'json'
                                 })
@@ -866,7 +866,7 @@
                                     url: '/timesheets/getTeamsProject',
                                     data: {
                                         'projectId': selectProj,
-                                        'date': seletedDate
+                                        'date': seletedDate.toISOString().split('T')[0]
                                     },
                                     dataType: 'json'
                                 })
