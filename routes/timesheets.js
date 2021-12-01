@@ -1512,6 +1512,7 @@ router.get('/getTeamsProject',verify,(request, response) => {
 
     if(selectedDate){
       let s = new Date(selectedDate);
+      console.log(s,s.getUTCDay());
       let dt = `${s.getFullYear()}-${s.getMonth()+1}-${s.getDate()+1}`;
       queryText = queryText + ` AND tsk.start_date__c = cast('${dt}' as date)`;
     }
