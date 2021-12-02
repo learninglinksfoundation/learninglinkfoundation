@@ -886,7 +886,9 @@
                                 let temp = document.getElementById('dummyTableBody').innerHTML;
                                 temp = temp.replaceAll('{index}',i);
                                 temp = temp.replaceAll('{projectname}',dt.projectname);
-                                temp = temp.replaceAll('{taskname}',dt.name);
+                                let tn = dt.name;
+                                tn = tn.replace('href="#"',`href='/timesheets/taskListView?id=${dt.id}&isOpen=true'`);
+                                temp = temp.replaceAll('{taskname}',tn);
                                 let strDate = new Date(dt.plandate);
                                 temp = temp.replaceAll('{taskdate}',`${strDate.getFullYear()}-${strDate.getMonth()+1}-${strDate.getDate()}`);
                                 temp = temp.replaceAll('{tasktype}',dt.taskType);
