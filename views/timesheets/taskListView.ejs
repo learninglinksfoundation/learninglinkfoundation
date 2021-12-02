@@ -168,7 +168,25 @@
             taskType:'Task Type',
             createDdate : 'Created Date'
         }
-        
+      window.setTimeout(function(){
+          const url = new URLSearchParams(window.location.search);
+          let id = url.get('id');
+          let isOpen = url.get('isOpen');
+          console.log(isOpen,id);
+          if(id && isOpen === 'true'){
+              console.log('done');
+              $('.taskreferenceTag').each(function(){
+                  if(this.id === id){
+                    this.click();
+                  }
+              }); 
+              
+          }
+      },1000);
+      
+
+
+
       var table = $('#tasklListTable').tableSortable({
         data :[],
         columns,
@@ -319,6 +337,8 @@
                             
                               $('#taskViewTable').empty();
                               $('#taskViewTable').html(htmlTable);
+
+
           }
         })
       })

@@ -887,7 +887,7 @@
                                 temp = temp.replaceAll('{index}',i);
                                 temp = temp.replaceAll('{projectname}',dt.projectname);
                                 let tn = dt.name;
-                                tn = tn.replace('href="#"',`href='/timesheets/taskListView?id=${dt.id}&isOpen=true'`);
+                                tn = tn.replace('href="#"',`href="/timesheets/taskListView?id=${dt.id}&isOpen=true" target="_blank"`);
                                 temp = temp.replaceAll('{taskname}',tn);
                                 let strDate = new Date(dt.plandate);
                                 temp = temp.replaceAll('{taskdate}',`${strDate.getFullYear()}-${strDate.getMonth()+1}-${strDate.getDate()}`);
