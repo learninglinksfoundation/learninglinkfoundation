@@ -1545,7 +1545,7 @@ function getMappedData(data){
             obj.sequence = i;
             obj.id = eachRecord.sfids;
             obj.projectname = eachRecord.projname;
-            obj.name = '<a href="#" class="taskreferenceTag" id="'+eachRecord.sfids+'" >'+eachRecord.tskname+'</a>';
+            obj.name = `<a href="/timesheets/taskListView?id=${eachRecord.sfids}&isOpen=true" class="taskreferenceTag" id="${eachRecord.sfids}" >${eachRecord.tskname}</a>`;
             obj.assigned = eachRecord.contname;
             obj.hrs=eachRecord.planned_hours__c;
             obj.startTime= eachRecord.start_time__c;// (!eachRecord.start_time__c || eachRecord.start_time__c == "00:00:00" ? '' : eachRecord.start_time__c );
