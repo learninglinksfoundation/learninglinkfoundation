@@ -1500,15 +1500,34 @@ function handleTimeSheet(event){
     $('#user1').val(obj.assigned);
     $('#selectTime1').val(obj.status);
     $('#taskModal').modal("show");
+    if(!window.editIndex.includes('1'))
+        window.editIndex.push('1');
 }
 
 function handleDeleteTime(e){
     let index = e.target.dataset.label;
     console.log(index);
-    $('#taskModalBodyRow'+index).remove();
+    let obj = $('#taskModalBodyRow'+index);
+    obj.remove();
+    Array.from(obj.children()).forEach((dt,i)=>{
+        if(i >= index){
+            let str = dt.innerHTML;
+            str = str.replaceAll('Task '+(i+1),'Task '+i);
+            str = str.replaceAll('project'+(i+1),'project'+i);
+            str = str.replaceAll('dateIncurred'+(i+1),'dateIncurred'+i);
+            str = str.replaceAll('task'+(i+1),'task'+i);
+            str = str.replaceAll('selectTime'+(i+1),'selectTime'+i);
+            str = str.replaceAll('endTime'+(i+1),'endTime'+i);
+            str = str.replaceAll('startTime'+(i+1),'startTime'+i);
+            str = str.replaceAll('user'+(i+1),'user'+i);
+            str = str.replaceAll('descriptionTimesheet'+(i+1),'descriptionTimesheet'+i);
+            dt.setAttribute('id','taskModalBodyRow'+i);
+            dt.innerHTML = str;
+        }
+
+    });
     let ss = window.editIndex.filter(dt=> dt != index);
     window.editIndex = ss;
-
 }
 
 
