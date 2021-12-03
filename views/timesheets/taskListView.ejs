@@ -55,6 +55,9 @@
         <table id="taskViewTable" class="table">
 
         </table>
+        <table id="relatedSheetTable" >
+          
+        </table>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -183,9 +186,6 @@
               
           }
       },1000);
-      
-
-
 
       var table = $('#tasklListTable').tableSortable({
         data :[],
@@ -250,8 +250,8 @@
              console.log('error: '+JSON.stringify(jqXHR));
 
          })
-    })
-
+    }) 
+    //timesheetListViewest
     function anchorClickFunctionalities(){
       $('a.taskreferenceTag').on('click',function(event){
         event.stopImmediatePropagation();
@@ -270,7 +270,7 @@
         })
         
         .done((res)=>{
-          $('#detailLoadingSpinner').hide();
+          
           console.log("jhdgjhd"+JSON.stringify(res));
           if(res.length>0)
           {
@@ -336,7 +336,22 @@
                           htmlTable += '</tr>';
                             
                               $('#taskViewTable').empty();
+                              $('#relatedSheetTable').empty();
                               $('#taskViewTable').html(htmlTable);
+
+          $.ajax({
+              url : '/timesheets/fetchTaskDetail',
+              type:'get',
+              data : {
+              taskId : taskId
+              },
+              dataType: 'json',
+          })
+          .done((res)=>{
+            $('#detailLoadingSpinner').hide();
+            
+          })
+          .fail(console.log);
 
 
           }

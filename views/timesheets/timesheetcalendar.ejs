@@ -995,9 +995,20 @@
                                    let temp = {};
                                    let objs = JSON.parse(window.atob(obj));
                                    temp.status = $('#taskSelect'+dt).val();
-                                   temp.actualStart = $('#actualSt'+dt).val() ? $('#actualSt'+dt).val() : tempO.ast++  ;
+                                   if($('#actualSt'+dt).val()){
+                                        temp.actualStart =  $('#actualSt'+dt).val();
+                                   }
+                                   else {
+                                    tempO.ast++ ;
+                                   }
+                                   
                                    temp.descp = $('#descp'+dt).val();
-                                   temp.actualEnd = $('#actualEd'+dt).val() ? $('#actualEd'+dt).val() : tempO.pEnd++;
+                                   if($('#actualEd'+dt).val()){
+                                        temp.actualEnd = $('#actualEd'+dt).val();
+                                   }
+                                   else{
+                                     tempO.pEnd++;
+                                   }
                                    temp.proId = objs.proId;
                                    temp.taskId = objs.id;
                                    temp.user = objs.userId;
@@ -1163,6 +1174,30 @@ function handleChange(e){
             $('#tasktype'+index).attr('readonly',true);
             $('#tasktype'+index).css('pointer-events','none');
         }
+    }
+
+
+    function handleValidation(e){
+        /*var values = $(this).serialize();
+        console.log('values   '+values);
+        var startDate = $('#startTime').val();
+        console.log('startTime '+startDate);
+        var endDate = $('#endTime').val();
+            console.log('endTime '+endDate);
+           if(startDate == '')
+            {
+              alert('Error: Please Fill Actual Start Time');
+            }
+          
+          else if(endDate == '')
+            {
+              alert('Error: Please Fill Actual End Time');
+            }
+           else if(startDate > endDate)
+            {
+              alert('Error: Actual Start Time should be less than Actual End Time. !')
+            }
+          */
     }
 
 
@@ -1502,8 +1537,8 @@ function handleTimeSheet(event){
     $('#user1').val(obj.assigned);
     $('#selectTime1').val(obj.status);
     $('#taskModal').modal("show");
-    if(!window.editIndex.includes('1'))
-        window.editIndex.push('1');
+    if(!window.editIndex.includes('0'))
+        window.editIndex.push('0');
 }
 
 function handleDeleteTime(e){
@@ -1530,6 +1565,11 @@ function handleDeleteTime(e){
     });
     let ss = window.editIndex.filter(dt=> dt != index);
     window.editIndex = ss;
+}
+
+function callRemover(){
+    if(window.editIndex.includes('0'))
+        window.editIndex.pop();
 }
 
 
@@ -1600,7 +1640,7 @@ function handleDeleteTime(e){
       <div class="modal-content">
         <div class="modal-header">
           <center><h5 class="modal-title" id="taskModalHead">Fill Timesheet</h5></center> 
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="close" onclick="callRemover()" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -1639,10 +1679,10 @@ function handleDeleteTime(e){
                     <div class="row">
                         <div class="col-md-6">
                             <label for="validationTooltip02">Actual Start Time <span style="color: red;">*</span></label>
-                            <input type="time" class="form-control" id="startTime1" placeholder="Last name"  name="plannedStartTimeTimesheet" required> </div>
+                            <input type="time" class="form-control" data-label="{index}" onchange="handleValidation(event)" id="startTime1" placeholder="Last name"  name="plannedStartTimeTimesheet" required> </div>
                         <div class="col-md-6">
                             <label for="validationTooltip02">Actual End Time <span style="color: red;">*</span></label>
-                            <input type="time" class="form-control" id="endTime1" placeholder="Last name"  name="plannedEndTimeTimesheet" required> </div>
+                            <input type="time" class="form-control" data-label="{index}" onchange="handleValidation(event)" id="endTime1" placeholder="Last name"  name="plannedEndTimeTimesheet" required> </div>
                         </div>
                 </div>
                 <div class="form-group">
@@ -1663,7 +1703,7 @@ function handleDeleteTime(e){
         </div>
         <div class="modal-footer">
           <button type="button" id="timeSheetBtn" style="background: #3a87ad;" class="btn btn-primary"> Add New Row</button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" onclick="callRemover()" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary" id="SaveBtnTime">Save</button>
         </div>
       </div>
@@ -1713,10 +1753,10 @@ function handleDeleteTime(e){
                 <div class="row">
                     <div class="col-md-6">
                         <label for="validationTooltip02">Actual Start Time <span style="color: red;">*</span></label>
-                        <input type="time" class="form-control" id="startTime{index}" placeholder="Last name" name="plannedStartTimeTimesheet" required> </div>
+                        <input type="time" class="form-control" data-label="{index}" onchange="handleValidation(event)" id="startTime{index}" placeholder="Last name" name="plannedStartTimeTimesheet" required> </div>
                     <div class="col-md-6">
                         <label for="validationTooltip02">Actual End Time <span style="color: red;">*</span></label>
-                        <input type="time" class="form-control" id="endTime{index}" placeholder="Last name" name="plannedEndTimeTimesheet" required> </div>
+                        <input type="time" class="form-control" data-label="{index}" onchange="handleValidation(event)" id="endTime{index}" placeholder="Last name" name="plannedEndTimeTimesheet" required> </div>
                     </div>
             </div>
             <div class="form-group">
@@ -1727,7 +1767,7 @@ function handleDeleteTime(e){
                         <input type="text" class="form-control" id="user{index}" readonly required />
                     </div>
                     <div class="col-md-6">
-                        <label for="validationTooltip02">Description <span style="color: red;">*</span></label>
+                        <label for="validationTooltip02">Description</label>
                         <textarea class="form-control" class="form-control" id="descriptionTimesheet{index}" rows="3" autocomplete="off" name="descriptionTimesheet"></textarea>
                     </div>
                 </div>

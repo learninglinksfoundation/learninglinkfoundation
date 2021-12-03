@@ -1793,6 +1793,32 @@ router.get('/getTimesheetlist',verify,(request,response)=>{
   }) 
 })
   
+router.get('/fetchTimesheetList',verify,(request,response)=>{
+  let taskId= request.query.id;
+  console.log(taskId);
+  let queryText = 'SELECT time.Id,time.sfid as sfid,time.name as tname,time.Projecttimesheet__c , tsk.assigned_manager__c, tsk.sfid as tsksfid ,tsk.name as taskname,proj.name as projname,cont.sfid as contid ,cont.name as contname,usr.sfid as usrid ,usr.name as usrname, '+
+  'time.Date__c,time.end_time__c,time.Hours__c,time.Start_Time__c,time.Incurred_By__c,time.representative__c,time.createddate,time.Description__c,time.Related_Task_Status__c,time.Calculated_Hours__c '+
+  'FROM salesforce.Milestone1_Time__c time '+ 
+  'INNER JOIN salesforce.Contact cont ON time.representative__c = cont.sfid '+
+  'INNER JOIN salesforce.User usr ON time.Incurred_By__c = usr.sfid '+
+  'INNER JOIN salesforce.Milestone1_Project__c proj ON time.Projecttimesheet__c= proj.sfid '+
+  'INNER JOIN salesforce.Milestone1_Task__c tsk ON time.Project_Task__c= tsk.sfid '+
+  'WHERE  tsk.sfid= $1 ';
+  console.log('queryText timesheetList',queryText);
+  pool
+  .query(queryText,[taskId])
+  .then((querryResult)=>{
+      console.log(querryResult.rows);
+       response.send(querryResult);
+  })
+  .catch(error=>{
+    console.log('error');
+    response.send(querryError.stack)
+  });
+
+
+})
+
 router.get('/fetchTimesheetDetail',verify,(request,response)=>{
   let timesheetId= request.query.timesheetId;
   console.log('timesheet ID '+timesheetId);
