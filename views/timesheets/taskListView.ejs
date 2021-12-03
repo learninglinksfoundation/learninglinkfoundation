@@ -55,8 +55,20 @@
         <table id="taskViewTable" class="table">
 
         </table>
-        <table id="relatedSheetTable" >
-          
+        <table id="timeTableBody" >
+          <thead>
+          <tr>
+            <th>SR No </th>
+            <th>  Name </th>
+            <th>  Task Name </th>
+            <th> Start Time </th>
+            <th> End Time </th>
+            <th> Description</th>
+            <th> Hours </th>
+          </tr>
+          </thead>
+          <tbody id="timeTableBody" >
+          </tbody>
         </table>
         </div>
         <div class="modal-footer">
@@ -336,20 +348,32 @@
                           htmlTable += '</tr>';
                             
                               $('#taskViewTable').empty();
-                              $('#relatedSheetTable').empty();
+                              $('#timeTableBody').empty();
                               $('#taskViewTable').html(htmlTable);
 
           $.ajax({
-              url : '/timesheets/fetchTaskDetail',
+              url : '/timesheets/fetchTimesheetList',
               type:'get',
               data : {
-              taskId : taskId
+              id : taskId
               },
               dataType: 'json',
           })
           .done((res)=>{
             $('#detailLoadingSpinner').hide();
-            
+            let str = '';
+            res.forEach((dt,i)=>{
+               str = str + '<tr>';
+               str = `${str} <td> ${i+1} </td>`;
+               str = `${str} <td> ${dt.tname} </td>`;
+               str = `${str} <td> ${dt.taskname} </td>`;
+               str = `${str} <td> ${dt.start_time__c} </td>`;
+               str = `${str} <td> ${dt.end_time__c} </td>`;
+               str = `${str} <td> ${dt.description__c} </td>`;
+               str = `${str} <td> ${dt.hours__c} </td> </tr>`;
+            });
+            $('#timeTableBody').html(str);
+
           })
           .fail(console.log);
 

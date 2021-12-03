@@ -1809,7 +1809,7 @@ router.get('/fetchTimesheetList',verify,(request,response)=>{
   .query(queryText,[taskId])
   .then((querryResult)=>{
       console.log(querryResult.rows);
-       response.send(querryResult);
+       response.send(querryResult.rows);
   })
   .catch(error=>{
     console.log('error');
