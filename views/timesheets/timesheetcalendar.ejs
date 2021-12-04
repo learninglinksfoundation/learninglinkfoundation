@@ -1016,6 +1016,30 @@
                                    temp.date = `${strDate.getFullYear()}-${strDate.getMonth()+1}-${strDate.getDate()}`;
                                    listData.push(temp);
                                 });
+                                for(let j=0;j<=listData.length;j++){
+                                    let obj = listData[j];
+                                    var startDate = obj.actualStart;
+                                    console.log('startTime '+startDate);
+                                    var endDate = obj.actualEnd;
+                                        console.log('endTime '+endDate);
+                                       if(startDate == '')
+                                        {
+                                          alert('Error: Please Fill Actual Start Time');
+                                          return;
+                                        }
+                                      
+                                      else if(endDate == '')
+                                        {
+                                          alert('Error: Please Fill Actual End Time');
+                                          return;
+                                        }
+                                       else if(startDate > endDate)
+                                        {
+                                          alert('Error: Actual Start Time should be less than Actual End Time. !');
+                                          return;
+                                        }
+                                }
+
                                 console.log(listData);
                                 if(tempO.ast == 0 && tempO.pEnd == 0  ){
                                     if(listData.length > 0){
@@ -1100,9 +1124,21 @@
                                 indexList.forEach(dt=>{
                                    let temp = {};
                                    temp.status = $('#selectTime'+dt).val();
-                                   temp.actualStart = $('#startTime'+dt).val() ? $('#startTime'+dt).val() : tempO.ast++  ;
+                                   if($('#startTime'+dt).val()){
+                                        temp.actualStart =   $('#startTime'+dt).val();
+                                   }
+                                   else{
+                                        tempO.ast++ ;
+                                   }
+
+                                    
                                    temp.descp = $('#descriptionTimesheet'+dt).val();
-                                   temp.actualEnd = $('#endTime'+dt).val() ? $('#endTime'+dt).val() : tempO.pEnd++;
+                                   if($('#endTime'+dt).val()){
+                                        temp.actualEnd =   $('#endTime'+dt).val();
+                                   }
+                                   else{
+                                        tempO.pEnd++;
+                                   }
                                    temp.proId = objs.proId;
                                    temp.taskId = objs.id;
                                    temp.user = objs.userId;
@@ -1110,6 +1146,29 @@
                                    temp.date = `${strDate.getFullYear()}-${strDate.getMonth()+1}-${strDate.getDate()}`;
                                    listData.push(temp);
                                 });
+                                 for(let j=0;j<=listData.length;j++){
+                                    let obj = listData[j];
+                                    var startDate = obj.actualStart;
+                                    console.log('startTime '+startDate);
+                                    var endDate = obj.actualEnd;
+                                        console.log('endTime '+endDate);
+                                       if(startDate == '')
+                                        {
+                                          alert('Error: Please Fill Actual Start Time');
+                                          return;
+                                        }
+                                      
+                                      else if(endDate == '')
+                                        {
+                                          alert('Error: Please Fill Actual End Time');
+                                          return;
+                                        }
+                                       else if(startDate > endDate)
+                                        {
+                                          alert('Error: Actual Start Time should be less than Actual End Time. !');
+                                          return;
+                                        }
+                                }
                                 console.log(listData);
                                 if(tempO.ast == 0 && tempO.pEnd == 0  ){
                                     if(listData.length > 0){

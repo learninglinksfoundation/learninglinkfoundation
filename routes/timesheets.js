@@ -1803,7 +1803,7 @@ router.get('/fetchTimesheetList',verify,(request,response)=>{
   'INNER JOIN salesforce.User usr ON time.Incurred_By__c = usr.sfid '+
   'INNER JOIN salesforce.Milestone1_Project__c proj ON time.Projecttimesheet__c= proj.sfid '+
   'INNER JOIN salesforce.Milestone1_Task__c tsk ON time.Project_Task__c= tsk.sfid '+
-  'WHERE  tsk.sfid= $1 ';
+  'WHERE  tsk.sfid= $1 ORDER BY  time.name';
   console.log('queryText timesheetList',queryText);
   pool
   .query(queryText,[taskId])
