@@ -999,7 +999,8 @@
                                         temp.actualStart =  $('#actualSt'+dt).val();
                                    }
                                    else {
-                                    tempO.ast++ ;
+                                        tempO.ast++ ;
+                                        temp.actualStart = '';
                                    }
                                    
                                    temp.descp = $('#descp'+dt).val();
@@ -1007,7 +1008,8 @@
                                         temp.actualEnd = $('#actualEd'+dt).val();
                                    }
                                    else{
-                                     tempO.pEnd++;
+                                         tempO.pEnd++;
+                                         temp.actualEnd = '';
                                    }
                                    temp.proId = objs.proId;
                                    temp.taskId = objs.id;
