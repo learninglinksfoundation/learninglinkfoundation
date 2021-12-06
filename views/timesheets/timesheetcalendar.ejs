@@ -1594,11 +1594,11 @@ function handleTimeSheet(event){
     let obj = JSON.parse(window.atob(tmp));
     $('#SaveBtnTime').val(tmp);
     let date = new Date(obj.plandate);
-    $('#project1').val(obj.projectname);
-    $('#dateIncurred1').val(`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`);
-    $('#task1').val(obj.taskName);
-    $('#user1').val(obj.assigned);
-    $('#selectTime1').val(obj.status);
+    $('#project0').val(obj.projectname);
+    $('#dateIncurred0').val(`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`);
+    $('#task0').val(obj.taskName);
+    $('#user0').val(obj.assigned);
+    $('#selectTime0').val(obj.status);
     $('#taskModal').modal("show");
     if(!window.editIndex.includes('0'))
         window.editIndex.push('0');
@@ -1729,7 +1729,7 @@ function callRemover(){
                         </div>
                         <div class="col-md-6">
                             <label for="validationTooltipUsername">Status <span style="color: red;">*</span></label>
-                            <select class="custom-select custom-select-sm form-control" id="selectTime0" name="statusTimesheet">
+                            <select class="custom-select custom-select-sm form-control" id="selectTime0" disabled name="statusTimesheet">
                                 <option selected>None</option>
                                 <option value="Started">Started</option>
                                 <option value="On hold">On Hold</option>
@@ -1803,7 +1803,7 @@ function callRemover(){
                     </div>
                     <div class="col-md-6">
                         <label for="validationTooltipUsername">Status <span style="color: red;">*</span></label>
-                        <select class="custom-select custom-select-sm form-control" id="selectTime{index}" name="statusTimesheet">
+                        <select class="custom-select custom-select-sm form-control" id="selectTime{index}" disabled name="statusTimesheet">
                             <option selected>None</option>
                             <option value="Started">Started</option>
                             <option value="On hold">On Hold</option>
