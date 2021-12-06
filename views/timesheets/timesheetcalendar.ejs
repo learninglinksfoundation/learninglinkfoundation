@@ -1106,11 +1106,11 @@
                                     let index = s.children().length + 1;
                                     htmText = htmText.replaceAll('{index}',index);
                                     s.append(htmText);
-                                    $('#project'+index).val($('#project1').val());
-                                    $('#dateIncurred'+index).val($('#dateIncurred1').val());
-                                    $('#task'+index).val($('#task1').val());
-                                    $('#user'+index).val($('#user1').val());
-                                    $('#selectTime'+index).val($('#selectTime1').val());
+                                    $('#project'+index).val($('#project0').val());
+                                    $('#dateIncurred'+index).val($('#dateIncurred0').val());
+                                    $('#task'+index).val($('#task0').val());
+                                    $('#user'+index).val($('#user0').val());
+                                    $('#selectTime'+index).val($('#selectTime0').val());
                                     window.editIndex.push(index);
 
                                 }
@@ -1714,22 +1714,22 @@ function callRemover(){
                     <div class="row">
                         <div class="col-md-6">
                             <label for="validationTooltip01">Project<span style="color: red;">*</span></label>
-                            <input class="form-control" type="text" id="project1" readonly required />
+                            <input class="form-control" type="text" id="project0" readonly required />
                         </div>
                         <div class="col-md-6">
                             <label for="validationTooltip04">Date Incurred</label>
-                            <input type="text" class="form-control datepic dateIncurred"  id="dateIncurred1" readonly name="dateIncurred" required> </div>
+                            <input type="text" class="form-control datepic dateIncurred"  id="dateIncurred0" readonly name="dateIncurred" required> </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-6">
                             <label for="selectedTask">Task Name <span style="color: red;">*</span></label>
-                            <input type="text" class="form-control" id="task1" readonly required />
+                            <input type="text" class="form-control" id="task0" readonly required />
                         </div>
                         <div class="col-md-6">
                             <label for="validationTooltipUsername">Status <span style="color: red;">*</span></label>
-                            <select class="custom-select custom-select-sm form-control" id="selectTime1" name="statusTimesheet">
+                            <select class="custom-select custom-select-sm form-control" id="selectTime0" name="statusTimesheet">
                                 <option selected>None</option>
                                 <option value="Started">Started</option>
                                 <option value="On hold">On Hold</option>
@@ -1742,10 +1742,10 @@ function callRemover(){
                     <div class="row">
                         <div class="col-md-6">
                             <label for="validationTooltip02">Actual Start Time <span style="color: red;">*</span></label>
-                            <input type="time" class="form-control" data-label="{index}" onchange="handleValidation(event)" id="startTime1" placeholder="Last name"  name="plannedStartTimeTimesheet" required> </div>
+                            <input type="time" class="form-control" data-label="0" onchange="handleValidation(event)" id="startTime0" placeholder="Last name"  name="plannedStartTimeTimesheet" required> </div>
                         <div class="col-md-6">
                             <label for="validationTooltip02">Actual End Time <span style="color: red;">*</span></label>
-                            <input type="time" class="form-control" data-label="{index}" onchange="handleValidation(event)" id="endTime1" placeholder="Last name"  name="plannedEndTimeTimesheet" required> </div>
+                            <input type="time" class="form-control" data-label="0" onchange="handleValidation(event)" id="endTime0" placeholder="Last name"  name="plannedEndTimeTimesheet" required> </div>
                         </div>
                 </div>
                 <div class="form-group">
@@ -1753,11 +1753,11 @@ function callRemover(){
                         
                         <div class="col-md-6">
                             <label>Incurred By User</label>
-                            <input type="text" class="form-control" id="user1" readonly required />
+                            <input type="text" class="form-control" id="user0" readonly required />
                         </div>
                         <div class="col-md-6">
                             <label for="validationTooltip02">Description <span style="color: red;">*</span></label>
-                            <textarea class="form-control" class="form-control" id="descriptionTimesheet1" rows="3" autocomplete="off" name="descriptionTimesheet"></textarea>
+                            <textarea class="form-control" class="form-control" id="descriptionTimesheet0" rows="3" autocomplete="off" name="descriptionTimesheet"></textarea>
                         </div>
                     </div>
                 </div>
