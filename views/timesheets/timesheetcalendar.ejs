@@ -542,58 +542,7 @@
             
 
         })
-/*else {
-                        $("#submitbutton").attr("disabled", true);
-                        $.ajax({
-                                url: "/timesheets/createtask",
-                                type: "post",
-                                data: values,
-                            })
-                            .done((data) => {
-                                console.log('data ' + JSON.stringify(data))
-                                let resp = JSON.stringify(data);
-                                console.log('dataaaaa' + resp);
-                                if (data == 'Task saved Successfully') {
-                                    document.getElementById("taskForm").reset()
-                                    let errorHtml = '<div class="alert alert-success alert-dismissible fade show" role="alert">' + resp +
-                                        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-                                        '<span aria-hidden="true">&times;</span>' +
-                                        '</button>' +
-                                        '</div>';
-                                    $('#errorMessages').empty();
-                                    $('#errorMessages').append(errorHtml);
-                                    $("#submitbutton").attr("disabled", false);
-                                    //  $("#createTaskModal").modal("hide");
-                                    window.location.reload()
-                                } else {
-                                    //document.getElementById("taskForm").reset()
-                                    let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">' + resp +
-                                        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-                                        '<span aria-hidden="true">&times;</span>' +
-                                        '</button>' +
-                                        '</div>';
-                                    $('#errorMessages').empty();
-                                    $('#errorMessages').append(errorHtml);
-                                    $("#submitbutton").attr("disabled", false);
-                                    //  $("#createTaskModal").modal("hide");
-                                    // window.location.reload()
-                                }
-                            })
-                            .fail((jqXHR, status, error) => {
-                                console.log('jqXHR  : ' + JSON.stringify(jqXHR));
-                                console.log('error  : ' + error);
-                                let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">' + resp +
-                                    '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-                                    '<span aria-hidden="true">&times;</span>' +
-                                    '</button>' +
-                                    '</div>';
-                                $('#errorMessages').empty();
-                                $('#errorMessages').append(errorHtml);
-                                $("#createTaskModal").modal("hide");
-                                //  window.location.reload()
-                            });
-            }*/
-        /*Timesheet Form post method */
+
 
         function callToast(resp){
             let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">' + resp +
@@ -1026,18 +975,24 @@
                                         console.log('endTime '+endDate);
                                        if(startDate == '')
                                         {
-                                          alert('Error: Please Fill Actual Start Time');
+                                            callToastForError('Error: Please Fill Actual Start Time','danger','errorMessagesss');
+                                            $('#fillActualsModal').scrollTop(0);
+                                          //alert('Error: Please Fill Actual Start Time');
                                           return;
                                         }
                                       
                                       else if(endDate == '')
                                         {
-                                          alert('Error: Please Fill Actual End Time');
+                                            callToastForError('Error: Please Fill Actual End Time','danger','errorMessagesss');
+                                             $('#fillActualsModal').scrollTop(0);
+                                          //alert('Error: Please Fill Actual End Time');
                                           return;
                                         }
                                        else if(startDate > endDate)
                                         {
-                                          alert('Error: Actual Start Time should be less than Actual End Time. !');
+                                            callToastForError('Error: Actual Start Time should be less than Actual End Time. !','danger','errorMessagesss');
+                                             $('#fillActualsModal').scrollTop(0);
+                                          //alert('Error: Actual Start Time should be less than Actual End Time. !');
                                           return;
                                         }
                                 }
@@ -1054,7 +1009,12 @@
                                         })
                                             .done((response) => {
                                                 console.log(response);
-                                                window.location.reload();
+                                                callToastForError('Record saved Successfully','success','errorMessagesss');
+                                                $('#fillActualsModal').scrollTop(0);
+                                                window.setTimeout(function(){
+                                                    window.location.reload();
+                                                },1500);
+                                                
 
                                             })
                                             .fail(resp=>{
@@ -1064,7 +1024,9 @@
                                     }
                                 }
                                 else{
-                                    alert('Please Enter ACTUAL START TIME Or ACTUAL END TIME');
+                                    callToastForError('Please Enter ACTUAL START TIME Or ACTUAL END TIME','danger','errorMessagesss');
+                                     $('#fillActualsModal').scrollTop(0);
+                                    //alert('Please Enter ACTUAL START TIME Or ACTUAL END TIME');
                                 }
 
                             });
@@ -1158,18 +1120,24 @@
                                         console.log('endTime '+endDate);
                                        if(startDate == '')
                                         {
-                                          alert('Error: Please Fill Actual Start Time');
+                                          //alert('Error: Please Fill Actual Start Time');
+                                          callToastForError('Error: Please Fill Actual Start Time','danger','errorMessageTask');
+                                          $('#taskModal').scrollTop(0);
                                           return;
                                         }
                                       
                                       else if(endDate == '')
                                         {
-                                          alert('Error: Please Fill Actual End Time');
+                                            callToastForError('Error: Please Fill Actual End Time','danger','errorMessageTask');
+                                            $('#taskModal').scrollTop(0);
+                                          //alert('Error: Please Fill Actual End Time');
                                           return;
                                         }
                                        else if(startDate > endDate)
                                         {
-                                          alert('Error: Actual Start Time should be less than Actual End Time. !');
+                                            callToastForError('Error: Actual Start Time should be less than Actual End Time. !','danger','errorMessageTask');
+                                            $('#taskModal').scrollTop(0);
+                                          //alert('Error: Actual Start Time should be less than Actual End Time. !');
                                           return;
                                         }
                                 }
@@ -1185,7 +1153,12 @@
                                         })
                                             .done((response) => {
                                                 console.log(response);
-                                                window.location.reload();
+                                                callToastForError('Record saved Successfully','success','errorMessageTask');
+                                                $('#taskModal').scrollTop(0);
+                                                window.setTimeout(function(){
+                                                    window.location.reload();
+                                                },1500);
+                                                
 
                                             })
                                             .fail(resp=>{
@@ -1195,7 +1168,9 @@
                                     }
                                 }
                                 else{
-                                    alert('Please Enter ACTUAL START TIME Or ACTUAL END TIME');
+                                        callToastForError('Please Enter ACTUAL START TIME Or ACTUAL END TIME','danger','errorMessageTask');
+                                            $('#taskModal').scrollTop(0);
+                                    //alert('');
                                 }
                             });
 
@@ -1238,6 +1213,20 @@ function handleChange(e){
             $('#tasktype'+index).css('pointer-events','none');
         }
     }
+
+
+    function callToastForError(resp,types,id){
+            let errorHtml = '<div class="alert alert-'+types +' alert-dismissible fade show" role="alert">' + resp +
+                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                '<span aria-hidden="true">&times;</span>' +
+                '</button>' +
+                '</div>';
+            $('#'+id).empty();
+            $('#'+id).append(errorHtml);
+            window.setTimeout(function(){
+                $('#'+id).html('');
+            },1500);
+        }
 
 
     function handleValidation(e){
@@ -1704,6 +1693,7 @@ function callRemover(){
           </button>
         </div>
         <div class="modal-body" id="taskModalBody" style="overflow-y: auto;">
+            <div id="errorMessageTask"></div>
             <div id="taskModalBodyRow1" > 
                 <h5 style="font-weight: bold;font-family: auto;margin-bottom: 10px;" > Task 1 </h5>  
                 <div class="form-group">
