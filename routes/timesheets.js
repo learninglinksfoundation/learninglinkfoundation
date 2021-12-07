@@ -1542,6 +1542,8 @@ function getMappedData(data){
             obj.function = eachRecord.function;
             obj.status = eachRecord.stage;
             obj.taskName = eachRecord.tskname;
+            obj.createdById = eachRecord.createdById;
+            obj.createdName = eachRecord.createdName;
             obj.sequence = i;
             obj.id = eachRecord.sfids;
             obj.projectname = eachRecord.projname;
@@ -1610,10 +1612,11 @@ response.send(pool);
 router.get('/getTasklist',verify,(request,response)=>{
   let date = request.query.date;
   let objUser=request.user;
-  let queryText = 'SELECT tsk.Id,tsk.sfid as sfids,tsk.name as tskname,tsk.Task_Stage__c as stage,tsk.start_date__c ,tsk.Project_Name__c,tsk.Total_Hours__c ,tsk.assigned_manager__c,tsk.end_time__c,tsk.Task_Type__c,tsk.Planned_Hours__c,tsk.Start_Time__c,cont.sfid as contid ,cont.name as contname,proj.name as projname,tsk.createddate '+
+  let queryText = 'SELECT tsk.Id,tsk.sfid as sfids,usr.Name as createdName,usr.sfid as createdById,tsk.name as tskname,tsk.Task_Stage__c as stage,tsk.start_date__c ,tsk.Project_Name__c,tsk.Total_Hours__c ,tsk.assigned_manager__c,tsk.end_time__c,tsk.Task_Type__c,tsk.Planned_Hours__c,tsk.Start_Time__c,cont.sfid as contid ,cont.name as contname,proj.name as projname,tsk.createddate '+
                    'FROM salesforce.Milestone1_Task__c tsk '+ 
                    'INNER JOIN salesforce.Contact cont ON tsk.assigned_manager__c = cont.sfid '+
-                   'INNER JOIN salesforce.Milestone1_Project__c proj ON tsk.Project_Name__c= proj.sfid '+
+                   'INNER JOIN salesforce.Contact cont ON tsk.assigned_manager__c = cont.sfid '
+                   'INNER JOIN salesforce.USER usr ON tsk.CreatedById = usr.sfid '+
                    'WHERE  tsk.Assigned_Manager__c= $1 AND tsk.sfid IS NOT NULL ';
                    
  if(date){
