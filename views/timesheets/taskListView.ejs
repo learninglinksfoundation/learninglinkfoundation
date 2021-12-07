@@ -19,9 +19,8 @@
   float: left;
   border: none;
   outline: none;
-  
   cursor: pointer;
-  padding: 14px 16px;
+  padding: 15px 25px;
   transition: 0.3s;
   font-size: 17px;
 }
@@ -99,9 +98,7 @@
           <table id="taskViewTable" class="table"> </table>
         </div>
         <div id="related" class="tabcontent" >
-          <div style="padding: 15px 0;margin-top: 20px;background: lightgrey;font-size: 1.171875rem;">
-            <div style="margin-left: 14px;">Related Timesheets</div>
-          </div>
+          
           <table class="table" style="text-align: center;">
             <thead class="thead-light">
               <tr>
@@ -427,7 +424,7 @@
             res.forEach((dt,i)=>{
                str = str + '<tr>';
                str = `${str} <td> ${i+1} </td>`;
-               str = `${str} <td> ${dt.tname} </td>`;
+               str = `${str} <td> <a href="/timesheets/timesheetListView?id=${dt.sfid}&modal=true" target="_blank" >  ${dt.tname} </a> </td>`;
                str = `${str} <td> ${dt.taskname} </td>`;
                str = `${str} <td> ${dt.start_time__c} </td>`;
                str = `${str} <td> ${dt.end_time__c} </td>`;
