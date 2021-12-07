@@ -128,7 +128,7 @@
   </div>
 </div>
 
-
+/
 
 
 <script>
@@ -144,6 +144,17 @@
              date:'Date',
             createDdate : 'Created Date'
         }
+
+        window.setTimeout(function(){
+          const url = new URLSearchParams(window.location.search);
+          let id = url.get('id');
+          let isOpen = url.get('modal');
+          console.log(isOpen,id);
+          if(id && isOpen === 'true'){
+              handleTableData(id);
+              
+          }
+      },1000);
         
       var table = $('#timesheetTable').tableSortable({
         data :[],
@@ -229,8 +240,14 @@
       $('a.taskreferenceTag').on('click',function(event){
         event.stopImmediatePropagation();
         event.stopPropagation();
+        handleTableData(this.id);
+      })
+    }
+
+
+    function handleTableData(ids){
         $('#taskViewModal').modal('show');
-        let timesheetId = this.id;
+        let timesheetId = ids;
         $('#detailLoadingSpinner').show();
        // alert('taskId'+taskId);
         $.ajax({
@@ -290,8 +307,8 @@
                               $('#taskViewTable').html(htmlTable);
           }
         })
-      })
-    }
+    } 
+
     function namemodal(){
         $('a.taskreferenceTag').on('click',function(event){
             event.stopImmediatePropagation();

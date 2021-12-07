@@ -85,8 +85,8 @@
       </div>
       <div class="modal-body">
         <div class="tab">
-          <button class="tablinks active" onclick="handleTabs(event, 'detail')">Detail</button>
-          <button class="tablinks" onclick="handleTabs(event, 'related')">Related</button>
+          <button class="tablinks active" onclick="handleTabs(event, 'detail')">Details</button>
+          <button class="tablinks" onclick="handleTabs(event, 'related')">Related List</button>
         </div>
 
 
@@ -249,11 +249,7 @@
           console.log(isOpen,id);
           if(id && isOpen === 'true'){
               console.log('done');
-              $('.taskreferenceTag').each(function(){
-                  if(this.id === id){
-                    this.click();
-                  }
-              }); 
+              handleTableData(id);
               
           }
       },1000);
@@ -327,10 +323,15 @@
       $('a.taskreferenceTag').on('click',function(event){
         event.stopImmediatePropagation();
         event.stopPropagation();
-        $('#taskViewModal').modal('show');
-        let taskId =this.id;
+        handleTableData(this.id);
+        
+      })
+    }
+
+    function handleTableData(ids){
+      $('#taskViewModal').modal('show');
+        let taskId =ids;
         $('#detailLoadingSpinner').show();
-       // alert('taskId'+taskId);
         $.ajax({
           url : '/timesheets/fetchTaskDetail',
           type:'get',
@@ -439,8 +440,8 @@
 
           }
         })
-      })
     }
+
 
     function additionaldeleteFunctionality()
     {
