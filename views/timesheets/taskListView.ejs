@@ -240,7 +240,8 @@
             startTime:'Start Time',
             endtime:'End Time',
             taskType:'Task Type',
-            createDdate : 'Created Date'
+            createDdate : 'Created Date',
+
         }
       window.setTimeout(function(){
           const url = new URLSearchParams(window.location.search);
@@ -349,29 +350,32 @@
             let taskRecord = res[0];
             let htmlTable = '';
                               htmlTable += '<tr>';
-                                  htmlTable += '<td><strong>Task Description</strong></td>';
+                                  htmlTable += '<td><strong>Task Name</strong></td>';
                                   htmlTable += '<td>'+taskRecord.tskname+'</td>';
                                   htmlTable += '<td><strong>Project</strong></td>';
                                   htmlTable += '<td>'+taskRecord.projname+'</td>';
                               htmlTable += '</tr>';
                               htmlTable += '<tr>';
-                                htmlTable += '<td><strong> Task Type</strong></td>';
-                                htmlTable += '<td>'+taskRecord.task_type__c+'</td>';
+                                htmlTable += '<td><strong>Function</strong></td>';
+                                htmlTable += '<td>'+taskRecord.function+'</td>';
                                   htmlTable += '<td><strong>Project Task Category</strong></td>';
                                   htmlTable += '<td>'+taskRecord.categoname+'</td>';
                               htmlTable += '</tr>';
                               htmlTable += '<tr>';
+                                htmlTable += '<td><strong> Task Type</strong></td>';
+                                htmlTable += '<td>'+taskRecord.task_type__c+'</td>';
                                 htmlTable += '<td><strong>Assigned Heroku Resource</strong></td>';
                                 htmlTable += '<td>'+taskRecord.contname+'</td>';
-                                  htmlTable += '<td><strong>DeadLine Type</strong></td>';
-                                  htmlTable += '<td>'+taskRecord.deadline_type__c+'</td>';
+                                  
                               htmlTable += '</tr>';
                              
                               htmlTable += '<tr>';
+
+                                htmlTable += '<td><strong>DeadLine Type</strong></td>';
+                                htmlTable += '<td>'+taskRecord.deadline_type__c+'</td>';
+
                                 htmlTable += '<td><strong>Status</strong></td>';
                                 htmlTable += '<td>'+taskRecord.task_stage__c+'</td>';
-                                htmlTable += '<td></td>';
-                                htmlTable += '<td></td>';
                                 htmlTable += '</tr>';
                                 htmlTable += '<tr style="background-color:#d3d3d3";>';
                                 htmlTable += '<td><h5 >Task Information:</h5></td>';
