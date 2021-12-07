@@ -5,6 +5,45 @@
 <link rel="stylesheet" href="/stylesheets/table-sortable.css">
 <script src="/scripts/table-sortable.js" ></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- / -->
+
+<style>
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+
+.tab button:hover {
+  background-color: #ddd;
+}
+
+
+.tab button.active {
+  background-color: #ccc;
+}
+
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+</style>
 
 
 
@@ -31,7 +70,7 @@
     </div>
 </div>
 
-<div id="tasklListTable" class="responsive "style="overflow-x: auto;">
+<div id="tasklListTable" class="responsive " style="overflow-x: auto;">
 
 </div>
 
@@ -39,48 +78,52 @@
 
 
   <div id="taskViewModal" class="modal fade">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" style="align-items: center;">Timesheet Task Details</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="align-items: center;">Timesheet Task Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+      </div>
+      <div class="modal-body">
+        <div class="tab">
+          <button class="tablinks active" onclick="handleTabs(event, 'detail')">Detail</button>
+          <button class="tablinks" onclick="handleTabs(event, 'related')">Related</button>
         </div>
-        <div class="modal-body">
-  
+
+
+
+        <div id="detail" style="display:block" class="tabcontent">
           <div id="detailLoadingSpinner">
-            <center> <img src="/spinner-gif-transparent-background-14.gif" />  </center>
+            <center> <img src="/spinner-gif-transparent-background-14.gif" /> </center>
+          </div>
+          <table id="taskViewTable" class="table"> </table>
         </div>
-        <table id="taskViewTable" class="table">
-
-        </table>
-        <div style="padding: 15px 0;margin-top: 20px;background: lightgrey;font-size: 1.171875rem;">
-          <div style="margin-left: 14px;">Related Timesheets</div>
+        <div id="related" class="tabcontent" >
+          <div style="padding: 15px 0;margin-top: 20px;background: lightgrey;font-size: 1.171875rem;">
+            <div style="margin-left: 14px;">Related Timesheets</div>
+          </div>
+          <table class="table" style="text-align: center;">
+            <thead class="thead-light">
+              <tr>
+                <th>SR No </th>
+                <th> Name </th>
+                <th> Task Name </th>
+                <th> Start Time </th>
+                <th> End Time </th>
+                <th> Description</th>
+                <th> Hours </th>
+              </tr>
+            </thead>
+            <tbody id="timeTableBody"> </tbody>
+          </table>
         </div>
-
-        <table class="table" style="text-align: center;"  >
-          <thead class="thead-light" >
-          <tr>
-            <th>SR No </th>
-            <th>  Name </th>
-            <th>  Task Name </th>
-            <th> Start Time </th>
-            <th> End Time </th>
-            <th> Description</th>
-            <th> Hours </th>
-          </tr>
-          </thead>
-          <tbody id="timeTableBody" >
-          </tbody>
-        </table>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
+</div>
 
 
 
@@ -169,8 +212,23 @@
 
 
 
-
 <script>
+
+    function handleTabs(evt, tabName) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(tabName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+
+
     $(document).ready(function() { 
 
        
