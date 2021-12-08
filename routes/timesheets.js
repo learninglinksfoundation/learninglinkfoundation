@@ -1713,11 +1713,11 @@ router.get('/deleteBulkTask',(request,response)=>{
   var taskId  = '(' + request.query.taskId + ')';
 console.log('taskId Id1111 ='+taskId);
 
-    let deleteQuerry = 'DELETE FROM salesforce.Milestone1_Task__c '+
-    'WHERE sfid IN $1';
+    let deleteQuerry = 'DELETE FROM salesforce.Milestone1_Task__c WHERE sfid IN '+ taskId;
+    
   console.log('deleteQuerry  '+deleteQuerry);
   pool
-  .query(deleteQuerry,[taskId])
+  .query(deleteQuerry)
   .then((deleteQuerry) => {     
   console.log('deleteQuerry =>>'+JSON.stringify(deleteQuerry));
   response.send(200);
