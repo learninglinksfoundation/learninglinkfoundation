@@ -1604,6 +1604,7 @@ function getMappedData(data){
 
  router.get('/test123',verify,(request,response)=>{
   let queryText = request.query.q;
+  console.log(queryText);
   pool
    .query(queryText)
    .then(data=>{
