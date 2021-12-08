@@ -335,9 +335,11 @@
       $('.checkBox').on('change',function(event){
         event.stopImmediatePropagation();
         event.stopPropagation();
+        $('#deleteSelected').prop('disabled',true);
         let count = 0;
         $('.checkBox').each(function(){
             if(this.checked){
+              $('#deleteSelected').prop('disabled',false);
               count++;
             }
         });
@@ -392,6 +394,7 @@
       $('#mainCheckBox').unbind('change');
 
       $('#mainCheckBox').on('change',function(){
+        $('#deleteSelected').prop('disabled',!this.checked);
         $('.checkBox').prop('checked',this.checked);
       });
 
