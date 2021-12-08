@@ -1708,6 +1708,27 @@ console.log('taskId Id1111 ='+taskId);
 })
 
 
+router.get('/deleteBulkTask',(request,response)=>{
+
+  var taskId  = '(' + request.query.taskId + ')';
+console.log('taskId Id1111 ='+taskId);
+
+    let deleteQuerry = 'DELETE FROM salesforce.Milestone1_Task__c '+
+    'WHERE sfid IN $1';
+  console.log('deleteQuerry  '+deleteQuerry);
+  pool
+  .query(deleteQuerry,[taskId])
+  .then((deleteQuerry) => {     
+  console.log('deleteQuerry =>>'+JSON.stringify(deleteQuerry));
+  response.send(200);
+  })
+  .catch((deleteError) => {
+  console.log('deleteError'+deleteError.stack);
+  response.send('Error');
+  })
+})
+
+
 router.post('/deleteMultipleTask/',verify,(request,response)=>{
 
   let idList = request.body;

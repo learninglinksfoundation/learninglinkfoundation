@@ -360,7 +360,32 @@
               console.log(this.dataset.id)
           }
           });
-        console.log(idList);
+      idList = idList.substring(1);
+      console.log(idList);
+
+      if(confirm('Are you sure to Delete this record !')){
+        $.ajax({
+        url : '/timesheets/deleteBulkTask',
+        type:'get',
+        data : {
+                taskId : idList
+               },
+        dataType: 'json',
+
+        })
+        .done((response) => {
+              console.log('resonse   :'+response);
+              if(response == 200)
+              alert("Task Deleted Succesfullly !");
+              window.location.reload()
+             
+        })
+        .fail((jqXHR, status, error) => {
+              console.log('jqXHR  '+JSON.stringify(jqXHR));
+              //window.location.reload()
+        }) 
+      }
+
 
       });
 
