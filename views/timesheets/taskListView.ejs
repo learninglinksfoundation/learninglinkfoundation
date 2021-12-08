@@ -298,16 +298,7 @@
          
     });
 
-      $('#deleteSelected').on('click',function(){
-
-
-      });
-
-      $('#mainCheckBox').on('change',function(){
-
-        $('.checkBox').prop('checked',this.checked);
-
-      });
+      
     
     $('#changeRows').on('change', function() {
         table.updateRowsPerPage(parseInt($(this).val()));
@@ -340,6 +331,7 @@
     }) 
 
     function addCheckBoxAction(){
+      $('.checkBox').unbind('change');
       $('.checkBox').on('change',function(event){
         event.stopImmediatePropagation();
         event.stopPropagation();
@@ -357,6 +349,28 @@
         }
 
       });
+      $('#deleteSelected').unbind('click');
+
+      $('#deleteSelected').on('click',function(){
+        let idList = '';
+
+          $('.checkBox').each(function(){
+            if(this.checked){
+              idList = `${idList},'${this.dataset.id}'`;
+              console.log(this.dataset.id)
+          }
+          });
+        console.log(idList);
+
+      });
+
+
+      $('#mainCheckBox').unbind('change');
+
+      $('#mainCheckBox').on('change',function(){
+        $('.checkBox').prop('checked',this.checked);
+      });
+
 
     }
 
