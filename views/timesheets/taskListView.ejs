@@ -370,12 +370,11 @@
         data : {
                 taskId : idList
                },
-        dataType: 'json',
 
         })
         .done((response) => {
               console.log('resonse   :'+response);
-              if(response.status == 200)
+              
               alert("Task Deleted Succesfullly !");
               window.location.reload()
              
