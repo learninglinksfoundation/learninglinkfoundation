@@ -1538,8 +1538,8 @@ function getMappedData(data){
             createdDate.setMinutes(planDate.getMinutes() + 30);
             let strplanDate = planDate.toLocaleString();
             obj.userId = eachRecord.contid;
-            obj.createdByName = eachRecord.userName;
-            obj.createdById = eachRecord.userSfid;
+            obj.createdByName = eachRecord.username;
+            obj.createdById = eachRecord.usersfid;
             obj.proId = eachRecord.project_name__c;
             obj.function = eachRecord.function;
             obj.status = eachRecord.stage;
