@@ -260,6 +260,18 @@
           }
       },1000);
 
+
+      $('#deleteSelected').on('click',function(){
+
+
+      });
+
+      $('#mainCheckBox').on('click',function(){
+
+        $('.checkBox').prop('checked',this.checked);
+
+      });
+
       var table = $('#tasklListTable').tableSortable({
         data :[],
         columns,
@@ -317,6 +329,7 @@
             anchorClickFunctionalities();
            // anotherEditFunctionality();
             additionaldeleteFunctionality();
+            addCheckBoxAction();
          })
          .fail((jqXHR,status,error)=>{
              console.log('jqXHR: '+jqXHR);
@@ -324,6 +337,28 @@
 
          })
     }) 
+
+    function addCheckBoxAction(){
+      $('.checkBox').on('change',function(event){
+        event.stopImmediatePropagation();
+        event.stopPropagation();
+        let count = 0;
+        $('.checkBox').each(function(){
+            if(this.checked){
+              count++;
+            }
+        });
+        if(count === $('.checkBox').length){
+            $('#mainCheckBox').prop('checked',true);
+        }
+        else{
+          $('#mainCheckBox').prop('checked',false);
+        }
+
+      });
+
+    }
+
     //timesheetListViewest
     function anchorClickFunctionalities(){
       $('a.taskreferenceTag').on('click',function(event){
