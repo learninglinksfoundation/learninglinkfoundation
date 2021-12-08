@@ -49,8 +49,11 @@
 <h3 style="text-align: center; margin-top: 20px;">Tasks </h3>
 <div class="container">
 <div class="row mt-5 mb-3 align-items-center">
-    <div class="col-md-5">
-      <a  href="/timesheets/taskListView" style="color: #555;" id="ref" ><i class="fa fa-refresh" style="font-size:34px; margin-left: 10px; margin-top: 30px;"></i> </a>
+    <div class="col-md-2">
+      <a  href="/timesheets/taskListView" style="color: #555;" id="ref" ><i class="fa fa-refresh" style="font-size:34px; margin-left: 10px; "></i> </a>
+    </div>
+    <div class="col-md-3">
+      <button type="button" id="deleteSelected" > Delete Selected Records </button>
     </div>
     <div class="col-md-4">
     <input type="text" class="form-control" placeholder="Search by Task" id="searchField" style="margin-top: 5px;">
@@ -231,7 +234,7 @@
        
         let columns ={
             sequence : 'Sequence',
-            Checkbox : 'Select',
+            Checkbox : '<input type="checkbox" id="mainCheckBox"/>',
             deleteAction: 'Action',
            // editAction:'Action',
             name: 'Task ',

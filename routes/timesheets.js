@@ -1543,7 +1543,7 @@ function getMappedData(data){
             obj.status = eachRecord.stage;
             obj.taskName = eachRecord.tskname;
             obj.sequence = i;
-            obj.Checkbox = `<input type="checkbox" data-id="${eachRecord.sfids}" />`;
+            obj.Checkbox = `<input style="height: 14px;width: 14px;" class="checkBox" type="checkbox" data-id="${eachRecord.sfids}" />`;
             obj.id = eachRecord.sfids;
             obj.projectname = eachRecord.projname;
             obj.name = '<a href="#" class="taskreferenceTag" id="'+eachRecord.sfids+'" >'+eachRecord.tskname+'</a>';
