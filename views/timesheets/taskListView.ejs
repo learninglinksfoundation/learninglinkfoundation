@@ -375,7 +375,7 @@
         })
         .done((response) => {
               console.log('resonse   :'+response);
-              if(response == 200)
+              if(response.status == 200)
               alert("Task Deleted Succesfullly !");
               window.location.reload()
              
