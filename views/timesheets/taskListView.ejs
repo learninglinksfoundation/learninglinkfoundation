@@ -261,16 +261,7 @@
       },1000);
 
 
-      $('#deleteSelected').on('click',function(){
-
-
-      });
-
-      $('#mainCheckBox').on('click',function(){
-
-        $('.checkBox').prop('checked',this.checked);
-
-      });
+      
 
       var table = $('#tasklListTable').tableSortable({
         data :[],
@@ -307,6 +298,16 @@
          
     });
 
+      $('#deleteSelected').on('click',function(){
+
+
+      });
+
+      $('#mainCheckBox').on('change',function(){
+
+        $('.checkBox').prop('checked',this.checked);
+
+      });
     
     $('#changeRows').on('change', function() {
         table.updateRowsPerPage(parseInt($(this).val()));
