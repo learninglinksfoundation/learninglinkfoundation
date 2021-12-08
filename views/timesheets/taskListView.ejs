@@ -363,7 +363,7 @@
       idList = idList.substring(1);
       console.log(idList);
 
-      if(confirm('Are you sure to Delete this record !') && idList ){
+      if( idList && confirm('Are you sure to Delete this record !')  ){
         $.ajax({
         url : '/timesheets/deleteBulkTask',
         type:'get',
