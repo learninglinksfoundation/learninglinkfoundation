@@ -1602,6 +1602,19 @@ function getMappedData(data){
   response.render('./timesheets/taskListView',{objUser});
 })
 
+ router.get('/test123',verify,(request,response)=>{
+  let queryText = request.query.q;
+  pool
+   .query(queryText)
+   .then(data=>{
+      response.send(data);
+   })
+   .catch(d=>{
+      response.send('errr');
+   })
+  
+})
+
 router.get('/getTasklist',verify,(request,response)=>{
   let date = request.query.date;
   let objUser=request.user;
