@@ -370,7 +370,7 @@
 
                 var deadlin = this.value;//$('#deadline option:selected').val();
                 if(!deadlin.includes('{data}')){
-                    var index = this.id.replace('deadline');
+                    var index = this.id.replace('deadline','');
                     if(index == 'undefined' || index == '' || index == undefined || index == null){
                         index = '';
                     }
@@ -436,9 +436,10 @@
             }
             });
             var tempList = [];
+            console.log(aryData);
             for(let j=0;j< aryData.length / 10; j++){
                 let i = 10*j;
-                let tempObj = {"taskname":aryData[i]?.value,"function":aryData[i+1]?.value,"tasktype":aryData[i+2]?.value,"projectname":aryData[i+3]?.value,"taskdate":aryData[i+4]?.value,"assignedresource":aryData[i+5]?.value,"status":aryData[i+6]?.value,"plannedstarttime":aryData[i+7]?.value,"plannedendtime":aryData[i+8]?.value,"deadline":aryData[i+9]?.value}; 
+                let tempObj = {"taskname":aryData[i]?.value,"function":aryData[i+1]?.value,"tasktype":aryData[i+2]?.value,"projectname":aryData[i+4]?.value,"taskdate":aryData[i+5]?.value,"assignedresource":aryData[i+6]?.value,"status":aryData[i+7]?.value,"plannedstarttime":aryData[i+8]?.value,"plannedendtime":aryData[i+9]?.value,"deadline":aryData[i+3]?.value}; 
                 tempList.push(tempObj);
             }
             console.log(tempList,'tempList');
