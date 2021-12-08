@@ -1538,6 +1538,8 @@ function getMappedData(data){
             createdDate.setMinutes(planDate.getMinutes() + 30);
             let strplanDate = planDate.toLocaleString();
             obj.userId = eachRecord.contid;
+            obj.createdByName = eachRecord.userName;
+            obj.createdById = eachRecord.userSfid;
             obj.proId = eachRecord.project_name__c;
             obj.function = eachRecord.function;
             obj.status = eachRecord.stage;
@@ -1604,6 +1606,7 @@ function getMappedData(data){
 
  router.get('/test123',verify,(request,response)=>{
   let queryText = request.query.q;
+
   console.log(queryText);
   pool
    .query(queryText)
@@ -1619,9 +1622,10 @@ function getMappedData(data){
 router.get('/getTasklist',verify,(request,response)=>{
   let date = request.query.date;
   let objUser=request.user;
-  let queryText = 'SELECT tsk.Id,tsk.sfid as sfids,tsk.name as tskname,tsk.Task_Stage__c as stage,tsk.start_date__c ,tsk.Project_Name__c,tsk.Total_Hours__c ,tsk.assigned_manager__c,tsk.end_time__c,tsk.Task_Type__c,tsk.Planned_Hours__c,tsk.Start_Time__c,cont.sfid as contid ,cont.name as contname,proj.name as projname,tsk.createddate '+
+  let queryText = 'SELECT tsk.Id,tsk.sfid as sfids,usr.Name as userName,usr.sfid as userSfid,tsk.name as tskname,tsk.Task_Stage__c as stage,tsk.start_date__c ,tsk.Project_Name__c,tsk.Total_Hours__c ,tsk.assigned_manager__c,tsk.end_time__c,tsk.Task_Type__c,tsk.Planned_Hours__c,tsk.Start_Time__c,cont.sfid as contid ,cont.name as contname,proj.name as projname,tsk.createddate '+
                    'FROM salesforce.Milestone1_Task__c tsk '+ 
                    'INNER JOIN salesforce.Contact cont ON tsk.assigned_manager__c = cont.sfid '+
+                   'INNER JOIN salesforce.USER usr ON tsk.CreatedById = usr.sfid '+
                    'INNER JOIN salesforce.Milestone1_Project__c proj ON tsk.Project_Name__c= proj.sfid '+
                    'WHERE  tsk.Assigned_Manager__c= $1 AND tsk.sfid IS NOT NULL ';
                    
