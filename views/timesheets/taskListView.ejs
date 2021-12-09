@@ -56,7 +56,12 @@
       <button type="button" class="btn btn-primary" id="deleteSelected" disabled > Delete Selected Records </button>
     </div>
     <div class="col-md-2">
-      <select class="form-control" id="ListViewSelect"> <option value="mytask" >My Tasks</option>    </select>
+      <select class="form-control" id="ListViewSelect"> 
+        <option value="mytask" >My Tasks</option>  
+        <% if(objUser.isManager) { %>
+          <option value="teamtask">My Team Task</option>
+        <% } %> 
+      </select>
     </div>
     <div class="col-md-3">
       <input type="text" class="form-control" placeholder="Search by Task" id="searchField" >
@@ -254,7 +259,16 @@
         }
 
         let jt = <%- JSON.stringify(objUser) %>;
-        console.log('taskList',jt);
+        if(jt.isManager){
+          $('#ListViewSelect').prop('disabled',false);
+        }
+        else{
+          $('#ListViewSelect').prop('disabled',true);
+        }
+
+
+         
+
       window.setTimeout(function(){
           const url = new URLSearchParams(window.location.search);
           let id = url.get('id');
