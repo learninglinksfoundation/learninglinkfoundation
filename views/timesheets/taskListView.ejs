@@ -59,7 +59,7 @@
       <select class="form-control" id="ListViewSelect"> 
         <option value="mytask" >My Tasks</option>  
         <% if(objUser.isManager) { %>
-          <option value="teamtask">My Team Task</option>
+          <option value="teamtask">My Team Tasks</option>
         <% } %> 
       </select>
     </div>
@@ -197,14 +197,14 @@
   
                       <div class="col-md-6">
                           <label for="hrs">Planned Hours</label>
-                          <input type="number" disabled class="form-control" id="hrs" value=""   name="hrs" >
+                          <input type="number" disabled class="form-control" id="hrs" value=""   name="hrs" />
                           </div>
                     </div>
               </div>
               <div class="form-group">
                 <div class="row">            
                     <div class="col-md-6">
-                       <input type="hidden" class="form-control" id="hide" value=""   name="hide" >
+                       <input type="hidden" class="form-control" id="hide" value=""  name="hide" />
                       </div>
             </div>
             
@@ -218,7 +218,7 @@
        
   </div>
 </div>
-
+<!-- / -->
 
 
 <script>
@@ -265,10 +265,6 @@
         else{
           $('#ListViewSelect').prop('disabled',true);
         }
-
-
-         
-
       window.setTimeout(function(){
           const url = new URLSearchParams(window.location.search);
           let id = url.get('id');
@@ -323,13 +319,26 @@
     
     $('#changeRows').on('change', function() {
         table.updateRowsPerPage(parseInt($(this).val()));
-        })
+    });
 
-        $('#refresh').click(function() {
-            table.refresh(true);
-            onLoadTask();
-        })
+    $('#ListViewSelect').on('change',function(){
+        if(this.value === 'teamtask'){
 
+        }
+        else if(this.value === 'mytask'){
+            loadMyTasks();
+        }
+
+
+    });
+    loadMyTasks();
+    
+    $('#refresh').click(function() {
+        table.refresh(true);
+        onLoadTask();
+    })
+
+    function loadMyTasks(){
 
         $.ajax({
             url:'/timesheets/getTasklist',
@@ -349,7 +358,9 @@
              console.log('error: '+JSON.stringify(jqXHR));
 
          })
-    }) 
+       }
+    }); 
+
 
     function addCheckBoxAction(){
       $('.checkBox').unbind('change');
