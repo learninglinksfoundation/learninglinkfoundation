@@ -106,6 +106,7 @@
             <thead class="thead-light">
               <tr>
                 <th>SR No </th>
+                <th> Action </th>
                 <th> Name </th>
                 <th> Task Name </th>
                 <th> Start Time </th>
@@ -511,6 +512,7 @@
             res.forEach((dt,i)=>{
                str = str + '<tr>';
                str = `${str} <td> ${i+1} </td>`;
+               str = `${str} <td> <button data-id="${dt.sfid}" type="button" class="btn btn-primary timeSheetDeleteBtn"> Delete </button> `;
                str = `${str} <td> <a href="/timesheets/timesheetListView?id=${dt.sfid}&modal=true" target="_blank" >  ${dt.tname} </a> </td>`;
                str = `${str} <td> ${dt.taskname} </td>`;
                str = `${str} <td> ${dt.start_time__c} </td>`;
@@ -519,13 +521,28 @@
                str = `${str} <td> ${dt.hours__c} </td> </tr>`;
             });
             $('#timeTableBody').html(str);
-
+            bindEvents();
           })
           .fail(console.log);
 
 
           }
         })
+    }
+
+    function bindEvents(){
+      $('.timeSheetDeleteBtn').unbind('click');
+      $('.timeSheetDeleteBtn').on('click',function(){
+
+        let id = this.dataset.id;
+        console.log(id);
+
+        if(id){
+          console.log('call method',id);
+        }
+
+      });
+
     }
 
 
