@@ -1626,13 +1626,20 @@ function getMappedData(data){
  router.get('/getMyTeamTask',verify,(request,response)=>{
     
     let objUser=request.user;
-    let query = "SELECT team.Team__c,team.Representative__c,tsk.sfid as sfids,usr.Name as userName,usr.sfid as userSfid, team.Name,tsk.Name,tsk.name as tskname,tsk.Task_Stage__c as stage,tsk.start_date__c ,tsk.Project_Name__c,tsk.Total_Hours__c ,tsk.assigned_manager__c,tsk.end_time__c,tsk.Task_Type__c,tsk.Planned_Hours__c,tsk.Start_Time__c,proj.name as projname, team.sfId,prjt.project__c,prjt.Name,tsk.createddate,cont.sfid as contid ,cont.name as contname " + 
+    /*let query = "SELECT team.Team__c,team.Representative__c,tsk.sfid as sfids,usr.Name as userName,usr.sfid as userSfid, team.Name,tsk.Name,tsk.name as tskname,tsk.Task_Stage__c as stage,tsk.start_date__c ,tsk.Project_Name__c,tsk.Total_Hours__c ,tsk.assigned_manager__c,tsk.end_time__c,tsk.Task_Type__c,tsk.Planned_Hours__c,tsk.Start_Time__c,proj.name as projname, team.sfId,prjt.project__c,prjt.Name,tsk.createddate,cont.sfid as contid ,cont.name as contname " + 
     "FROM  Salesforce.Team_Member__c team Inner JOIN  salesforce.Project_Team__c prjT ON team.Team__c = prjT.Team__c "+
     "INNER JOIN salesforce.Milestone1_Task__c tsk ON tsk.Project_Name__c = prjT.project__c "+
     'INNER JOIN salesforce.Contact cont ON tsk.assigned_manager__c = cont.sfid '+
     'INNER JOIN salesforce.USER usr ON tsk.CreatedById = usr.sfid '+
     'INNER JOIN salesforce.Milestone1_Project__c proj ON tsk.Project_Name__c= proj.sfid '+
-    `Where team.Representative__c = '${objUser.sfid}' AND tsk.Assigned_Manager__c != '${objUser.sfid}' `;
+    `Where team.Representative__c = '${objUser.sfid}' AND tsk.Assigned_Manager__c != '${objUser.sfid}' `;*/
+
+    let query = 'SELECT tsk.Id,tsk.sfid as sfids,tsk.name as tskname,usr.Name as userName,usr.sfid as userSfid,tsk.Task_Stage__c as stage,tsk.start_date__c ,tsk.Project_Name__c,tsk.Total_Hours__c ,tsk.assigned_manager__c,tsk.end_time__c,tsk.Task_Type__c,tsk.Planned_Hours__c,tsk.Start_Time__c,cont.sfid as contid ,cont.name as contname,proj.name as projname,tsk.createddate '+
+                       'FROM salesforce.Milestone1_Task__c tsk '+ 
+                       'INNER JOIN salesforce.USER usr ON tsk.CreatedById = usr.sfid '+
+                       'INNER JOIN salesforce.Contact cont ON tsk.assigned_manager__c = cont.sfid '+
+                       'INNER JOIN salesforce.Milestone1_Project__c proj ON tsk.Project_Name__c= proj.sfid '+
+                       `WHERE tsk.sfid IS NOT NULL AND cont.sfid != '${objUser.sfid}' `; 
 
     pool
     .query(query)
