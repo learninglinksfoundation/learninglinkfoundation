@@ -1604,6 +1604,9 @@ function getMappedData(data){
   response.render('./timesheets/taskListView',{objUser});
 })
 
+
+// "SELECT team.Team__c,team.Representative__c, team.Name,proj.Name, team.sfId,prjt.project__c,prjt.Name FROM  Salesforce.Team_Member__c team Inner JOIN  salesforce.Project_Team__c prjT ON team.Team__c = prjT.Team__c INNER JOIN salesforce.Milestone1_Task__c proj ON proj.Project_Name__c = prjT.project__c  Where team.Representative__c = '0032y000001VYKWAA4' AND proj.Assigned_Manager__c != '0032y000001VYKWAA4' "
+
  router.get('/test123',verify,(request,response)=>{
   let queryText = request.query.q;
 
@@ -1618,6 +1621,41 @@ function getMappedData(data){
    })
   
 })
+
+
+ router.get('/getMyTeamTask',verify,(request,response)=>{
+    
+    let objUser=request.user;
+    let query = "SELECT team.Team__c,team.Representative__c,tsk.sfid as sfids,usr.Name as userName,usr.sfid as userSfid, team.Name,tsk.Name,tsk.name as tskname,tsk.Task_Stage__c as stage,tsk.start_date__c ,tsk.Project_Name__c,tsk.Total_Hours__c ,tsk.assigned_manager__c,tsk.end_time__c,tsk.Task_Type__c,tsk.Planned_Hours__c,tsk.Start_Time__c,proj.name as projname, team.sfId,prjt.project__c,prjt.Name,tsk.createddate,cont.sfid as contid ,cont.name as contname " + 
+    "FROM  Salesforce.Team_Member__c team Inner JOIN  salesforce.Project_Team__c prjT ON team.Team__c = prjT.Team__c "+
+    "INNER JOIN salesforce.Milestone1_Task__c tsk ON tsk.Project_Name__c = prjT.project__c "+
+    'INNER JOIN salesforce.Contact cont ON tsk.assigned_manager__c = cont.sfid '+
+    'INNER JOIN salesforce.USER usr ON tsk.CreatedById = usr.sfid '+
+    'INNER JOIN salesforce.Milestone1_Project__c proj ON tsk.Project_Name__c= proj.sfid '+
+    `Where team.Representative__c = '${objUser.sfid}' AND tsk.Assigned_Manager__c != '${objUser.sfid}' `;
+
+    pool
+    .query(query)
+    .then((data)=>{
+      console.log('data '+JSON.stringify(data.rows) +'Row COUNT => '+data.rowCount);
+      if(data.rowCount > 0)
+      {
+          let modifiedTaskList = getMappedData(data);
+          response.send(modifiedTaskList);
+      }
+      else
+      {
+          response.send([]);
+      }
+
+    })
+    .catch((QueryError) => {
+      console.log('QueryError  timeshheer=t'+QueryError.stack);
+      response.send(QueryError.stack);
+    })
+
+
+ })
 
 router.get('/getTasklist',verify,(request,response)=>{
   let date = request.query.date;

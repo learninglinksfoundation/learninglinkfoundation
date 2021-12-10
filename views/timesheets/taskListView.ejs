@@ -323,7 +323,7 @@
 
     $('#ListViewSelect').on('change',function(){
         if(this.value === 'teamtask'){
-
+            loadMyTeamTasks();
         }
         else if(this.value === 'mytask'){
             loadMyTasks();
@@ -332,11 +332,34 @@
 
     });
     loadMyTasks();
-    
+
     $('#refresh').click(function() {
         table.refresh(true);
         onLoadTask();
     })
+
+    function loadMyTeamTasks(){
+        $.ajax({
+            url:'/timesheets/getMyTeamTask',
+            type:"get",
+            datatype:'json'
+        })
+        .done((response)=>{
+            console.log('response response My Team '+JSON.stringify(response));
+            table.setData(response, columns);
+            anchorClickFunctionalities();
+           // anotherEditFunctionality();
+            additionaldeleteFunctionality();
+            addCheckBoxAction();
+         })
+         .fail((jqXHR,status,error)=>{
+             console.log('jqXHR: '+jqXHR);
+             console.log('error: '+JSON.stringify(jqXHR));
+
+         })
+    }
+
+
 
     function loadMyTasks(){
 
