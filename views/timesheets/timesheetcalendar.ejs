@@ -429,20 +429,24 @@
 
                 if(date > new Date()){
                     console.log('inside date',dt.deadline,dt);
-                    if(dt.deadline == "Select" || !dt.deadline){
+                    if(dt.deadline.toLowerCase() == "select" || !dt.deadline){
                         callToast(`Please Select Deadline ${i+1}!`);
                         flag = false;
                         return;
                     }
-                    else if(dt.deadline == 'deadlines') {
+                    else if(dt.deadline.toLowerCase() == 'deadlines') {
+                        if(!dt.plannedendtime){
                         callToast(`Please Fill Planned End Time${i+1}!`);
                         flag = false;
                         return;
                     }
-                    else if(dt.deadline == 'Block Time'){
+                    }
+                    else if(dt.deadline.toLowerCase() == 'block time'){
+                        if(!dt.plannedstarttime){
                         callToast(`Please Fill Planned Start Time${i+1}!`);
                         flag = false;
                         return;
+                    }
                     }
 
                 }
@@ -479,6 +483,12 @@
                 }
                 if(dt.deadline.toLowerCase() == "select"){
                     dt.deadline = '';
+                }
+                if(dt.plannedstarttime > dt.plannedendtime)
+                {
+                    callToast(`Actual Start Time should be less than Actual End Time. !`);
+                    flag = false;
+                    return;
                 }
 
             }
