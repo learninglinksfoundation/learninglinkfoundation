@@ -1525,7 +1525,7 @@ function handleChange(e){
         let id = this.id;
         let index = id.replace('deadline','');
         console.log(index,id,'  qqqqq');
-        if(index != ''){
+        
             if(deadValue=='Deadlines')
             {
                 $('#plannedstarttimeTask'+index).css('pointer-events','visible');
@@ -1546,8 +1546,8 @@ function handleChange(e){
                 $('#plannedstarttimeTask'+index).attr("readonly",true);
                 $('#plannedendtimeTask'+index).attr("readonly",true);
             }
-        }
-        else{
+        
+        
             if(deadValue=='Deadlines')
             {
                 $('#plannedstarttimeTask'+index).css('pointer-events','none');
@@ -1568,7 +1568,8 @@ function handleChange(e){
                 $('#plannedstarttimeTask'+index).css('pointer-events','none');
                 $('#plannedendtimeTask'+index).css('pointer-events','none');
             }
-        }
+        
+        
         //bindEvent();
 
     });
