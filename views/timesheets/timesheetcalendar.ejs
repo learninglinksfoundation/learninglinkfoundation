@@ -429,12 +429,12 @@
 
                 if(date > new Date()){
                     console.log('inside date',dt.deadline,dt);
-                    if(!dt.deadline){
+                    if(dt.deadline == "Select" || !dt.deadline){
                         callToast(`Please Select Deadline ${i+1}!`);
                         flag = false;
                         return;
                     }
-                    else if(dt.deadline == 'deadline') {
+                    else if(dt.deadline == 'deadlines') {
                         callToast(`Please Fill Planned End Time${i+1}!`);
                         flag = false;
                         return;
