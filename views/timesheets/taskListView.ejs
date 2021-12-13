@@ -315,6 +315,7 @@
         tableWillUnmount: () => console.log('table will unmount'),
         tableDidUnmount: () => console.log('table did unmount'),
         onPaginationChange: function(nextPage, setPage) {
+          console.log(nextPage,setPage);
             setPage(nextPage);
         },
          
@@ -364,7 +365,7 @@
            // anotherEditFunctionality();
             additionaldeleteFunctionality();
             addCheckBoxAction();
-            //refreshData();
+            table.refresh();
          })
          .fail((jqXHR,status,error)=>{
              console.log('jqXHR: '+jqXHR);
@@ -388,7 +389,7 @@
            // anotherEditFunctionality();
             additionaldeleteFunctionality();
             addCheckBoxAction();
-            //refreshData();
+            table.refresh();
          })
          .fail((jqXHR,status,error)=>{
              console.log('jqXHR: '+jqXHR);
