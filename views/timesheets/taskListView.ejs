@@ -362,10 +362,11 @@
         .done((response)=>{
             table.setData(response, columns);
             anchorClickFunctionalities();
+            refreshData();
            // anotherEditFunctionality();
             additionaldeleteFunctionality();
             addCheckBoxAction();
-            //refreshData();
+            //
          })
          .fail((jqXHR,status,error)=>{
              console.log('jqXHR: '+jqXHR);
@@ -386,10 +387,11 @@
         .done((response)=>{
             table.setData(response, columns);
             anchorClickFunctionalities();
+            refreshData();
            // anotherEditFunctionality();
             additionaldeleteFunctionality();
             addCheckBoxAction();
-            //refreshData();
+            //
          })
          .fail((jqXHR,status,error)=>{
              console.log('jqXHR: '+jqXHR);
