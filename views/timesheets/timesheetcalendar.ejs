@@ -345,7 +345,7 @@
             console.log('values   ' + values);
             let aryData = $(this).serializeArray();
             let i = {a:0,b:0,c:0,d:0,e:0};
-            $('.deadline').each(function(){
+            /*$('.deadline').each(function(){
 
                 var deadlin = this.value;//$('#deadline option:selected').val();
                 if(!deadlin.includes('{data}')){
@@ -413,7 +413,7 @@
 
 
             }
-            });
+            });*/
             var tempList = [];
             console.log(aryData);
             for(let j=0;j< aryData.length / 10; j++){
@@ -423,7 +423,29 @@
             }
             console.log(tempList,'tempList');
             let flag = true;
-            tempList.forEach((dt,i)=>{
+            for(let i=0;i<tempList.length;i++){
+                let dt = tempList[i];
+                let date = new Date($('#datePicker').val());
+
+                if(date > new Date()){
+                    if(!dt.deadline){
+                        callToast(`Please Select Deadline ${i+1}!`);
+                        flag = false;
+                        return;
+                    }
+                    else if(dt.deadline == 'deadline') {
+                        callToast(`Please Fill Planned End Time${i+1}!`);
+                        flag = false;
+                        return;
+                    }
+                    else if(dt.deadline == 'Block Time'){
+                        callToast(`Please Fill Planned Start Time${i+1}!`);
+                        flag = false;
+                        return;
+                    }
+
+                }
+                
                 if(!dt.taskname){
                     callToast(`Please enter Task Description ${i+1}!`);
                     flag = false;
@@ -458,9 +480,9 @@
                     dt.deadline = '';
                 }
 
-            });
+            }
            
-           if(i.a == 0 && i.b == 0 && i.c == 0 && i.d == 0 && i.e == 0 && flag){
+           if(flag){
                 $("#submitbutton").attr("disabled", true);
                 $.ajax({
                         url: "/timesheets/createMultipletask",
@@ -650,6 +672,7 @@
                 console.log('15 day before today '+ beforedate);
                 let selectProj = $('#selproject').val();
                 selectedView = $('#Selectview').val();
+
                 if(calEvent.title == 'Create Task')
                 {
                      
@@ -743,6 +766,7 @@
                     {
                         window.saveDom = jsEvent;
                         window.editIndex.length = 0;
+                        $('#Allcheckbox').prop('checked',false);
                         
                         if (selectProj == 'allproject' && selectedView == 'currentuser') {
                             console.log(seletedDate,seletedDate.toLocaleDateString());
@@ -1279,7 +1303,7 @@ function handleChange(e){
                             </select>
                       </div>
                       <div class="col-md-6">
-                          <label for="validationTooltipUsername">Deadline Type</label>
+                          <label for="validationTooltipUsername">Deadline Type<span style="color: red;">*</span></label>
                           <select class="custom-select custom-select-sm form-control deadline" id="deadline" name="deadline" >
                             <option selected>Select</option>
                             <option value="Deadlines">Deadlines</option>
