@@ -492,7 +492,7 @@
                 }
 
             }
-           /*
+           
            if(flag){
                 $("#submitbutton").attr("disabled", true);
                 $.ajax({
@@ -552,7 +552,7 @@
             else{
                 console.log('not run');
             }
-            */
+            
 
         })
 
@@ -567,6 +567,9 @@
             $('#errorMessages').append(errorHtml);
             $('#createTaskModal').scrollTop(0);
             $("#submitbutton").attr("disabled", false);
+            window.setTimeout(function(){
+                $('#errorMessages').html('');
+            },2000);
         }
 
 /*
