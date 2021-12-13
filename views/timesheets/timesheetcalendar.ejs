@@ -868,7 +868,7 @@
                                     }  
                                  });
                                  console.log(list);
-                                 if(list.length > 0){
+                                 if(  confirm('Are you sure to Delete this record')  && list.length > 0){
                                     console.log('inside');
                                     $.ajax({
                                             url : '/timesheets/deleteMultipleTask',
@@ -990,7 +990,7 @@
                                         })
                                             .done((response) => {
                                                 console.log(response);
-                                                callToastForError('Record saved Successfully','success','errorMessagesss');
+                                                callToastForError('Timesheet saved Successfully','success','errorMessagesss');
                                                 $('#fillActualsModal').scrollTop(0);
                                                 window.setTimeout(function(){
                                                     window.location.reload();
@@ -1134,7 +1134,7 @@
                                         })
                                             .done((response) => {
                                                 console.log(response);
-                                                callToastForError('Record saved Successfully','success','errorMessageTask');
+                                                callToastForError('Timesheet saved Successfully','success','errorMessageTask');
                                                 $('#taskModal').scrollTop(0);
                                                 window.setTimeout(function(){
                                                     window.location.reload();
