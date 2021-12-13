@@ -1471,8 +1471,7 @@ function handleChange(e){
 
 
     $('#newRowBtn').click(function() {
-        $('.recordD').unbind('click');
-        $('.deadline').unbind('change');
+       
         let datePic = $('#datePicker').val();
         var ele = document.getElementsByClassName('dynamicRow');
         var dummyRecord = document.getElementById('dummyRecord').cloneNode(true);
@@ -1483,6 +1482,8 @@ function handleChange(e){
         bindEvent();
     });
     function bindEvent(){
+         $('.recordD').unbind('click');
+        $('.deadline').unbind('change');
 
     $('.recordD').click(function(e){
         console.log('running');
@@ -1514,11 +1515,11 @@ function handleChange(e){
             }
             
         });
-        $('.recordD').unbind('click');
-        bindEvent();
+        
+        //bindEvent();
         console.log('done');
     });
-
+    $('.deadline').unbind('change');
     $('.deadline').on('change',function(){
         let deadValue=this.value;
         let id = this.id;
@@ -1568,8 +1569,7 @@ function handleChange(e){
                 $('#plannedendtimeTask'+index).css('pointer-events','none');
             }
         }
-        $('.deadline').unbind('change');
-        bindEvent();
+        //bindEvent();
 
     });
 }
