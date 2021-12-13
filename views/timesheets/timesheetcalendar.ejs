@@ -487,7 +487,7 @@
                             $('#createTaskModal').scrollTop(0);
                             window.setTimeout(function(){
                                  window.location.reload();
-                            },1500);
+                            },3000);
                             
                         } else {
                             //document.getElementById("taskForm").reset()
@@ -532,6 +532,7 @@
                 '</div>';
             $('#errorMessages').empty();
             $('#errorMessages').append(errorHtml);
+            $('#createTaskModal').scrollTop(0);
             $("#submitbutton").attr("disabled", false);
         }
 
