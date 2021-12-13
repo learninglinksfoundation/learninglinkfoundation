@@ -1591,7 +1591,7 @@ router.get('/getevents',verify, async function(req, res, next) {
       });
    
   } 
-   // console.log('JSON.strigify '+JSON.stringify(lstEvents));
+    console.log('JSON.strigify '+JSON.stringify(lstEvents));
     res.send(lstEvents);
  });
 

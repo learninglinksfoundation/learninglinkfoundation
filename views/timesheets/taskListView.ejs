@@ -336,7 +336,6 @@
 
     function refreshData(){
       $('.gs-pagination .btn').each(function(){
-        console.log('run');
           if(this.dataset.page == 0){
             this.click();
           }
@@ -355,7 +354,6 @@
             datatype:'json'
         })
         .done((response)=>{
-            console.log('response response My Team '+JSON.stringify(response));
             table.setData(response, columns);
             anchorClickFunctionalities();
            // anotherEditFunctionality();
@@ -380,7 +378,6 @@
             datatype:'json'
         })
         .done((response)=>{
-            console.log('response response response response '+JSON.stringify(response));
             table.setData(response, columns);
             anchorClickFunctionalities();
            // anotherEditFunctionality();
@@ -430,7 +427,6 @@
           }
           });
       idList = idList.substring(1);
-      console.log(idList);
 
       if( idList && confirm('Are you sure to Delete this record !')  ){
         $.ajax({
@@ -442,7 +438,6 @@
 
         })
         .done((response) => {
-              console.log('resonse   :'+response);
               
               alert("Task Deleted Succesfullly !");
               window.location.reload()

@@ -121,29 +121,8 @@
        // $('calMonth').append('welcome to gohilinfotech.in');
         var monthNumber = today.getMonth();
         document.getElementById('calMonth').innerHTML= months[monthNumber]+' '+today.getFullYear();     
-        /*
-       $.ajax({ 
-          type: 'GET',
-          url: '/users/getNullevents',
-          data : {
-              'date': today
-          },
-          dataType: 'json'
-      })
-      .done(function( data ) {
-        console.log( "Initial data load Sample of data: nkjdfjsdfb", data );
-         eventsData = data;
-          console.log('JSON.Stringied Data of eventsfdg gdfg : '+JSON.stringify(eventsData));
-          $('#bootstrapModalFullCalendar').fullCalendar( 'removeEvents');
-          $('#bootstrapModalFullCalendar').fullCalendar( 'addEventSource',data);         
-         $('#bootstrapModalFullCalendar').fullCalendar( 'rerenderEvents' );
-      })
-      .fail(function(jqXHR, textStatus, err){
-        console.log('AJAX error response :',textStatus);
-    }) 
-
-    
-         initial data Load   */ 
+        
+         
         $.ajax({ 
           type: 'GET',
           url: '/users/getevents',
@@ -848,7 +827,7 @@
                                 temp = temp.replaceAll('{description}','');
                                 temp = temp.replaceAll('{AstartTime}','');
                                 temp = temp.replaceAll('{recId}',dt.id);
-                                temp = temp.replaceAll('{object}', window.btoa(JSON.stringify(dt)));
+                                temp = temp.replaceAll('{object}', utoa(dt);  
                                 temp = temp.replaceAll('{AendTime}','');
                                 temp = temp.replaceAll('{pHours}',dt.hrs);
                                 temp = temp.replaceAll('{aHours}',dt.actualHours);
@@ -943,7 +922,7 @@
                                 indexList.forEach(dt=>{
                                    let obj =  $('#addBtns'+dt)[0].dataset.value;
                                    let temp = {};
-                                   let objs = JSON.parse(window.atob(obj));
+                                   let objs = atou(obj);
                                    temp.status = $('#taskSelect'+dt).val();
                                    if($('#actualSt'+dt).val()){
                                         temp.actualStart =  $('#actualSt'+dt).val();
@@ -1084,7 +1063,7 @@
                                 let indexList = window.editIndex;
                                 let tempO = {ast:0,pEnd:0};
                                 let obj = $('#SaveBtnTime').val();
-                                let objs = JSON.parse(window.atob(obj));
+                                let objs = atou(obj);
                                 let listData = [];
                                 indexList.forEach(dt=>{
                                    let temp = {};
@@ -1228,6 +1207,15 @@ function handleChange(e){
                 $('#'+id).html('');
             },3000);
         }
+
+
+    function utoa(str) {
+    return window.btoa(unescape(encodeURIComponent(JSON.stringify(str))));
+    }
+    
+    function atou(str) {
+        return JSON.parse(decodeURIComponent(escape(window.atob(str))));
+    }
 
 
 
@@ -1554,7 +1542,7 @@ function handleChange(e){
 function handleTimeSheet(event){
     let dt = event.target.dataset.label;
     let tmp = event.target.dataset.value;
-    let obj = JSON.parse(window.atob(tmp));
+    let obj = atou(tmp);
     $('#SaveBtnTime').val(tmp);
     let date = new Date(obj.plandate);
     $('#project0').val(obj.projectname);
