@@ -859,7 +859,7 @@
                             });
 
                             $("#fillActualsModal").modal("show");
-
+                            $('#deleteRec').unbind('click');
                             $('#deleteRec').click(function(){
                                 let list = [];
                                  $('.chckbox').each(function(e){
@@ -1012,7 +1012,7 @@
 
                             });
 
-
+                             $('.chckbox').unbind('change');
                             $('.chckbox').change(function(){
 
                                 let count = 0;
