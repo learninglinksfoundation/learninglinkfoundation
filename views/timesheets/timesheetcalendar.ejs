@@ -344,76 +344,7 @@
             var values = $(this).serialize();
             console.log('values   ' + values);
             let aryData = $(this).serializeArray();
-            let i = {a:0,b:0,c:0,d:0,e:0};
-            /*$('.deadline').each(function(){
-
-                var deadlin = this.value;//$('#deadline option:selected').val();
-                if(!deadlin.includes('{data}')){
-                    var index = this.id.replace('deadline','');
-                    if(index == 'undefined' || index == '' || index == undefined || index == null){
-                        index = '';
-                    }
-                    if(deadlin == 'deadline'){
-                        var endDate = $('#plannedendtimeTask'+index).val();
-                        if (endDate == '') {
-                            i.b++;
-                            alert('Error: Please Fill Planned End  Time');
-                            return;
-                        }
-                    }
-
-                    console.log('deadline ++++  ' + deadlin,index);
-                    if (deadlin == 'Block Time') {
-                        var startDate = $('#plannedstarttimeTask'+index).val();
-                        console.log('plandatejhjbkjbjk ' + startDate);
-                        if (startDate == '') {
-                            i.a++;
-                            alert('Error: Please Fill Planned Start Time');
-                            return ;
-                        }
-                        var endDate = $('#plannedendtimeTask'+index).val();
-                        console.log('plandatejhjbkjbjk ' + endDate);
-                        if (endDate == '') {
-                            i.b++;
-                            alert('Error: Please Fill Planned End  Time');
-                            return;
-                        }
-                        if (endDate != '' && startDate != '') {
-                            var starthours = Number(startDate.match(/^(\d+)/)[1]);
-                            var startminutes = Number(startDate.match(/:(\d+)/)[1]);
-                            //  var startAMPM = startDate.match(/\s(.*)$/)[1];
-                            var endhours = Number(endDate.match(/^(\d+)/)[1]);
-                            var endminutes = Number(endDate.match(/:(\d+)/)[1]);
-                            // var endAMPM = endDate.match(/\s(.*)$/)[1];
-                            //  var AMPM = startDate.match(/\s(.*)$/)[1];
-                            console.log('starthours ' + starthours);
-                            console.log('startminutes ' + startminutes);
-                            //     console.log('startAMPM '+startAMPM);
-                            console.log('endhours ' + endhours);
-                            console.log('endminutes ' + endminutes);
-                            //  console.log('endAMPM '+endAMPM);
-
-                            if (startDate > endDate) {
-                                i.c++;
-                                alert('Error: Planned Start time should be less than Planned End time. !')
-                                return ;
-                            }
-
-                            if (starthours > endhours) {
-                                i.d++;
-                                alert('Error: Planned Start time should be less than Planned End time. !')
-                            return;
-                            } else if ((starthours == endhours) && (startminutes > endminutes)) {
-                                i.e++;
-                                alert('Error: Planned Start time should be less than Planned End time. !')
-                                return ;
-                            }
-                    }
-                }
-
-
-            }
-            });*/
+            
             var tempList = [];
             console.log(aryData);
             for(let j=0;j< aryData.length / 10; j++){
@@ -520,7 +451,7 @@
                             $('#createTaskModal').scrollTop(0);
                             window.setTimeout(function(){
                                  window.location.reload();
-                            },3000);
+                            },5000);
                             
                         } else {
                             //document.getElementById("taskForm").reset()
