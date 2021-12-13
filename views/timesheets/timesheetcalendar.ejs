@@ -428,6 +428,7 @@
                 let date = new Date($('#datePicker').val());
 
                 if(date > new Date()){
+                    console.log('inside date',dt.deadline,dt);
                     if(!dt.deadline){
                         callToast(`Please Select Deadline ${i+1}!`);
                         flag = false;
@@ -481,7 +482,7 @@
                 }
 
             }
-           
+           /*
            if(flag){
                 $("#submitbutton").attr("disabled", true);
                 $.ajax({
@@ -541,7 +542,7 @@
             else{
                 console.log('not run');
             }
-            
+            */
 
         })
 
