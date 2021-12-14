@@ -887,10 +887,7 @@
                                                 callToastForError('Timesheet saved Successfully','success','errorMessagesss');
                                                 $('#fillActualsModal').scrollTop(0);
                                                 window.setTimeout(function(){
-                                                    //window.location.reload();
-                                                    window.saveDom.target.click();
-                                                    $('#closeTimeModal').click();
-
+                                                    window.location.reload();
                                                 },4000);
                                                 
 
@@ -1034,8 +1031,11 @@
                                                 callToastForError('Timesheet saved Successfully','success','errorMessageTask');
                                                 $('#taskModal').scrollTop(0);
                                                 window.setTimeout(function(){
-                                                    window.location.reload();
-                                                },1500);
+                                                    //window.location.reload();
+                                                    $('#SaveBtnTime').prop('disabled',false);
+                                                    $('#closeTimeModal').click();
+                                                    window.saveDom.target.click();
+                                                },4000);
                                                 
 
                                             })
@@ -1540,7 +1540,7 @@ function callRemover(){
                
                <div class="modal-footer">
                   <button type="button" class="btn btn-warning" disabled id="deleteRec">Delete</button>
-                  <button type="button" class="btn btn-danger" id="closeTimeModal" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                   <button type="button" class="btn btn-primary" id="submitbuttonnn">Save</button>
                </div>
             
@@ -1624,7 +1624,7 @@ function callRemover(){
         </div>
         <div class="modal-footer">
           <button type="button" id="timeSheetBtn" style="background: #3a87ad;" class="btn btn-primary"> Add New Row</button>
-          <button type="button" class="btn btn-danger" onclick="callRemover()" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" id="closeTimeModal" onclick="callRemover()" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary" id="SaveBtnTime">Save</button>
         </div>
       </div>
