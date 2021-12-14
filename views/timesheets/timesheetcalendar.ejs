@@ -503,82 +503,7 @@
             },2000);
         }
 
-/*
-        $('#fillActualsForm').submit(function(e){
-        e.preventDefault();
-        var values = $(this).serialize();
-        console.log('values   '+values);
-        var startDate = $('#startTime').val();
-        console.log('startTime '+startDate);
-        var endDate = $('#endTime').val();
-            console.log('endTime '+endDate);
-           if(startDate == '')
-            {
-              alert('Error: Please Fill Actual Start Time');
-            }
-          
-          else if(endDate == '')
-            {
-              alert('Error: Please Fill Actual End Time');
-            }
-           else if(startDate > endDate)
-            {
-              alert('Error: Actual Start Time should be less than Actual End Time. !')
-            }
-          else
-            {
-              $("#submitbuttonnn").attr("disabled", true);
-              $.ajax({
-                      url: "/timesheets/fillactuals",
-                      type: "post",
-                      data: values ,
-                     })
-                .done((data)=>{
-                    console.log('data '+JSON.stringify(data))
-                    let resp = JSON.stringify(data);
-                    console.log('dataaaaa' +resp);
-                    if(data == 'Successfully Inserted')
-                    {
-                      document.getElementById("fillActualsForm").reset()
-                      let errorHtml = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+ resp+
-                        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-                        '<span aria-hidden="true">&times;</span>'+
-                        '</button>'+
-                        '</div>';
-                        $('#errorMessagesss').empty();
-                        $('#errorMessagesss').append(errorHtml); 
-                        $("#submitbuttonnn").attr("disabled", false);
-                        window.location.reload()
-                    }
-                    else
-                    {
-                      //document.getElementById("taskForm").reset()
-                      $("#submitbuttonnn").attr("disabled", false);
-                      let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+ resp+
-                        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-                        '<span aria-hidden="true">&times;</span>'+
-                        '</button>'+
-                        '</div>';
-                        $('#errorMessagesss').empty();
-                        $('#errorMessagesss').append(errorHtml); 
-                        $("#submitbuttonnn").attr("disabled", false);
-                    }
-                })
-                .fail((jqXHR, status, error) =>{
-                     let resp = JSON.stringify(jqXHR);
-                    console.log('jqXHR  : '+JSON.stringify(jqXHR));
-                    console.log('error  : '+error);
-                    let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+ resp+
-                        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-                        '<span aria-hidden="true">&times;</span>'+
-                        '</button>'+
-                        '</div>';
-                        $('#errorMessagesss').empty();
-                        $('#errorMessagesss').append(errorHtml); 
-                });
-            }
-   
-        })*/
+
         $('#bootstrapModalFullCalendar').fullCalendar({
             header: {
                 left: '',
@@ -962,8 +887,11 @@
                                                 callToastForError('Timesheet saved Successfully','success','errorMessagesss');
                                                 $('#fillActualsModal').scrollTop(0);
                                                 window.setTimeout(function(){
-                                                    window.location.reload();
-                                                },1500);
+                                                    //window.location.reload();
+                                                    window.saveDom.target.click();
+                                                    $('#closeTimeModal').click();
+
+                                                },2500);
                                                 
 
                                             })
@@ -1521,6 +1449,12 @@ function handleTimeSheet(event){
     $('#task0').val(obj.taskName);
     $('#user0').val(obj.assigned);
     $('#selectTime0').val(obj.status);
+    $('#startTime0').val('');
+    $('#endTime0').val('');
+    $('#descriptionTimesheet0').val('');
+    let s = $('#taskModalBody');
+    if(s.children().length > 1)
+        s.children()[1].remove();
     $('#taskModal').modal("show");
     if(!window.editIndex.includes('0'))
         window.editIndex.push('0');
@@ -1606,7 +1540,7 @@ function callRemover(){
                
                <div class="modal-footer">
                   <button type="button" class="btn btn-warning" disabled id="deleteRec">Delete</button>
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-danger" id="closeTimeModal" data-dismiss="modal">Close</button>
                   <button type="button" class="btn btn-primary" id="submitbuttonnn">Save</button>
                </div>
             

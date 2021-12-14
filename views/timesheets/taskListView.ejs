@@ -43,7 +43,7 @@
 }
 
 
-.taskreferenceTag {
+.taskreferenceTag, .wrap {
   display: inline-block;
   width: 100px;
   white-space: nowrap;
@@ -516,7 +516,7 @@
                               htmlTable += '</tr>';
                               htmlTable += '<tr>';
                                 htmlTable += '<td><strong> Task Type</strong></td>';
-                                htmlTable += '<td>'+taskRecord.task_type__c+'</td>';
+                                htmlTable += '<td><div class="wrap" >'+taskRecord.task_type__c+'</div></td>';
                                 htmlTable += '<td><strong>Assigned Heroku Resource</strong></td>';
                                 htmlTable += '<td>'+taskRecord.contname+'</td>';
                                   
