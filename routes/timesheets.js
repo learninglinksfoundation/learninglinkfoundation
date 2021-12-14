@@ -1618,7 +1618,7 @@ function getMappedData(data){
       response.send(data);
    })
    .catch(d=>{
-      response.send('errr');
+      response.send(d);
    })
   
 })
