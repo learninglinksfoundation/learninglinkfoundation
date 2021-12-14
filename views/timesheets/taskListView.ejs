@@ -530,6 +530,12 @@
                                 htmlTable += '<td><strong>Status</strong></td>';
                                 htmlTable += '<td>'+taskRecord.task_stage__c+'</td>';
                                 htmlTable += '</tr>';
+
+                                htmlTable += '<tr>';
+                                htmlTable += '<td><strong>Task Assigned By</strong></td>';
+                                htmlTable += '<td>'+taskRecord.createdByName+'</td>';
+                                htmlTable += '</tr>';
+
                                 htmlTable += '<tr style="background-color:#d3d3d3";>';
                                 htmlTable += '<td><h5 >Task Information:</h5></td>';
                                 htmlTable += '<td></td>';
