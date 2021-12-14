@@ -361,6 +361,10 @@
             datatype:'json'
         })
         .done((response)=>{
+            response.forEach(dt=>{
+              dt.taskType =  `<div class="wrap"> ${dt.taskType} </div>`;
+            });
+
             table.setData(response, columns);
             anchorClickFunctionalities();
             refreshData();
@@ -386,6 +390,9 @@
             datatype:'json'
         })
         .done((response)=>{
+          response.forEach(dt=>{
+              dt.taskType =  `<div class="wrap"> ${dt.taskType} </div>`;
+            });
             table.setData(response, columns);
             anchorClickFunctionalities();
             refreshData();
