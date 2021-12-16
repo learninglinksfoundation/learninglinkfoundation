@@ -258,7 +258,7 @@
             startTime:'Start Time',
             endtime:'End Time',
             taskType:'Task Type',
-            createdByName:'Task Assigned By',
+            assignedBy:'Task Assigned By',
             createDdate : 'Created Date',
 
         }
@@ -361,6 +361,7 @@
             datatype:'json'
         })
         .done((response)=>{
+          console.log(response);
             response.forEach(dt=>{
               dt.taskType =  `<div class="wrap" title="${dt.taskType}"> ${dt.taskType} </div>`;
             });
@@ -390,6 +391,7 @@
             datatype:'json'
         })
         .done((response)=>{
+           console.log(response);
           response.forEach(dt=>{
               dt.taskType =  `<div class="wrap" title="${dt.taskType}" > ${dt.taskType} </div>`;
             });
