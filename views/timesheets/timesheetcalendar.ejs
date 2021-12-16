@@ -344,7 +344,8 @@
             var values = $(this).serialize();
             console.log('values   ' + values);
             let aryData = $(this).serializeArray();
-            
+            let idt = <%- JSON.stringify(objUser) %>;
+            console.log(idt);
             var tempList = [];
             console.log(aryData);
             for(let j=0;j< aryData.length / 10; j++){
