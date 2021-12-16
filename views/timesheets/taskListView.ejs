@@ -258,7 +258,7 @@
             startTime:'Start Time',
             endtime:'End Time',
             taskType:'Task Type',
-            assignedBy:'Task Assigned By',
+            createdname:'Task Assigned By',
             createDdate : 'Created Date',
 
         }
@@ -364,6 +364,7 @@
           console.log(response);
             response.forEach(dt=>{
               dt.taskType =  `<div class="wrap" title="${dt.taskType}"> ${dt.taskType} </div>`;
+              dt.createdname = `<div class="wrap" title="${dt.createdname}"> ${dt.createdname} </div>`;
             });
 
             table.setData(response, columns);
@@ -394,6 +395,7 @@
            console.log(response);
           response.forEach(dt=>{
               dt.taskType =  `<div class="wrap" title="${dt.taskType}" > ${dt.taskType} </div>`;
+              dt.createdname = `<div class="wrap" title="${dt.createdname}"> ${dt.createdname} </div>`;
             });
             table.setData(response, columns);
             anchorClickFunctionalities();
@@ -612,6 +614,7 @@
 
 
           }
+          $('#taskViewTable').empty();
         })
     }
 
