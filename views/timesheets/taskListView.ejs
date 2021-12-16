@@ -505,7 +505,7 @@
         })
         
         .done((res)=>{
-          
+          $('#detailLoadingSpinner').hide();
           console.log("jhdgjhd"+JSON.stringify(res));
           if(res.length>0)
           {
