@@ -1475,7 +1475,7 @@ router.get('/getProjectById',verify,(request, response) => {
     .query(queryText)
     .then(data=>{
       if(data.rowCount > 0){
-        let modifiedTaskList = getMappedData(data);
+        let modifiedTaskList = getMappedData(data,objUser.sfid);
         response.send(modifiedTaskList);
       }
       else{
@@ -1512,7 +1512,7 @@ router.get('/getTeamsProject',verify,(request, response) => {
     .query(queryText)
     .then(data=>{
       if(data.rowCount > 0){
-        let modifiedTaskList = getMappedData(data);
+        let modifiedTaskList = getMappedData(data,objUser.sfid);
         response.send(modifiedTaskList);
       }
       else{
@@ -1526,7 +1526,7 @@ router.get('/getTeamsProject',verify,(request, response) => {
     });
 })
 
-function getMappedData(data){
+function getMappedData(data,userId){
   let modifiedTaskList = [];
         data.rows.forEach((eachRecord,i) => {
           let obj = {};
@@ -1548,7 +1548,7 @@ function getMappedData(data){
             obj.status = eachRecord.stage;
             obj.taskName = eachRecord.tskname;
             obj.sequence = i;
-            obj.Checkbox = `<input style="height: 14px;width: 14px;" ${eachRecord.assignedby == eachRecord.contid ? '' : 'disabled'} class="checkBox" type="checkbox" data-id="${eachRecord.sfids}" />`;
+            obj.Checkbox = `<input style="height: 14px;width: 14px;" ${eachRecord.assignedby == userId ? '' : 'disabled'} class="checkBox" type="checkbox" data-id="${eachRecord.sfids}" />`;
             obj.id = eachRecord.sfids;
             obj.projectname = eachRecord.projname;
             obj.name = '<a href="#" class="taskreferenceTag" id="'+eachRecord.sfids+'" >'+eachRecord.tskname+'</a>';
@@ -1561,7 +1561,7 @@ function getMappedData(data){
             obj.createDdate = strDate;
             obj.actualHours = eachRecord.total_hours__c;//(!eachRecord.total_hours__c || eachRecord.total_hours__c == 'undefined' ? 0 : eachRecord.total_hours__c );
             obj.deleteAction = '<button href="#" class="btn btn-primary deleteTask" id="'+eachRecord.sfids+'" >Delete</button>'  ;
-            obj.deleteActionTask = `<button href="#" class="btn btn-primary deleteTask" ${eachRecord.assignedby == eachRecord.contid ? '' : 'disabled'} id="${eachRecord.sfids}" >Delete</button>`   
+            obj.deleteActionTask = `<button href="#" class="btn btn-primary deleteTask" ${eachRecord.assignedby == userId ? '' : 'disabled'} id="${eachRecord.sfids}" >Delete</button>`   
          //   obj.editAction = '<button href="#" class="btn btn-primary editTask" id="'+eachRecord.sfids+'" >Edit</button>'
             modifiedTaskList.push(obj);
         });
@@ -1652,7 +1652,7 @@ function getMappedData(data){
       console.log('data '+JSON.stringify(data.rows) +'Row COUNT => '+data.rowCount);
       if(data.rowCount > 0)
       {
-          let modifiedTaskList = getMappedData(data);
+          let modifiedTaskList = getMappedData(data,objUser.sfid);
           response.send(modifiedTaskList);
       }
       else
@@ -1693,7 +1693,7 @@ router.get('/getTasklist',verify,(request,response)=>{
     console.log('taskQueryResult '+JSON.stringify(taskQueryResult.rows) +'Row COUNT => '+taskQueryResult.rowCount);
     if(taskQueryResult.rowCount > 0)
     {
-        let modifiedTaskList = getMappedData(taskQueryResult);
+        let modifiedTaskList = getMappedData(taskQueryResult,objUser.sfid);
         response.send(modifiedTaskList);
     }
     else
