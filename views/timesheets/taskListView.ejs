@@ -362,7 +362,7 @@
         })
         .done((response)=>{
             response.forEach(dt=>{
-              dt.taskType =  `<div class="wrap"> ${dt.taskType} </div>`;
+              dt.taskType =  `<div class="wrap" title="${dt.taskType}"> ${dt.taskType} </div>`;
             });
 
             table.setData(response, columns);
@@ -391,7 +391,7 @@
         })
         .done((response)=>{
           response.forEach(dt=>{
-              dt.taskType =  `<div class="wrap"> ${dt.taskType} </div>`;
+              dt.taskType =  `<div class="wrap" title="${dt.taskType}" > ${dt.taskType} </div>`;
             });
             table.setData(response, columns);
             anchorClickFunctionalities();
