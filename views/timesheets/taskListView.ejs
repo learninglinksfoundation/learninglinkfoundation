@@ -249,7 +249,7 @@
         let columns ={
             sequence : 'Sequence',
             Checkbox : '<input style="height: 14px;width: 14px;" type="checkbox" id="mainCheckBox"/>',
-            deleteAction: 'Action',
+            deleteActionTask: 'Action',
            // editAction:'Action',
             name: 'Task ',
              assigned:'Assigned Resource',
@@ -397,6 +397,7 @@
             console.log(dt);
               dt.taskType =  `<div class="wrap" title="${dt.taskType}" > ${dt.taskType} </div>`;
               dt.createdname = `<div class="wrap" title="${dt.createdname}"> ${dt.createdname} </div>`;
+              
             });
             table.setData(response, columns);
             anchorClickFunctionalities();
