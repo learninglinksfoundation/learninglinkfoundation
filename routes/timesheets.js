@@ -1511,6 +1511,7 @@ router.get('/getTeamsProject',verify,(request, response) => {
     pool
     .query(queryText)
     .then(data=>{
+      console.log('test',data);
       if(data.rowCount > 0){
         let modifiedTaskList = getMappedData(data,objUser.sfid);
         response.send(modifiedTaskList);
