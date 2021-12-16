@@ -1561,7 +1561,7 @@ function getMappedData(data){
             obj.createDdate = strDate;
             obj.actualHours = eachRecord.total_hours__c;//(!eachRecord.total_hours__c || eachRecord.total_hours__c == 'undefined' ? 0 : eachRecord.total_hours__c );
             obj.deleteAction = '<button href="#" class="btn btn-primary deleteTask" id="'+eachRecord.sfids+'" >Delete</button>'  ;
-            obj.deleteActionTask = '<button href="#" class="btn btn-primary deleteTask" disabled="'+ ${eachRecord.assignedby != eachRecord.contid }+'" id="'+eachRecord.sfids+'" >Delete</button>'     
+            obj.deleteActionTask = '<button href="#" class="btn btn-primary deleteTask" disabled="'+ eachRecord.assignedby != eachRecord.contid +'" id="'+eachRecord.sfids+'" >Delete</button>'     
          //   obj.editAction = '<button href="#" class="btn btn-primary editTask" id="'+eachRecord.sfids+'" >Edit</button>'
             modifiedTaskList.push(obj);
         });
