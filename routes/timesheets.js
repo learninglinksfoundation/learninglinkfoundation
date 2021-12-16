@@ -1548,7 +1548,7 @@ function getMappedData(data){
             obj.status = eachRecord.stage;
             obj.taskName = eachRecord.tskname;
             obj.sequence = i;
-            obj.Checkbox = `<input style="height: 14px;width: 14px;" disabled="${eachRecord.assignedby != eachRecord.contid }" class="checkBox" type="checkbox" data-id="${eachRecord.sfids}" />`;
+            obj.Checkbox = `<input style="height: 14px;width: 14px;" ${eachRecord.assignedby == eachRecord.contid ? '' : 'disabled'} class="checkBox" type="checkbox" data-id="${eachRecord.sfids}" />`;
             obj.id = eachRecord.sfids;
             obj.projectname = eachRecord.projname;
             obj.name = '<a href="#" class="taskreferenceTag" id="'+eachRecord.sfids+'" >'+eachRecord.tskname+'</a>';
@@ -1561,7 +1561,7 @@ function getMappedData(data){
             obj.createDdate = strDate;
             obj.actualHours = eachRecord.total_hours__c;//(!eachRecord.total_hours__c || eachRecord.total_hours__c == 'undefined' ? 0 : eachRecord.total_hours__c );
             obj.deleteAction = '<button href="#" class="btn btn-primary deleteTask" id="'+eachRecord.sfids+'" >Delete</button>'  ;
-            obj.deleteActionTask = '<button href="#" class="btn btn-primary deleteTask" disabled="'+ eachRecord.assignedby != eachRecord.contid +'" id="'+eachRecord.sfids+'" >Delete</button>'     
+            obj.deleteActionTask = `<button href="#" class="btn btn-primary deleteTask" ${eachRecord.assignedby == eachRecord.contid ? '' : 'disabled'} id="${eachRecord.sfids}" >Delete</button>`   
          //   obj.editAction = '<button href="#" class="btn btn-primary editTask" id="'+eachRecord.sfids+'" >Edit</button>'
             modifiedTaskList.push(obj);
         });
