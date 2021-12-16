@@ -242,13 +242,13 @@ router.post('/createMultipletask', async (request, response) => {
         });
         console.log(temp);
         formData.forEach((dt, i) => {
-          values = `${values},('${dt.taskname}','${temp[dt.projectname]}','0122y00000005mMAAQ','${dt.status}','${dt.projectname}','${dt.taskdate}','${dt.assignedresource}','${dt.tasktype}','${dt.plannedstarttime ? dt.plannedstarttime : '00:00'}','${dt.plannedendtime ? dt.plannedendtime : '00:00'}','${dt.deadline}')`;
+          values = `${values},('${dt.taskname}','${temp[dt.projectname]}','0122y00000005mMAAQ','${dt.status}','${dt.projectname}','${dt.taskdate}','${dt.assignedresource}','${dt.tasktype}','${dt.plannedstarttime ? dt.plannedstarttime : '00:00'}','${dt.plannedendtime ? dt.plannedendtime : '00:00'}','${dt.deadline}','${dt.function}')`;
         });
         values = values.substring(1);
         console.log(values);
-        console.log(`INSERT INTO salesforce.Milestone1_Task__c (Name, project_milestone__c, RecordTypeId, Task_Stage__c, Project_Name__c, Start_Date__c, Assigned_Manager__c,Task_Type__c ,Start_Time__c,End_Time__c,DeadLine_Type__c) VALUES ${values} RETURNING *`);
+        console.log(`INSERT INTO salesforce.Milestone1_Task__c (Name, project_milestone__c, RecordTypeId, Task_Stage__c, Project_Name__c, Start_Date__c, Assigned_Manager__c,Task_Type__c ,Start_Time__c,End_Time__c,DeadLine_Type__c,Task_Type_Category__c) VALUES ${values} RETURNING *`);
         pool
-          .query(`INSERT INTO salesforce.Milestone1_Task__c (Name, project_milestone__c, RecordTypeId, Task_Stage__c, Project_Name__c, Start_Date__c, Assigned_Manager__c,Task_Type__c ,Start_Time__c,End_Time__c,DeadLine_Type__c) VALUES ${values} RETURNING *`)
+          .query(`INSERT INTO salesforce.Milestone1_Task__c (Name, project_milestone__c, RecordTypeId, Task_Stage__c, Project_Name__c, Start_Date__c, Assigned_Manager__c,Task_Type__c ,Start_Time__c,End_Time__c,DeadLine_Type__c,Task_Type_Category__c) VALUES ${values} RETURNING *`)
           .then((saveTaskResult) => {
             console.log('saveTaskResult =====>>>>>>>>>>>>  : ' + JSON.stringify(saveTaskResult.rows));
             //  response.send('savedInserted');
