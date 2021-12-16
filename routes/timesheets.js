@@ -1540,6 +1540,7 @@ function getMappedData(data){
             let strplanDate = planDate.toLocaleString();
             obj.userId = eachRecord.contid;
             obj.createdByName = eachRecord.username;
+            obj.createdname = eachRecord.createdname;
             obj.createdById = eachRecord.usersfid;
             obj.assignedBy = eachRecord.assignedby;
             obj.proId = eachRecord.project_name__c;
