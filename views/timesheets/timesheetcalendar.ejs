@@ -350,7 +350,7 @@
             console.log(aryData);
             for(let j=0;j< aryData.length / 10; j++){
                 let i = 10*j;
-                let tempObj = {"taskname":aryData[i]?.value,"function":aryData[i+1]?.value,"tasktype":aryData[i+2]?.value,"projectname":aryData[i+4]?.value,"taskdate":aryData[i+5]?.value,"assignedresource":aryData[i+6]?.value,"status":aryData[i+7]?.value,"plannedstarttime":aryData[i+8]?.value,"plannedendtime":aryData[i+9]?.value,"deadline":aryData[i+3]?.value}; 
+                let tempObj = {"userId":idt.sfid,"taskname":aryData[i]?.value,"function":aryData[i+1]?.value,"tasktype":aryData[i+2]?.value,"projectname":aryData[i+4]?.value,"taskdate":aryData[i+5]?.value,"assignedresource":aryData[i+6]?.value,"status":aryData[i+7]?.value,"plannedstarttime":aryData[i+8]?.value,"plannedendtime":aryData[i+9]?.value,"deadline":aryData[i+3]?.value}; 
                 tempList.push(tempObj);
             }
             console.log(tempList,'tempList');

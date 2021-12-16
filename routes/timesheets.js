@@ -220,7 +220,7 @@ router.get('/getdata',verify, function(req, response, next)
 
 router.post('/createMultipletask', async (request, response) => {
   var formData = request.body;
-  var userId = request.user.sfid; 
+  //var userId = request.user; 
   console.log(formData,'datttt',request.user);
   let values = '';
   let projectList = '';
@@ -243,7 +243,7 @@ router.post('/createMultipletask', async (request, response) => {
         });
         console.log(temp);
         formData.forEach((dt, i) => {
-          values = `${values},('${dt.taskname}','${temp[dt.projectname]}','0122y00000005mMAAQ','${dt.status}','${dt.projectname}','${dt.taskdate}','${dt.assignedresource}','${dt.tasktype}','${dt.plannedstarttime ? dt.plannedstarttime : '00:00'}','${dt.plannedendtime ? dt.plannedendtime : '00:00'}','${dt.deadline}','${dt.function}','${userId}')`;
+          values = `${values},('${dt.taskname}','${temp[dt.projectname]}','0122y00000005mMAAQ','${dt.status}','${dt.projectname}','${dt.taskdate}','${dt.assignedresource}','${dt.tasktype}','${dt.plannedstarttime ? dt.plannedstarttime : '00:00'}','${dt.plannedendtime ? dt.plannedendtime : '00:00'}','${dt.deadline}','${dt.function}','${dt.userId}')`;
         });
         values = values.substring(1);
         console.log(values);
