@@ -1706,11 +1706,12 @@ router.get('/getTasklist',verify,(request,response)=>{
 router.get('/fetchTaskDetail',verify,(request,response)=>{
   let tskId=request.query.taskId;
   console.log('task ID '+tskId);
-  let queryText = 'SELECT tsk.Id,tsk.sfid as sfid,tsk.name as tskname,tsk.Task_Assigned_by__c as assignedBy,tsk.Task_Type_Category__c as function ,tsk.Project_Name__c,tsk.Project_Milestone__c,catego.name as categoname, tsk.assigned_manager__c, tsk.deadLine_type__c,tsk.task_stage__c,tsk.start_date__c,tsk.end_time__c,tsk.Task_Type__c,tsk.total_hours__c,tsk.Planned_Hours__c,tsk.Start_Time__c,cont.sfid as contid ,cont.name as contname,proj.name as projname,tsk.createddate '+
+  let queryText = 'SELECT tsk.Id,tsk.sfid as sfid,cont1.name as createdname,tsk.name as tskname,tsk.Task_Assigned_by__c as assignedBy,tsk.Task_Type_Category__c as function ,tsk.Project_Name__c,tsk.Project_Milestone__c,catego.name as categoname, tsk.assigned_manager__c, tsk.deadLine_type__c,tsk.task_stage__c,tsk.start_date__c,tsk.end_time__c,tsk.Task_Type__c,tsk.total_hours__c,tsk.Planned_Hours__c,tsk.Start_Time__c,cont.sfid as contid ,cont.name as contname,proj.name as projname,tsk.createddate '+
   'FROM salesforce.Milestone1_Task__c tsk '+ 
   'INNER JOIN salesforce.Contact cont ON tsk.assigned_manager__c = cont.sfid '+
   'INNER JOIN salesforce.Milestone1_Project__c proj ON tsk.Project_Name__c= proj.sfid '+
   'INNER JOIN salesforce.Milestone1_Milestone__c catego ON tsk.Project_Milestone__c= catego.sfid '+
+  'INNER JOIN salesforce.Contact cont1 ON tsk.Task_Assigned_by__c = cont1.sfid '+
   'WHERE  tsk.sfid= $1 ';
   pool
  // .query('select sfid,name ,Assigned_Manager__c ,end_time__c,Task_Type__c,Planned_Hours__c,Start_Time__c FROM salesforce.Milestone1_Task__c where sfid=$1 ',[tskId])
