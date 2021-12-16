@@ -392,8 +392,9 @@
             datatype:'json'
         })
         .done((response)=>{
-           console.log(response);
+           console.log(JSON.stringify(response));
           response.forEach(dt=>{
+            console.log(dt);
               dt.taskType =  `<div class="wrap" title="${dt.taskType}" > ${dt.taskType} </div>`;
               dt.createdname = `<div class="wrap" title="${dt.createdname}"> ${dt.createdname} </div>`;
             });
