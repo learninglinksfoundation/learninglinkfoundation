@@ -1530,6 +1530,7 @@ function getMappedData(data,userId){
   let modifiedTaskList = [];
         data.rows.forEach((eachRecord,i) => {
           let obj = {};
+          console.log(eachRecord);
             let createdDate = new Date(eachRecord.createddate);
             createdDate.setHours(createdDate.getHours() + 5);
             createdDate.setMinutes(createdDate.getMinutes() + 30);
