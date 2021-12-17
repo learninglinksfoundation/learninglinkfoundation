@@ -1537,7 +1537,7 @@ function getMappedData(data,user){
 
           let isTrue  = true;;
           if(user)
-            isTrue =   user.isManager ?  eachRecord.assignedby == user.sfid  : eachRecord.contid == user.sfid  ;
+            isTrue =   user.isManager ?  eachRecord.assignedby == user.sfid || eachRecord.contid == user.sfid  : true;//eachRecord.contid == user.sfid  ;
           let obj = {};
           console.log(eachRecord);
             let createdDate = new Date(eachRecord.createddate);
