@@ -1492,6 +1492,7 @@ router.get('/getProjectById',verify,(request, response) => {
 router.get('/getTeamsProject',verify,(request, response) => {
     var selectedDate = request.query.date;
     var proId = request.query.projectId;
+    let objUser= request.user;
       console.log(selectedDate,typeof selectedDate)   ; 
     let queryText = 'SELECT tsk.Id,tsk.sfid as sfids,tsk.name as tskname,tsk.Task_Assigned_by__c as assignedBy,tsk.Task_Type_Category__c as function,tsk.Task_Stage__c as stage,tsk.start_date__c ,tsk.Project_Name__c,tsk.Total_Hours__c ,tsk.assigned_manager__c,tsk.end_time__c,tsk.Task_Type__c,tsk.Planned_Hours__c,tsk.Start_Time__c,cont.sfid as contid ,cont.name as contname,proj.name as projname,tsk.createddate '+
                        'FROM salesforce.Milestone1_Task__c tsk '+ 
@@ -1513,7 +1514,9 @@ router.get('/getTeamsProject',verify,(request, response) => {
     .then(data=>{
       console.log('test',data);
       if(data.rowCount > 0){
+        console.log('done');
         let modifiedTaskList = getMappedData(data,objUser.sfid);
+        console.log('after method');
         response.send(modifiedTaskList);
       }
       else{
@@ -1529,6 +1532,7 @@ router.get('/getTeamsProject',verify,(request, response) => {
 
 function getMappedData(data,userId){
   let modifiedTaskList = [];
+  console.log('inside fun');
         data.rows.forEach((eachRecord,i) => {
           let obj = {};
           console.log(eachRecord);
