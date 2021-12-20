@@ -362,20 +362,20 @@
                 if(date > new Date()){
                     console.log('inside date',dt.deadline,dt);
                     if(dt.deadline.toLowerCase() == "select" || !dt.deadline){
-                        callToast(`Please Select Deadline ${i+1}!`);
+                        callToast(`Please Select Deadline in row ${i+1}`);
                         flag = false;
                         return;
                     }
                     else if(dt.deadline.toLowerCase() == 'deadlines') {
                         if(!dt.plannedendtime){
-                        callToast(`Please Fill Planned End Time${i+1}!`);
+                        callToast(`Please Fill Planned End Time in row ${i+1}`);
                         flag = false;
                         return;
                     }
                     }
                     else if(dt.deadline.toLowerCase() == 'block time'){
                         if(!dt.plannedstarttime){
-                        callToast(`Please Fill Planned Start Time${i+1}!`);
+                        callToast(`Please Fill Planned Start Time in row ${i+1}`);
                         flag = false;
                         return;
                     }
@@ -384,32 +384,32 @@
                 }
                 
                 if(!dt.taskname){
-                    callToast(`Please enter Task Description ${i+1}!`);
+                    callToast(`Please enter Task Description in row ${i+1}`);
                     flag = false;
                     return;
                 }
                 if(!dt.function){
-                    callToast(`Please select Task function ${i+1}!`);
+                    callToast(`Please select Task function in row ${i+1}`);
                     flag = false;
                     return;
                 }
                 if(!dt.tasktype){
-                    callToast(`Please select Task Type ${i+1}!`);
+                    callToast(`Please select Task Type in row ${i+1}`);
                     flag = false;
                     return;
                 }
                 if(!dt.projectname){
-                    callToast(`Please select Project ${i+1}!`);
+                    callToast(`Please select Project in row ${i+1}`);
                     flag = false;
                     return;
                 }
                 if(!dt.status || dt.status.toLowerCase() == 'none'  ){
-                    callToast(`Please choose Status ${i+1}`);
+                    callToast(`Please choose Status in row ${i+1}`);
                     flag = false;
                     return;
                 }
                 if(!dt.assignedresource || dt.assignedresource.toLowerCase() == 'none'  ){
-                    callToast(`Please Assign Resource ${i+1}`);
+                    callToast(`Please Assign Resource in row ${i+1}`);
                     flag = false;
                     return;
                 }
@@ -418,7 +418,7 @@
                 }
                 if(dt.plannedstarttime > dt.plannedendtime)
                 {
-                    callToast(`Actual Start Time should be less than Actual End Time. !`);
+                    callToast(`Actual Start Time should be less than Actual End Time in row ${i+1}`);
                     flag = false;
                     return;
                 }

@@ -365,7 +365,7 @@
             datatype:'json'
         })
         .done((response)=>{
-          console.log(response);
+         
             response.forEach(dt=>{
               dt.taskType =  `<div class="wrap" title="${dt.taskType}"> ${dt.taskType} </div>`;
               dt.createdname = `<div class="wrap" title="${dt.createdname}"> ${dt.createdname} </div>`;
@@ -398,9 +398,9 @@
             datatype:'json'
         })
         .done((response)=>{
-           console.log(JSON.stringify(response));
+           
           response.forEach(dt=>{
-            console.log(dt);
+            
               dt.taskType =  `<div class="wrap" title="${dt.taskType}" > ${dt.taskType} </div>`;
               dt.createdname = `<div class="wrap" title="${dt.createdname}"> ${dt.createdname} </div>`;
               dt.plandate = new Date(dt.plandate).toLocaleDateString();

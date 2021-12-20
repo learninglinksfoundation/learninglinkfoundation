@@ -1682,17 +1682,17 @@ function getMappedData(data,user){
 router.get('/getTasklist',verify,(request,response)=>{
   let date = request.query.date;
   let objUser=request.user;
-  /*let queryText = 'SELECT tsk.Id,tsk.sfid as sfids,usr.Name as userName,cont1.name as createdname,  usr.sfid as userSfid,tsk.Task_Assigned_by__c as assignedBy,tsk.Task_Type_Category__c as function,tsk.name as tskname,tsk.Task_Stage__c as stage,tsk.start_date__c ,tsk.Project_Name__c,tsk.Total_Hours__c ,tsk.assigned_manager__c,tsk.end_time__c,tsk.Task_Type__c,tsk.Planned_Hours__c,tsk.Start_Time__c,cont.sfid as contid ,cont.name as contname,proj.name as projname,tsk.createddate '+
+  let queryText = 'SELECT tsk.Id,tsk.sfid as sfids,usr.Name as userName,cont1.name as createdname,  usr.sfid as userSfid,tsk.Task_Assigned_by__c as assignedBy,tsk.Task_Type_Category__c as function,tsk.name as tskname,tsk.Task_Stage__c as stage,tsk.start_date__c ,tsk.Project_Name__c,tsk.Total_Hours__c ,tsk.assigned_manager__c,tsk.end_time__c,tsk.Task_Type__c,tsk.Planned_Hours__c,tsk.Start_Time__c,cont.sfid as contid ,cont.name as contname,proj.name as projname,tsk.createddate '+
                    'FROM salesforce.Milestone1_Task__c tsk '+ 
                    'INNER JOIN salesforce.Contact cont ON tsk.assigned_manager__c = cont.sfid '+
                    'INNER JOIN salesforce.USER usr ON tsk.CreatedById = usr.sfid '+
                    'INNER JOIN salesforce.Milestone1_Project__c proj ON tsk.Project_Name__c= proj.sfid '+
                    'INNER JOIN salesforce.Contact cont1 ON tsk.Task_Assigned_by__c = cont1.sfid '+
-                   'WHERE  tsk.Assigned_Manager__c= $1 AND tsk.sfid IS NOT NULL ';*/
-  let queryText = 'SELECT tsk.Id,tsk.sfid as sfids,usr.Name as userName,cont1.name as createdname,  usr.sfid as userSfid,tsk.Task_Assigned_by__c as assignedBy,tsk.Task_Type_Category__c as function,tsk.name as tskname,tsk.Task_Stage__c as stage,tsk.start_date__c ,tsk.Project_Name__c,tsk.Total_Hours__c ,tsk.assigned_manager__c,tsk.end_time__c,tsk.Task_Type__c,tsk.Planned_Hours__c,tsk.Start_Time__c,cont.sfid as contid ,cont.name as contname,proj.name as projname,tsk.createddate '+   
+                   'WHERE  tsk.Assigned_Manager__c= $1 AND tsk.sfid IS NOT NULL ';
+  /*let queryText = 'SELECT tsk.Id,tsk.sfid as sfids,usr.Name as userName,cont1.name as createdname,  usr.sfid as userSfid,tsk.Task_Assigned_by__c as assignedBy,tsk.Task_Type_Category__c as function,tsk.name as tskname,tsk.Task_Stage__c as stage,tsk.start_date__c ,tsk.Project_Name__c,tsk.Total_Hours__c ,tsk.assigned_manager__c,tsk.end_time__c,tsk.Task_Type__c,tsk.Planned_Hours__c,tsk.Start_Time__c,cont.sfid as contid ,cont.name as contname,proj.name as projname,tsk.createddate '+   
                    'FROM salesforce.Milestone1_Task__c tsk,salesforce.Contact cont,salesforce.USER usr,salesforce.Milestone1_Project__c proj ,salesforce.Contact cont1 '+
                    'WHERE tsk.assigned_manager__c = cont.sfid AND tsk.Project_Name__c= proj.sfid  AND tsk.Assigned_Manager__c= $1 AND tsk.sfid IS NOT NULL AND (tsk.Task_Assigned_by__c = cont1.sfid OR usr.sfid = tsk.Task_Assigned_by_Salesforce__c )'       
-                   
+  */         
  if(date){
   console.log(date);
     //let s = new Date(date);
