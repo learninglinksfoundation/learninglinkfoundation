@@ -278,6 +278,10 @@
           if(id && isOpen === 'true'){
               console.log('done');
               handleTableData(id);
+              setTimeout(function() {
+                 history.pushState('', '', 
+                 location.href.split('?')[0]);
+                }, 5000);
               
           }
       },1000);
@@ -366,6 +370,7 @@
               dt.taskType =  `<div class="wrap" title="${dt.taskType}"> ${dt.taskType} </div>`;
               dt.createdname = `<div class="wrap" title="${dt.createdname}"> ${dt.createdname} </div>`;
               dt.plandate = new Date(dt.plandate).toLocaleDateString();
+              dt.createDdate = new Date(dt.createDdate).toLocaleDateString();
             });
 
             table.setData(response, columns);
@@ -399,6 +404,7 @@
               dt.taskType =  `<div class="wrap" title="${dt.taskType}" > ${dt.taskType} </div>`;
               dt.createdname = `<div class="wrap" title="${dt.createdname}"> ${dt.createdname} </div>`;
               dt.plandate = new Date(dt.plandate).toLocaleDateString();
+              dt.createDdate = new Date(dt.createDdate).toLocaleDateString();
             });
             table.setData(response, columns);
             anchorClickFunctionalities();

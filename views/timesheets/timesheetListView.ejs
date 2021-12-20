@@ -152,6 +152,10 @@
           console.log(isOpen,id);
           if(id && isOpen === 'true'){
               handleTableData(id);
+              setTimeout(function() {
+                 history.pushState('', '', 
+                 location.href.split('?')[0]);
+                }, 5000);
               
           }
       },1000);
