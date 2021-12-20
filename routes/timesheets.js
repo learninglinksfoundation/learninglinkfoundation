@@ -1654,7 +1654,7 @@ function getMappedData(data,user){
                        'INNER JOIN salesforce.Contact cont ON tsk.assigned_manager__c = cont.sfid '+
                        'INNER JOIN salesforce.Milestone1_Project__c proj ON tsk.Project_Name__c= proj.sfid '+
                        'INNER JOIN salesforce.Contact cont1 ON tsk.Task_Assigned_by__c = cont1.sfid '+
-                       `WHERE tsk.sfid IS NOT NULL AND cont.sfid != '${objUser.sfid}' `; 
+                       `WHERE tsk.sfid IS NOT NULL AND cont1.sfid = '${objUser.sfid}' `; 
 
     pool
     .query(query)
