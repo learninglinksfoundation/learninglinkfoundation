@@ -763,7 +763,7 @@
                                     }  
                                  });
                                  console.log(list);
-                                 if(  confirm('Are you sure to Delete this record')  && list.length > 0){
+                                 if(  confirm('Are you sure to delete this record?')  && list.length > 0){
                                     console.log('inside');
                                     $.ajax({
                                             url : '/timesheets/deleteMultipleTask',
@@ -851,7 +851,7 @@
                                         console.log('endTime '+endDate);
                                        if(startDate == '')
                                         {
-                                            callToastForError('Error: Please Fill Actual Start Time','danger','errorMessagesss');
+                                            callToastForError('Error: Please Fill Actual Start Time in row '+(j+1),'danger','errorMessagesss');
                                             $('#fillActualsModal').scrollTop(0);
                                           //alert('Error: Please Fill Actual Start Time');
                                           return;
@@ -859,14 +859,14 @@
                                       
                                       else if(endDate == '')
                                         {
-                                            callToastForError('Error: Please Fill Actual End Time','danger','errorMessagesss');
+                                            callToastForError('Error: Please Fill Actual End Time in row '+(j+1),'danger','errorMessagesss');
                                              $('#fillActualsModal').scrollTop(0);
                                           //alert('Error: Please Fill Actual End Time');
                                           return;
                                         }
                                        else if(startDate > endDate)
                                         {
-                                            callToastForError('Error: Actual Start Time should be less than Actual End Time. !','danger','errorMessagesss');
+                                            callToastForError('Error: Actual Start Time should be less than Actual End Time in row '+(j+1),'danger','errorMessagesss');
                                              $('#fillActualsModal').scrollTop(0);
                                           //alert('Error: Actual Start Time should be less than Actual End Time. !');
                                           return;
@@ -997,21 +997,21 @@
                                        if(startDate == '')
                                         {
                                           //alert('Error: Please Fill Actual Start Time');
-                                          callToastForError('Error: Please Fill Actual Start Time','danger','errorMessageTask');
+                                          callToastForError('Error: Please Fill Actual Start Time in row '+(j+1),'danger','errorMessageTask');
                                           $('#taskModal').scrollTop(0);
                                           return;
                                         }
                                       
                                       else if(endDate == '')
                                         {
-                                            callToastForError('Error: Please Fill Actual End Time','danger','errorMessageTask');
+                                            callToastForError('Error: Please Fill Actual End Time in row '+(j+1),'danger','errorMessageTask');
                                             $('#taskModal').scrollTop(0);
                                           //alert('Error: Please Fill Actual End Time');
                                           return;
                                         }
                                        else if(startDate > endDate)
                                         {
-                                            callToastForError('Error: Actual Start Time should be less than Actual End Time. !','danger','errorMessageTask');
+                                            callToastForError('Error: Actual Start Time should be less than Actual End Time in row '+(j+1),'danger','errorMessageTask');
                                             $('#taskModal').scrollTop(0);
                                           //alert('Error: Actual Start Time should be less than Actual End Time. !');
                                           return;

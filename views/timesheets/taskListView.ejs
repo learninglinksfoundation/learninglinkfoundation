@@ -365,6 +365,7 @@
             response.forEach(dt=>{
               dt.taskType =  `<div class="wrap" title="${dt.taskType}"> ${dt.taskType} </div>`;
               dt.createdname = `<div class="wrap" title="${dt.createdname}"> ${dt.createdname} </div>`;
+              dt.plandate = new Date(dt.plandate).toLocaleDateString();
             });
 
             table.setData(response, columns);
@@ -397,7 +398,7 @@
             console.log(dt);
               dt.taskType =  `<div class="wrap" title="${dt.taskType}" > ${dt.taskType} </div>`;
               dt.createdname = `<div class="wrap" title="${dt.createdname}"> ${dt.createdname} </div>`;
-              
+              dt.plandate = new Date(dt.plandate).toLocaleDateString();
             });
             table.setData(response, columns);
             anchorClickFunctionalities();
@@ -450,14 +451,14 @@
         let idList = '';
 
           $('.checkBox').each(function(){
-            if(this.checked){
+            if(this.checked && !this.disabled ){
               idList = `${idList},'${this.dataset.id}'`;
               console.log(this.dataset.id)
           }
           });
       idList = idList.substring(1);
 
-      if( idList && confirm('Are you sure to Delete this record !')  ){
+      if( idList && confirm('Are you sure to delete this record?')  ){
         $.ajax({
         url : '/timesheets/deleteBulkTask',
         type:'get',
@@ -644,7 +645,7 @@
         let id = this.dataset.id;
         console.log(id);
 
-        if(id && confirm('Are you sure to Delete this record !') ){
+        if(id && confirm('Are you sure to delete this record?') ){
           $.ajax({
           url : '/timesheets/deleteTimesheet/'+id,
           type:'get',
@@ -681,7 +682,15 @@
     // let parentId = document.getElementById('parentId').innerHTML;
       let parentId = this.id;
     console.log('TaskId  '+parentId);
-    var r = confirm('Are you sure to Delete this record !');
+    /*let isTrue = false;
+    $('.checkBox').each(function(){
+        if(!this.disabled){
+          isTrue = this.dataset.id == parentId;
+          return false;
+        }
+    });*/
+
+    var r = confirm('Are you sure to delete this record?');
      // alert('Are you sure to  Delete this record !');
      if (r == true) 
             {
