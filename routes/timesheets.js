@@ -1631,12 +1631,12 @@ function getMappedData(data,user){
       response.send(data);
    })
    .catch(d=>{
-      response.send('errr');
+      response.send(d);
    })
   
 })
 
-
+//Task_Assigned_by_Salesforce__c
  router.get('/getMyTeamTask',verify,(request,response)=>{
     
     let objUser=request.user;
