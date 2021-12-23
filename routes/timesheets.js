@@ -1726,7 +1726,7 @@ router.get('/fetchTaskDetail',verify,(request,response)=>{
   'INNER JOIN salesforce.Contact cont ON tsk.assigned_manager__c = cont.sfid '+
   'INNER JOIN salesforce.Milestone1_Project__c proj ON tsk.Project_Name__c= proj.sfid '+
   'INNER JOIN salesforce.Milestone1_Milestone__c catego ON tsk.Project_Milestone__c= catego.sfid '+
-  'INNER JOIN salesforce.Contact cont1 ON tsk.Task_Assigned_by__c = cont1.sfid '+
+  'INNER join (select sfid,Name from salesforce.Contact ct union all select sfid,Name from salesforce.USER us ) cont1 on tsk.Task_Assigned_by__c = cont1.sfid OR cont1.sfid = tsk.Task_Assigned_by_Salesforce__c ' +
   'WHERE  tsk.sfid= $1 ';
   pool
  // .query('select sfid,name ,Assigned_Manager__c ,end_time__c,Task_Type__c,Planned_Hours__c,Start_Time__c FROM salesforce.Milestone1_Task__c where sfid=$1 ',[tskId])
