@@ -298,28 +298,23 @@
         pagination:true,
         sorting: ['sequence','createDdate'],
         tableWillMount: () => {
-            console.log('table will mount')
             
         },
         tableDidMount: () => {
-            console.log('table did mount');
 
             $('#spinner').hide();
         },
         tableWillUpdate: () => {
-            console.log('table will update')
         //  table.refresh();
         // onLoadTask();
         },
         tableDidUpdate: () => {
-        console.log('table did update');
          anchorClickFunctionalities();
          additionaldeleteFunctionality();
         },
         tableWillUnmount: () => console.log('table will unmount'),
         tableDidUnmount: () => console.log('table did unmount'),
         onPaginationChange: function(nextPage, setPage) {
-          console.log(nextPage,setPage);
             setPage(nextPage);
             addCheckBoxAction();
         },
@@ -459,7 +454,6 @@
           $('.checkBox').each(function(){
             if(this.checked && !this.disabled ){
               idList = `${idList},'${this.dataset.id}'`;
-              console.log(this.dataset.id)
           }
           });
       idList = idList.substring(1);
@@ -531,7 +525,6 @@
         
         .done((res)=>{
           $('#detailLoadingSpinner').hide();
-          console.log("jhdgjhd"+JSON.stringify(res));
           if(res.length>0)
           {
             let taskRecord = res[0];
@@ -650,7 +643,6 @@
       $('.timeSheetDeleteBtn').on('click',function(){
 
         let id = this.dataset.id;
-        console.log(id);
 
         if(id && confirm('Are you sure to delete this record?') ){
           $.ajax({
@@ -660,7 +652,6 @@
 
           })
           .done((response) => {
-                console.log('resonse   :'+response);
                 if(response == 200)
                 alert("Task Deleted Succesfullly !");
                 window.location.reload()
@@ -688,7 +679,6 @@
     //  $('#parentId').hide();
     // let parentId = document.getElementById('parentId').innerHTML;
       let parentId = this.id;
-    console.log('TaskId  '+parentId);
     /*let isTrue = false;
     $('.checkBox').each(function(){
         if(!this.disabled){
@@ -709,7 +699,6 @@
 
     })
     .done((response) => {
-          console.log('resonse   :'+response);
           if(response == 200)
           alert("Task Deleted Succesfullly !");
           window.location.reload()
@@ -744,7 +733,6 @@
                         })  
                         .done((response)=>{
                           //  alert(JSON.stringify(response));
-                          console.log('taskDetail  : '+JSON.stringify(response));
                           let taskDetail = response[0];
                           document.forms["editTaskForm"]["tskName"].value = taskDetail.name;
                          document.forms["editTaskForm"]["assigneTo"].value = taskDetail.assigned_manager__c;
