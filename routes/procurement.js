@@ -508,7 +508,7 @@ router.get('/details',verify, async(request, response) => {
     var isEnableNewButton ;
     var assetFormAndRelatedRecords = {};
 
-    let qyr1='SELECT asset.id,asset.Comments_by_Management_Team__c,asset.Comments_by_Raiser__c,asset.Comments_by_Chairperson__c,asset.Total_Approved_budget_as_per_purchase__c,asset.Comments_by_Procurement_Committee__c, asset.sfid,asset.name as name ,asset.Requested_Closure_Plan_Date__c,asset.Project_Department__c,asset.Activity_Code_Project__c as actname, '+
+    let qyr1='SELECT asset.id,asset.is_there_any_invoice_attached__c,asset.Comments_by_Management_Team__c,asset.Comments_by_Raiser__c,asset.Comments_by_Chairperson__c,asset.Total_Approved_budget_as_per_purchase__c,asset.Comments_by_Procurement_Committee__c, asset.sfid,asset.name as name ,asset.Requested_Closure_Plan_Date__c,asset.Project_Department__c,asset.Activity_Code_Project__c as actname, '+
  'asset.Manager_Approval__c,asset.Management_Approval__c,asset.Procurement_Committee_Approval__c,asset.Chairperson_Approval__c,'+
  'asset.Accounts_Approval__c,asset.Procurement_Head_Approval__c,'+
  'asset.Number_Of_IT_Product__c,asset.Number_Of_Non_IT_Product__c,asset.Procurement_IT_total_amount__c,asset.Procurement_Non_IT_total_amount__c, asset.Total_amount__c,proj.name as projname,proj.sfid, '+

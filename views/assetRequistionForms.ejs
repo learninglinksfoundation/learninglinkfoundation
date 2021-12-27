@@ -1003,26 +1003,7 @@
 
 
 
-/*
-    
-    assetDetailsTableRows += '<tr>';
-    assetDetailsTableRows += '<td colspan="4" style="background-color:#d3d3d3;"><h5>Amount Information</h5></td>'; 
-    assetDetailsTableRows += '</tr>';
-    
-    assetDetailsTableRows += '<tr>';
-    assetDetailsTableRows += '<td><strong>Procurement-IT total amount<strong></td>';
-    assetDetailsTableRows += '<td>'+assetDetailsRecord.procurement_it_total_amount__c+'</td>';
-      assetDetailsTableRows += '<td><strong>Procurement-Non IT total amount<strong></td>';
-      assetDetailsTableRows += '<td>'+assetDetailsRecord.procurement_non_it_total_amount__c+'</td>';
-      assetDetailsTableRows += '</tr>'; 
-      
-      assetDetailsTableRows += '<tr>';
-      assetDetailsTableRows += '<td><strong>Total Amount<strong></td>';
-      assetDetailsTableRows += '<td>'+assetDetailsRecord.total_amount__c+'</td>';
-      assetDetailsTableRows += '<td><strong><strong></td>';
-      assetDetailsTableRows += '<td></td>';
-      assetDetailsTableRows += '</tr>'; 
-*/
+
       assetDetailsTableRows += '<tr>';
       assetDetailsTableRows += '<td colspan="4" style="background-color:#d3d3d3;"><h5>Purchase Order Checklist</h5></td>'; 
       assetDetailsTableRows += '</tr>';
@@ -1037,7 +1018,7 @@
       assetDetailsTableRows += '<td><strong>Pricing Terms/Cost comparison<strong></td>';
         assetDetailsTableRows += '<td>'+assetDetailsRecord.pricing_terms_cost_comparison__c+'</td>';      
     //  assetDetailsTableRows += '<td>'+assetDetailsRecord.pricing_terms_cost_comparison__c+'</td>';
-      assetDetailsTableRows += '<td><strong>Delivery Place<strong></td>';
+      assetDetailsTableRows += '<td><strong>Delivery Place - Full Address & Details<strong></td>';
       assetDetailsTableRows += '<td>'+assetDetailsRecord.delivery_terms_delivery_place__c+'</td>';
       assetDetailsTableRows += '</tr>'; 
       assetDetailsTableRows += '<tr>';
@@ -1048,7 +1029,7 @@
          else{
       assetDetailsTableRows +='<td>'+assetDetailsRecord.delivery_terms_delivery_time__c+'</td>';
             }
-      assetDetailsTableRows += '<td><strong>Delivery cost(transport cost,etc)<strong></td>';
+      assetDetailsTableRows += '<td><strong>Delivery Cost - Amount in INR<strong></td>';
       assetDetailsTableRows += '<td>'+assetDetailsRecord.delivery_cost_incl__c+'</td>';
       assetDetailsTableRows += '</tr>'; 
 
@@ -1060,7 +1041,7 @@
     assetDetailsTableRows += '<td><strong>PM Approval(Amount<=10k, 10k-30k)<strong></td>';
     assetDetailsTableRows += '<td>'+assetDetailsRecord.manager_approval__c+'</td>';
     assetDetailsTableRows += '<td><strong>Proc. Head Approval(Amount= 10k-30k)<strong></td>';
-    assetDetailsTableRows += '<td>'+assetDetailsRecord. procurement_head_approval__c+'</td>';
+    assetDetailsTableRows += '<td>'+assetDetailsRecord.procurement_head_approval__c+'</td>';
     assetDetailsTableRows += '</tr>';
     assetDetailsTableRows += '<tr>';
     assetDetailsTableRows += '<tr>';
@@ -1110,7 +1091,7 @@
     assetDetailsTableRows += '</tr>';
     assetDetailsTableRows += '<tr>';
         assetDetailsTableRows += '<tr>';
-    assetDetailsTableRows += '<td><strong>P.O Attachment<strong></td>';
+    assetDetailsTableRows += '<td><strong>P.O. signed by LLF Attachment<strong></td>';
     assetDetailsTableRows += '<td>'+assetDetailsRecord.p_o_attachment__c +'</td>';
     assetDetailsTableRows += '<td><strong>PO Attachment URL<strong></td>';
     if(assetDetailsRecord.po_attachment_url__c!="demo"){
@@ -1133,8 +1114,8 @@
     else{
     assetDetailsTableRows +='<td></td>';
     }
-    assetDetailsTableRows += '<td><strong><strong></td>';
-    assetDetailsTableRows += '<td></td>';
+    assetDetailsTableRows += '<td><strong>Is there any Invoice attached?<strong></td>';
+    assetDetailsTableRows += '<td>assetDetailsRecord.is_there_any_invoice_attached__c</td>';
     assetDetailsTableRows += '</tr>'; 
     
     assetDetailsTableRows += '<tr>';
