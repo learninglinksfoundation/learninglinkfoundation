@@ -521,7 +521,7 @@ router.get('/details',verify, async(request, response) => {
   'INNER JOIN salesforce.Milestone1_Project__c proj ON asset.Project_Department__c =  proj.sfid '+
    'WHERE asset.sfid = $1';
     
- let qyr='SELECT asset.id, asset.sfid,asset.name as name ,act.name as actname,asset.Requested_Closure_Plan_Date__c,asset.Project_Department__c, '+
+ let qyr='SELECT asset.id, asset.Comments_by_Management_Team__c,asset.Comments_by_Raiser__c,asset.Comments_by_Chairperson__c,asset.Total_Approved_budget_as_per_purchase__c,asset.Comments_by_Procurement_Committee__c,asset.sfid,asset.name as name ,act.name as actname,asset.Requested_Closure_Plan_Date__c,asset.Project_Department__c, '+
  'asset.Manager_Approval__c,asset.Management_Approval__c,asset.Procurement_Committee_Approval__c,asset.Chairperson_Approval__c,'+
  'asset.Accounts_Approval__c,asset.Procurement_Head_Approval__c,'+
  'asset.Number_Of_IT_Product__c,asset.Number_Of_Non_IT_Product__c,asset.Procurement_IT_total_amount__c,asset.Procurement_Non_IT_total_amount__c, asset.Total_amount__c,proj.name as projname,proj.sfid, '+
