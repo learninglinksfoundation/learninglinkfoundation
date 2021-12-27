@@ -639,33 +639,6 @@
   </div>
 </div>
 </div>
-<!--
-<div class="card" style="display:none" >
-<div class="card-header" id="headingTwo">
-  <h5 class="mb-0">
-      <button class="btn btn-link collapsed text-left" type="button"
-          data-toggle="collapse" data-target="#collapseTwo"
-          aria-expanded="false" aria-controls="collapseTwo">
-          <i class="fa fa-angle-double-right mr-3"></i>Procurement-IT
-        </button>
-        <a href="#" class="btn btn-primary float-right procurementIT" id="pettyCashButton2" style="color:white;">New</a>
-      </h5>
-    </div>
-    <div id="collapseTwo" class="collapse fade" aria-labelledby="headingTwo"
-        data-parent="#accordionExample">
-        <div class="card-body" style="overflow-y: auto;">
-              <table id="procuremnetItTable" class="table table-hover striped">
-              <thead>
-              <th>Procuremnet_-IT ID</th>
-              <th>Items</th>
-              <th>Quantity</th>
-              <th>Budget</th>
-              </thead>
-            </table>
-          </div>
-      </div>
-  </div>
--->
 
   <div class="card">
       <div class="card-header" id="headingThree">
@@ -906,7 +879,7 @@
             if(buttonDisable ===true ){
           //   document.getElementById("pettyCashButton").setAttribute('disabled',true);
                 document.getElementById("pettyCashButton").classList.add("anchorDisable");
-                document.getElementById("pettyCashButton2").classList.add("anchorDisable");
+                //document.getElementById("pettyCashButton2").classList.add("anchorDisable");
               //  document.getElementById("notes").classList.add("anchorDisable");
             }
            
@@ -927,7 +900,7 @@
             })
             .done((assetDetails) =>{
     console.log('assetDetails : '+JSON.stringify(assetDetails));
-    $('#procuremnetItTable').empty();$('#procuremnetNonItTable').empty();
+    //$('#procuremnetItTable').empty();$('#procuremnetNonItTable').empty();
     if(assetDetails.assetFormDetails.length > 0)
     {
     console.log('Inside Asset Details'); 
@@ -1180,8 +1153,8 @@
                             itProductTable += '<td>'+eachIt.budget__c +'</td></tr>';      
                         })
                         itProductTable+=  '<td colspan="6"><center><a target="_blank" href="/procurement/getProcurementItListView/'+assetId+'&'+buttonDisable+'">View All</a></centre></td>';
-                            $('#procuremnetItTable').empty();
-                        $('#procuremnetItTable').append(itProductTable);   
+                            //$('#procuremnetItTable').empty();
+                        //$('#procuremnetItTable').append(itProductTable);   
                     }
                     if(assetDetails.approvals.length > 0)
                     {
@@ -1869,3 +1842,32 @@ function accountsApprovalFunctionality(){
       })
     
 </script>
+
+
+<!--
+<div class="card" style="display:none" >
+<div class="card-header" id="headingTwo">
+  <h5 class="mb-0">
+      <button class="btn btn-link collapsed text-left" type="button"
+          data-toggle="collapse" data-target="#collapseTwo"
+          aria-expanded="false" aria-controls="collapseTwo">
+          <i class="fa fa-angle-double-right mr-3"></i>Procurement-IT
+        </button>
+        <a href="#" class="btn btn-primary float-right procurementIT" id="pettyCashButton2" style="color:white;">New</a>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse fade" aria-labelledby="headingTwo"
+        data-parent="#accordionExample">
+        <div class="card-body" style="overflow-y: auto;">
+              <table id="procuremnetItTable" class="table table-hover striped">
+              <thead>
+              <th>Procuremnet_-IT ID</th>
+              <th>Items</th>
+              <th>Quantity</th>
+              <th>Budget</th>
+              </thead>
+            </table>
+          </div>
+      </div>
+  </div>
+-->
