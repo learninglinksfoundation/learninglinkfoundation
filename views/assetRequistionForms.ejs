@@ -1115,7 +1115,9 @@
     assetDetailsTableRows +='<td></td>';
     }
     assetDetailsTableRows += '<td><strong><strong></td>';
-    assetDetailsTableRows += '<td></td>';
+    assetDetailsTableRows += '<td>Is there any Invoice attached?</td>';
+
+    assetDetailsTableRows += `<td>${assetDetailsRecord.is_there_any_invoice_attached__c}</td>`;
     assetDetailsTableRows += '</tr>'; 
     
     assetDetailsTableRows += '<tr>';
