@@ -796,7 +796,7 @@
     //  location.assign('/procurement/nonItProducts/'+assetId);
       window.open('/procurement/nonItProducts/'+assetId+'&'+buttonDisable,'_blank');
       });
-      $('a.procurementIT').click(() => {
+      /*$('a.procurementIT').click(() => {
       console.log('procurementIT anchor tag ');
       var assetId = document.getElementById('expenseIdpTag').innerHTML;
       console.log('assetId : '+assetId);
@@ -804,7 +804,7 @@
             console.log(' button Disable + '+buttonDisable);
      // location.assign('/procurement/itProducts/'+assetId);
       window.open('/procurement/itProducts/'+assetId+'&'+buttonDisable,'_blank');
-      });
+      });*/
       $('a.notes').on('click',function(event){
       //alert('Hello'+this.id);
       var assetId = document.getElementById('expenseIdpTag').innerHTML;
@@ -1266,153 +1266,138 @@
       console.log('text  '+text + '  err '+err);
   })
 */
-    $.get("/procurement/assetEditDetails",{assetId : assetId},
-    function(assetDetailsRecord){
-    //console.log('Edit assetDetails : '+JSON.stringify(assetDetailsRecord));
-    let assetRecord = assetDetailsRecord.asset[0];
-    console.log('nckjnckj');
-    if((assetRecord.manager_approval__c=='Pending' || assetRecord.manager_approval__c=='Approved') || (assetRecord.Procurement_Head_Approval__c=='Pending' ||assetRecord.Procurement_Head_Approval__c=='Approved') || (assetRecord.procurement_committee_approval__c=='Pending' || assetRecord.procurement_committee_approval__c=='Approved') || (assetRecord.Management_Approval__c=='Pending' || assetRecord.management_approval__c=='Approved') || (assetRecord.chairperson_approval__c=='Pending' || assetRecord.chairperson_approval__c=='Approved' ))                                                        
-    {
-      console.log('hdjsj');
-      
-        console.log('Validation pqass');
-        $('#assetName').attr("readonly",true);
-        $('#datepicker1').attr("readonly",true);
-        $('#activityCode').attr("readonly",true);
-        $('#quotations').attr("disabled",true);
-      $('#reason').attr("readonly",true);
-      $('#pricing').attr("readonly",true);
-      $('#deliveryPlace').attr("readonly",true);
-      $('#deliveryTime').attr("readonly",true);
-      $('#deliveryCost').attr("readonly",true);
-    }
+    $.get("/procurement/assetEditDetails", {
+    assetId: assetId
+    },
+    function(assetDetailsRecord) {
+        //console.log('Edit assetDetails : '+JSON.stringify(assetDetailsRecord));
+        if(assetDetailsRecord.asset.length > 0){
+        let assetRecord = assetDetailsRecord.asset[0];
+        console.log('nckjnckj');
+        if ((assetRecord.manager_approval__c == 'Pending' || assetRecord.manager_approval__c == 'Approved') || (assetRecord.Procurement_Head_Approval__c == 'Pending' || assetRecord.Procurement_Head_Approval__c == 'Approved') || (assetRecord.procurement_committee_approval__c == 'Pending' || assetRecord.procurement_committee_approval__c == 'Approved') || (assetRecord.Management_Approval__c == 'Pending' || assetRecord.management_approval__c == 'Approved') || (assetRecord.chairperson_approval__c == 'Pending' || assetRecord.chairperson_approval__c == 'Approved')) {
+            console.log('hdjsj');
 
-    if(assetRecord.total_amount__c==0){
-      $('#quotations').attr("disabled",true);
-      $('#reason').attr("disabled",true);
-      $('#pricing').attr("disabled",true);
-      $('#deliveryPlace').attr("disabled",true);
-      $('#deliveryTime').attr("disabled",true);
-      $('#deliveryCost').attr("disabled",true);
-    }
-      
-    //let activityCodes = assetDetailsRecord.activity[0];
-    let activityCodes = [];
-    for(let i=0; i< assetDetailsRecord.activity.length ;i++)
-          {
+            console.log('Validation pqass');
+            $('#assetName').attr("readonly", true);
+            $('#datepicker1').attr("readonly", true);
+            $('#activityCode').attr("readonly", true);
+            $('#quotations').attr("disabled", true);
+            $('#reason').attr("readonly", true);
+            $('#pricing').attr("readonly", true);
+            $('#deliveryPlace').attr("readonly", true);
+            $('#deliveryTime').attr("readonly", true);
+            $('#deliveryCost').attr("readonly", true);
+        }
+
+        if (assetRecord.total_amount__c == 0) {
+            $('#quotations').attr("disabled", true);
+            $('#reason').attr("disabled", true);
+            $('#pricing').attr("disabled", true);
+            $('#deliveryPlace').attr("disabled", true);
+            $('#deliveryTime').attr("disabled", true);
+            $('#deliveryCost').attr("disabled", true);
+        }
+
+        //let activityCodes = assetDetailsRecord.activity[0];
+        let activityCodes = [];
+        for (let i = 0; i < assetDetailsRecord.activity.length; i++) {
             activityCodes.push(assetDetailsRecord.activity[i]);
-          }
-          console.log('Asset Details list'+JSON.stringify(assetRecord));
-      console.log('Activity Codes'+JSON.stringify(activityCodes));
-      let strReceivingGoodsDate=''; 
-      let strclousreActualDate='';
-      let clousrePlanDate =''; 
-      let clousreActualDate = new Date(assetRecord.requested_closure_actual_date__c);
-      console.log('clousreActualDate '+clousreActualDate);
-      if(assetRecord.requested_closure_actual_date__c!=null){
-      strclousreActualDate = assetRecord.requested_closure_actual_date__c.split('T')[0];
-      }
-      
-      // console.log('strclousreActualDate : '+strclousreActualDate);
-      if(assetRecord.requested_closure_plan_date__c!=null)
-      {
-      clousrePlanDate = assetRecord.requested_closure_plan_date__c.split('T')[0];
-      }
-      if(assetRecord.date_of_receiving_goods__c!=null){
-      //strReceivingGoodsDate = assetRecord.date_of_receiving_goods__c.split('T')[0];
-      console.log('strReceivingGoodsDate : '+strReceivingGoodsDate +' :clousrePlanDate '+ clousrePlanDate);
-      }
-      
-             $('#activityCode').empty();
-             $('#activityCode')
-                   .append($("<option></option>")
-                   .attr("value",'')
-                   .text('None'));
-            for(let i=0; i< activityCodes.length ;i++)
-                {
-                  $('#activityCode')
-                   .append($("<option></option>")
-                   .attr("value",activityCodes[i].sfid)
-                   .text(activityCodes[i].name));	
-                }
-               
+        }
+        console.log('Asset Details list' + JSON.stringify(assetRecord));
+        console.log('Activity Codes' + JSON.stringify(activityCodes));
+        let strReceivingGoodsDate = '';
+        let strclousreActualDate = '';
+        let clousrePlanDate = '';
+        let clousreActualDate = new Date(assetRecord.requested_closure_actual_date__c);
+        console.log('clousreActualDate ' + clousreActualDate);
+        if (assetRecord.requested_closure_actual_date__c != null) {
+            strclousreActualDate = assetRecord.requested_closure_actual_date__c.split('T')[0];
+        }
 
-      
-    /*   $('#activityCode').on('change',function(){
-          let taskId = this.value;
-          let selectedCode = activityCodes.filter((eachCode)=> {
-            if(eachCode.sfid == taskId)
-              return eachCode;
-          })
-          let label = selectedCode[0].name;
-          document.getElementById('projectTask').value = label;
-        //  $('#projectTask'+cnt).value = label;
-          console.log('label  :'+label+' value : '+taskId);
-      }) -->
-      */
-      
- document.forms["editAssetForm"]["assetName"].value = assetRecord.name;
- document.forms["editAssetForm"]["projectName"].value = assetRecord.projname;
-//document.forms["editAssetForm"]["closureActualDate"].value = strclousreActualDate;
- document.forms["editAssetForm"]["datepicker1"].value =clousrePlanDate;
- if( assetRecord.activity_code_project__c!=null ){
-  document.forms["editAssetForm"]["activityCode"].value = assetRecord.activity_code_project__c;
- }
- 
- if( assetRecord.accounts_approval__c!=null ){
-  document.forms["editAssetForm"]["accApproval"].value = assetRecord.accounts_approval__c; 
- }
- document.forms["editAssetForm"]["utr"].value = assetRecord.utr_number_transaction_details__c; 
- if( assetRecord.advance_payment_status__!=null ){
-  document.forms["editAssetForm"]["advpay"].value = assetRecord.advance_payment_status__c;
+        // console.log('strclousreActualDate : '+strclousreActualDate);
+        if (assetRecord.requested_closure_plan_date__c != null) {
+            clousrePlanDate = assetRecord.requested_closure_plan_date__c.split('T')[0];
+        }
+        if (assetRecord.date_of_receiving_goods__c != null) {
+            //strReceivingGoodsDate = assetRecord.date_of_receiving_goods__c.split('T')[0];
+            console.log('strReceivingGoodsDate : ' + strReceivingGoodsDate + ' :clousrePlanDate ' + clousrePlanDate);
+        }
 
- } 
- document.forms["editAssetForm"]["attachurl"].value = assetRecord.po_attachment_url__c; 
- if( assetRecord.p_o_attachment__c!=null ){
-  document.forms["editAssetForm"]["attachment"].value = assetRecord.p_o_attachment__c; 
- }
- if( assetRecord.status__c!=null ){
-  document.forms["editAssetForm"]["status"].value = assetRecord.status__c;  
- }
- 
- if( assetRecord.payment_received_acknowledgement__c!=null ){
-  document.forms["editAssetForm"]["payement"].value = assetRecord.payment_received_acknowledgement__c;
-}
- 
- if( assetRecord.payment_status__c!=null ){
-  document.forms["editAssetForm"]["paymentStatus"].value = assetRecord.payment_status__c;
- }
- 
- document.forms["editAssetForm"]["receiverName"].value = assetRecord.receiver_name__c;
- document.forms["editAssetForm"]["receivedQuantity"].value = assetRecord.received_quantity_goods__c;
- document.forms["editAssetForm"]["goodsDate"].value = strReceivingGoodsDate;
- console.log('assetRecord.sfidt;'+assetRecord.sfidt);
- document.forms["editAssetForm"]["assetsfid"].value = assetRecord.sfidt;
- document.forms["editAssetForm"]["quotations"].value = assetRecord.if_3_quotations_specify_reason__c;
- document.forms["editAssetForm"]["reason"].value = assetRecord.reason_for_non_registered_gst_vendor__c;
- document.forms["editAssetForm"]["pricing"].value = assetRecord.pricing_terms_cost_comparison__c;
- document.forms["editAssetForm"]["deliveryPlace"].value = assetRecord.delivery_terms_delivery_place__c;
-if(assetRecord.delivery_terms_delivery_time__c!=null){
-    document.forms["editAssetForm"]["deliveryTime"].value = assetRecord.delivery_terms_delivery_time__c.split('T')[0];
-    console.log('aman');
-}
- document.forms["editAssetForm"]["deliveryCost"].value = assetRecord.delivery_cost_incl__c;
- document.forms["editAssetForm"]["quotations"].value = assetRecord.if_3_quotations_specify_reason__c;
- document.forms["editAssetForm"]["reason"].value = assetRecord.reason_for_non_registered_gst_vendor__c;
- document.forms["editAssetForm"]["pricing"].value = assetRecord.pricing_terms_cost_comparison__c;
- document.forms["editAssetForm"]["totamt"].value = assetRecord.total_amount__c;
+        $('#activityCode').empty();
+        $('#activityCode')
+            .append($("<option></option>")
+                .attr("value", '')
+                .text('None'));
+        for (let i = 0; i < activityCodes.length; i++) {
+            $('#activityCode')
+                .append($("<option></option>")
+                    .attr("value", activityCodes[i].sfid)
+                    .text(activityCodes[i].name));
+        }
 
- /*
-  console.log('checkedchecked'+JSON.stringify($('#quotations').val));
- $('#quotations').prop('checked', assetRecord.if_3_quotations_specify_reason__c);
- $('#reason').prop('checked', assetRecord.reason_for_non_registered_gst_vendor__c);
- $('#pricing').prop('checked', assetRecord.pricing_terms_cost_comparison__c);
- */
-}).fail(function(jqXHR, status, error){
- console.log('jqXHR : '+JSON.stringify(jqXHR));
- console.log('textStatus : '+textStatus);
- })
- });
+        document.forms["editAssetForm"]["assetName"].value = assetRecord.name;
+        document.forms["editAssetForm"]["projectName"].value = assetRecord.projname;
+        //document.forms["editAssetForm"]["closureActualDate"].value = strclousreActualDate;
+        document.forms["editAssetForm"]["datepicker1"].value = clousrePlanDate;
+        if (assetRecord.activity_code_project__c != null) {
+            document.forms["editAssetForm"]["activityCode"].value = assetRecord.activity_code_project__c;
+        }
+
+        if (assetRecord.accounts_approval__c != null) {
+            document.forms["editAssetForm"]["accApproval"].value = assetRecord.accounts_approval__c;
+        }
+        document.forms["editAssetForm"]["utr"].value = assetRecord.utr_number_transaction_details__c;
+        if (assetRecord.advance_payment_status__ != null) {
+            document.forms["editAssetForm"]["advpay"].value = assetRecord.advance_payment_status__c;
+
+        }
+        document.forms["editAssetForm"]["attachurl"].value = assetRecord.po_attachment_url__c;
+        if (assetRecord.p_o_attachment__c != null) {
+            document.forms["editAssetForm"]["attachment"].value = assetRecord.p_o_attachment__c;
+        }
+        if (assetRecord.status__c != null) {
+            document.forms["editAssetForm"]["status"].value = assetRecord.status__c;
+        }
+
+        if (assetRecord.payment_received_acknowledgement__c != null) {
+            document.forms["editAssetForm"]["payement"].value = assetRecord.payment_received_acknowledgement__c;
+        }
+
+        if (assetRecord.payment_status__c != null) {
+            document.forms["editAssetForm"]["paymentStatus"].value = assetRecord.payment_status__c;
+        }
+
+        document.forms["editAssetForm"]["receiverName"].value = assetRecord.receiver_name__c;
+        document.forms["editAssetForm"]["receivedQuantity"].value = assetRecord.received_quantity_goods__c;
+        document.forms["editAssetForm"]["goodsDate"].value = strReceivingGoodsDate;
+        console.log('assetRecord.sfidt;' + assetRecord.sfidt);
+        document.forms["editAssetForm"]["assetsfid"].value = assetRecord.sfidt;
+        document.forms["editAssetForm"]["quotations"].value = assetRecord.if_3_quotations_specify_reason__c;
+        document.forms["editAssetForm"]["reason"].value = assetRecord.reason_for_non_registered_gst_vendor__c;
+        document.forms["editAssetForm"]["pricing"].value = assetRecord.pricing_terms_cost_comparison__c;
+        document.forms["editAssetForm"]["deliveryPlace"].value = assetRecord.delivery_terms_delivery_place__c;
+        if (assetRecord.delivery_terms_delivery_time__c != null) {
+            document.forms["editAssetForm"]["deliveryTime"].value = assetRecord.delivery_terms_delivery_time__c.split('T')[0];
+            console.log('aman');
+        }
+        document.forms["editAssetForm"]["deliveryCost"].value = assetRecord.delivery_cost_incl__c;
+        document.forms["editAssetForm"]["quotations"].value = assetRecord.if_3_quotations_specify_reason__c;
+        document.forms["editAssetForm"]["reason"].value = assetRecord.reason_for_non_registered_gst_vendor__c;
+        document.forms["editAssetForm"]["pricing"].value = assetRecord.pricing_terms_cost_comparison__c;
+        document.forms["editAssetForm"]["totamt"].value = assetRecord.total_amount__c;
+
+        /*
+         console.log('checkedchecked'+JSON.stringify($('#quotations').val));
+        $('#quotations').prop('checked', assetRecord.if_3_quotations_specify_reason__c);
+        $('#reason').prop('checked', assetRecord.reason_for_non_registered_gst_vendor__c);
+        $('#pricing').prop('checked', assetRecord.pricing_terms_cost_comparison__c);
+        */
+    }
+    }).fail(function(jqXHR, status, error) {
+        console.log('jqXHR : ' + JSON.stringify(jqXHR));
+        console.log('textStatus : ' + textStatus);
+    })
+    });
  /* Clearing the fields when a modal is closed */
  $('[data-dismiss=modal]').on('click', function (e) {
  var $t = $(this),
