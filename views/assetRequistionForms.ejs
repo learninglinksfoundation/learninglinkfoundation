@@ -1271,7 +1271,7 @@
     },
     function(assetDetailsRecord) {
         //console.log('Edit assetDetails : '+JSON.stringify(assetDetailsRecord));
-        if(assetDetailsRecord.asset.length > 0){
+        if(assetDetailsRecord.asset && assetDetailsRecord.asset.length > 0){
         let assetRecord = assetDetailsRecord.asset[0];
         console.log('nckjnckj');
         if ((assetRecord.manager_approval__c == 'Pending' || assetRecord.manager_approval__c == 'Approved') || (assetRecord.Procurement_Head_Approval__c == 'Pending' || assetRecord.Procurement_Head_Approval__c == 'Approved') || (assetRecord.procurement_committee_approval__c == 'Pending' || assetRecord.procurement_committee_approval__c == 'Approved') || (assetRecord.Management_Approval__c == 'Pending' || assetRecord.management_approval__c == 'Approved') || (assetRecord.chairperson_approval__c == 'Pending' || assetRecord.chairperson_approval__c == 'Approved')) {
