@@ -583,7 +583,7 @@ router.get('/details',verify, async(request, response) => {
         assetFormAndRelatedRecords.nonItProducts = [];
     })
 
-    await
+    /*await
     pool
     .query('SELECT sfid, Name, Items__c, Quantity__c, Budget__c FROM salesforce.Product_Line_Item_IT__c WHERE Asset_Requisition_Form__c = $1 ',[assetId])
     .then((ItProductResult) => {
@@ -601,7 +601,7 @@ router.get('/details',verify, async(request, response) => {
         console.log('ItProductError   '+ItProductError.stack);
         assetFormAndRelatedRecords.itProducts = [];
     })
-
+*/
 
     await
     pool
