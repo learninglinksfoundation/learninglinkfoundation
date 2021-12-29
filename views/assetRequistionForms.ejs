@@ -1270,6 +1270,7 @@
     assetId: assetId
     },
     function(assetDetailsRecord) {
+        console.log(assetDetailsRecord);
         //console.log('Edit assetDetails : '+JSON.stringify(assetDetailsRecord));
         if(assetDetailsRecord.asset && assetDetailsRecord.asset.length > 0){
         let assetRecord = assetDetailsRecord.asset[0];
@@ -1392,11 +1393,11 @@
         $('#reason').prop('checked', assetRecord.reason_for_non_registered_gst_vendor__c);
         $('#pricing').prop('checked', assetRecord.pricing_terms_cost_comparison__c);
         */
-    }
-    }).fail(function(jqXHR, status, error) {
-        console.log('jqXHR : ' + JSON.stringify(jqXHR));
-        console.log('textStatus : ' + textStatus);
-    })
+        }})
+        .fail(function(jqXHR, status, error) {
+            console.log('jqXHR : ' + JSON.stringify(jqXHR));
+            console.log('textStatus : ' + textStatus);
+        })
     });
  /* Clearing the fields when a modal is closed */
  $('[data-dismiss=modal]').on('click', function (e) {
