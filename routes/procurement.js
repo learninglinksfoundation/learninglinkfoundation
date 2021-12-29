@@ -316,6 +316,7 @@ router.get('/assetEditDetails',verify ,async(request, response) =>{
                         pool
                         .query('SELECT sfid, Name, Team__c FROM salesforce.Team_Member__c WHERE Representative__c = $1 ;',[objUser.sfid])
                         .then(teamMemberResult => {
+                            if(teamMemberResult.rowCount > 0){
                             console.log('Name of TeamMemberId  : '+teamMemberResult.rows[0].name+' sfid :'+teamMemberResult.rows[0].sfid);
                             console.log('Team Id  : '+teamMemberResult.rows[0].team__c);
                             console.log('Number of Team Member '+teamMemberResult.rows.length);
@@ -358,6 +359,7 @@ router.get('/assetEditDetails',verify ,async(request, response) =>{
                                 console.log('projectTeamQueryError  '+projectTeamQueryError.stack);
                                 response.send({});
                             })
+                            }
                             })
                             .catch((teamMemberQueryError) => {
                             console.log('teamMemberQueryError  '+teamMemberQueryError.stack);
