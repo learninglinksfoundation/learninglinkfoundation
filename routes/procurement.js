@@ -282,7 +282,7 @@ router.get('/assetEditDetails',verify ,async(request, response) =>{
                                  if(ProcurementQueryResult.rowCount > 0)
                                  {
                                     activity = ProcurementQueryResult.rows[0] ;
-                                    console.log('activity ++ '+activity);
+                                    console.log('activity ++ ',activity);
                                    projectId = activity.project_department__c;
                                    console.log('Inside Procurement query  : '+projectId);
                                    pool
@@ -304,7 +304,7 @@ router.get('/assetEditDetails',verify ,async(request, response) =>{
                                    })
                                    .catch((activityCodeQueryError) => {
                                      console.log('activityCodeQueryError  : '+activityCodeQueryError.stack);
-                                     response.send([]);
+                                     response.send({});
                                    })
                                  }
                                })
@@ -361,7 +361,7 @@ router.get('/assetEditDetails',verify ,async(request, response) =>{
                             })
                             }
                             else{
-                                response.send({});
+                                response.send(objData);
                             }
                             })
                             .catch((teamMemberQueryError) => {
