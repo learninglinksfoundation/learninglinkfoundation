@@ -360,6 +360,9 @@ router.get('/assetEditDetails',verify ,async(request, response) =>{
                                 response.send({});
                             })
                             }
+                            else{
+                                response.send({});
+                            }
                             })
                             .catch((teamMemberQueryError) => {
                             console.log('teamMemberQueryError  '+teamMemberQueryError.stack);
