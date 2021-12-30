@@ -1410,9 +1410,9 @@
         $('#commentsRaiser').val(assetRecord.comments_by_raiser__c);
         $('#chairTeam').val(assetRecord.comments_by_chairperson__c);
         $('#procureTeam').val(assetRecord.comments_by_procurement_committee__c);
-        $('#purchaseInfo').val(assetRecord.number_of_non_it_product__c);
-        $('#preferVendInfo').val(assetRecord.total_amount__c);
-        $('#approvedBudgInfo').val(assetRecord.total_approved_budget_as_per_purchase__c);
+        $('#purchaseInfo').html(assetRecord.number_of_non_it_product__c);
+        $('#preferVendInfo').html('INR '+assetRecord.total_amount__c);
+        $('#approvedBudgInfo').html('INR '+assetRecord.total_approved_budget_as_per_purchase__c);
         document.forms["editAssetForm"]["assetName"].value = assetRecord.name;
         document.forms["editAssetForm"]["projectName"].value = assetRecord.projname;
         //document.forms["editAssetForm"]["closureActualDate"].value = strclousreActualDate;
