@@ -312,11 +312,11 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="">Number Of Purchase Information</label>
-                <div id="purchaseInfo" > 2 </div>
+                <div id="purchaseInfo" >  </div>
             </div>
             <div class="col-md-6">
                 <label for="">Total Amount as per preferred vendors</label>
-                <div id="preferVendInfo" >INR  20000 </div>
+                <div id="preferVendInfo" > </div>
             </div>
         </div> 
      </div>
@@ -325,7 +325,7 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="">Total Approved budget as per purchase</label>
-                <div id="approvedBudgInfo" > INR 300000  </div>
+                <div id="approvedBudgInfo" >  </div>
             </div>
             
         </div> 
@@ -1372,9 +1372,11 @@
 
         //let activityCodes = assetDetailsRecord.activity[0];
         let activityCodes = [];
-        for (let i = 0; i < assetDetailsRecord.activity.length; i++) {
-            activityCodes.push(assetDetailsRecord.activity[i]);
-        }
+        if(assetDetailsRecord.activity){
+            for (let i = 0; i < assetDetailsRecord.activity.length; i++) {
+                activityCodes.push(assetDetailsRecord.activity[i]);
+            }
+         }
         console.log('Asset Details list' + JSON.stringify(assetRecord));
         console.log('Activity Codes' + JSON.stringify(activityCodes));
         let strReceivingGoodsDate = '';
