@@ -245,7 +245,7 @@ router.get('/assetEditDetails',verify ,async(request, response) =>{
     console.log('assetId  '+assetId);
     let objUser = request.user;
     console.log('User:' +objUser);
-    let qyr='SELECT  asset.sfid as sfidt,asset.name as name ,asset.Activity_Code_Project__c,asset.Requested_Closure_Plan_Date__c,asset.Project_Department__c as pid, '+
+    let qyr='SELECT  asset.Comments_by_Management_Team__c,asset.Comments_by_Raiser__c,asset.Comments_by_Chairperson__c,asset.Comments_by_Procurement_Committee__c,asset.Total_Approved_budget_as_per_purchase__c, asset.sfid as sfidt,asset.name as name ,asset.Activity_Code_Project__c,asset.Requested_Closure_Plan_Date__c,asset.Project_Department__c as pid, '+
     'asset.Manager_Approval__c,asset.Management_Approval__c,asset.Procurement_Committee_Approval__c,asset.Chairperson_Approval__c,'+
     'asset.Accounts_Approval__c,asset.UTR_Number_Transaction_details__c,asset.Advance_Payment_Status__c,asset.Payment_Status__c,asset.PO_Attachment_URL__c,asset.Procurement_Head_Approval__c,'+
     'asset.Number_Of_IT_Product__c,asset.Number_Of_Non_IT_Product__c,asset.Procurement_IT_total_amount__c,asset.Procurement_Non_IT_total_amount__c, asset.Total_amount__c,proj.name as projname,proj.sfid as profsfid,'+
