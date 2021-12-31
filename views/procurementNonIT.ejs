@@ -811,7 +811,13 @@ else if(state=='Uttarakhand')
                       let filtervalues={};
                           filtervalues.state=sts;
                           filtervalues.district=dstr;
-                          filtervalues.item=itemValue;
+                          if($('#category'+cnt).val() == 'IT'){
+                            filtervalues.item= 'OtherItems' ;
+                          }
+                          else{
+                            filtervalues.item=itemValue;
+                          }
+                          
                           data.push(filtervalues);
                           console.log(JSON.stringify(data));
                       
