@@ -124,10 +124,16 @@ let st =["Andaman Nicobar","Andhra Pradesh","Arunachal Pradesh","Assam","Bihar",
     var Events = ["None","Others", "Suggest Hotels"];
     var MaterialsOnRent = ["None", "AV Systems", "Backdrop", "Hardware Peripherals", "Others" , "Projector"];
     var Miscellaneous = ["None","Any Other Expense", "Maintenance"];
-        
-        var subListValue="";
-        var sts='';
-        var dstr='';
+    var IT = ['Select','Cartridge','CPU','Desktop','Desktop Mouse','External Hard Disk','Keyboard','Laptop','Laptop Charger','Monitor','Others','Pen Drive','Printer','RAM','Server','Software','Tablet'];    
+    var subListValue="";
+    var sts='';
+    var dstr='';
+    let objCollection = {};
+    objCollection.it = [{key:'Select',value:''},{key:'IT',value:'IT'}];
+    objCollection.nonIt = [{key:'Select',value:''}];
+    itemsCategory.forEach(dt=>{
+      objCollection.nonIt.push({key:dt,value:dt.split(' ').join('')});
+    });
 
     $(document).ready(function(){
      var count = 1
@@ -165,12 +171,7 @@ let st =["Andaman Nicobar","Andhra Pradesh","Arunachal Pradesh","Assam","Bihar",
         html += '<td><button type="button" name="remove" class="btn btn-danger btn-sm remove"><span class="glyphicon glyphicon-minus">Delete</span></button></td></tr>';
         
         $('#item_table').append(html);
-        let objCollection = {};
-        objCollection.it = [{key:'Select',value:''},{key:'IT',value:'IT'}];
-        objCollection.nonIt = [{key:'Select',value:''}];
-        itemsCategory.forEach(dt=>{
-          objCollection.nonIt.push({key:dt,value:dt});
-        })
+        
 
         if(st.length > 0)
         {
