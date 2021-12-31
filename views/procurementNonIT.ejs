@@ -165,9 +165,12 @@ let st =["Andaman Nicobar","Andhra Pradesh","Arunachal Pradesh","Assam","Bihar",
         html += '<td><button type="button" name="remove" class="btn btn-danger btn-sm remove"><span class="glyphicon glyphicon-minus">Delete</span></button></td></tr>';
         
         $('#item_table').append(html);
-
+        let objCollection = {};
+        objCollection.it = [{key:'Select',value:''},{key:'IT',value:'IT'}];
+        objCollection.nonIt = [{}];
         if(st.length > 0)
         {
+
           for(let i=0; i < st.length; i++)
           {
             $('#state'+cnt)
@@ -176,6 +179,32 @@ let st =["Andaman Nicobar","Andhra Pradesh","Arunachal Pradesh","Assam","Bihar",
             .text(st[i]))
           }
         }
+        $('#category'+cnt).on('change',function(){
+          let sel = this.val();
+          if(sel == 'NonIT'){
+            $('#cat'+cnt).prop('disabled',false);
+            objCollection.nonIt.forEach(dt=>{
+              $('#cat'+cnt).append($('<option/>', { 
+                value: dt.value,
+                text : dt.key 
+            }));
+          });
+            
+          }
+          else if(sel == 'IT'){
+            $('#cat'+cnt).prop('disabled',false);
+            objCollection.it.forEach(dt=>{
+              $('#cat'+cnt).append($('<option/>', { 
+                value: dt.value,
+                text : dt.key 
+            }));
+          });
+          }
+          else{
+            $('#cat'+cnt).prop('disabled',true);
+
+          }
+        });
         $('#state'+cnt).on('change',function(){
            let state =this.value;
            sts=state;
@@ -668,7 +697,7 @@ else if(state=='Uttarakhand')
           }
         }
            else{
-            $('#district'+cnt).attr("disabled",true);
+            //$('#district'+cnt).attr("disabled",true);
            }
            $('#district'+cnt).on('change',function(){
             dstr=this.value;
