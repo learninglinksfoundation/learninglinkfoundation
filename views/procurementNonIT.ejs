@@ -830,7 +830,7 @@ else if(state=='Uttarakhand')
                       .done((response) => {
                         console.log('Vendor ResultData '+JSON.stringify(response));
                         console.log('length '+response.length);
-                        console.log('dgsdh '+response[0].vendor_name__c);
+                        console.log('dgsdh ',response);
                         let select = document.getElementById("vendor"+cnt);
                         let length = select.options.length;
                         for (i = length-1; i > 0; i--) {
