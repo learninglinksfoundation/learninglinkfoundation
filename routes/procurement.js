@@ -1224,7 +1224,7 @@ router.get('/getCostandGSt',async(request,response)=>{
     let itemDesId=[];
     let qryItem=`select itd.sfid ,itd.name,itd.Impaneled_Vendor__c,itd.Items__c,ivd.sfid as sfid ,ivd.vendor_name__c as vendor_name__c ,ivd.GST_No__c as GST_No__c from salesforce.Item_Description__c itd `+
                   ` INNER JOIN salesforce.Impaneled_Vendor__c ivd on itd.impaneled_vendor__c = ivd.sfid `+
-                  ` WHERE itd.Items__c = $1  `;  
+                  ` WHERE itd.Items__c = '${ite}'  `;  
 
 
     if(dstr){
