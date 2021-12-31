@@ -167,7 +167,11 @@ let st =["Andaman Nicobar","Andhra Pradesh","Arunachal Pradesh","Assam","Bihar",
         $('#item_table').append(html);
         let objCollection = {};
         objCollection.it = [{key:'Select',value:''},{key:'IT',value:'IT'}];
-        objCollection.nonIt = [{}];
+        objCollection.nonIt = [{key:'Select',value:''}];
+        itemsCategory.forEach(dt=>{
+          objCollection.nonIt.push({key:dt,value:dt});
+        })
+
         if(st.length > 0)
         {
 
@@ -183,6 +187,7 @@ let st =["Andaman Nicobar","Andhra Pradesh","Arunachal Pradesh","Assam","Bihar",
           let sel = this.value;
           if(sel == 'NonIT'){
             $('#cat'+cnt).prop('disabled',false);
+            $('#cat'+cnt).html('');
             objCollection.nonIt.forEach(dt=>{
               $('#cat'+cnt).append($('<option/>', { 
                 value: dt.value,
@@ -193,6 +198,7 @@ let st =["Andaman Nicobar","Andhra Pradesh","Arunachal Pradesh","Assam","Bihar",
           }
           else if(sel == 'IT'){
             $('#cat'+cnt).prop('disabled',false);
+            $('#cat'+cnt).html('');
             objCollection.it.forEach(dt=>{
               $('#cat'+cnt).append($('<option/>', { 
                 value: dt.value,
@@ -202,6 +208,7 @@ let st =["Andaman Nicobar","Andhra Pradesh","Arunachal Pradesh","Assam","Bihar",
           }
           else{
             $('#cat'+cnt).prop('disabled',true);
+            $('#cat'+cnt).html('');
             $('#cat'+cnt).append($('<option/>', { 
                 value: '',
                 text : 'Select'
@@ -769,13 +776,13 @@ else if(state=='Uttarakhand')
 
 
         let itemsCategoryValue, itemValue, placeValue, impaneledVendorId = '';
-        for(i=0;i<itemsCategory.length;i++)
+       /* for(i=0;i<itemsCategory.length;i++)
         {
            $('#cat'+cnt)
                    .append($("<option></option>")
                    .attr("value",itemsCategory[i])
                    .text(itemsCategory[i]));		
-        }
+        }*/
         
         $('#cat'+cnt).on('change', function() {
                $('#'+cnt).empty();
