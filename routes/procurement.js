@@ -1220,11 +1220,40 @@ router.get('/getCostandGSt',async(request,response)=>{
     console.log('item'+ite);
     console.log('state'+st);
     let qry='';
-    let lst=[];
     let vender=[];
     let itemDesId=[];
-    let qryItem='select sfid ,name,Impaneled_Vendor__c from salesforce.Item_Description__c WHERE Items__c =$1';  
-     console.log('qryItem '+qryItem);
+    let qryItem=`select itd.sfid ,itd.name,itd.Impaneled_Vendor__c,itd.Items__c,ivd.sfid as sfid ,ivd.vendor_name__c as vendor_name__c ,ivd.GST_No__c as GST_No__c from salesforce.Item_Description__c itd `+
+                  ` INNER JOIN salesforce.Impaneled_Vendor__c ivd on itd.impaneled_vendor__c = ivd.sfid `+
+                  ` WHERE itd.Items__c = $1  `;  
+
+
+    if(dstr){
+       qryItem = `${qryItem} AND  ivd.state__c = '${st}' `;
+    }
+    else{
+        qryItem = `${qryItem} AND  ivd.state__c = '${st}' AND ivd.District__c = '${dstr}' `;
+    }
+    console.log(qryItem);
+    pool
+     .query(qryItem)
+     .then((resp)=>{
+        if(resp.rowCount > 0){
+            response.send(resp.rows);
+        }
+        else{
+            response.send([]);
+        }
+
+     })
+     .catch(error=>{
+        response.send(error);
+     })
+
+     
+})
+
+/*
+console.log('qryItem '+qryItem);
      await
      pool.query(qryItem,[ite])
      .then((result)=>{
@@ -1272,7 +1301,8 @@ router.get('/getCostandGSt',async(request,response)=>{
          console.log('querryError '+querryError.stack);
          response.send(querryError);
      })
-})
+
+*/
 
 router.get('/getCostPerUnit',(request,response)=>{
     let sid=request.query.sid;

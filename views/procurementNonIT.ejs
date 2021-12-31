@@ -828,6 +828,7 @@ else if(state=='Uttarakhand')
                         dataType : 'json'
                       })
                       .done((response) => {
+                        lstVendorDetail = [];
                         console.log('Vendor ResultData '+JSON.stringify(response));
                         console.log('length '+response.length);
                         console.log('dgsdh ',response);
