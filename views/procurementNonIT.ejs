@@ -180,7 +180,7 @@ let st =["Andaman Nicobar","Andhra Pradesh","Arunachal Pradesh","Assam","Bihar",
           }
         }
         $('#category'+cnt).on('change',function(){
-          let sel = this.val();
+          let sel = this.value;
           if(sel == 'NonIT'){
             $('#cat'+cnt).prop('disabled',false);
             objCollection.nonIt.forEach(dt=>{
@@ -202,7 +202,10 @@ let st =["Andaman Nicobar","Andhra Pradesh","Arunachal Pradesh","Assam","Bihar",
           }
           else{
             $('#cat'+cnt).prop('disabled',true);
-
+            $('#cat'+cnt).append($('<option/>', { 
+                value: '',
+                text : 'Select'
+            }));
           }
         });
         $('#state'+cnt).on('change',function(){
