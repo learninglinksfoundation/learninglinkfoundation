@@ -781,6 +781,8 @@ else if(state=='Uttarakhand')
         $('#cat'+cnt).on('change', function() {
                $('#'+cnt).empty();
                itemsCategoryValue = this.value;
+               console.log('itemsCategoryValue',itemsCategoryValue);
+               console.log('value',this.value);
                subListValue = eval(this.value);
                console.log(subListValue); 
              //  alert('subListValue  '+subListValue);
