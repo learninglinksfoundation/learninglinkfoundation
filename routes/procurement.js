@@ -861,6 +861,7 @@ router.post('/nonItProducts', (request,response) => {
          let schema=joi.object({
              state:joi.string().required().label('Please select State.'),
               district:joi.string().required().label('Please select District.'),
+              category : joi.string().required().label('Please select Category.'),
               itemsCategory:joi.string().required().label('Please select Item Category.'),
               items:joi.string().invalid('None').required().label('Please fill Items'),
               vendor:joi.string().required().label(' Please select Vendor from Vendor Picklist.'),
@@ -870,7 +871,7 @@ router.post('/nonItProducts', (request,response) => {
              quanty:joi.number().min(0).label('The Quantity cannot be negative.'),
              budget:joi.number().required().label('Please enter Budget.'),
              budg:joi.number().min(0).label('The Budget cannot be negative.'),
-             category : joi.string().required().label('Please select Category.'),
+             
          })
          let result=schema.validate({state:state,category:category,items:items,itemsCategory:itemsCategory,district:district,vendor:vendor,itemSpecification:itemSpecification,itemSpeci:itemSpecification,quantity:quantity,quanty:quantity,budget:budget,budg:budget});
          console.log('validation hsh '+JSON.stringify(result.error));
@@ -919,6 +920,7 @@ router.post('/nonItProducts', (request,response) => {
              let schema=joi.object({
                  state:joi.string().required().label('Please select State.'),
                  district:joi.string().required().label('Please select District.'),
+                 category : joi.string().required().label('Please select Category.'),
                  itemsCategory:joi.string().required().label('Please select Item Category.'),
                  items:joi.string().invalid('None').required().label('Please fill Items'),
                  vendor:joi.string().required().label(' Please select Vendor from Vendor Picklist.'),
@@ -928,7 +930,7 @@ router.post('/nonItProducts', (request,response) => {
                  quanty:joi.number().min(0).label('The Quantity cannot be negative.'),
                  budget:joi.number().required().label('Please enter Budget.'),
                  budg:joi.number().min(0).label('The Budget cannot be negative.'),
-                 category : joi.string().required().label('Please select Category.'),
+                 
      
              })
              let result=schema.validate({state:state[i],category:category[i],items:items[i],itemsCategory:itemsCategory[i],district:district[i],vendor:vendor[i],itemSpecification:itemSpecification[i],itemSpeci:itemSpecification[i],quantity:quantity[i],quanty:quantity[i],budget:budget[i],budg:budget[i]});
@@ -973,7 +975,7 @@ router.post('/nonItProducts', (request,response) => {
     }
     if(typeof(nonItFormResult.quantity) != 'object')
     {
-     let nonItProductsInsertQuery = format('INSERT INTO salesforce.Product_Line_Item__c (Products_Services_Name__c, Items__c,State__c,District__c,Per_Unit_Cost__c,unit__c, Product_Service__c, Quantity__c, Budget__c, Quote1__c,Quote2__c	,Quote3__c,Number_of_quotes__c,justification__c,Impaneled_Vendor__c, Asset_Requisition_Form__c ) VALUES %L returning id',lstNonItProcurement);
+     let nonItProductsInsertQuery = format('INSERT INTO salesforce.Product_Line_Item__c (Products_Services_Name__c, Items__c,State__c,District__c,Per_Unit_Cost__c,unit__c, Product_Service__c, Quantity__c, Budget__c, Quote1__c,Quote2__c	,Quote3__c,Number_of_quotes__c,justification__c,Impaneled_Vendor__c, Asset_Requisition_Form__c, Catgeory__c ) VALUES %L returning id',lstNonItProcurement);
      console.log('nonItProductsInsertQuery '+nonItProductsInsertQuery);
      pool.query(nonItProductsInsertQuery)
      .then((nonItProductsInsertQueryResult) => {
@@ -988,7 +990,7 @@ router.post('/nonItProducts', (request,response) => {
     else{
      console.log('lstNonItProcurement:'+lstNonItProcurement.length+' number of rows :'+nonItFormResult.quantity.length);
     if(lstNonItProcurement.length==nonItFormResult.quantity.length){
-     let nonItProductsInsertQuery = format('INSERT INTO salesforce.Product_Line_Item__c (Products_Services_Name__c, Items__c,State__c,District__c,Per_Unit_Cost__c,unit__c, Product_Service__c, Quantity__c, Budget__c, Quote1__c,Quote2__c	,Quote3__c,Number_of_quotes__c,justification__c,Impaneled_Vendor__c, Asset_Requisition_Form__c ) VALUES %L returning id',lstNonItProcurement);
+     let nonItProductsInsertQuery = format('INSERT INTO salesforce.Product_Line_Item__c (Products_Services_Name__c, Items__c,State__c,District__c,Per_Unit_Cost__c,unit__c, Product_Service__c, Quantity__c, Budget__c, Quote1__c,Quote2__c	,Quote3__c,Number_of_quotes__c,justification__c,Impaneled_Vendor__c, Asset_Requisition_Form__c, Catgeory__c ) VALUES %L returning id',lstNonItProcurement);
      console.log('nonItProductsInsertQuery '+nonItProductsInsertQuery);
      pool.query(nonItProductsInsertQuery)
      .then((nonItProductsInsertQueryResult) => {
