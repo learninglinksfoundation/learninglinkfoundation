@@ -682,7 +682,7 @@ router.post('/updateasset',(request,response)=>{
     let deliveryTime = request.body.deliveryTime;
     console.log('---- 678 procurement.js body  : '+JSON.stringify(body));
 
-    let {assetsfid, assetName,activityCode,paymentStatus,status,payement,receiverName,receivedQuantity,quotations,reason,pricing,deliveryPlace,deliveryCost,attachment,totamt} = request.body;
+    let {assetsfid, assetName,activityCode,paymentStatus,status,commentsRaiser,payement,receiverName,receivedQuantity,quotations,reason,pricing,deliveryPlace,deliveryCost,attachment,totamt} = request.body;
     
     if(closurePlanDate=='' || typeof(closurePlanDate) == "undefined"){
         closurePlanDate='';
@@ -712,11 +712,16 @@ router.post('/updateasset',(request,response)=>{
     'if_3_quotations_specify_reason__c= \''+quotations+'\', '+
     'reason_for_non_registered_gst_Vendor__c= \''+reason+'\', '+
     'pricing_terms_cost_comparison__c= \''+pricing+'\', '+
+    `Comments_by_Raiser__c = '${commentsRaiser}', ` + 
     'delivery_terms_delivery_place__c= \''+deliveryPlace+'\', ';
     
     if(totamt >= 1) {
         updateQuerry += 'Payment_Status__c = \''+paymentStatus+'\', '+
         'delivery_terms_delivery_time__c= \''+deliveryTime+'\', ';
+    }
+
+    if(commentsRaiser){
+
     }
 
     if(deliveryCost != '') {
@@ -855,6 +860,8 @@ router.post('/nonItProducts', (request,response) => {
  
     const {state,district,unit,unitCost,vendor,category,itemsCategory,items,itemSpecification,quantity,budget} = request.body;
     let numberOfRows,lstNonItProcurement = [];
+
+    console.log(category,district);
     
     if(typeof(nonItFormResult.quantity) != 'object')
     { 
