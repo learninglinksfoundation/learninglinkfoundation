@@ -853,7 +853,7 @@ router.post('/nonItProducts', (request,response) => {
     let parentProcurementId = nonItFormResult.parentProcurementId;
     console.log('parent Id Asset Requisition Form '+parentProcurementId);
  
-    const {state,district,unit,unitCost,vendor,itemsCategory,items,itemSpecification,quantity,budget} = request.body;
+    const {state,district,unit,unitCost,vendor,category,itemsCategory,items,itemSpecification,quantity,budget} = request.body;
     let numberOfRows,lstNonItProcurement = [];
     
     if(typeof(nonItFormResult.quantity) != 'object')
@@ -870,8 +870,9 @@ router.post('/nonItProducts', (request,response) => {
              quanty:joi.number().min(0).label('The Quantity cannot be negative.'),
              budget:joi.number().required().label('Please enter Budget.'),
              budg:joi.number().min(0).label('The Budget cannot be negative.'),
+             category : joi.string().required().label('Please select Category.'),
          })
-         let result=schema.validate({state:state,items:items,itemsCategory:itemsCategory,district:district,vendor:vendor,itemSpecification:itemSpecification,itemSpeci:itemSpecification,quantity:quantity,quanty:quantity,budget:budget,budg:budget});
+         let result=schema.validate({state:state,category:category,items:items,itemsCategory:itemsCategory,district:district,vendor:vendor,itemSpecification:itemSpecification,itemSpeci:itemSpecification,quantity:quantity,quanty:quantity,budget:budget,budg:budget});
          console.log('validation hsh '+JSON.stringify(result.error));
          if(result.error){
              console.log('fd'+result.error);
@@ -889,7 +890,8 @@ router.post('/nonItProducts', (request,response) => {
              singleRecordValues.push(nonItFormResult.district);
              singleRecordValues.push(nonItFormResult.unitCost);
              singleRecordValues.push(nonItFormResult.unit);
-           //  singleRecordValues.push(nonItFormResult.otherItems);
+             //singleRecordValues.push(nonItFormResult.otherItems);
+             
              singleRecordValues.push(nonItFormResult.itemSpecification);
              singleRecordValues.push(nonItFormResult.quantity);
              singleRecordValues.push(nonItFormResult.budget);
@@ -900,6 +902,7 @@ router.post('/nonItProducts', (request,response) => {
              singleRecordValues.push(nonItFormResult.justification);
              singleRecordValues.push(nonItFormResult.vendor);
              singleRecordValues.push(nonItFormResult.parentProcurementId);
+             singleRecordValues.push(nonItFormResult.category);
              lstNonItProcurement.push(singleRecordValues);
              console.log('lstNOnIt'+lstNonItProcurement);
             }
@@ -925,9 +928,10 @@ router.post('/nonItProducts', (request,response) => {
                  quanty:joi.number().min(0).label('The Quantity cannot be negative.'),
                  budget:joi.number().required().label('Please enter Budget.'),
                  budg:joi.number().min(0).label('The Budget cannot be negative.'),
+                 category : joi.string().required().label('Please select Category.'),
      
              })
-             let result=schema.validate({state:state[i],items:items[i],itemsCategory:itemsCategory[i],district:district[i],vendor:vendor[i],itemSpecification:itemSpecification[i],itemSpeci:itemSpecification[i],quantity:quantity[i],quanty:quantity[i],budget:budget[i],budg:budget[i]});
+             let result=schema.validate({state:state[i],category:category[i],items:items[i],itemsCategory:itemsCategory[i],district:district[i],vendor:vendor[i],itemSpecification:itemSpecification[i],itemSpeci:itemSpecification[i],quantity:quantity[i],quanty:quantity[i],budget:budget[i],budg:budget[i]});
              console.log('validation REsult mul'+JSON.stringify(result.error));
              if(result.error){
                  console.log('Validation error'+result.error);
@@ -959,6 +963,7 @@ router.post('/nonItProducts', (request,response) => {
                      singleRecordValues.push(nonItFormResult.justification[i]);
                      singleRecordValues.push(nonItFormResult.vendor[i]);
                      singleRecordValues.push(nonItFormResult.parentProcurementId[i]);
+                     singleRecordValues.push(nonItFormResult.category);
                      lstNonItProcurement.push(singleRecordValues);
                      console.log('dj'+singleRecordValues);
                  }
