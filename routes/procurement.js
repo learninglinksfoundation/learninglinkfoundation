@@ -853,7 +853,7 @@ router.post('/nonItProducts', (request,response) => {
     let parentProcurementId = nonItFormResult.parentProcurementId;
     console.log('parent Id Asset Requisition Form '+parentProcurementId);
  
-    const{state,district,unit,unitCost,vendor,itemsCategory,items,itemSpecification,quantity,budget}=request.body;
+    const {state,district,unit,unitCost,vendor,itemsCategory,items,itemSpecification,quantity,budget} = request.body;
     let numberOfRows,lstNonItProcurement = [];
     
     if(typeof(nonItFormResult.quantity) != 'object')

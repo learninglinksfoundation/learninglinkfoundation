@@ -834,6 +834,12 @@ else if(state=='Uttarakhand')
                         for (i = length-1; i > 0; i--) {
                           select.options[i] = null;
                          }
+                         if(response && response.length  == 0){
+                            $('#unitCost'+cnt).val('');
+                             $('#unit'+cnt).val('');
+                             $('#gst'+cnt).val('');
+                            
+                        }
                           for(let i=0;i<response.length;i++)
                           {
                             $('#vendor'+cnt)
@@ -842,6 +848,7 @@ else if(state=='Uttarakhand')
                             .text(response[i].vendor_name__c))
                             lstVendorDetail.push(response[i]);
                           }
+
                           console.log('lstVendorDetail=> '+JSON.stringify(lstVendorDetail));
                           
                       })
@@ -882,6 +889,7 @@ else if(state=='Uttarakhand')
       $('form#formdata').bind('submit', function () {
         $("#submitButton").attr("disabled", true);
        // alert('qt'+qt);
+       console.log($('form#formdata').serialize());
           $.ajax({
             type: 'post',
             url: '/procurement/nonItProducts',   // Need to make changes in post method url
