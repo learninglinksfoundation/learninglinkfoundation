@@ -972,7 +972,7 @@ router.post('/nonItProducts', (request,response) => {
                      singleRecordValues.push(nonItFormResult.justification[i]);
                      singleRecordValues.push(nonItFormResult.vendor[i]);
                      singleRecordValues.push(nonItFormResult.parentProcurementId[i]);
-                     singleRecordValues.push(nonItFormResult.category);
+                     singleRecordValues.push(nonItFormResult.category[i]);
                      lstNonItProcurement.push(singleRecordValues);
                      console.log('dj'+singleRecordValues);
                  }
