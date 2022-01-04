@@ -46,7 +46,8 @@
             <th>VENDOR GST NUMBER</th>
             <th>ITEMS SPECIFICATION <span style="color: red;">*</span></th>
             <th>QUANTITY <span style="color: red;">*</span></th>
-            <th>BUDGET <span style="color: red;">*</span></th>
+            <th>TOTAL AMOUNT AS PER PREFERRED VENDOR <span style="color: red;">*</span></th>
+            <th>APPROVED BUDGET FOR PURCHASE <span style="color: red;">*</span></th>
             <th>PREVIEW </th>
             <th>ATTACH QUOTE1</th>
             <th>ATTACH QUOTE2</th>
@@ -150,7 +151,7 @@ let st =["Andaman Nicobar","Andhra Pradesh","Arunachal Pradesh","Assam","Bihar",
         html += '<td><select name="category" id="category'+cnt+'" class="form-control item_unit "><option value="">Select</option><option value="NonIT">Non-IT</option><option value="IT">IT</option></select></td>';
         html += '<td><select name="itemsCategory" disabled style="width: 170px;" id="cat'+cnt+'" class="form-control item_unit itemsCategory"><option value="">Select</option></select></td>';
         html += '<td><select name="items" id="'+cnt+'" class="form-control item_unit items"><option value="">Select</option></select></td>';
-        html += '<td><input type="text" name="otherItems" id="other'+cnt+'" readonly="true" class="form-control" /></td>';
+        html += '<td><select name="otherItems" id="other'+cnt+'" readonly="true" class="form-control" >  <select></td>';
         html += '<td><select id="vendor'+cnt+'" name="vendor" class="form-control item_unit"><option value="">Select</option></select></td>';    
         html +='<td><input id="unitCost'+cnt+'" type="text" name="unitCost" class="form-control" readonly="true"  /></td>';
         html +='<td><input id="unit'+cnt+'" type="text" name="unit" class="form-control" readonly="true"  /></td>';  
@@ -158,6 +159,7 @@ let st =["Andaman Nicobar","Andhra Pradesh","Arunachal Pradesh","Assam","Bihar",
         html += '<td><input type="text" name="itemSpecification" class="form-control" /></td>';
         html += '<td><input type="number" name="quantity" class="form-control" /></td>';
         html += '<td><input type="number" name="budget" class="form-control" /></td>';
+        html += '<td><input type="number" name="totalApproved" class="form-control" /></td>';
         html += '<td><a id="quote'+cnt+'" target="_blank" href="#" >No Quotes Available</a></td>';
         html += '<td><input type="file" onChange="chkFile1(this,'+cnt+')" name="fileprety" id="fileprety" style="overflow:hidden" class="form-control" /><input type="hidden" value="demo1" name="imgpath1" id="file_1'+cnt+'"></td>';
         html += '<td><input type="file" onChange="chkFile2(this,'+cnt+')" name="fileprety" id="fileprety"  style="overflow:hidden" class="form-control" /><input type="hidden" value="demo2" name="imgpath2" id="file_2'+cnt+'"></td>';

@@ -858,7 +858,7 @@ router.post('/nonItProducts', (request,response) => {
     let parentProcurementId = nonItFormResult.parentProcurementId;
     console.log('parent Id Asset Requisition Form '+parentProcurementId);
  
-    const {state,district,unit,unitCost,vendor,category,itemsCategory,items,itemSpecification,quantity,budget} = request.body;
+    const {state,district,unit,unitCost,vendor,category,totalApproved,itemsCategory,items,itemSpecification,quantity,budget} = request.body;
     let numberOfRows,lstNonItProcurement = [];
 
     console.log(category,district);
@@ -878,9 +878,11 @@ router.post('/nonItProducts', (request,response) => {
              quanty:joi.number().min(0).label('The Quantity cannot be negative.'),
              budget:joi.number().required().label('Please enter Budget.'),
              budg:joi.number().min(0).label('The Budget cannot be negative.'),
+             totalApproved:joi.number().required().label('Please enter Approved Budget for Purchase.'),
+             totalApproved:joi.number().min(0).label('The Approved Budget for Purchase cannot be negative.'),
              
          })
-         let result=schema.validate({state:state,category:category,items:items,itemsCategory:itemsCategory,district:district,vendor:vendor,itemSpecification:itemSpecification,itemSpeci:itemSpecification,quantity:quantity,quanty:quantity,budget:budget,budg:budget});
+         let result=schema.validate({state:state,totalApproved:totalApproved,category:category,items:items,itemsCategory:itemsCategory,district:district,vendor:vendor,itemSpecification:itemSpecification,itemSpeci:itemSpecification,quantity:quantity,quanty:quantity,budget:budget,budg:budget});
          console.log('validation hsh '+JSON.stringify(result.error));
          if(result.error){
              console.log('fd'+result.error);
@@ -898,8 +900,6 @@ router.post('/nonItProducts', (request,response) => {
              singleRecordValues.push(nonItFormResult.district);
              singleRecordValues.push(nonItFormResult.unitCost);
              singleRecordValues.push(nonItFormResult.unit);
-             //singleRecordValues.push(nonItFormResult.otherItems);
-             
              singleRecordValues.push(nonItFormResult.itemSpecification);
              singleRecordValues.push(nonItFormResult.quantity);
              singleRecordValues.push(nonItFormResult.budget);
@@ -911,6 +911,8 @@ router.post('/nonItProducts', (request,response) => {
              singleRecordValues.push(nonItFormResult.vendor);
              singleRecordValues.push(nonItFormResult.parentProcurementId);
              singleRecordValues.push(nonItFormResult.category);
+             singleRecordValues.push(nonItFormResult.otherItems);
+             singleRecordValues.push(nonItFormResult.totalApproved);
              lstNonItProcurement.push(singleRecordValues);
              console.log('lstNOnIt'+lstNonItProcurement);
             }
@@ -937,10 +939,12 @@ router.post('/nonItProducts', (request,response) => {
                  quanty:joi.number().min(0).label('The Quantity cannot be negative.'),
                  budget:joi.number().required().label('Please enter Budget.'),
                  budg:joi.number().min(0).label('The Budget cannot be negative.'),
+                 totalApproved:joi.number().required().label('Please enter Approved Budget for Purchase.'),
+                 totalApproved:joi.number().min(0).label('The Approved Budget for Purchase cannot be negative.'),
                  
      
              })
-             let result=schema.validate({state:state[i],category:category[i],items:items[i],itemsCategory:itemsCategory[i],district:district[i],vendor:vendor[i],itemSpecification:itemSpecification[i],itemSpeci:itemSpecification[i],quantity:quantity[i],quanty:quantity[i],budget:budget[i],budg:budget[i]});
+             let result=schema.validate({state:state[i],totalApproved:totalApproved[i],category:category[i],items:items[i],itemsCategory:itemsCategory[i],district:district[i],vendor:vendor[i],itemSpecification:itemSpecification[i],itemSpeci:itemSpecification[i],quantity:quantity[i],quanty:quantity[i],budget:budget[i],budg:budget[i]});
              console.log('validation REsult mul'+JSON.stringify(result.error));
              if(result.error){
                  console.log('Validation error'+result.error);
@@ -961,7 +965,6 @@ router.post('/nonItProducts', (request,response) => {
                      singleRecordValues.push(nonItFormResult.district[i]);
                      singleRecordValues.push(nonItFormResult.unitCost[i]);
                      singleRecordValues.push(nonItFormResult.unit[i]);
-                    // singleRecordValues.push(nonItFormResult.otherItems[i]);       
                      singleRecordValues.push(nonItFormResult.itemSpecification[i]);
                      singleRecordValues.push(nonItFormResult.quantity[i]);
                      singleRecordValues.push(nonItFormResult.budget[i]);
@@ -973,6 +976,8 @@ router.post('/nonItProducts', (request,response) => {
                      singleRecordValues.push(nonItFormResult.vendor[i]);
                      singleRecordValues.push(nonItFormResult.parentProcurementId[i]);
                      singleRecordValues.push(nonItFormResult.category[i]);
+                     singleRecordValues.push(nonItFormResult.otherItems[i]);
+                     singleRecordValues.push(nonItFormResult.totalApproved[i]); 
                      lstNonItProcurement.push(singleRecordValues);
                      console.log('dj'+singleRecordValues);
                  }
@@ -982,7 +987,7 @@ router.post('/nonItProducts', (request,response) => {
     }
     if(typeof(nonItFormResult.quantity) != 'object')
     {
-     let nonItProductsInsertQuery = format('INSERT INTO salesforce.Product_Line_Item__c (Products_Services_Name__c, Items__c,State__c,District__c,Per_Unit_Cost__c,unit__c, Product_Service__c, Quantity__c, Budget__c, Quote1__c,Quote2__c	,Quote3__c,Number_of_quotes__c,justification__c,Impaneled_Vendor__c, Asset_Requisition_Form__c, Catgeory__c ) VALUES %L returning id',lstNonItProcurement);
+     let nonItProductsInsertQuery = format('INSERT INTO salesforce.Product_Line_Item__c (Products_Services_Name__c, Items__c,State__c,District__c,Per_Unit_Cost__c,unit__c, Product_Service__c, Quantity__c, Budget__c, Quote1__c,Quote2__c	,Quote3__c,Number_of_quotes__c,justification__c,Impaneled_Vendor__c, Asset_Requisition_Form__c, Catgeory__c, Others__c, Total_Approved_Budget_for_the_purchase__c ) VALUES %L returning id',lstNonItProcurement);
      console.log('nonItProductsInsertQuery '+nonItProductsInsertQuery);
      pool.query(nonItProductsInsertQuery)
      .then((nonItProductsInsertQueryResult) => {
@@ -997,7 +1002,7 @@ router.post('/nonItProducts', (request,response) => {
     else{
      console.log('lstNonItProcurement:'+lstNonItProcurement.length+' number of rows :'+nonItFormResult.quantity.length);
     if(lstNonItProcurement.length==nonItFormResult.quantity.length){
-     let nonItProductsInsertQuery = format('INSERT INTO salesforce.Product_Line_Item__c (Products_Services_Name__c, Items__c,State__c,District__c,Per_Unit_Cost__c,unit__c, Product_Service__c, Quantity__c, Budget__c, Quote1__c,Quote2__c	,Quote3__c,Number_of_quotes__c,justification__c,Impaneled_Vendor__c, Asset_Requisition_Form__c, Catgeory__c ) VALUES %L returning id',lstNonItProcurement);
+     let nonItProductsInsertQuery = format('INSERT INTO salesforce.Product_Line_Item__c (Products_Services_Name__c, Items__c,State__c,District__c,Per_Unit_Cost__c,unit__c, Product_Service__c, Quantity__c, Budget__c, Quote1__c,Quote2__c	,Quote3__c,Number_of_quotes__c,justification__c,Impaneled_Vendor__c, Asset_Requisition_Form__c, Catgeory__c, Others__c, Total_Approved_Budget_for_the_purchase__c ) VALUES %L returning id',lstNonItProcurement);
      console.log('nonItProductsInsertQuery '+nonItProductsInsertQuery);
      pool.query(nonItProductsInsertQuery)
      .then((nonItProductsInsertQueryResult) => {
