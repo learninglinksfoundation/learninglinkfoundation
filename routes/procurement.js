@@ -910,7 +910,10 @@ router.post('/nonItProducts', (request,response) => {
              singleRecordValues.push(nonItFormResult.justification);
              singleRecordValues.push(nonItFormResult.vendor);
              singleRecordValues.push(nonItFormResult.parentProcurementId);
-             singleRecordValues.push(nonItFormResult.category);
+             if(nonItFormResult.category == 'NonIT')
+                    singleRecordValues.push('Non-IT');
+             else
+                singleRecordValues.push(nonItFormResult.category);
              singleRecordValues.push(nonItFormResult.otherItems);
              singleRecordValues.push(nonItFormResult.totalApproved);
              lstNonItProcurement.push(singleRecordValues);
@@ -975,7 +978,10 @@ router.post('/nonItProducts', (request,response) => {
                      singleRecordValues.push(nonItFormResult.justification[i]);
                      singleRecordValues.push(nonItFormResult.vendor[i]);
                      singleRecordValues.push(nonItFormResult.parentProcurementId[i]);
-                     singleRecordValues.push(nonItFormResult.category[i]);
+                     if(nonItFormResult.category[i] == 'NonIT')
+                        singleRecordValues.push('Non-IT');
+                     else
+                        singleRecordValues.push(nonItFormResult.category[i]);
                      singleRecordValues.push(nonItFormResult.otherItems[i]);
                      singleRecordValues.push(nonItFormResult.totalApproved[i]); 
                      lstNonItProcurement.push(singleRecordValues);
