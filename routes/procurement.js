@@ -683,8 +683,13 @@ router.post('/updateasset',(request,response)=>{
     let deliveryTime = request.body.deliveryTime;
     console.log('---- 678 procurement.js body  : '+JSON.stringify(body));
 
-    let {assetsfid, assetName,activityCode,paymentStatus,status,commentsRaiser,payement,receiverName,receivedQuantity,quotations,reason,pricing,deliveryPlace,deliveryCost,attachment,totamt} = request.body;
+    let {assetsfid, assetName,activityCode,paymentStatus,date_from3,status,commentsRaiser,payement,receiverName,receivedQuantity,quotations,reason,pricing,deliveryPlace,deliveryCost,attachment,totamt} = request.body;
     
+    if(!goodsDate){
+        goodsDate = date_from3;
+    }
+
+
     if(closurePlanDate=='' || typeof(closurePlanDate) == "undefined"){
         closurePlanDate='';
     }
