@@ -982,10 +982,13 @@
     plane.setHours(plane.getHours() + 5);
     plane.setMinutes(plane.getMinutes() + 30);
     let planDt = plane.toLocaleString().split(',')[0];
-    let rec = new Date(assetDetailsRecord.date_of_receiving_goods__c);
-    rec.setHours(rec.getHours() + 5);
-    rec.setMinutes(rec.getMinutes() + 30);
-    let receiveDate = rec.toLocaleString().split(',')[0];
+    //let rec = new Date(assetDetailsRecord.date_of_receiving_goods__c);
+    //rec.setHours(rec.getHours() + 5);
+    //rec.setMinutes(rec.getMinutes() + 30);
+    //let receiveDate = rec.toLocaleString().split(',')[0];
+    let receiveDate  = '';
+    if(assetDetailsRecord.date_of_receiving_goods__c)
+       receiveDate = new Date(assetDetailsRecord.date_of_receiving_goods__c).toLocaleDateString();
     let actu = new Date(assetDetailsRecord.requested_closure_actual_date__c);
     actu.setHours(actu.getHours() + 5);
     actu.setMinutes(actu.getMinutes() + 30);
@@ -1186,7 +1189,7 @@
       assetDetailsTableRows += '<tr>';
       assetDetailsTableRows += '<td><strong>Date Of Receiving (Goods)<strong></td>';
       //if(assetDetailsRecord.date_of_receiving_goods__c == null)
-      assetDetailsTableRows += '<td>'+assetDetailsRecord.date_of_receiving_goods__c+'</td>';
+      assetDetailsTableRows += '<td>'+receiveDate+'</td>';
       //else
       //assetDetailsTableRows += '<td>'+receiveDate+'</td>';
 
@@ -1393,7 +1396,7 @@
             clousrePlanDate = assetRecord.requested_closure_plan_date__c.split('T')[0];
         }
         if (assetRecord.date_of_receiving_goods__c != null) {
-            //strReceivingGoodsDate = assetRecord.date_of_receiving_goods__c.split('T')[0];
+            strReceivingGoodsDate = assetRecord.date_of_receiving_goods__c;
             console.log('strReceivingGoodsDate : ' + strReceivingGoodsDate + ' :clousrePlanDate ' + clousrePlanDate);
         }
 
