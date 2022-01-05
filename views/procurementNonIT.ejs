@@ -917,12 +917,9 @@ else if(state=='Uttarakhand')
 
 
 function drawOptions(optList,cnt){
-  $('#other'+cnt).html('');
+    $('#other'+cnt).html('');
     optList.forEach(dt=>{
-    $('#other'+cnt)
-   .append($("<option></option>")
-   .attr("value",dt.value)
-   .text(dt.text); 
+    $('#other'+cnt).append($("<option></option>").attr("value",dt.value).text(dt.text)); 
   });
 }
     
