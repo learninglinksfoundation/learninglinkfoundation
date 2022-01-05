@@ -819,10 +819,25 @@ else if(state=='Uttarakhand')
                           filtervalues.district=dstr;
                           
                             filtervalues.item=itemValue;
-                          
+                       let obj = {};
+                       obj.state = sts;
+                       obj.dist =  dstr;
+                       obj.item=itemValue;
+                       obj.category = $('#cat'+cnt).val();  
                           
                           data.push(filtervalues);
                           console.log(JSON.stringify(data));
+                          
+                      if(itemValue == 'Others'){
+                        $.ajax({
+                          url : '/procurement/getOtherItems',
+                          type : 'get',
+                          data: { data : obj },
+                          dataType : 'json'
+                        })
+                        .done(console.log);
+                      }
+
                       
                       $.ajax({
                         url : '/procurement/getCostandGSt',

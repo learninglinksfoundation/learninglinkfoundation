@@ -1235,6 +1235,30 @@ router.get('/getRelatedQuote',(request, response) => {
     })
 });
 
+router.get('/getOtherItems',async(request,response)=>{
+    let data=request.query.data;
+    let vender=[];
+    let qryItem=`select itd.sfid as itemId ,itd.Other_Items__c as others,itd.name as item,itd.Impaneled_Vendor__c as ItemVender,itd.Items__c as itemName,ivd.sfid as sfid ,ivd.vendor_name__c as vendor_name__c ,ivd.GST_No__c as GST_No__c from salesforce.Item_Description__c itd `+
+                  ` INNER JOIN salesforce.Impaneled_Vendor__c ivd on itd.impaneled_vendor__c = ivd.sfid `+
+                  ` WHERE itd.Items__c = '${data.item}' AND itd.Category__c = '${data.category}' AND ivd.state__c = '${data.state}' AND ivd.District__c = '${data.dist}'`; 
+    console.log(qryItem);
+    pool
+     .query(qryItem)
+     .then((resp)=>{
+        if(resp.rowCount > 0){
+            response.send(resp.rows);
+        }
+        else{
+            response.send([]);
+        }
+
+     })
+     .catch(error=>{
+        response.send(error);
+     })
+
+})
+
 router.get('/getCostandGSt',async(request,response)=>{
     let data=request.query.data;
     console.log('Data requiremet'+JSON.stringify(data));

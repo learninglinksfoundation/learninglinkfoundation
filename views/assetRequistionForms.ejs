@@ -1185,10 +1185,10 @@
       
       assetDetailsTableRows += '<tr>';
       assetDetailsTableRows += '<td><strong>Date Of Receiving (Goods)<strong></td>';
-      if(assetDetailsRecord.date_of_receiving_goods__c == null)
-      assetDetailsTableRows += '<td>'+asset+'</td>';
-      else
-      assetDetailsTableRows += '<td>'+receiveDate+'</td>';
+      //if(assetDetailsRecord.date_of_receiving_goods__c == null)
+      assetDetailsTableRows += '<td>'+assetDetailsRecord.date_of_receiving_goods__c+'</td>';
+      //else
+      //assetDetailsTableRows += '<td>'+receiveDate+'</td>';
 
       assetDetailsTableRows += '<td><strong><strong></td>';
       assetDetailsTableRows += '<td></td>';
