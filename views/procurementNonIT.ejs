@@ -804,12 +804,7 @@ else if(state=='Uttarakhand')
               $('#'+cnt).unbind('change');
               $('#'+cnt).on('change', function() {
                   itVal=this.value;
-                  if(itVal=='Others'){
-                    $('#other'+cnt).attr("readonly",false);
-                  }
-                  else{
-                    $('#other'+cnt).attr("readonly",true);
-                  }
+                  
                    itemValue = this.value;
                   // alert('your Choose'+itemValue);
                       console.log('District  : '+dstr+' state  : '+sts+' item : '+itemValue);
@@ -827,15 +822,31 @@ else if(state=='Uttarakhand')
                           
                           data.push(filtervalues);
                           console.log(JSON.stringify(data));
-                          
+                      let optList = [{value:'',text:'Select'}];
                       if(itemValue == 'Others'){
+                        $('#other'+cnt).attr("readonly",false);
                         $.ajax({
                           url : '/procurement/getOtherItems',
                           type : 'get',
                           data: { data : obj },
                           dataType : 'json'
                         })
-                        .done(console.log);
+                        .done(resp=>{
+                          
+                          resp.forEach(data=>{
+                            optList.push({value:data.others,text:data.others});
+                          });
+                          drawOptions(optList,cnt);
+                                
+                        })
+                        .fail((jqXHR,text,err) => {
+                          console.log('jqXHR  '+JSON.stringify(jqXHR));
+                          console.log('err  '+err + 'text  : '+text);
+                      })
+                      }
+                      else{
+                         $('#other'+cnt).attr("readonly",true);
+                         drawOptions(optList,cnt);
                       }
 
                       
@@ -904,6 +915,16 @@ else if(state=='Uttarakhand')
 
   });
 
+
+function drawOptions(optList,cnt){
+  $('#other'+cnt).html('');
+    optList.forEach(dt=>{
+    $('#other'+cnt)
+   .append($("<option></option>")
+   .attr("value",dt.value)
+   .text(dt.text); 
+  });
+}
     
     
     $(function () {
