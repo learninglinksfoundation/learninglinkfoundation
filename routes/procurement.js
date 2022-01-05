@@ -1797,7 +1797,7 @@ router.get('/getProcurementDetail',async(request,response)=>{
     let procurementId=request.query.procurementId;
     console.log('getProcurementITDetail Id='+procurementId);
     let procDetail={};
-    let qry='SELECT proc.sfid,proc.Name as procName ,proc.Items__c ,proc.Others__c,proc.Products_Services_Name__c,vend.name as vendorName,proc.Product_Service__c,proc.Quantity__c, proc.Budget__c,proc.Impaneled_Vendor__c, '+
+    let qry='SELECT proc.sfid,proc.Name as procName ,proc.Total_Approved_Budget_for_the_purchase__c as purchasebudg  ,proc.Items__c ,proc.Others__c,proc.Products_Services_Name__c,vend.name as vendorName,proc.Product_Service__c,proc.Quantity__c, proc.Budget__c,proc.Impaneled_Vendor__c, '+
     'proc.State__c,proc.District__c,proc.Quote1__c,proc.Quote2__c,proc.Quote3__c,proc.Per_Unit_Cost__c,proc.unit__c,proc.Number_of_quotes__c,proc.justification__c '+
     'FROM salesforce.Product_Line_Item__c proc '+
     'INNER JOIN salesforce.Impaneled_Vendor__c vend '+

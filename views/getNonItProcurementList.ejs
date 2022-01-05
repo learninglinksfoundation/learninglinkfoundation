@@ -424,8 +424,8 @@
                     htmlTable += '<tr>';
                       htmlTable += '<td><strong>Justification</strong></td>';
                       htmlTable += '<td>'+record.justification__c+'</td>';
-                      htmlTable +='<td></td>';
-                      htmlTable +='<td></td>';
+                      htmlTable +='<td><strong>Total Approved Budget for the purchase</strong></td>';
+                      htmlTable +=`<td> ${record.purchasebudg} </td>`;
                       
                   htmlTable += '</tr>';
                             $('#procTable').empty();
