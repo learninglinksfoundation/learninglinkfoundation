@@ -1396,7 +1396,7 @@
             clousrePlanDate = assetRecord.requested_closure_plan_date__c.split('T')[0];
         }
         if (assetRecord.date_of_receiving_goods__c != null) {
-            strReceivingGoodsDate = assetRecord.date_of_receiving_goods__c;
+            strReceivingGoodsDate = new Date(assetRecord.date_of_receiving_goods__c).toLocaleDateString();
             console.log('strReceivingGoodsDate : ' + strReceivingGoodsDate + ' :clousrePlanDate ' + clousrePlanDate);
         }
 
