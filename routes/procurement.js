@@ -474,7 +474,8 @@ router.get('/fetchActivityCode', verify ,(request, response) => {
                                               for(let i=0 ; i < assetQueryResult.rows.length; i++)
                                                {
                                                  {
-                                                  console.log('assetQueryResult.rows[i].if_3_quotations_specify_reason__c '+assetQueryResult.rows[i].if_3_quotations_specify_Reason__c );
+                                                    console.log(assetQueryResult.rows[i]);
+                                                  //console.log('assetQueryResult.rows[i].if_3_quotations_specify_reason__c '+assetQueryResult.rows[i].if_3_quotations_specify_Reason__c );
                                                /* if(assetQueryResult.rows[i].if_3_quotations_specify_reason__c == null  || assetQueryResult.rows[i].reason_for_non_registered_gst_vendor__c == null || assetQueryResult.rows[i].pricing_terms_cost_comparison__c == null || assetQueryResult.rows[i].delivery_terms_delivery_place__c == null || assetQueryResult.rows[i].delivery_terms_delivery_time__c == null || assetQueryResult.rows[i].delivery_cost_incl__c == null)
                                                    {
                                                     response.send('Unless and until , the purchase order checklist is not filled completely, the form can not be sent for approval.');
