@@ -954,14 +954,14 @@ router.post('/nonItProducts', (request,response) => {
      
              })
              let result=schema.validate({state:state[i],totalApproved:totalApproved[i],category:category[i],items:items[i],itemsCategory:itemsCategory[i],district:district[i],vendor:vendor[i],itemSpecification:itemSpecification[i],itemSpeci:itemSpecification[i],quantity:quantity[i],quanty:quantity[i],budget:budget[i],budg:budget[i]});
-             console.log('validation REsult mul'+JSON.stringify(result.error));
+             console.log('validation REsult mul '+JSON.stringify(result));
              if(result.error){
                  console.log('Validation error'+result.error);
                  response.send(result.error.details[0].context.label);
              }
              else{
                 // if(nonItFormResult.quoteNum[i]<3 &&(nonItFormResult.justification[i]==null || nonItFormResult.justification[i]=="" || nonItFormResult.justification[i]== ' ')){               
-                   if(nonItFormResult.quoteNum[i]<3 && nonItFormResult.justification[i].length <3){
+                   if(nonItFormResult.quoteNum[i]<3 && (!nonItFormResult.justification ||  nonItFormResult.justification[i].length <3)){
                     console.log('charter count '+nonItFormResult.justification[i].length);
                     response.send('Please enter Justification because quote count is not equal to 3.');    
                  }
