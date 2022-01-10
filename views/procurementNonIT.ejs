@@ -856,7 +856,59 @@ else if(state=='Uttarakhand')
                           resp.forEach(data=>{
                             optList.push({value:data.others,text:data.others});
                           });
-                          drawOptions(optList,cnt,lstVendorDetail);
+                          drawOptions(optList,cnt);
+
+                          $('#other'+cnt).unbind();
+  $('#other'+cnt).on('change',function(){
+    let value = this.value;
+    let data = {};
+    data.state = $('#state'+cnt).val();
+    data.dist = $('#district'+cnt).val();
+    data.category = $('#cat'+cnt).val();
+    data.item = $('#'+cnt).val();
+    data.others = value;
+    console.log(data);
+
+    $.ajax({
+              url : '/procurement/getOtherItemsVendor',
+              type : 'get',
+              data: { data:data },
+              dataType : 'json'
+            })
+            .done((response) => {
+              lstVendorDetail = [];
+              console.log('Vendor ResultData '+JSON.stringify(response));
+              console.log('length '+response.length);
+              console.log('dgsdh ',response);
+              let select = document.getElementById("vendor"+cnt);
+              let length = select.options.length;
+              for (i = length-1; i > 0; i--) {
+                select.options[i] = null;
+               }
+              
+                  $('#unitCost'+cnt).val('');
+                   $('#unit'+cnt).val('');
+                   $('#gst'+cnt).val('');
+                  
+              
+                for(let i=0;i<response.length;i++)
+                {
+                  $('#vendor'+cnt)
+                  .append($("<option></option>")
+                  .attr("value",response[i].sfid)
+                  .text(response[i].vendor_name__c))
+                  lstVendorDetail.push(response[i]);
+                }
+
+                console.log('lstVendorDetail=> ',lstVendorDetail);
+                
+            })
+            .fail((jqXHR,text,err) => {
+                console.log('jqXHR  '+JSON.stringify(jqXHR));
+                console.log('err  '+err + 'text  : '+text);
+            })
+  });
+
                                
                         })
                         .fail((jqXHR,text,err) => {
@@ -866,7 +918,59 @@ else if(state=='Uttarakhand')
                       }
                       else{
                          $('#other'+cnt).attr("readonly",true);
-                         drawOptions(optList,cnt,lstVendorDetail);
+                         drawOptions(optList,cnt);
+
+                         $('#other'+cnt).unbind();
+  $('#other'+cnt).on('change',function(){
+    let value = this.value;
+    let data = {};
+    data.state = $('#state'+cnt).val();
+    data.dist = $('#district'+cnt).val();
+    data.category = $('#cat'+cnt).val();
+    data.item = $('#'+cnt).val();
+    data.others = value;
+    console.log(data);
+
+    $.ajax({
+              url : '/procurement/getOtherItemsVendor',
+              type : 'get',
+              data: { data:data },
+              dataType : 'json'
+            })
+            .done((response) => {
+              lstVendorDetail = [];
+              console.log('Vendor ResultData '+JSON.stringify(response));
+              console.log('length '+response.length);
+              console.log('dgsdh ',response);
+              let select = document.getElementById("vendor"+cnt);
+              let length = select.options.length;
+              for (i = length-1; i > 0; i--) {
+                select.options[i] = null;
+               }
+              
+                  $('#unitCost'+cnt).val('');
+                   $('#unit'+cnt).val('');
+                   $('#gst'+cnt).val('');
+                  
+              
+                for(let i=0;i<response.length;i++)
+                {
+                  $('#vendor'+cnt)
+                  .append($("<option></option>")
+                  .attr("value",response[i].sfid)
+                  .text(response[i].vendor_name__c))
+                  lstVendorDetail.push(response[i]);
+                }
+
+                console.log('lstVendorDetail=> ',lstVendorDetail);
+                
+            })
+            .fail((jqXHR,text,err) => {
+                console.log('jqXHR  '+JSON.stringify(jqXHR));
+                console.log('err  '+err + 'text  : '+text);
+            })
+  });
+
                       }
 
                       if(itemValue != 'Others'){
@@ -923,7 +1027,7 @@ else if(state=='Uttarakhand')
   });
 
 
-function drawOptions(optList,cnt,lstVendorDetail){
+function drawOptions(optList,cnt){
   let dt1 = ['other','vendor','unitCost','unit','gst','itemSpecification','quantity','budget','totalApproved','justification'];
   clearData(dt1,cnt); 
    let select1 = document.getElementById("vendor"+cnt);
@@ -935,58 +1039,6 @@ function drawOptions(optList,cnt,lstVendorDetail){
     optList.forEach(dt=>{
     $('#other'+cnt).append($("<option></option>").attr("value",dt.value).text(dt.text)); 
   });
-
-  $('#other'+cnt).unbind();
-  $('#other'+cnt).on('change',function(){
-    let value = this.value;
-    let data = {};
-    data.state = $('#state'+cnt).val();
-    data.dist = $('#district'+cnt).val();
-    data.category = $('#cat'+cnt).val();
-    data.item = $('#'+cnt).val();
-    data.others = value;
-    console.log(data);
-
-    $.ajax({
-              url : '/procurement/getOtherItemsVendor',
-              type : 'get',
-              data: { data:data },
-              dataType : 'json'
-            })
-            .done((response) => {
-              lstVendorDetail = [];
-              console.log('Vendor ResultData '+JSON.stringify(response));
-              console.log('length '+response.length);
-              console.log('dgsdh ',response);
-              let select = document.getElementById("vendor"+cnt);
-              let length = select.options.length;
-              for (i = length-1; i > 0; i--) {
-                select.options[i] = null;
-               }
-              
-                  $('#unitCost'+cnt).val('');
-                   $('#unit'+cnt).val('');
-                   $('#gst'+cnt).val('');
-                  
-              
-                for(let i=0;i<response.length;i++)
-                {
-                  $('#vendor'+cnt)
-                  .append($("<option></option>")
-                  .attr("value",response[i].sfid)
-                  .text(response[i].vendor_name__c))
-                  lstVendorDetail.push(response[i]);
-                }
-
-                console.log('lstVendorDetail=> ',lstVendorDetail);
-                
-            })
-            .fail((jqXHR,text,err) => {
-                console.log('jqXHR  '+JSON.stringify(jqXHR));
-                console.log('err  '+err + 'text  : '+text);
-            })
-  });
-
   
 }
     
