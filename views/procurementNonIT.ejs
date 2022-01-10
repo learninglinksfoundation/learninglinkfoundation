@@ -164,7 +164,7 @@ let st =["Andaman Nicobar","Andhra Pradesh","Arunachal Pradesh","Assam","Bihar",
         html +='<td><input id="unit'+cnt+'" type="text" name="unit" class="form-control" readonly="true"  /></td>';  
         html +='<td><input id="gst'+cnt+'" type="text" name="gst" class="form-control" readonly="true"  /></td>';
         html += '<td><input type="text" id="itemSpecification'+cnt+'"  name="itemSpecification" class="form-control" /></td>';
-        html += '<td><input type="number"`id="quantity'+cnt+'" name="quantity" class="form-control" /></td>';
+        html += '<td><input type="number" id="quantity'+cnt+'" name="quantity" class="form-control" /></td>';
         html += '<td><input type="number" id="budget'+cnt+'" name="budget" class="form-control" /></td>';
         html += '<td><input type="number" id="totalApproved'+cnt+'" name="totalApproved" class="form-control" /></td>';
         html += '<td><a id="quote'+cnt+'" target="_blank" href="#" >No Quotes Available</a></td>';
@@ -855,8 +855,7 @@ else if(state=='Uttarakhand')
                             optList.push({value:data.others,text:data.others});
                           });
                           drawOptions(optList,cnt);
-                            let dt1 = ['other','vendor','unitCost','unit','gst','itemSpecification','quantity','budget','totalApproved','justification'];
-                            clearData(dt1,cnt);    
+                               
                         })
                         .fail((jqXHR,text,err) => {
                           console.log('jqXHR  '+JSON.stringify(jqXHR));
@@ -940,6 +939,8 @@ function drawOptions(optList,cnt){
     optList.forEach(dt=>{
     $('#other'+cnt).append($("<option></option>").attr("value",dt.value).text(dt.text)); 
   });
+  let dt1 = ['other','vendor','unitCost','unit','gst','itemSpecification','quantity','budget','totalApproved','justification'];
+  clearData(dt1,cnt); 
 }
     
     
