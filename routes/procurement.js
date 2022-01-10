@@ -686,7 +686,7 @@ router.post('/updateasset',(request,response)=>{
     let {assetsfid, assetName,activityCode,paymentStatus,date_from3,status,commentsRaiser,payement,receiverName,receivedQuantity,quotations,reason,pricing,deliveryPlace,deliveryCost,attachment,totamt} = request.body;
     
     if(!goodsDate){
-        goodsDate = date_from3 || null;
+        goodsDate = `'${date_from3}'` || null;
     }
 
 
@@ -735,7 +735,7 @@ router.post('/updateasset',(request,response)=>{
     }
 
     updateQuerry += 'Received_Quantity_Goods__c= \''+receivedQuantity+'\', '+
-    'Date_of_Receiving_Goods__c= \''+goodsDate+'\' '+
+    `Date_of_Receiving_Goods__c= ${goodsDate} `+
     'WHERE sfid = $1';
     console.log('---- 725 procurement.js updateQuerry: ' + updateQuerry);
 

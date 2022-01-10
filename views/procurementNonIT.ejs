@@ -224,14 +224,14 @@ let st =["Andaman Nicobar","Andhra Pradesh","Arunachal Pradesh","Assam","Bihar",
                 text : 'Select'
             }));
           }
-          let dt = ['cat',cnt,'other','vendor','unitCost','unit','gst','itemSpecification','quantity','budget','totalApproved','justification'];
+          let dt = ['cat','','other','vendor','unitCost','unit','gst','itemSpecification','quantity','budget','totalApproved','justification'];
 
            clearData(dt,cnt);
         });
         $('#state'+cnt).on('change',function(){
            let state =this.value;
            sts=state;
-           let dt = ['category','cat',cnt,'other','vendor','unitCost','unit','gst','itemSpecification','quantity','budget','totalApproved','justification'];
+           let dt = ['category','cat','','other','vendor','unitCost','unit','gst','itemSpecification','quantity','budget','totalApproved','justification'];
 
            clearData(dt,cnt);
           // alert("selcted"+sts);
@@ -816,7 +816,7 @@ else if(state=='Uttarakhand')
                    .attr("value",subListValue[i])
                    .text(subListValue[i]));		
               }
-              let dt = [cnt,'other','vendor','unitCost','unit','gst','itemSpecification','quantity','budget','totalApproved','justification'];
+              let dt = ['','other','vendor','unitCost','unit','gst','itemSpecification','quantity','budget','totalApproved','justification'];
 
               clearData(dt,cnt);
               $('#'+cnt).unbind('change');
