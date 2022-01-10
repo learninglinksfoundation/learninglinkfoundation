@@ -856,7 +856,7 @@ else if(state=='Uttarakhand')
                           resp.forEach(data=>{
                             optList.push({value:data.others,text:data.others});
                           });
-                          drawOptions(optList,cnt);
+                          drawOptions(optList,cnt,lstVendorDetail);
                                
                         })
                         .fail((jqXHR,text,err) => {
@@ -866,7 +866,7 @@ else if(state=='Uttarakhand')
                       }
                       else{
                          $('#other'+cnt).attr("readonly",true);
-                         drawOptions(optList,cnt);
+                         drawOptions(optList,cnt,lstVendorDetail);
                       }
 
                       if(itemValue != 'Others'){
@@ -923,7 +923,7 @@ else if(state=='Uttarakhand')
   });
 
 
-function drawOptions(optList,cnt){
+function drawOptions(optList,cnt,lstVendorDetail){
   let dt1 = ['other','vendor','unitCost','unit','gst','itemSpecification','quantity','budget','totalApproved','justification'];
   clearData(dt1,cnt); 
    let select1 = document.getElementById("vendor"+cnt);
