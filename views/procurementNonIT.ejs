@@ -136,6 +136,13 @@ let st =["Andaman Nicobar","Andhra Pradesh","Arunachal Pradesh","Assam","Bihar",
       objCollection.nonIt.push({key:dt,value:dt.split(' ').join('')});
     });
 
+
+    function clearData(data,i){
+      data.forEach(dt=>{
+        $(`#${dt}${i}`).val('');
+      });
+    }
+
     $(document).ready(function(){
      var count = 1
      var lstObjects = [];
@@ -156,10 +163,10 @@ let st =["Andaman Nicobar","Andhra Pradesh","Arunachal Pradesh","Assam","Bihar",
         html +='<td><input id="unitCost'+cnt+'" type="text" name="unitCost" class="form-control" readonly="true"  /></td>';
         html +='<td><input id="unit'+cnt+'" type="text" name="unit" class="form-control" readonly="true"  /></td>';  
         html +='<td><input id="gst'+cnt+'" type="text" name="gst" class="form-control" readonly="true"  /></td>';
-        html += '<td><input type="text" name="itemSpecification" class="form-control" /></td>';
-        html += '<td><input type="number" name="quantity" class="form-control" /></td>';
-        html += '<td><input type="number" name="budget" class="form-control" /></td>';
-        html += '<td><input type="number" name="totalApproved" class="form-control" /></td>';
+        html += '<td><input type="text" id="itemSpecification'+cnt+'"  name="itemSpecification" class="form-control" /></td>';
+        html += '<td><input type="number"`id="quantity'+cnt+'" name="quantity" class="form-control" /></td>';
+        html += '<td><input type="number" id="budget'+cnt+'" name="budget" class="form-control" /></td>';
+        html += '<td><input type="number" id="totalApproved'+cnt+'" name="totalApproved" class="form-control" /></td>';
         html += '<td><a id="quote'+cnt+'" target="_blank" href="#" >No Quotes Available</a></td>';
         html += '<td><input type="file" onChange="chkFile1(this,'+cnt+')" name="fileprety" id="fileprety" style="overflow:hidden" class="form-control" /><input type="hidden" value="demo1" name="imgpath1" id="file_1'+cnt+'"></td>';
         html += '<td><input type="file" onChange="chkFile2(this,'+cnt+')" name="fileprety" id="fileprety"  style="overflow:hidden" class="form-control" /><input type="hidden" value="demo2" name="imgpath2" id="file_2'+cnt+'"></td>';
@@ -217,10 +224,16 @@ let st =["Andaman Nicobar","Andhra Pradesh","Arunachal Pradesh","Assam","Bihar",
                 text : 'Select'
             }));
           }
+          let dt = ['cat',cnt,'other','vendor','unitCost','unit','gst','itemSpecification','quantity','budget','totalApproved','justification'];
+
+           clearData(dt,cnt);
         });
         $('#state'+cnt).on('change',function(){
            let state =this.value;
            sts=state;
+           let dt = ['category','cat',cnt,'other','vendor','unitCost','unit','gst','itemSpecification','quantity','budget','totalApproved','justification'];
+
+           clearData(dt,cnt);
           // alert("selcted"+sts);
            let select = document.getElementById("district"+cnt);
            let length = select.options.length;
@@ -772,6 +785,8 @@ else if(state=='Uttarakhand')
                 }
               })
             }
+            let dt1 = ['itemSpecification','quantity','budget','totalApproved','justification'];
+            clearData(dt1,cnt);  
           })
           .fail((jqXHR,text,err) => {
             console.log('jqXHR  '+JSON.stringify(jqXHR));
@@ -801,6 +816,9 @@ else if(state=='Uttarakhand')
                    .attr("value",subListValue[i])
                    .text(subListValue[i]));		
               }
+              let dt = [cnt,'other','vendor','unitCost','unit','gst','itemSpecification','quantity','budget','totalApproved','justification'];
+
+              clearData(dt,cnt);
               $('#'+cnt).unbind('change');
               $('#'+cnt).on('change', function() {
                   itVal=this.value;
@@ -837,7 +855,8 @@ else if(state=='Uttarakhand')
                             optList.push({value:data.others,text:data.others});
                           });
                           drawOptions(optList,cnt);
-                                
+                            let dt1 = ['other','vendor','unitCost','unit','gst','itemSpecification','quantity','budget','totalApproved','justification'];
+                            clearData(dt1,cnt);    
                         })
                         .fail((jqXHR,text,err) => {
                           console.log('jqXHR  '+JSON.stringify(jqXHR));
