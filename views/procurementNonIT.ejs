@@ -1026,6 +1026,10 @@ function drawOptions(optList,cnt){
                  '</div>';
                  $('#errorMessages').empty();
                  $('#errorMessages').append(errorHtml); 
+
+                 window.setTimeout(function(){
+                    window.location.reload();
+                 },1500);
               }
               else
               {
