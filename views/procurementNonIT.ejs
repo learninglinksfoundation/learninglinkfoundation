@@ -938,7 +938,11 @@ else if(state=='Uttarakhand')
 function drawOptions(optList,cnt){
   let dt1 = ['other','vendor','unitCost','unit','gst','itemSpecification','quantity','budget','totalApproved','justification'];
   clearData(dt1,cnt); 
-   $('#vendor'+cnt).html('');
+   let select1 = document.getElementById("vendor"+cnt);
+    let length1 = select1.options.length;
+    for (i = length1-1; i > 0; i--) {
+      select1.options[i] = null;
+     }
     $('#other'+cnt).html('');
     optList.forEach(dt=>{
     $('#other'+cnt).append($("<option></option>").attr("value",dt.value).text(dt.text)); 
