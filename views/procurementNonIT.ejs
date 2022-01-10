@@ -746,13 +746,13 @@ else if(state=='Uttarakhand')
           $('#gst'+cnt).val('');
           console.log('sfidSelected = '+sif);
           let gstNo=document.getElementById('gst'+cnt);
+          console.log(lstVendorDetail);
           lstVendorDetail.forEach((each)=>{
+            console.log(each);
            if(each.sfid==sif){
             gstNo.value=each.gst_no__c;
             sid=each.sfid;
-          //  $('#quote'+cnt)
-           // .attr("href",each.quote_public_url__c)
-           // .text('Available Quote');
+          
 
            }
           })
@@ -911,21 +911,7 @@ else if(state=='Uttarakhand')
                     }
                   });
         });
-
-
-      /*
-        $('#imp'+cnt).on('click',function(){
-            console.log('this.value  : '+this.checked);
-            if(this.checked == true)
-            {
-                $('#impId'+cnt).attr("value",impaneledVendorId);
-            }
-            else
-            {
-                $('#impId'+cnt).attr("value","");
-            }
-        })
-      */
+      
 
      });
    
