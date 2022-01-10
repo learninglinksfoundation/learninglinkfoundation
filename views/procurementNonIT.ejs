@@ -826,8 +826,6 @@ else if(state=='Uttarakhand')
                   itVal=this.value;
                   
                    itemValue = this.value;
-                  // alert('your Choose'+itemValue);
-                      console.log('District  : '+dstr+' state  : '+sts+' item : '+itemValue);
                       var data =[];
                       let filtervalues={};
                           filtervalues.state=sts;
@@ -869,45 +867,46 @@ else if(state=='Uttarakhand')
                          drawOptions(optList,cnt);
                       }
 
-                      
-                      $.ajax({
-                        url : '/procurement/getCostandGSt',
-                        type : 'get',
-                        data: { data:data },
-                        dataType : 'json'
-                      })
-                      .done((response) => {
-                        lstVendorDetail = [];
-                        console.log('Vendor ResultData '+JSON.stringify(response));
-                        console.log('length '+response.length);
-                        console.log('dgsdh ',response);
-                        let select = document.getElementById("vendor"+cnt);
-                        let length = select.options.length;
-                        for (i = length-1; i > 0; i--) {
-                          select.options[i] = null;
-                         }
-                        
-                            $('#unitCost'+cnt).val('');
-                             $('#unit'+cnt).val('');
-                             $('#gst'+cnt).val('');
-                            
-                        
-                          for(let i=0;i<response.length;i++)
-                          {
-                            $('#vendor'+cnt)
-                            .append($("<option></option>")
-                            .attr("value",response[i].sfid)
-                            .text(response[i].vendor_name__c))
-                            lstVendorDetail.push(response[i]);
-                          }
-
-                          console.log('lstVendorDetail=> '+JSON.stringify(lstVendorDetail));
+                      if(itemValue != 'Others'){
+                        $.ajax({
+                          url : '/procurement/getCostandGSt',
+                          type : 'get',
+                          data: { data:data },
+                          dataType : 'json'
+                        })
+                        .done((response) => {
+                          lstVendorDetail = [];
+                          console.log('Vendor ResultData '+JSON.stringify(response));
+                          console.log('length '+response.length);
+                          console.log('dgsdh ',response);
+                          let select = document.getElementById("vendor"+cnt);
+                          let length = select.options.length;
+                          for (i = length-1; i > 0; i--) {
+                            select.options[i] = null;
+                           }
                           
-                      })
-                      .fail((jqXHR,text,err) => {
-                          console.log('jqXHR  '+JSON.stringify(jqXHR));
-                          console.log('err  '+err + 'text  : '+text);
-                      })
+                              $('#unitCost'+cnt).val('');
+                               $('#unit'+cnt).val('');
+                               $('#gst'+cnt).val('');
+                              
+                          
+                            for(let i=0;i<response.length;i++)
+                            {
+                              $('#vendor'+cnt)
+                              .append($("<option></option>")
+                              .attr("value",response[i].sfid)
+                              .text(response[i].vendor_name__c))
+                              lstVendorDetail.push(response[i]);
+                            }
+
+                            console.log('lstVendorDetail=> '+JSON.stringify(lstVendorDetail));
+                            
+                        })
+                        .fail((jqXHR,text,err) => {
+                            console.log('jqXHR  '+JSON.stringify(jqXHR));
+                            console.log('err  '+err + 'text  : '+text);
+                        })
+                    }
                   });
         });
 
@@ -943,6 +942,58 @@ function drawOptions(optList,cnt){
     optList.forEach(dt=>{
     $('#other'+cnt).append($("<option></option>").attr("value",dt.value).text(dt.text)); 
   });
+
+  $('#other'+cnt).unbind();
+  $('#other'+cnt).on('change',function(){
+    let value = this.value;
+    let data = {};
+    data.state = $('#state'+cnt).val();
+    data.dist = $('#district'+cnt).val();
+    data.category = $('#cat'+cnt).val();
+    data.item = $('#'+cnt).val();
+    data.others = value;
+    console.log(data);
+
+    $.ajax({
+              url : '/procurement/getOtherItemsVendor',
+              type : 'get',
+              data: { data:data },
+              dataType : 'json'
+            })
+            .done((response) => {
+              lstVendorDetail = [];
+              console.log('Vendor ResultData '+JSON.stringify(response));
+              console.log('length '+response.length);
+              console.log('dgsdh ',response);
+              let select = document.getElementById("vendor"+cnt);
+              let length = select.options.length;
+              for (i = length-1; i > 0; i--) {
+                select.options[i] = null;
+               }
+              
+                  $('#unitCost'+cnt).val('');
+                   $('#unit'+cnt).val('');
+                   $('#gst'+cnt).val('');
+                  
+              
+                for(let i=0;i<response.length;i++)
+                {
+                  $('#vendor'+cnt)
+                  .append($("<option></option>")
+                  .attr("value",response[i].sfid)
+                  .text(response[i].vendor_name__c))
+                  lstVendorDetail.push(response[i]);
+                }
+
+                console.log('lstVendorDetail=> ',lstVendorDetail);
+                
+            })
+            .fail((jqXHR,text,err) => {
+                console.log('jqXHR  '+JSON.stringify(jqXHR));
+                console.log('err  '+err + 'text  : '+text);
+            })
+  });
+
   
 }
     
