@@ -963,7 +963,7 @@ router.post('/nonItProducts', (request,response) => {
                 console.log(nonItFormResult);
                 // if(nonItFormResult.quoteNum[i]<3 &&(nonItFormResult.justification[i]==null || nonItFormResult.justification[i]=="" || nonItFormResult.justification[i]== ' ')){               
                    if(nonItFormResult.quoteNum[i]<3 && (!nonItFormResult.justification ||  nonItFormResult.justification[i].length <3)){
-                    console.log('charter count '+nonItFormResult.justification[i].length);
+                    //console.log('charter count '+nonItFormResult.justification[i].length);
                     response.send('Please enter Justification because quote count is not equal to 3.');    
                  }
                  else{
