@@ -766,7 +766,9 @@ else if(state=='Uttarakhand')
             console.log('response '+JSON.stringify(response));
              
             if(response.length>0){
+
               response.forEach((each)=>{
+                 console.log('dd',each);
                 if(each.items__c==itVal){
                   let unCost=document.getElementById('unitCost'+cnt);
                   unCost.value=each.per_unit_cost__c;
