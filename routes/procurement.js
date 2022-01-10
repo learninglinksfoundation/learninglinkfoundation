@@ -695,7 +695,7 @@ router.post('/updateasset',(request,response)=>{
     }
   
      if(goodsDate == '' || typeof(goodsDate) == "undefined"){
-        goodsDate= closurePlanDate;
+       // goodsDate= closurePlanDate;
     } 
 
     if(deliveryTime=='' || typeof(deliveryTime) == "undefined"){
