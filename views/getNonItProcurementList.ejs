@@ -3,7 +3,7 @@
 <% include ./partials/messages %>
 <p id ="parentId"><%=parentAssetId %></p>
 <p id ="isDisabled"><%=isDisabled %></p>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="/stylesheets/table-sortable.css">
 <script src="/scripts/table-sortable.js" ></script>
 
@@ -12,9 +12,9 @@
 <div class="container">
   <div class="row mt-5 mb-3 align-items-center">
       <div class="col-md-5">
-        <a class="btn btn-primary btn-md bg-gray" href="/procurement/assetRequisitionViewRel/<%=parentAssetId %>&<%= isDisabled %>" >Go To Asset Requisition </a>
+        <a class="btn btn-primary btn-md bg-gray" href="/procurement/assetRequisitionViewRel/<%=parentAssetId %>&<%= isDisabled %>" >Go To Procurement Form </a>
        <!--    <a class="btn btn-primary btn-md bg-gray" href="#" id="">Create New It Procurement</a> -->
-       <!--    <a class="btn btn-primary btn-md bg-gray" href="/procurement/getProcurementItListView/"+<%=parentAssetId %> >Refresh</a> -->
+           <a  href="/timesheets/taskListView" style="color: #555;" id="ref" ><i class="fa fa-refresh" style="font-size:34px; margin-left: 10px; "></i> </a>
       </div>
       <div class="col-md-3">
       <input type="text" class="form-control" placeholder="Search " id="searchField" style="margin-top: 5px;">
