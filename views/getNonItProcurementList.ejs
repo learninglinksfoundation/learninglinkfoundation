@@ -11,12 +11,10 @@
 
 <div class="container">
   <div class="row mt-5 mb-3 align-items-center">
-      <div class="col-md-5" >
-      <div>
+      <div class="col-md-5" style="display: flex;" >
         <a class="btn btn-primary btn-md bg-gray" href="/procurement/assetRequisitionViewRel/<%=parentAssetId %>&<%= isDisabled %>" >Go To Procurement Form </a>
        <!--    <a class="btn btn-primary btn-md bg-gray" href="#" id="">Create New It Procurement</a> -->
-           <div id="refresh"   style="color: #555;"  ><i class="fa fa-refresh" style="font-size:34px; margin-left: 10px; "></i> </a>
-      </div>
+           <div id="refreshBtnn"   style="color: #555;"  ><i class="fa fa-refresh" style="font-size:34px; margin-left: 10px; "></i> </a>
       </div>
       <div class="col-md-3">
       <input type="text" class="form-control" placeholder="Search " id="searchField" style="margin-top: 5px;">
@@ -76,7 +74,7 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Purchase Information Detail</h5>
+          <h5 class="modal-title">Procurement-Non IT Detail</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -164,7 +162,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Edit Purchase Information Form</h5>
+          <h5 class="modal-title">Edit Procurement NON IT Form</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -311,7 +309,7 @@
     
         /    $('#refresh').click(function() {
                 table.refresh(true);
-                //onLoadTask();
+                onLoadTask();
             })
     
            $.ajax({
@@ -359,7 +357,7 @@
                     let record = response.proc[0];
                               let htmlTable = '';
                               htmlTable += '<tr>';
-                                htmlTable += '<td><strong>Purchase information ID</strong></td>';
+                                htmlTable += '<td><strong>Procurement_Non-IT ID</strong></td>';
                                 htmlTable += '<td>'+record.procname+'</td>';
                                 htmlTable += '<td><strong>Impaneled Vendor</strong></td>';
                               //  htmlTable += '<td>'+'<a href="#" class="vendorDetTag" id="'+record.impaneled_vendor__c+'" >'+record.vendorname+'</a>'+'</td>';
