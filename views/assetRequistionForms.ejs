@@ -794,8 +794,8 @@
        
         }
 
-        
-        
+
+
         var table = $('#AssetListViewTable').tableSortable({
             data :[],
             columns,
@@ -839,7 +839,7 @@
     
            $('#refresh').click(function() {
                 table.refresh(true);
-                onLoadTask();
+                //onLoadTask();
             })    
             $.ajax({
                 url :'/procurement/assetDetails',

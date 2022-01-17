@@ -393,7 +393,7 @@
                             nonItProductTable += '<td>'+eachNonIt.quantity__c +'</td>';
                             nonItProductTable += '<td>'+eachNonIt.budget__c +'</td></tr>';  
                         })
-                        nonItProductTable+=  '<td colspan="6"><center><a target="_blank" href="/procurement/getNonItProcurementListVIew/'+assetId+'&'+buttonDisable+'">View All</a></centre></td>';
+                        nonItProductTable+=  '<td colspan="6"><center><a target="_blank" href="/procurement/getNonItProcurementListVIew/'+assetId+'&'+isDisabled+'">View All</a></centre></td>';
                             $('#procuremnetNonItTable').empty();
                             $('#procuremnetNonItTable').append(nonItProductTable);
                     }
