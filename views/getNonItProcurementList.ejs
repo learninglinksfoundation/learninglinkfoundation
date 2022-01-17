@@ -5,6 +5,7 @@
 <p id ="isDisabled"><%=isDisabled %></p>
 
 <link rel="stylesheet" href="/stylesheets/table-sortable.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
 <script src="/scripts/table-sortable.js" ></script>
 
 <h3 style="text-align: center; margin-top: 20px;">Purchase Information </h3>
@@ -14,7 +15,7 @@
       <div class="col-md-5">
         <a class="btn btn-primary btn-md bg-gray" href="/procurement/assetRequisitionViewRel/<%=parentAssetId %>&<%= isDisabled %>" >Go To Asset Requisition </a>
        <!--    <a class="btn btn-primary btn-md bg-gray" href="#" id="">Create New It Procurement</a> -->
-       <!--    <a class="btn btn-primary btn-md bg-gray" href="/procurement/getProcurementItListView/"+<%=parentAssetId %> >Refresh</a> -->
+           <a class="btn btn-primary btn-md bg-gray" href="/procurement/getProcurementItListView/"+<%=parentAssetId %> >Refresh</a> 
       </div>
       <div class="col-md-3">
       <input type="text" class="form-control" placeholder="Search " id="searchField" style="margin-top: 5px;">
@@ -74,7 +75,7 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Procurement-Non IT Detail</h5>
+          <h5 class="modal-title">Purchase Information Detail</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -162,7 +163,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Edit Procurement NON IT Form</h5>
+          <h5 class="modal-title">Edit Purchase Information Form</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -309,7 +310,7 @@
     
         /    $('#refresh').click(function() {
                 table.refresh(true);
-                onLoadTask();
+               // onLoadTask();
             })
     
            $.ajax({
@@ -357,7 +358,7 @@
                     let record = response.proc[0];
                               let htmlTable = '';
                               htmlTable += '<tr>';
-                                htmlTable += '<td><strong>Procurement_Non-IT ID</strong></td>';
+                                htmlTable += '<td><strong>Purchase Information ID</strong></td>';
                                 htmlTable += '<td>'+record.procname+'</td>';
                                 htmlTable += '<td><strong>Impaneled Vendor</strong></td>';
                               //  htmlTable += '<td>'+'<a href="#" class="vendorDetTag" id="'+record.impaneled_vendor__c+'" >'+record.vendorname+'</a>'+'</td>';
