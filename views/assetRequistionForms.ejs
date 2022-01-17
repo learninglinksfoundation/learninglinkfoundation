@@ -103,7 +103,7 @@
 <!--Asset Requisition List View-->
 <p id="assetIdpTag"> </p>
 <div class="responsive">
-<h3 style="text-align: center; margin-top: 20px;">Asset Requisition</h3>
+<h3 style="text-align: center; margin-top: 20px;">Procurement Form</h3>
 <div class="container">
     <div class="row mt-5 mb-3 align-items-center">
         <div class="col-md-6">
@@ -111,7 +111,7 @@
           <a href="/procurement/" style="color: #555;" id="refresh" ><i class="fa fa-refresh" style="font-size:34px; margin-left: 10px; margin-top: 30px;"></i> </a>
                </div>
         <div class="col-md-3">
-        <input type="text" class="form-control" placeholder="Search By Asset Requisition Name" id="searchField" style="margin-top: 5px;">
+        <input type="text" class="form-control" placeholder="Search By Procurement Form Name" id="searchField" style="margin-top: 5px;">
         </div>
         <div class="col-md-2 text-right">
         <span class="pr-2">Rows Per Page:</span>
@@ -147,7 +147,7 @@
  <div class="modal-dialog modal-lg" role="document">
  <div class="modal-content">
  <div class="modal-header">
- <h5 class="modal-title" id="createTaskModal">Asset Requisition Form</h5>
+ <h5 class="modal-title" id="createTaskModal">Procurement Form</h5>
  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
  <span aria-hidden="true">&times;</span>
  </button>
@@ -160,8 +160,8 @@
  <div class="form-group"> 
  <div class="row">
  <div class="col-md-6">
- <label for="assetRequisitionName">Asset Requisition Name <span style="color: red;">*</span></label>
- <input type="text" class="form-control" id="assetRequisitionName" placeholder="Asset Requisition Name" name="assetRequisitionName" required>
+ <label for="assetRequisitionName">Procurement Form Name <span style="color: red;">*</span></label>
+ <input type="text" class="form-control" id="assetRequisitionName" placeholder="Procurement Form Name" name="assetRequisitionName" required>
  </div>
 
  <div class="col-md-6">
@@ -227,7 +227,7 @@
   <div class="modal-dialog modal-lg" role="document">
   <div class="modal-content">
   <div class="modal-header">
-  <h5 class="modal-title">Edit: Asset Requisition Form </h5>
+  <h5 class="modal-title">Edit: Procurement Form </h5>
   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
   <span aria-hidden="true">&times;</span>
   </button>
@@ -239,7 +239,7 @@
   <div class="form-group">
   <div class="row">
   <div class="col-md-6">
-  <label for="assetName">Asset Requistion Name</label>
+  <label for="assetName">Procurement Form Name</label>
   <input type="text" class="form-control" id="assetName" value="" name="assetName" required>
   </div>
   
@@ -660,7 +660,7 @@
  
   <!-- Modal Header -->
   <div class="modal-header">
-  <center><h4 class="modal-title">Asset Requisition Form: Main Form</h4></center>
+  <center><h4 class="modal-title">Procurement Form: Main Form</h4></center>
   <button type="button" class="close" data-dismiss="modal">&times;</button>
   </div>
  
@@ -776,11 +776,11 @@
     $(document).ready(function(){
         let columns ={
           sequence: 'Sr No.',
-          name: 'Asset Requisition Name',
+          name: 'Procurement Form Name',
           projectname: 'Project Name',
           //actCode:'Activity Code',
-          noit: 'Number of IT Product',
-          nononit: 'Number of Non-IT Product',
+          
+          nononit: 'Number of Purchase Information',
           dateofRec:'Target Date of Receiving',
           accAppStatus:'Accounts Approval Status',
           status:'Status',
@@ -995,7 +995,7 @@
     let actualDt = actu.toLocaleString().split(',')[0];
     console.log('Inside Loop'+actualDt);
     assetDetailsTableRows += '<tr>';
-    assetDetailsTableRows += '<td ><strong>Asset Requisition Name<strong></td>';
+    assetDetailsTableRows += '<td ><strong>Procurement Form Name<strong></td>';
     assetDetailsTableRows += '<td >'+assetDetailsRecord.name+'</td>';
     assetDetailsTableRows += '<td><strong>Project/Department<strong></td>';
     assetDetailsTableRows += '<td>'+assetDetailsRecord.projname +'</td>';
@@ -1204,7 +1204,7 @@
       if(assetDetails.nonItProducts.length > 0)
                     {
                         let nonItProductTable = '';
-                        nonItProductTable+='<thead>  <th>Procuremnet_Non-IT ID</th><th>Items</th><th>Quantity</th><th>Budget</th></thead>';
+                        nonItProductTable+='<thead>  <th>Purchase information ID</th><th>Items</th><th>Quantity</th><th>Budget</th></thead>';
                         assetDetails.nonItProducts.forEach((eachNonIt) => {
                             nonItProductTable += '<tr><td>'+eachNonIt.name +'</td>';
                             nonItProductTable += '<td>'+eachNonIt.items__c +'</td>';
