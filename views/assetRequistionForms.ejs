@@ -1608,7 +1608,7 @@ $('.approvalpopup').on('click',function(event){
           console.log('response....test',resp);
               if(resp.includes('Approval Sent Successfully')){
                 $("#submitForApproval").attr("disabled", true);
- console.log('1');
+ 
                     //    $('#taskForm')[0].reset()
                         let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+ resp+
                     '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
@@ -1618,14 +1618,14 @@ $('.approvalpopup').on('click',function(event){
                   $('#approvalerrorMessages').empty();
                   $('#approvalerrorMessages').append(errorHtml);
                   $('#approvalpopup')[0].reset()
-                  console.log('2');
+                  
                   window.setTimeout(function(){
                         //$('#approvalerrorMessages').empty();
                         console.log('href');
                         window.location.reload();
 
                     },1000);
-                  console.log('3');
+                  
                  // document.getElementById("accountsapprovalpopup").reset()
                       }
                       else{
