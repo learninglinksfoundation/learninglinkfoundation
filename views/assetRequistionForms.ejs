@@ -1610,7 +1610,7 @@ $('.approvalpopup').on('click',function(event){
                 $("#submitForApproval").attr("disabled", true);
  
                     //    $('#taskForm')[0].reset()
-                        let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+ resp+
+                        let errorHtml = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+ resp+
                     '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
                       '<span aria-hidden="true">&times;</span>'+
                     '</button>'+
@@ -1624,12 +1624,12 @@ $('.approvalpopup').on('click',function(event){
                         console.log('href');
                         window.location.reload();
 
-                    },1000);
+                    },2000);
                   
                  // document.getElementById("accountsapprovalpopup").reset()
                       }
                       else{
-                      let errorHtml = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+ resp+
+                      let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+ resp+
                     '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
                       '<span aria-hidden="true">&times;</span>'+
                     '</button>'+
