@@ -365,14 +365,12 @@
                               htmlTable += '<tr>';
                               htmlTable += '<td><strong>Purchase Information ID</strong></td>';
                               htmlTable += '<td>'+record.procname+'</td>';
-
                               htmlTable += '<td><strong>Asset Requisition Form</strong></td>';
-                              htmlTable += '<td>'+record.procname+'</td>';
+                              htmlTable += '<td>'+record.astname+'</td>';
                               htmlTable += '</tr>';
                               htmlTable += '<tr>';
                               htmlTable += '<td><strong>Total Approved Budget for the purchase</strong></td>';
                               htmlTable += '<td>'+record.purchasebudg+'</td>';
-                              
                               htmlTable += '<td><strong>Budget</strong></td>';
                               htmlTable += '<td>'+record.budget__c+'</td>';
                               htmlTable += '</tr>';
@@ -381,33 +379,60 @@
                               htmlTable += '<tr>';
                               htmlTable += '<td><strong>Catgeory</strong></td>';
                               htmlTable += '<td>'+record.catgeory__c+'</td>';
-                              
                               htmlTable += '<td><strong>Items Specification</strong></td>';
                               htmlTable += '<td>'+record.product_service__c+'</td>';
                               htmlTable += '</tr>';
                               htmlTable += '<tr>';
                               htmlTable += '<td><strong>Items Category</strong></td>';
-                              htmlTable += '<td>'+record.procname+'</td>';
-                              
+                              htmlTable += '<td>'+record.products_services_name__c+'</td>';
                               htmlTable += '<td><strong>Other Items</strong></td>';
                               htmlTable += '<td>'+record.others__c+'</td>';
                               htmlTable += '</tr>';
-
                               htmlTable += '<tr>';
                               htmlTable += '<td><strong>Items</strong></td>';
-                              htmlTable += '<td>'+record.procname+'</td>';
-                              
+                              htmlTable += '<td>'+record.items__c+'</td>';
                               htmlTable += '<td><strong>Unit</strong></td>';
                               htmlTable += '<td>'+record.unit__c+'</td>';
                               htmlTable += '</tr>';
                               htmlTable += '<tr>';
                               htmlTable += '<td><strong>Quantity</strong></td>';
                               htmlTable += '<td>'+record.quantity__c+'</td>';
-                              
                               htmlTable += '<td><strong>Per Unit Cost</strong></td>';
                               htmlTable += '<td>'+record.per_unit_cost__c+'</td>';
                               htmlTable += '</tr>';
 
+                              htmlTable += '<tr><td colspan="6" style="background-color:#d3d3d3;"><h5>Vendor Information</h5></td></tr>';
+                              htmlTable += '<tr>';
+                              htmlTable += '<td><strong>Impaneled Vendor</strong></td>';
+                              htmlTable += '<td>'+record.vendorname+'</td>';
+                              htmlTable += '<td><strong>State</strong></td>';
+                              htmlTable += '<td>'+record.state__c+'</td>';
+                              htmlTable += '</tr>';
+                              htmlTable += '<tr>';
+                              htmlTable += '<td><strong>District</strong></td>';
+                              htmlTable += '<td>'+record.district__c+'</td>';
+                              htmlTable += '<td><strong></strong></td>';
+                              htmlTable += '<td></td>';
+                              htmlTable += '</tr>';
+
+                              htmlTable += '<tr><td colspan="6" style="background-color:#d3d3d3;"><h5>Quotes </h5></td></tr>';
+                              htmlTable += '<tr>';
+                              htmlTable += '<td><strong>Quote1</strong></td>';
+                              htmlTable += '<td>'+record.quote1__c+'</td>';
+                              htmlTable += '<td><strong>Quote2</strong></td>';
+                              htmlTable += '<td>'+record.quote2__c+'</td>';
+                              htmlTable += '</tr>';
+                              htmlTable += '<tr>';
+                              htmlTable += '<td><strong>Quote3</strong></td>';
+                              htmlTable += '<td>'+record.quote3__c+'</td>';
+                              htmlTable += '<td><strong>Number of quotes</strong></td>';
+                              htmlTable += '<td>'+record.number_of_quotes__c+'</td>';
+                              htmlTable += '</tr>';
+                              htmlTable += '<td><strong>Justification</strong></td>';
+                              htmlTable += '<td>'+record.justification__c+'</td>';
+                              htmlTable += '<td><strong></strong></td>';
+                              htmlTable += '<td></td>';
+                              htmlTable += '</tr>';
 
                               /*
 
