@@ -1606,7 +1606,7 @@ $('.approvalpopup').on('click',function(event){
           console.log('jqxhrjjkj'+JSON.stringify(response))
           let resp = JSON.stringify(response);
           console.log('response....test',resp);
-              if(resp== 'Approval Sent Successfully !'){
+              if(resp.includes('Approval Sent Successfully')){
                 $("#submitForApproval").attr("disabled", true);
  console.log('1');
                     //    $('#taskForm')[0].reset()
@@ -1622,7 +1622,7 @@ $('.approvalpopup').on('click',function(event){
                   window.setTimeout(function(){
                         //$('#approvalerrorMessages').empty();
                         console.log('href');
-                        window.location.href =  window.location.href ;
+                        window.location.reload();
 
                     },1000);
                   console.log('3');
