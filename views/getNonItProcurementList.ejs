@@ -13,7 +13,7 @@
 <div class="container">
   <div class="row mt-5 mb-3 align-items-center">
       <div class="col-md-5" style="display:flex;" >
-        <a class="btn btn-primary btn-md bg-gray" href="/procurement/assetRequisitionViewRel/<%=parentAssetId %>&<%= isDisabled %>" >Go To Procurement Form </a>
+        <a class="btn btn-primary btn-md bg-gray" href="/procurement/assetRequisitionViewRel/<%=parentAssetId %>&<%= isDisabled %>" >Go To Procurement Request </a>
        <!--    <a class="btn btn-primary btn-md bg-gray" href="#" id="">Create New It Procurement</a> -->
            <i class="fa fa-refresh" id="refresh"  style="font-size:34px; margin-left: 10px;cursor:pointer; "></i> 
       </div>
@@ -356,10 +356,61 @@
                 console.log('response from the Procurement Tab;e Ajax '+JSON.stringify(response));
                 if(response.proc.length>0){
                     let record = response.proc[0];
+
+
+'<tr><td colspan="6" style="background-color:#d3d3d3;"><h5>Remarks</h5></td></tr>'
+
+
                               let htmlTable = '';
                               htmlTable += '<tr>';
-                                htmlTable += '<td><strong>Purchase Information ID</strong></td>';
-                                htmlTable += '<td>'+record.procname+'</td>';
+                              htmlTable += '<td><strong>Purchase Information ID</strong></td>';
+                              htmlTable += '<td>'+record.procname+'</td>';
+
+                              htmlTable += '<td><strong>Asset Requisition Form</strong></td>';
+                              htmlTable += '<td>'+record.procname+'</td>';
+                              htmlTable += '</tr>';
+                              htmlTable += '<tr>';
+                              htmlTable += '<td><strong>Total Approved Budget for the purchase</strong></td>';
+                              htmlTable += '<td>'+record.purchasebudg+'</td>';
+                              
+                              htmlTable += '<td><strong>Budget</strong></td>';
+                              htmlTable += '<td>'+record.budget__c+'</td>';
+                              htmlTable += '</tr>';
+
+                              htmlTable += '<tr><td colspan="6" style="background-color:#d3d3d3;"><h5>Product Information</h5></td></tr>';
+                              htmlTable += '<tr>';
+                              htmlTable += '<td><strong>Catgeory</strong></td>';
+                              htmlTable += '<td>'+record.catgeory__c+'</td>';
+                              
+                              htmlTable += '<td><strong>Items Specification</strong></td>';
+                              htmlTable += '<td>'+record.product_service__c+'</td>';
+                              htmlTable += '</tr>';
+                              htmlTable += '<tr>';
+                              htmlTable += '<td><strong>Items Category</strong></td>';
+                              htmlTable += '<td>'+record.procname+'</td>';
+                              
+                              htmlTable += '<td><strong>Other Items</strong></td>';
+                              htmlTable += '<td>'+record.others__c+'</td>';
+                              htmlTable += '</tr>';
+
+                              htmlTable += '<tr>';
+                              htmlTable += '<td><strong>Items</strong></td>';
+                              htmlTable += '<td>'+record.procname+'</td>';
+                              
+                              htmlTable += '<td><strong>Unit</strong></td>';
+                              htmlTable += '<td>'+record.unit__c+'</td>';
+                              htmlTable += '</tr>';
+                              htmlTable += '<tr>';
+                              htmlTable += '<td><strong>Quantity</strong></td>';
+                              htmlTable += '<td>'+record.quantity__c+'</td>';
+                              
+                              htmlTable += '<td><strong>Per Unit Cost</strong></td>';
+                              htmlTable += '<td>'+record.per_unit_cost__c+'</td>';
+                              htmlTable += '</tr>';
+
+
+                              /*
+
                                 htmlTable += '<td><strong>Impaneled Vendor</strong></td>';
                               //  htmlTable += '<td>'+'<a href="#" class="vendorDetTag" id="'+record.impaneled_vendor__c+'" >'+record.vendorname+'</a>'+'</td>';
                               //  htmlTable += '<td>'+'<a href="#" class="vendorDetTag" id="'+record.impaneled_vendor__c+'" >'+record.vendorname+'</a>'+'</td>';
@@ -429,6 +480,7 @@
                       htmlTable +=`<td> ${record.purchasebudg} </td>`;
                       
                   htmlTable += '</tr>';
+                  */
                             $('#procTable').empty();
                             $('#procTable').html(htmlTable);
                 }
