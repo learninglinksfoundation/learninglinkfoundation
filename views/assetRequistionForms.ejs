@@ -103,7 +103,7 @@
 <!--Asset Requisition List View-->
 <p id="assetIdpTag"> </p>
 <div class="responsive">
-<h3 style="text-align: center; margin-top: 20px;">Procurement Form</h3>
+<h3 style="text-align: center; margin-top: 20px;">Procurement Request Form</h3>
 <div class="container">
     <div class="row mt-5 mb-3 align-items-center">
         <div class="col-md-6">
@@ -111,7 +111,7 @@
           <a href="/procurement/" style="color: #555;" id="refresh" ><i class="fa fa-refresh" style="font-size:34px; margin-left: 10px; margin-top: 30px;"></i> </a>
                </div>
         <div class="col-md-3">
-        <input type="text" class="form-control" placeholder="Search By Procurement Form Name" id="searchField" style="margin-top: 5px;">
+        <input type="text" class="form-control" placeholder="Search By Procurement Request Form Name" id="searchField" style="margin-top: 5px;">
         </div>
         <div class="col-md-2 text-right">
         <span class="pr-2">Rows Per Page:</span>
@@ -147,7 +147,7 @@
  <div class="modal-dialog modal-lg" role="document">
  <div class="modal-content">
  <div class="modal-header">
- <h5 class="modal-title" id="createTaskModal">Procurement Form</h5>
+ <h5 class="modal-title" id="createTaskModal">Procurement Request Form</h5>
  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
  <span aria-hidden="true">&times;</span>
  </button>
@@ -160,8 +160,8 @@
  <div class="form-group"> 
  <div class="row">
  <div class="col-md-6">
- <label for="assetRequisitionName">Procurement Form Name <span style="color: red;">*</span></label>
- <input type="text" class="form-control" id="assetRequisitionName" placeholder="Procurement Form Name" name="assetRequisitionName" required>
+ <label for="assetRequisitionName">Procurement Request Form Name <span style="color: red;">*</span></label>
+ <input type="text" class="form-control" id="assetRequisitionName" placeholder="Procurement Request Form Name" name="assetRequisitionName" required>
  </div>
 
  <div class="col-md-6">
@@ -227,7 +227,7 @@
   <div class="modal-dialog modal-lg" role="document">
   <div class="modal-content">
   <div class="modal-header">
-  <h5 class="modal-title">Edit: Procurement Form </h5>
+  <h5 class="modal-title">Edit: Procurement Request Form </h5>
   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
   <span aria-hidden="true">&times;</span>
   </button>
@@ -239,7 +239,7 @@
   <div class="form-group">
   <div class="row">
   <div class="col-md-6">
-  <label for="assetName">Procurement Form Name</label>
+  <label for="assetName">Procurement Request Form Name</label>
   <input type="text" class="form-control" id="assetName" value="" name="assetName" required>
   </div>
   
@@ -660,7 +660,7 @@
  
   <!-- Modal Header -->
   <div class="modal-header">
-  <center><h4 class="modal-title">Procurement Form: Main Form</h4></center>
+  <center><h4 class="modal-title">Procurement Request Form: Main Form</h4></center>
   <button type="button" class="close" data-dismiss="modal">&times;</button>
   </div>
  
@@ -776,7 +776,7 @@
     $(document).ready(function(){
         let columns ={
           sequence: 'Sr No.',
-          name: 'Procurement Form Name',
+          name: 'Procurement Request Request Form Name',
           projectname: 'Project Name',
           //actCode:'Activity Code',
           
@@ -786,7 +786,7 @@
           status:'Status',
         //  itamount: 'IT Amount',
        //   nonitamount: 'Non-IT Amount' ,
-          totalamount: 'Total Amount', 
+          totalamount: 'Total Approved budget as per purchase', 
           createdDate : 'Created Date',
           editbutton : 'Action',
           approvalbutton : '1st Stage Approval', 
@@ -998,7 +998,7 @@
     let actualDt = actu.toLocaleString().split(',')[0];
     console.log('Inside Loop'+actualDt);
     assetDetailsTableRows += '<tr>';
-    assetDetailsTableRows += '<td ><strong>Procurement Form Name<strong></td>';
+    assetDetailsTableRows += '<td ><strong>Procurement Request Form Name<strong></td>';
     assetDetailsTableRows += '<td >'+assetDetailsRecord.name+'</td>';
     assetDetailsTableRows += '<td><strong>Project/Department<strong></td>';
     assetDetailsTableRows += '<td>'+assetDetailsRecord.projname +'</td>';
@@ -1590,6 +1590,9 @@ $('.approvalpopup').on('click',function(event){
           $('#approvalerrorMessages').empty();
           $('#approvalerrorMessages').append(errorHtml); 
           $('#approvalpopup')[0].reset()
+          window.setTimeout(()=>{
+            $('#approvalerrorMessages').empty();
+        },3000);
               //document.getElementById("approvalpopup").reset()
        }
 
@@ -1614,6 +1617,11 @@ $('.approvalpopup').on('click',function(event){
                   $('#approvalerrorMessages').empty();
                   $('#approvalerrorMessages').append(errorHtml);
                   $('#approvalpopup')[0].reset()
+                  window.setTimeout(()=>{
+                        $('#approvalerrorMessages').empty();
+                        window.location.reload();
+
+                    },1000);
                  // document.getElementById("accountsapprovalpopup").reset()
                       }
                       else{
@@ -1625,6 +1633,9 @@ $('.approvalpopup').on('click',function(event){
                   $('#approvalerrorMessages').empty();
                   $('#approvalerrorMessages').append(errorHtml);
                   $('#approvalpopup')[0].reset()
+                  window.setTimeout(()=>{
+                        $('#approvalerrorMessages').empty();
+                    },3000);
                       }
           })
        }
