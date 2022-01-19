@@ -1590,7 +1590,7 @@ $('.approvalpopup').on('click',function(event){
           $('#approvalerrorMessages').empty();
           $('#approvalerrorMessages').append(errorHtml); 
           $('#approvalpopup')[0].reset()
-          setTimeout(function(){
+          window.setTimeout(function(){
             $('#approvalerrorMessages').empty();
 
         },3000);
@@ -1618,9 +1618,10 @@ $('.approvalpopup').on('click',function(event){
                   $('#approvalerrorMessages').empty();
                   $('#approvalerrorMessages').append(errorHtml);
                   $('#approvalpopup')[0].reset()
-                  setTimeout(function(){
-                        //$('#approvalerrorMessages').empty();
-                        location.reload();
+                  window.setTimeout(function(){
+                        $('#approvalerrorMessages').empty();
+                        console.log('href');
+                        window.location.href =  window.location.href ;
 
                     },1000);
                  // document.getElementById("accountsapprovalpopup").reset()
@@ -1634,7 +1635,7 @@ $('.approvalpopup').on('click',function(event){
                   $('#approvalerrorMessages').empty();
                   $('#approvalerrorMessages').append(errorHtml);
                   $('#approvalpopup')[0].reset()
-                  setTimeout(function(){
+                  window.setTimeout(function(){
                         $('#approvalerrorMessages').empty();
                     },3000);
                       }
