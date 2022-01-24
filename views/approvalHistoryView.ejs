@@ -57,7 +57,7 @@
         <nav>
         <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
         <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Details</a>
-        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Related</a>
+        <!--<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Related</a>-->
         </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
@@ -124,6 +124,7 @@
 
       $('#parentId').hide();
        let parentId = document.getElementById('parentId').innerHTML;
+       let parentApprovalId = <%- JSON.stringify(approvalId) %>
        // alert('parentId '+parentId);
     
         /**************Table Sortable Start ***********/
@@ -131,9 +132,9 @@
             let columns ={
                 sequence : 'Sequence',
                 name: 'Name',
-                type : 'Type',
-                status:'Status',
-                app_email: 'Approver Emails', 
+                approvername : 'Approver',
+                comment :'Comment',
+                status: 'Status', 
                 createddate : 'Created Date',            
             }
           
@@ -186,9 +187,9 @@
             })
     
            $.ajax({
-                url : '/procurement/getProcurementApprovalList',
+                url : '/procurement/getProcurementApprovalHistory',
                 type:'get',
-                data:{parentId:parentId},
+                data:{parentId:parentApprovalId},
                 dataType: 'json'
            })
            .done((response) => {

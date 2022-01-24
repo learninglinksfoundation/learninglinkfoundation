@@ -1625,6 +1625,52 @@ router.get('/getProcurementApprovalList',verify,(request,response)=>{
 
 })
 
+
+router.get('/getProcurementApprovalHistory',verify,(request,response)=>{
+    let parentId=request.query.parentId;
+    console.log('AssetId  '+parentId);
+
+    let query = 'SELECT sfid, Name, Approval__c, Status__c as status, Approver__c,createddate,Approver_Email__c,Comment__c as comment FROM salesforce.Approval_History__c WHERE Approval__c = $1 ';
+    pool
+    .query(query,[parentId])
+    .then((approvalQueryResult) => {
+        console.log('approvalQueryResultnonIt'+JSON.stringify(approvalQueryResult.rows)+'ROWCOUNT: '+approvalQueryResult.rowCount);
+        if(approvalQueryResult.rowCount>0){
+
+            let modifiedApprovalList = [],i =1;
+            approvalQueryResult.rows.forEach((eachRecord) => {
+              let obj = {};
+              let crDate = new Date(eachRecord.createddate);
+              crDate.setHours(crDate.getHours() + 5);
+              crDate.setMinutes(crDate.getMinutes() + 30);
+              let strDate = crDate.toLocaleString();
+              obj.sequence = i;
+              obj.name = '<a href="#" data-toggle="modal" data-target=""  id="'+eachRecord.sfid+'" class="approvalTag" >'+eachRecord.name+'</a>';
+
+           //   obj.name = '<a href="#" class="approvalTag"" id="'+eachRecord.sfid+'" >'+eachRecord.name+'</a>';
+              obj.comment = eachRecord.comment;
+              obj.status=eachRecord.status;
+              obj.approvername = eachRecord.approver_s_emails__c;
+              obj.createddate = strDate;
+              i= i+1;
+              modifiedApprovalList.push(obj);
+            })
+            response.send(modifiedApprovalList);
+        }
+        else
+        {
+            response.send([]);
+        }
+    })
+    .catch((querryError)=>{
+        console.log('QuerrError=>'+querryError.stack);
+        response.send(querryError); 
+    })
+
+
+})
+
+
 router.get('/getProcurementApprovalDetails',verify,(request,response)=>{
     let approvalId=request.query.approvalId;
     console.log('approvalId  '+approvalId);
