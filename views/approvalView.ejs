@@ -241,11 +241,11 @@
                                 htmlTable += '<td><strong>Status</strong></td>';
                                 htmlTable += '<td>'+record.status__c+'</td>';
                                 htmlTable += '<td><strong>Approvers Emails</strong></td>';
-                                htmlTable += '<td>'+record.approver_s_emails__c+'</td>';
+                                htmlTable += '<td style="line-break: anywhere;" >'+record.approver_s_emails__c+'</td>';
                             htmlTable += '</tr>';
                             htmlTable += '<tr>';
                                 htmlTable += '<td><strong>Approval Comment</strong></td>';
-                                htmlTable += '<td>'+record.approval_comment__c+'</td>';
+                                htmlTable += '<td style="line-break: anywhere;">'+record.approval_comment__c+'</td>';
                                 htmlTable += '<td><strong>Submitted By Heroku User</strong></td>';
                                 htmlTable += '<td>'+record.conname+'</td>';
                             htmlTable += '</tr>';
