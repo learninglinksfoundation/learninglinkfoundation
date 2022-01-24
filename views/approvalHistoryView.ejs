@@ -229,8 +229,8 @@
                 $('#detailLoadingSpinner').hide();
                 console.log('response from the Procurement Tab;e Ajax '+JSON.stringify(response));
                 if(response.length>0){
-                    let record = response;
-                    console.log('record'+record);
+                    let record = response[0];
+                    console.log('record',record);
                               let htmlTable = '';
                               htmlTable += '<tr>';
                                 htmlTable += '<td><strong>Approval History Name</strong></td>';
