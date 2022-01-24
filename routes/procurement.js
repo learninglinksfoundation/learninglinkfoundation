@@ -1738,7 +1738,7 @@ router.get('/getProcurementApprovalHistoryDetails',verify,(request,response)=>{
 
     })
     .catch(error=>{
-        response.send(querryError);
+        response.send(error);
     })
 
 
