@@ -1728,7 +1728,7 @@ router.get('/getProcurementApprovalHistoryDetails',verify,(request,response)=>{
      'FROM salesforce.Approval_History__c apphist '+
      'INNER JOIN salesforce.User usr '+
      'ON apphist.Approver__c=usr.sfid '+
-     'INNER JOIN salesforce.Approval__c apr ON apr.sfid = apphist.Approval__c'
+     'INNER JOIN salesforce.Approval__c apr ON apr.sfid = apphist.Approval__c '+
       'WHERE apphist.sfid = $1';
 
     pool
