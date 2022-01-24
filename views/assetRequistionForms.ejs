@@ -1687,6 +1687,10 @@ function accountsApprovalFunctionality(){
         $('#accApprovalerrorMessages').empty();
         $('#accApprovalerrorMessages').append(errorHtml);
         $('#accountsapprovalpopup')[0].reset()
+
+        window.setTimeout(function(){
+            window.location.reload();
+        },2500);
     }
     else if(resp == '"Accounts approval sent already !"')
     {
