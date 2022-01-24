@@ -1787,14 +1787,14 @@ router.get('/getNonItProcurementListVIew/:parentAssetId&:isDisabled',verify,(req
     
 })
 
-router.get('/getApprovalHistory/:parentApprovalId&:isDisabled',verify,(request,response)=>{
+router.get('/getApprovalHistory/:parentAssetId',verify,(request,response)=>{
     let objUser=request.user;
     console.log('user '+objUser);
-    let parentApprovalId = request.params.parentApprovalId;
-    console.log('parentAssetId  '+parentApprovalId);
-     isDisabled = request.params.isDisabled;
+    let parentAssetId = request.params.parentAssetId;
+    console.log('parentAssetId  '+parentAssetId);
+     isDisabled =  false;
     console.log(' ++++ isDisabled ++++ '+isDisabled); 
-    response.render('approvalHistoryView',{objUser,isDisabled,parentApprovalId: parentApprovalId});
+    response.render('approvalHistoryView',{objUser,isDisabled,parentAssetId: parentAssetId});
     
 })
 
