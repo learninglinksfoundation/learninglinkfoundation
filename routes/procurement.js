@@ -1630,7 +1630,9 @@ router.get('/getProcurementApprovalHistory',verify,(request,response)=>{
     let parentId=request.query.parentId;
     console.log('AssetId  '+parentId);
 
-    let query = 'SELECT sfid, Name, Approval__c, Status__c as status, Approver__c,createddate,Approver_Email__c,Comment__c as comment FROM salesforce.Approval_History__c WHERE Approval__c = $1 ';
+    let query = 'SELECT ah.sfid,us.Name as username ah.Name, ah.Approval__c, ah.Status__c as status, ah.Approver__c,ah.createddate,ah.Approver_Email__c,ah.Comment__c as comment FROM salesforce.Approval_History__c ah '+
+     'INNER JOIN salesforce.user us ON us.sfid = ah.Approver__c '+
+     'WHERE Approval__c = $1 ';
     pool
     .query(query,[parentId])
     .then((approvalQueryResult) => {
@@ -1650,7 +1652,7 @@ router.get('/getProcurementApprovalHistory',verify,(request,response)=>{
            //   obj.name = '<a href="#" class="approvalTag"" id="'+eachRecord.sfid+'" >'+eachRecord.name+'</a>';
               obj.comment = eachRecord.comment;
               obj.status=eachRecord.status;
-              obj.approvername = eachRecord.approver_s_emails__c;
+              obj.approvername = eachRecord.username;
               obj.createddate = strDate;
               i= i+1;
               modifiedApprovalList.push(obj);
