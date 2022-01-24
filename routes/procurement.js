@@ -2305,9 +2305,9 @@ router.post('/sendProcurementApproval',verify, (request, response) => {
     response.send(result.error.details[0].context.label);    
      }
      else{
-        let query = 'UPDATE salesforce.Asset_Requisition_Form__c SET isSentForApprovalFromHeroku__c = $1 ,Heroku_Approval_Comment__c =$2, isHerokuApprovalButtonDisabled__c = $3, Submitted_By_Heroku_User__c = $4 WHERE sfid= $5;'
+        let query = 'UPDATE salesforce.Asset_Requisition_Form__c SET isSentForApprovalFromHeroku__c = $1 ,Heroku_Approval_Comment__c =$2, isHerokuApprovalButtonDisabled__c = $3, Submitted_By_Heroku_User__c = $4, Manager_Approval__c = $6 ,Management_Approval_less_than_3_quotes__c = $6 ,Management_Approval_for_fortnight_limit__c = $6 ,Procurement_Comt_Approval_for_fortnight__c = $6 ,Management_Approval__c = $6 ,Chairperson_Approval__c = $6 ,Procurement_Head_Approval__c = $6, Procurement_Committee_Approval__c = $6,Management_Approval_Activity_Code__c = $6 WHERE sfid= $5;'
     pool
-    .query(query,[trueValue, body.comment,trueValue,objUser.sfid, body.assetRequisitionFormId])
+    .query(query,[trueValue, body.comment,trueValue,objUser.sfid, body.assetRequisitionFormId,''])
     .then((requisitionQueryResult) =>{
         console.log('requisitionQueryResult  : '+JSON.stringify(requisitionQueryResult));
         response.send('Approval Sent Successfully !');
