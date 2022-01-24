@@ -1724,7 +1724,7 @@ router.get('/getProcurementApprovalDetails',verify,(request,response)=>{
 router.get('/getProcurementApprovalHistoryDetails',verify,(request,response)=>{
     let approvalId=request.query.approvalId;
 
-    let historyQry='SELECT apphist.sfid,apphist.Name,apphist.Approval__c,apr.Name,apphist.Status__c,apphist.Approver_Email__c,apphist.Comment__c,apphist.Approver__c, usr.name as username '+
+    let historyQry='SELECT apphist.sfid,apphist.Name,apphist.Approval__c,apr.Name as approvalname,apphist.Status__c,apphist.Approver_Email__c,apphist.Comment__c,apphist.Approver__c, usr.name as username '+
      'FROM salesforce.Approval_History__c apphist '+
      'INNER JOIN salesforce.User usr '+
      'ON apphist.Approver__c=usr.sfid '+

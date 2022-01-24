@@ -228,48 +228,33 @@
             .done((response)=>{
                 $('#detailLoadingSpinner').hide();
                 console.log('response from the Procurement Tab;e Ajax '+JSON.stringify(response));
-                if(response.approval.length>0){
-                    let record = response.approval[0];
+                if(response.length>0){
+                    let record = response;
                     console.log('record'+record);
                               let htmlTable = '';
                               htmlTable += '<tr>';
-                                htmlTable += '<td><strong>Approval Type</strong></td>';
-                                htmlTable += '<td>'+record.approval_type__c+'</td>';
-                                htmlTable += '<td><strong>Asset Requisition Form</strong></td>';
-                                htmlTable += '<td>'+record.assetname+'</td>';
+                                htmlTable += '<td><strong>Approval History Name</strong></td>';
+                                htmlTable += '<td>'+record.name+'</td>';
+                                htmlTable += '<td><strong>Approval</strong></td>';
+                                htmlTable += '<td>'+record.approvalname+'</td>';
                                 htmlTable += '</tr>';
                             htmlTable += '<tr>';
                                 htmlTable += '<td><strong>Status</strong></td>';
                                 htmlTable += '<td>'+record.status__c+'</td>';
-                                htmlTable += '<td><strong>Approvers Emails</strong></td>';
-                                htmlTable += '<td style="line-break: anywhere;" >'+record.approver_s_emails__c+'</td>';
+                                htmlTable += '<td><strong>Approver</strong></td>';
+                                htmlTable += '<td style="line-break: anywhere;" >'+record.username+'</td>';
                             htmlTable += '</tr>';
                             htmlTable += '<tr>';
-                                htmlTable += '<td><strong>Approval Comment</strong></td>';
-                                htmlTable += '<td style="line-break: anywhere;">'+record.approval_comment__c+'</td>';
-                                htmlTable += '<td><strong>Submitted By Heroku User</strong></td>';
-                                htmlTable += '<td>'+record.conname+'</td>';
+                                htmlTable += '<td><strong>Approver Email</strong></td>';
+                                htmlTable += '<td style="line-break: anywhere;">'+record.approver_email__c+'</td>';
+                                htmlTable += '<td><strong>Comment</strong></td>';
+                                htmlTable += '<td>'+record.comment__c+'</td>';
                             htmlTable += '</tr>';
                            
                             $('#approvalTableDetails').empty();
                             $('#approvalTableDetails').html(htmlTable);
                 }
-             
-                if(response.history.length>0){
-                  let ftable='';
-                  ftable +='<thead><th>Approval History Name</th><th>Approver</th><th>Comment</th><th>Status</th>';
-                  response.history.forEach((eachRecord)=>{
-                    ftable +='<tr>';
-                      ftable +='<td>'+eachRecord.name+'</td>';
-                      ftable +='<td>'+eachRecord.username+'</td>';
-                      ftable +='<td>'+eachRecord.comment__c+'</td>';  
-                      ftable +='<td>'+eachRecord.status__c+'</td>';
-                    ftable +='</tr>';
-                  })
-                  ftable+=  '<td colspan="6"><center><a target="_blank" href="/procurement/getApprovalHistory/'+approvalId+'">View All</a></centre></td>';
-                  $('#approvalHistoryTable').empty();
-                    $('#approvalHistoryTable').html(ftable);
-                }
+                
             })
             .fail((jqXHR, status, error) =>{
                 $('#detailLoadingSpinner').show();
