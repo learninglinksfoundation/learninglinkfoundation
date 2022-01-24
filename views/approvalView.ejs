@@ -265,7 +265,7 @@
                       ftable +='<td>'+eachRecord.status__c+'</td>';
                     ftable +='</tr>';
                   })
-                  ftable+=  '<td colspan="6"><center><a target="_blank" href="/procurement/getApprovalHistory/'+approvalId+'">View All</a></centre></td>';
+                  ftable+=  '<td colspan="6"><center><a target="_blank" href="/procurement/getApprovalHistory/'+approvalId+'&<%=parentAssetId %>">View All</a></centre></td>';
                   $('#approvalHistoryTable').empty();
                     $('#approvalHistoryTable').html(ftable);
                 }
