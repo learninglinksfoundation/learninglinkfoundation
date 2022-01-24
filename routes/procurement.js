@@ -1734,7 +1734,11 @@ router.get('/getProcurementApprovalHistoryDetails',verify,(request,response)=>{
     pool
     .query(historyQry,[approvalId])
     .then((querryResult)=>{
-        response.send(querryResult);
+        if(querryResult.rowCount > 0)
+            response.send(querryResult.rows);
+        else{
+            response.send([]);
+        }
 
     })
     .catch(error=>{
