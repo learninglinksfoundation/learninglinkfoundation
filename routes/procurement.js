@@ -1721,6 +1721,32 @@ router.get('/getProcurementApprovalDetails',verify,(request,response)=>{
 })
 
 
+router.get('/getProcurementApprovalHistoryDetails',verify,(request,response)=>{
+    let approvalId=request.query.approvalId;
+
+    let historyQry='SELECT apphist.sfid,apphist.Name,apphist.Approval__c,apr.Name,apphist.Status__c,apphist.Approver_Email__c,apphist.Comment__c,apphist.Approver__c, usr.name as username '+
+     'FROM salesforce.Approval_History__c apphist '+
+     'INNER JOIN salesforce.User usr '+
+     'ON apphist.Approver__c=usr.sfid '+
+     'INNER JOIN salesforce.Approval__c apr ON apr.sfid = apphist.Approval__c'
+      'WHERE apphist.sfid = $1';
+
+    pool
+    .query(historyQry,[approvalId])
+    .then((querryResult)=>{
+        response.send(querryResult);
+
+    })
+    .catch(error=>{
+        response.send(querryError);
+    })
+
+
+
+
+});
+
+
 router.get('/getProcurementItListView/:parentAssetId&:isDisabled',verify,(request,response)=>{
     let objUser=request.user;
     console.log('user '+objUser);
