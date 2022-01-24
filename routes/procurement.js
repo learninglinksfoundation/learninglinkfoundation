@@ -1630,7 +1630,7 @@ router.get('/getProcurementApprovalHistory',verify,(request,response)=>{
     let parentId=request.query.parentId;
     console.log('AssetId  '+parentId);
 
-    let query = 'SELECT ah.sfid,us.Name as username ah.Name, ah.Approval__c, ah.Status__c as status, ah.Approver__c,ah.createddate,ah.Approver_Email__c,ah.Comment__c as comment FROM salesforce.Approval_History__c ah '+
+    let query = 'SELECT ah.sfid,us.Name as username, ah.Name, ah.Approval__c, ah.Status__c as status, ah.Approver__c,ah.createddate,ah.Approver_Email__c,ah.Comment__c as comment FROM salesforce.Approval_History__c ah '+
      'INNER JOIN salesforce.user us ON us.sfid = ah.Approver__c '+
      'WHERE Approval__c = $1 ';
     pool
