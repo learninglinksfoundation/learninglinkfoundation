@@ -885,10 +885,10 @@ router.post('/nonItProducts', (request,response) => {
              budget:joi.number().required().label('Please enter Total Amount As Per Preferred Vendor.'),
              budg:joi.number().min(0).label('The Total Amount As Per Preferred Vendor cannot be negative.'),
              totalApproved:joi.number().required().label('Please enter Approved Budget for Purchase.'),
-             totalApproved:joi.number().min(0).label('The Approved Budget for Purchase cannot be negative.'),
+             totalApprovedN:joi.number().min(0).label('The Approved Budget for Purchase cannot be negative.'),
              
          })
-         let result=schema.validate({state:state,totalApproved:totalApproved,category:category,items:items,itemsCategory:itemsCategory,district:district,vendor:vendor,itemSpecification:itemSpecification,itemSpeci:itemSpecification,quantity:quantity,quanty:quantity,budget:budget,budg:budget});
+         let result=schema.validate({state:state,category:category,items:items,itemsCategory:itemsCategory,district:district,vendor:vendor,itemSpecification:itemSpecification,itemSpeci:itemSpecification,quantity:quantity,quanty:quantity,budget:budget,budg:budget,totalApproved:totalApproved,totalApprovedN:totalApproved});
          console.log('validation hsh '+JSON.stringify(result.error));
          if(result.error){
              console.log('fd'+result.error);
@@ -936,24 +936,24 @@ router.post('/nonItProducts', (request,response) => {
          for(let i=0; i< numberOfRows ; i++)
          { 
              let schema=joi.object({
-                 state:joi.string().required().label(`Please select State in row ${i}.`),
-                 district:joi.string().required().label(`Please select District in row ${i}.`),
-                 category : joi.string().required().label(`Please select Category in row ${i}.`),
-                 itemsCategory:joi.string().required().label(`Please select Item Category in row ${i}.`),
-                 items:joi.string().invalid('None').required().label(`Please fill Items in row ${i}.`),
-                 vendor:joi.string().required().label(` Please select Vendor from Vendor Picklist in row ${i}.`),
-                 itemSpecification:joi.string().min(3).required().label(`Please fill Item Specification in row ${i}.`), 
-                 itemSpeci:joi.string().invalid(' ').label(`Please fill Item Specification in row ${i}.`),            
-                 quantity:joi.number().required().label(`Please enter Quantity in row ${i}.`),
-                 quanty:joi.number().min(0).label(`The Quantity cannot be negative in row ${i}.`),
-                 budget:joi.number().required().label(`Please enter Total Amount As Per Preferred Vendor in row ${i}.`),
-                 budg:joi.number().min(0).label(`The Total Amount As Per Preferred Vendor cannot be negative in row ${i}.`),
-                 totalApproved:joi.number().required().label(`Please enter Approved Budget for Purchase in row ${i}.`),
-                 totalApproved:joi.number().min(0).label(`The Approved Budget for Purchase cannot be negative in row ${i}.`),
+                 state:joi.string().required().label(`Please select State in row ${i+1}.`),
+                 district:joi.string().required().label(`Please select District in row ${i+1}.`),
+                 category : joi.string().required().label(`Please select Category in row ${i+1}.`),
+                 itemsCategory:joi.string().required().label(`Please select Item Category in row ${i+1}.`),
+                 items:joi.string().invalid('None').required().label(`Please fill Items in row ${i+1}.`),
+                 vendor:joi.string().required().label(` Please select Vendor from Vendor Picklist in row ${i+1}.`),
+                 itemSpecification:joi.string().min(3).required().label(`Please fill Item Specification in row ${i+1}.`), 
+                 itemSpeci:joi.string().invalid(' ').label(`Please fill Item Specification in row ${i+1}.`),            
+                 quantity:joi.number().required().label(`Please enter Quantity in row ${i+1}.`),
+                 quanty:joi.number().min(0).label(`The Quantity cannot be negative in row ${i+1}.`),
+                 budget:joi.number().required().label(`Please enter Total Amount As Per Preferred Vendor in row ${i+1}.`),
+                 budg:joi.number().min(0).label(`The Total Amount As Per Preferred Vendor cannot be negative in row ${i+1}.`),
+                 totalApproved:joi.number().required().label(`Please enter Approved Budget for Purchase in row ${i+1}.`),
+                 totalApprovedN:joi.number().min(0).label(`The Approved Budget for Purchase cannot be negative in row ${i+1}.`),
                  
      
              })
-             let result=schema.validate({state:state[i],totalApproved:totalApproved[i],category:category[i],items:items[i],itemsCategory:itemsCategory[i],district:district[i],vendor:vendor[i],itemSpecification:itemSpecification[i],itemSpeci:itemSpecification[i],quantity:quantity[i],quanty:quantity[i],budget:budget[i],budg:budget[i]});
+             let result=schema.validate({state:state[i],category:category[i],items:items[i],itemsCategory:itemsCategory[i],district:district[i],vendor:vendor[i],itemSpecification:itemSpecification[i],itemSpeci:itemSpecification[i],quantity:quantity[i],quanty:quantity[i],budget:budget[i],budg:budget[i],totalApproved:totalApproved[i], totalApprovedN:totalApproved[i]});
              console.log('validation REsult mul'+JSON.stringify(result.error));
              if(result.error){
                  console.log('Validation error'+result.error);
@@ -963,7 +963,7 @@ router.post('/nonItProducts', (request,response) => {
                 // if(nonItFormResult.quoteNum[i]<3 &&(nonItFormResult.justification[i]==null || nonItFormResult.justification[i]=="" || nonItFormResult.justification[i]== ' ')){               
                    if(nonItFormResult.quoteNum[i]<3 && nonItFormResult.justification[i].length <3){
                     console.log('charter count '+nonItFormResult.justification[i].length);
-                    response.send(`Please enter Justification because quote count is not equal to 3 in row ${i}.`);    
+                    response.send(`Please enter Justification because quote count is not equal to 3 in row ${i+1}.`);    
                  }
                  else{
  
