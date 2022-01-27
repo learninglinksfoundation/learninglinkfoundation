@@ -882,8 +882,8 @@ router.post('/nonItProducts', (request,response) => {
              itemSpeci:joi.string().invalid(' ').label('Please fill Item Specification.'),          
              quantity:joi.number().required().label('Please enter Quantity.'),
              quanty:joi.number().min(0).label('The Quantity cannot be negative.'),
-             budget:joi.number().required().label('Please enter Budget.'),
-             budg:joi.number().min(0).label('The Budget cannot be negative.'),
+             budget:joi.number().required().label('Please enter Total Amount As Per Preferred Vendor.'),
+             budg:joi.number().min(0).label('The Total Amount As Per Preferred Vendor cannot be negative.'),
              totalApproved:joi.number().required().label('Please enter Approved Budget for Purchase.'),
              totalApproved:joi.number().min(0).label('The Approved Budget for Purchase cannot be negative.'),
              
@@ -936,20 +936,20 @@ router.post('/nonItProducts', (request,response) => {
          for(let i=0; i< numberOfRows ; i++)
          { 
              let schema=joi.object({
-                 state:joi.string().required().label('Please select State.'),
-                 district:joi.string().required().label('Please select District.'),
-                 category : joi.string().required().label('Please select Category.'),
-                 itemsCategory:joi.string().required().label('Please select Item Category.'),
-                 items:joi.string().invalid('None').required().label('Please fill Items'),
-                 vendor:joi.string().required().label(' Please select Vendor from Vendor Picklist.'),
-                 itemSpecification:joi.string().min(3).required().label('Please fill Item Specification.'), 
-                 itemSpeci:joi.string().invalid(' ').label('Please fill Item Specification.'),            
-                 quantity:joi.number().required().label('Please enter Quantity.'),
-                 quanty:joi.number().min(0).label('The Quantity cannot be negative.'),
-                 budget:joi.number().required().label('Please enter Budget.'),
-                 budg:joi.number().min(0).label('The Budget cannot be negative.'),
-                 totalApproved:joi.number().required().label('Please enter Approved Budget for Purchase.'),
-                 totalApproved:joi.number().min(0).label('The Approved Budget for Purchase cannot be negative.'),
+                 state:joi.string().required().label(`Please select State in row ${i}.`),
+                 district:joi.string().required().label(`Please select District in row ${i}.`),
+                 category : joi.string().required().label(`Please select Category in row ${i}.`),
+                 itemsCategory:joi.string().required().label(`Please select Item Category in row ${i}.`),
+                 items:joi.string().invalid('None').required().label(`Please fill Items in row ${i}.`),
+                 vendor:joi.string().required().label(` Please select Vendor from Vendor Picklist in row ${i}.`),
+                 itemSpecification:joi.string().min(3).required().label(`Please fill Item Specification in row ${i}.`), 
+                 itemSpeci:joi.string().invalid(' ').label(`Please fill Item Specification in row ${i}.`),            
+                 quantity:joi.number().required().label(`Please enter Quantity in row ${i}.`),
+                 quanty:joi.number().min(0).label(`The Quantity cannot be negative in row ${i}.`),
+                 budget:joi.number().required().label(`Please enter Total Amount As Per Preferred Vendor in row ${i}.`),
+                 budg:joi.number().min(0).label(`The Total Amount As Per Preferred Vendor cannot be negative in row ${i}.`),
+                 totalApproved:joi.number().required().label(`Please enter Approved Budget for Purchase in row ${i}.`),
+                 totalApproved:joi.number().min(0).label(`The Approved Budget for Purchase cannot be negative in row ${i}.`),
                  
      
              })
@@ -963,7 +963,7 @@ router.post('/nonItProducts', (request,response) => {
                 // if(nonItFormResult.quoteNum[i]<3 &&(nonItFormResult.justification[i]==null || nonItFormResult.justification[i]=="" || nonItFormResult.justification[i]== ' ')){               
                    if(nonItFormResult.quoteNum[i]<3 && nonItFormResult.justification[i].length <3){
                     console.log('charter count '+nonItFormResult.justification[i].length);
-                    response.send('Please enter Justification because quote count is not equal to 3.');    
+                    response.send(`Please enter Justification because quote count is not equal to 3 in row ${i}.`);    
                  }
                  else{
  
@@ -1587,7 +1587,7 @@ router.get('/getProcurementApprovalList',verify,(request,response)=>{
     let assetId=request.query.parentId;
     console.log('AssetId  '+assetId);
     pool
-    .query('SELECT sfid, Name, Approval_Type__c, Status__c, Approver_s_Emails__c,createddate FROM salesforce.Approval__c WHERE Asset_Requisition_Form__c = $1 ',[assetId])
+    .query('SELECT sfid, Name, Approval_Type__c, Status__c, Approver_s_Emails__c,createddate FROM salesforce.Approval__c WHERE Asset_Requisition_Form__c = $1 ORDER BY Name DESC',[assetId])
     .then((approvalQueryResult) => {
         console.log('approvalQueryResultnonIt'+JSON.stringify(approvalQueryResult.rows)+'ROWCOUNT: '+approvalQueryResult.rowCount);
         if(approvalQueryResult.rowCount>0){
