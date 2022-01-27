@@ -78,7 +78,7 @@
     <script>
 
 let st =["Andaman and Nicobar Islands","Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chandigarh","Chhattisgarh","Dadra Nagar Haveli","Daman Diu","Delhi","Goa","Gujarat","Haryana","Himachal Pradesh","Jammu Kashmir",
-    "Jharkhand","Karnataka","Kerala","Lakshadweep","Ladakh","Madhya Pradesh","Maharashtra","Manipur","Meghalaya","Mizoram","Nagaland","Odisha","Puducherry","Punjab","Rajasthan","Sikkim","Tamil Nadu","Telangana","Tripura","Uttar Pradesh","Uttarakhand","West Bengal"];
+    "Jharkhand","Karnataka","Kerala","Lakshadweep","Ladakh","Madhya Pradesh","Maharashtra","Manipur","Meghalaya","Mizoram","Nagaland","Odisha",'Online/PAN India',"Puducherry","Punjab","Rajasthan","Sikkim","Tamil Nadu","Telangana","Tripura","Uttar Pradesh","Uttarakhand","West Bengal"];
     let dstrAN=["Nicobar","North Middle Andaman","South Andaman"]
     let dstrAP=["Anantapur","Chittoor","East Godavari","Guntur","Kadapa","Krishna","Kurnool","Nellore","Prakasam","Srikakulam","Visakhapatnam","Vizianagaram","West Godavari"]
     let dstrARP=["Anjaw","Central Siang","Changlang","Dibang Valley","East Kameng","East Siang","Kamle","Kurung Kumey","Lepa Rada","Lohit","Longding","Lower Dibang Valley","Lower Siang","Lower Subansiri","Namsai","Pakke Kessang","Papum Pare","Shi Yomi","Tawang","Tirap","Upper Siang","Upper Subansiri","West Kameng","West Siang"];
@@ -116,7 +116,7 @@ let st =["Andaman and Nicobar Islands","Andhra Pradesh","Arunachal Pradesh","Ass
     let dstrUP=["Agra","Aligarh","Ambedkar Nagar","Amethi","Amroha","Auraiya","Ayodhya","Azamgarh","Baghpat","Bahraich","Ballia","Balrampur","Banda","Barabanki","Bareilly","Basti","Bhadohi","Bijnor","Budaun","Bulandshahr","Chandauli","Chitrakoot","Deoria","Etah","Etawah","Farrukhabad","Fatehpur","Firozabad","Gautam Buddha Nagar","Ghaziabad","Ghazipur","Gonda","Gorakhpur","Hamirpur","Hapur","Hardoi","Hathras","Jalaun","Jaunpur","Jhansi","Kannauj","Kanpur Dehat","Kanpur Nagar","Kasganj","Kaushambi","Kheri","Kushinagar","Lalitpur","Lucknow","Maharajganj","Mahoba","Mainpuri","Mathura","Mau","Meerut","Mirzapur","Moradabad","Muzaffarnagar","Pilibhit","Pratapgarh","Prayagraj","Raebareli","Rampur","Saharanpur","Sambhal","Sant Kabir Nagar","Shahjahanpur","Shamli","Shravasti","Siddharthnagar","Sitapur","Sonbhadra","Sultanpur","Unnao","Varanasi"];
     let dstrUK=["Almora","Bageshwar","Chamoli","Champawat","Dehradun","Haridwar","Nainital","Pauri","Pithoragarh","Rudraprayag","Tehri","Udham Singh Nagar","Uttarkashi"];
     let dstrWB=["Alipurduar","Bankura","Birbhum","Cooch Behar","Dakshin Dinajpur","Darjeeling","Hooghly","Howrah","Jalpaiguri","Jhargram","Kalimpong","Kolkata","Malda","Murshidabad","Nadia","North 24 Parganas","Paschim Bardhaman","Paschim Medinipur","Purba Bardhaman","Purba Medinipur","Purulia","South 24 Parganas","Uttar Dinajpur"];
-
+    let dstOnline = ['Online/PAN India'];
 
     var itemsCategory = [ "Electrical", "Events", "Materials On Rent", "Miscellaneous","Printing","Stationery" ];
     var Stationery = ["None","A4 Size Paper Rim","Books","Eraser","Files","Magnetic Board","Markers", "Others", "Pen", "Pencil","Sharpner","White", ];
@@ -280,6 +280,19 @@ let st =["Andaman and Nicobar Islands","Andhra Pradesh","Arunachal Pradesh","Ass
            .text(dstrARP[i]))
           }
         }
+   else if( state =='Online/PAN India'){
+      
+      $('#district'+cnt).attr("readonly",false);
+         $('#district'+cnt).clearQueue();
+          for(let i=0; i <dstOnline.length; i++)
+          {
+           $('#district'+cnt)
+           .append($("<option></option>")
+           .attr("value",dstOnline[i])
+           .text(dstOnline[i]))
+          }
+      
+   }     
 	 else if(state=='Assam')
         {
      //    alert('You Choose=> '+state);

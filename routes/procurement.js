@@ -611,7 +611,7 @@ router.get('/details',verify, async(request, response) => {
 
     await
     pool
-    .query('SELECT sfid, Name, Approval_Type__c, Status__c, Approver_s_Emails__c FROM salesforce.Approval__c WHERE Asset_Requisition_Form__c = $1 order BY Name dsc LIMIT 3 ',[assetId])
+    .query('SELECT sfid, Name, Approval_Type__c, Status__c, Approver_s_Emails__c FROM salesforce.Approval__c WHERE Asset_Requisition_Form__c = $1 order BY Name DESC LIMIT 3 ',[assetId])
     .then((approvalQueryResult) => {
             if(approvalQueryResult.rowCount > 0)
             {
