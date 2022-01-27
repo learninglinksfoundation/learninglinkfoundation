@@ -1237,12 +1237,12 @@
                     {
                         let approvalHtml = '';
                         
-                        approvalHtml+='<thead><th>Name </th><th>Type</th> <th>Status</th> <th>Approver Emails</th></thead>';
+                        approvalHtml+='<thead><th>Name </th><th>Type</th> <th>Status</th></thead>';
                         assetDetails.approvals.forEach((eachApproval)=> {
                             approvalHtml += '<tr><td>'+eachApproval.name +'</td>';
                             approvalHtml += '<td>'+eachApproval.approval_type__c +'</td>';
-                            approvalHtml += '<td>'+eachApproval.status__c +'</td>';
-                            approvalHtml += '<td>'+eachApproval.approver_s_emails__c +'</td></tr>';      
+                            approvalHtml += '<td>'+eachApproval.status__c +'</td></tr>';
+                            //approvalHtml += '<td>'+eachApproval.approver_s_emails__c +'</td></tr>';      
                         })
                         approvalHtml+=  '<td colspan="6"><center><a target="_blank" href="/procurement/getProcurementApproval/'+assetId+'&'+buttonDisable+'">View All</a></centre></td>';
                         $('#approvalTable').empty();
