@@ -50,11 +50,16 @@
              <input type="other" class="form-control" id="other" value=""   name="other" > 
             </div>
         </div>
+        <div class="col-md-6">
+            <label for="itemDetails">  Item Description/Details </label>
+             <textarea class="form-control" rows="3" name="itemDetails"  cols="15" id="itemDetails" ></textarea> 
+            </div>
+        </div>
     </div>
     <div class="form-group">
         <div class="row">
           <div class="col-md-6">
-             <input type="hidden" class="form-control" id="hide" value="" required="true"  name="hide" > 
+             <input type="hidden" class="form-control" id="hide" value="" required="true"  name="hide" >
             </div>
         </div>
     </div>
@@ -96,6 +101,7 @@
       itemsCategoryValue = this.value;
       subListValue = eval(this.value); 
     //  alert('subListValue  '+subListValue);
+    $('#items').append($("<option value=''>Select</option>"))
       for(i=0;i<subListValue.length;i++)
       {
        

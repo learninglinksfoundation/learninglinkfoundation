@@ -2135,16 +2135,16 @@ router.post('/saveItemDescription',(request,response)=>{
     let body = request.body;
     console.log('body  : '+JSON.stringify(body));
     let schema, result;
-    const{name,items,category,unit,cost,other,hide}=request.body;
+    const{name,items,category,unit,cost,other,hide,itemDetails}=request.body;
     let record = [];
-    if(items == 'Other Items')
+    if(items == 'Others')
     {
         schema=joi.object({
             category:joi.string().required().label('Please Choose Item Category'),
             unit:joi.string().min(2).required().label('Please Fill Unit'),
             items:joi.string().required().label('Please Select Items'),
             cost:joi.string().min(1).required().label('Please Fill Per Unit Cost'),
-            other:joi.string().min(1).max(255).required().label('Please Fill Others as you have choosen other Items'),
+            other:joi.string().min(1).max(255).required().label('Please Fill other Items'),
               })
         result = schema.validate({category:category,unit:unit,items:items,cost:cost,other:other});
         
@@ -2173,11 +2173,12 @@ router.post('/saveItemDescription',(request,response)=>{
                     record.push(unit);
                     record.push(other);
                     record.push(hide);
+                    record.push(itemDetails);
                     let recordlist=[];
                 recordlist.push(record);
                 console.log(recordlist);
 
-                let itemDescQuery = format('INSERT INTO salesforce.Item_Description__c (Items__c,Per_Unit_Cost__c, Category__c,Unit__c,Other_Items__c,Impaneled_Vendor__c ) VALUES %L returning id',recordlist);
+                let itemDescQuery = format('INSERT INTO salesforce.Item_Description__c (Items__c,Per_Unit_Cost__c, Category__c,Unit__c,Other_Items__c,Impaneled_Vendor__c,Item_Description_Details__c ) VALUES %L returning id',recordlist);
                 console.log('impaneledVendor=>'+itemDescQuery);
                 pool
                 .query(itemDescQuery)
