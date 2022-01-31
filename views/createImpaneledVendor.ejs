@@ -103,7 +103,7 @@
 </div></div>
 <script>
      let st =["Andaman and Nicobar Islands","Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chandigarh","Chhattisgarh","Dadra Nagar Haveli","Daman Diu","Delhi","Goa","Gujarat","Haryana","Himachal Pradesh","Jammu Kashmir",
-    "Jharkhand","Karnataka","Kerala","Lakshadweep","Ladakh","Madhya Pradesh","Maharashtra","Manipur","Meghalaya","Mizoram","Nagaland","Odisha","Puducherry","Punjab","Rajasthan","Sikkim","Tamil Nadu","Telangana","Tripura","Uttar Pradesh","Uttarakhand","West Bengal"];
+    "Jharkhand","Karnataka","Kerala","Lakshadweep","Ladakh","Madhya Pradesh","Maharashtra","Manipur","Meghalaya","Mizoram","Nagaland","Odisha","Online/PAN India","Puducherry","Punjab","Rajasthan","Sikkim","Tamil Nadu","Telangana","Tripura","Uttar Pradesh","Uttarakhand","West Bengal"];
     let dstrAN=["Nicobar","North Middle Andaman","South Andaman"]
     let dstrAP=["Anantapur","Chittoor","East Godavari","Guntur","Kadapa","Krishna","Kurnool","Nellore","Prakasam","Srikakulam","Visakhapatnam","Vizianagaram","West Godavari"]
     let dstrARP=["Anjaw","Central Siang","Changlang","Dibang Valley","East Kameng","East Siang","Kamle","Kurung Kumey","Lepa Rada","Lohit","Longding","Lower Dibang Valley","Lower Siang","Lower Subansiri","Namsai","Pakke Kessang","Papum Pare","Shi Yomi","Tawang","Tirap","Upper Siang","Upper Subansiri","West Kameng","West Siang"];
@@ -150,7 +150,7 @@
     var IT = ["Cartridge","CPU", "Desktop","Desktop Mouse", "External Hard Disk", "Keyboard", "Laptop" ,"Laptop Charger", "Monitor", "Others", "Pen Drive", "Printer", "RAM", "Server", "Software","Tablet"];
     var MaterialsOnRent = [ "AV Systems", "Backdrop", "Hardware Peripherals", "Others" , "Projector"];
     var Miscellaneous = ["Any Other Expense", "Maintenance"];
-    
+    var onlinePan = ['Online/PAN India'];
     $(document).ready(function(){
 
       if(st.length > 0)
@@ -223,6 +223,19 @@
            .append($("<option></option>")
            .attr("value",dstrAS[i])
            .text(dstrAS[i]))
+          }
+        }
+    else if(state=='Online/PAN India')
+        {
+     //    alert('You Choose=> '+state);
+         $('#district').attr("readonly",false);
+         $('#district').clearQueue();
+          for(let i=0; i <onlinePan.length; i++)
+          {
+           $('#district')
+           .append($("<option></option>")
+           .attr("value",onlinePan[i])
+           .text(onlinePan[i]))
           }
         }
 	 else if(state=='Bihar')
