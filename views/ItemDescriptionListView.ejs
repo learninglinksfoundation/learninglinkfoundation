@@ -2,6 +2,8 @@
 <% include ./partials/footer %>
 <% include ./partials/messages %>
 <p id="vendorId"><%= vendorId %></p>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="/stylesheets/table-sortable.css">
 <script src="/scripts/table-sortable.js" ></script>
 
@@ -11,7 +13,7 @@
         <div class="col-md-5">
             <a class="btn btn-primary btn-md bg-gray" href="/procurement/ItemDescription/<%=vendorId %>" target="_blank" id="createNewItem">Create New</a>
             <a class="btn btn-primary btn-md bg-gray" href="/procurement/ItemDescriptionViewRel/<%=vendorId %>" >Go To Impaneled Vendor </a>
-            <!--  <a class="btn btn-primary btn-md bg-gray" href="/procurement/" >Refresh</a> -->
+             <a class="btn btn-primary btn-md bg-gray" id="refresh" href="#" ><i class="fa fa-refresh" style="font-size:34px; margin-left: 10px;color: #555;"></i></a>
                </div>
         <div class="col-md-3">
         <input type="text" class="form-control" placeholder="Search " id="searchField" style="margin-top: 5px;">
@@ -238,11 +240,11 @@
         });
         $('#changeRows').on('change', function() {
             table.updateRowsPerPage(parseInt($(this).val(), 15));
-            })
+        })
     
-        /    $('#refresh').click(function() {
+           $('#refresh').click(function() {
                 table.refresh(true);
-                onLoadTask();
+                //onLoadTask();
             })    
             $.ajax({
                 url : '/procurement/getItemList',

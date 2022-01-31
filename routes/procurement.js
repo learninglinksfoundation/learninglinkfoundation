@@ -2032,7 +2032,7 @@ router.get('/getVendorListView',verify,(request,response)=>{
 
 router.get('/getVendorsList',(request,response)=>{
     let qry ='select sfid ,name,vendor_Name__c ,Contact_No__c,name_of_signing_authority__c,address__c,createddate,GST_No__c,Reason_for_not_providing_GST_no__c,Bank_IFSC_Code__c ,Bank_Account_No__c,State__c,District__c '+
-     'FROM salesforce.Impaneled_Vendor__c WHERE sfid IS NOT NULL';
+     'FROM salesforce.Impaneled_Vendor__c WHERE sfid IS NOT NULL ORDER BY name asc ';
      console.log('qry  =>'+qry)
      pool.query(qry)
      .then((vendorQueryResult) => {
