@@ -13,7 +13,7 @@
         <div class="col-md-5">
             <a class="btn btn-primary btn-md bg-gray" href="/procurement/ItemDescription/<%=vendorId %>" target="_blank" id="createNewItem">Create New</a>
             <a class="btn btn-primary btn-md bg-gray" href="/procurement/ItemDescriptionViewRel/<%=vendorId %>" >Go To Impaneled Vendor </a>
-             <a class="btn btn-primary btn-md bg-gray" id="refresh" href="#" ><i class="fa fa-refresh" style="font-size:34px; margin-left: 10px;color: #555;"></i></a>
+             <a id="refresh" href="#" ><i class="fa fa-refresh" style="font-size:34px; margin-left: 10px;color: #555;"></i></a>
                </div>
         <div class="col-md-3">
         <input type="text" class="form-control" placeholder="Search " id="searchField" style="margin-top: 5px;">
@@ -243,8 +243,7 @@
         })
     
            $('#refresh').click(function() {
-                table.refresh(true);
-                //onLoadTask();
+                window.location.reload();
             })    
             $.ajax({
                 url : '/procurement/getItemList',
