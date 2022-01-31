@@ -1276,7 +1276,9 @@ router.get('/getOtherItemsVendor',async(request,response)=>{
     pool
      .query(qryItem)
      .then((resp)=>{
+        console.log(JSON.stringify(resp))
         if(resp.rowCount > 0){
+
             response.send(resp.rows);
         }
         else{
