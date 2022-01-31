@@ -1251,6 +1251,7 @@ router.get('/getOtherItems',async(request,response)=>{
     pool
      .query(qryItem)
      .then((resp)=>{
+        console.log('other',JSON.stringify(resp))
         if(resp.rowCount > 0){
             response.send(resp.rows);
         }
