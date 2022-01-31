@@ -99,8 +99,9 @@
     let itemsCategoryValue;
     $('#category').on('change', function() {
       $('#items').empty();
-      itemsCategoryValue = this.value;
-      subListValue = eval(this.value); 
+      let dtr = this.value.replaceAll(' ','');
+      itemsCategoryValue = dtr;
+      subListValue = eval(dtr); 
     //  alert('subListValue  '+subListValue);
     $('#items').append($("<option value=''>Select</option>"))
       for(i=0;i<subListValue.length;i++)
