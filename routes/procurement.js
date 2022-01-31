@@ -1301,7 +1301,7 @@ router.get('/getCostandGSt',async(request,response)=>{
     let ite=data[0].item;
     console.log('district'+dstr);
     console.log('item'+ite);
-    console.log('state'+st);
+    console.log(data);
     let qry='';
     let vender=[];
     let itemDesId=[];
@@ -1320,6 +1320,7 @@ router.get('/getCostandGSt',async(request,response)=>{
     pool
      .query(qryItem)
      .then((resp)=>{
+        console.log(JSON.stringify(resp))
         if(resp.rowCount > 0){
             response.send(resp.rows);
         }
