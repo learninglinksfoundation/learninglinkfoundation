@@ -2338,7 +2338,7 @@ router.get('/getItemList',(request,response)=>{
                 'FROM salesforce.Item_Description__c item '+
                 'INNER JOIN salesforce.Impaneled_Vendor__c vend '+
                 'ON item.Impaneled_Vendor__c = vend.sfid '+
-                'where item.impaneled_vendor__c=$1 AND item.sfid IS NOT null';
+                'where item.impaneled_vendor__c=$1 AND item.sfid IS NOT null ORDER BY itemName asc ';
    console.log('qyer '+qry)
     pool
     .query(qry, [id])
