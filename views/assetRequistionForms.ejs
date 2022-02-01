@@ -696,7 +696,7 @@
                     </button>
                     <!-- <button class="btn btn-primary float-right" id="pettyCashButton" >New</button> -->
                  
-                    <a href = "#" class="btn btn-primary float-right procurementNonIT"  id="pettyCashButton" style="color:white;" >New</a>              
+                    <button class="btn btn-primary float-right procurementNonIT"  id="pettyCashButton" style="color:white;" >New</button>              
                  
                 </h5>
               </div>
@@ -861,7 +861,7 @@
       $(document).ready(() => {
       $('assetId').hide();
       
-      $('a.procurementNonIT').click(() => {
+      $('button.procurementNonIT').click(() => {
       console.log('procurementNonIT anchor tag ');
       var assetId = document.getElementById('expenseIdpTag').innerHTML;
       console.log('assetId : '+assetId);
@@ -974,6 +974,8 @@
             })
             .done((assetDetails) =>{
     console.log('assetDetails : '+JSON.stringify(assetDetails));
+
+
     //$('#procuremnetItTable').empty();$('#procuremnetNonItTable').empty();
     if(assetDetails.assetFormDetails.length > 0)
     {
@@ -1146,10 +1148,10 @@
     assetDetailsTableRows += '<td><strong>P.O. signed by LLF Attachment<strong></td>';
     assetDetailsTableRows += '<td>'+assetDetailsRecord.p_o_attachment__c +'</td>';
     assetDetailsTableRows += '<td><strong>PO Attachment URL<strong></td>';
-    if(assetDetailsRecord.po_attachment_url__c!="demo"){
-    if(assetDetailsRecord.po_attachment_url__c!=null){
+    if( assetDetailsRecord.po_attachment_url__c!=null && assetDetailsRecord.po_attachment_url__c!="demo"){
+    
     assetDetailsTableRows += '<td>'+'<a href="'+assetDetailsRecord.po_attachment_url__c+'" target="_blank">Click to View </a></td>';
-    }
+    
     }
     else{
     assetDetailsTableRows +='<td></td>';
