@@ -12,6 +12,26 @@
   <div id="errorMessages"></div>
 <form method="POST" name="createvendor" id ="formdata">
 
+
+
+
+<div class="form-group">
+    <div class="row">
+        <div class="col-md-6">
+        <label for="zone" > Geographic Zone <span style="color: red;">*</span>  </label>
+        <select id="zone" name="zone" class="form-control item_unit">
+          <option value="">Select</option>
+          <option value="Upper Zone">Upper Zone</option>
+          <option value="Lower Zone">Lower Zone</option>
+        </select>
+        </div>
+      <div class="col-md-6">
+        <label for="district">District <span style="color: red;">*</span> </label>
+       <select id="district" name="district" class="form-control item_unit" ><option value="">Select</option></select>
+      </div>
+    </div>
+</div>
+
   <div class="form-group">
     <div class="row">
         <div class="col-md-6">
@@ -104,6 +124,10 @@
 <script>
      let st =["Andaman and Nicobar Islands","Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chandigarh","Chhattisgarh","Dadra Nagar Haveli","Daman Diu","Delhi","Goa","Gujarat","Haryana","Himachal Pradesh","Jammu Kashmir",
     "Jharkhand","Karnataka","Kerala","Lakshadweep","Ladakh","Madhya Pradesh","Maharashtra","Manipur","Meghalaya","Mizoram","Nagaland","Odisha","Online/PAN India","Puducherry","Punjab","Rajasthan","Sikkim","Tamil Nadu","Telangana","Tripura","Uttar Pradesh","Uttarakhand","West Bengal"];
+    
+    let Upper_Zone = ['Arunachal Pradesh','Assam','Bihar','Chandigarh','Delhi','Gujarat','Haryana','Himachal Pradesh','Jammu & Kashmir','Jharkhand','Ladakh','Madhya Pradesh','Manipur','Meghalaya','Mizoram','Nagaland','Punjab','Rajasthan','Sikkim','Tripura','Uttarakhand','Uttar Pradesh','Online/PAN India'].sort();
+    let Lower_Zone = ['Andaman and Nicobar Islands','Andhra Pradesh','Chhattisgarh','Dadra and Nagar Haveli and Daman and Diu','Goa','Karnataka','Kerala','Lakshadweep','Maharashtra','Odisha','Puducherry','Tamil Nadu','Telangana','West Bengal'].sort();
+
     let dstrAN=["Nicobar","North Middle Andaman","South Andaman"]
     let dstrAP=["Anantapur","Chittoor","East Godavari","Guntur","Kadapa","Krishna","Kurnool","Nellore","Prakasam","Srikakulam","Visakhapatnam","Vizianagaram","West Godavari"]
     let dstrARP=["Anjaw","Central Siang","Changlang","Dibang Valley","East Kameng","East Siang","Kamle","Kurung Kumey","Lepa Rada","Lohit","Longding","Lower Dibang Valley","Lower Siang","Lower Subansiri","Namsai","Pakke Kessang","Papum Pare","Shi Yomi","Tawang","Tirap","Upper Siang","Upper Subansiri","West Kameng","West Siang"];
@@ -152,17 +176,23 @@
     var Miscellaneous = ["Any Other Expense", "Maintenance"];
     var onlinePan = ['Online/PAN India'];
     $(document).ready(function(){
-
-      if(st.length > 0)
-      {
-        for(let i=0; i < st.length; i++)
+      $('#state').attr('disabled',true);
+      $('#zone').on('change',function(){
+        let val = this.value.replaceAll(' ','_');
+        $('#state').attr('disabled',!val);
+        let states = eval(val);
+        for(let i=0; i < states.length; i++)
         {
           $('#state')
           .append($("<option></option>")
-          .attr("value",st[i])
-          .text(st[i]))
+          .attr("value",states[i])
+          .text(states[i]))
         }
-      }
+
+
+      });
+
+      
       $('#state').on('change',function(){
         let state =this.value;
         sts=state;
