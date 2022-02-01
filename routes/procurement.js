@@ -1314,7 +1314,7 @@ router.get('/getCostandGSt',async(request,response)=>{
        qryItem = `${qryItem} AND  ivd.state__c = '${st}' `;
     }
     else{
-        qryItem = `${qryItem} AND  ivd.state__c = '${st}' AND ivd.District__c = '${dstr}' `;
+        qryItem = `${qryItem} AND  ivd.state__c = '${st}' AND ivd.district__c = '${dstr}' `;
     }
     console.log(qryItem);
     pool
