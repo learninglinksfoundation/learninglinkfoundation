@@ -122,8 +122,8 @@
  <!-- <button type="button" style="margin-left:20px ; border: 5px solid black; width:200px;height:90px;" class="btn btn-primary" id="listOfVendor" data-dismiss="modal">ImapneledVendorList</button></form> -->
 </div></div>
 <script>
-     let st =["Andaman and Nicobar Islands","Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chandigarh","Chhattisgarh","Dadra Nagar Haveli","Daman Diu","Delhi","Goa","Gujarat","Haryana","Himachal Pradesh","Jammu Kashmir",
-    "Jharkhand","Karnataka","Kerala","Lakshadweep","Ladakh","Madhya Pradesh","Maharashtra","Manipur","Meghalaya","Mizoram","Nagaland","Odisha","Online/PAN India","Puducherry","Punjab","Rajasthan","Sikkim","Tamil Nadu","Telangana","Tripura","Uttar Pradesh","Uttarakhand","West Bengal"];
+     //let st =["Andaman and Nicobar Islands","Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chandigarh","Chhattisgarh","Dadra Nagar Haveli","Daman Diu","Delhi","Goa","Gujarat","Haryana","Himachal Pradesh","Jammu Kashmir",
+    //"Jharkhand","Karnataka","Kerala","Lakshadweep","Ladakh","Madhya Pradesh","Maharashtra","Manipur","Meghalaya","Mizoram","Nagaland","Odisha","Online/PAN India","Puducherry","Punjab","Rajasthan","Sikkim","Tamil Nadu","Telangana","Tripura","Uttar Pradesh","Uttarakhand","West Bengal"];
     
     let Upper_Zone = ['Arunachal Pradesh','Assam','Bihar','Chandigarh','Delhi','Gujarat','Haryana','Himachal Pradesh','Jammu and Kashmir','Jharkhand','Ladakh','Madhya Pradesh','Manipur','Meghalaya','Mizoram','Nagaland','Punjab','Rajasthan','Sikkim','Tripura','Uttarakhand','Uttar Pradesh','Online/PAN India'].sort();
     let Lower_Zone = ['Andaman and Nicobar Islands','Andhra Pradesh','Chhattisgarh','Dadra and Nagar Haveli and Daman and Diu','Goa','Karnataka','Kerala','Lakshadweep','Maharashtra','Odisha','Puducherry','Tamil Nadu','Telangana','West Bengal'].sort();
@@ -205,7 +205,7 @@
 
         if(state != 'Online/PAN_India'){
         let list = eval(state);
-        if(Zone == 'Upper Zone'){
+        if(Zone == 'Upper Zone' && list?.length > 0 ){
           $('#districtUpper').attr('disabled',false);
           list.forEach(dt=>{
             $('#districtUpper')
@@ -216,7 +216,7 @@
           })
 
         }
-        else if(Zone == 'Lower Zone'){
+        else if(Zone == 'Lower Zone' && list?.length > 0 ){
           $('#districtLower').attr('disabled',false);
           list.forEach(dt=>{
             $('#districtLower')
@@ -240,11 +240,7 @@
 
           })
 
-      }
-        
-
-        console.log(state);
-            
+      } 
                  
      })
 
@@ -287,7 +283,7 @@
       $('form#formdata').bind('submit', function () {
         $("#CreateVendor").attr("disabled", true);
         let data=$('form#formdata').serialize();
-        
+        console.log(data);
      //   alert('Sumbit button clicked!' +data);
         $.ajax({
           type: 'post',
