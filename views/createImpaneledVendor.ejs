@@ -196,7 +196,7 @@
       
       $('#state').on('change',function(){
         let state =this.value.replaceAll(' ','_');
-        $('#state').find('option').not(':first').remove();
+        
         let Zone = $('#zone').val();
         $('#districtUpper,#districtLower').attr('disabled',true);
         $('#districtUpper,#districtLower').html('');
