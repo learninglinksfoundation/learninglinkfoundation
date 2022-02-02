@@ -26,8 +26,8 @@
         </select>
         </div>
       <div class="col-md-6">
-        <label for="district">District <span style="color: red;">*</span> </label>
-       <select id="district" name="district" class="form-control item_unit" ><option value="">Select</option></select>
+        <label for="state" > State <span style="color: red;">*</span>  </label>
+        <select id="state" name="state" class="form-control item_unit"><option value="">Select</option></select>
       </div>
     </div>
 </div>
@@ -35,12 +35,12 @@
   <div class="form-group">
     <div class="row">
         <div class="col-md-6">
-        <label for="state" > State <span style="color: red;">*</span>  </label>
-        <select id="state" name="state" class="form-control item_unit"><option value="">Select</option></select>
+        <label for="districtUpper">District <span style="color: red;">*</span> </label>
+       <select id="districtUpper" name="districtUpper" class="form-control item_unit" multiple disabled ><option value="">Select</option></select>
         </div>
       <div class="col-md-6">
         <label for="district">District <span style="color: red;">*</span> </label>
-       <select id="district" name="district" class="form-control item_unit" ><option value="">Select</option></select>
+       <select id="district" name="district" class="form-control item_unit" multiple disabled ><option  value="">Select</option></select>
       </div>
     </div>
 </div>
@@ -180,6 +180,7 @@
       $('#zone').on('change',function(){
         let val = this.value.replaceAll(' ','_');
         $('#state').attr('disabled',!val);
+        $('#state').find('option').not(':first').remove();
         let states = eval(val);
         for(let i=0; i < states.length; i++)
         {
