@@ -181,6 +181,8 @@
         let val = this.value.replaceAll(' ','_');
         $('#state').attr('disabled',!val);
         $('#state').find('option').not(':first').remove();
+        $('#districtUpper,#districtLower').attr('disabled',true);
+        $('#districtUpper,#districtLower').html('');
         let states = eval(val);
         for(let i=0; i < states.length; i++)
         {
@@ -200,6 +202,8 @@
         let Zone = $('#zone').val();
         $('#districtUpper,#districtLower').attr('disabled',true);
         $('#districtUpper,#districtLower').html('');
+
+        if(state != 'Online/PAN_India'){
         let list = eval(state);
         if(Zone == 'Upper Zone'){
           $('#districtUpper').attr('disabled',false);
@@ -225,7 +229,18 @@
         else{
 
         }
+      }
+      else{
+        $('#districtUpper').attr('disabled',false);
+          onlinePan.forEach(dt=>{
+            $('#districtUpper')
+           .append($("<option></option>")
+           .attr("value",dt)
+           .text(dt))
 
+          })
+
+      }
         
 
         console.log(state);
