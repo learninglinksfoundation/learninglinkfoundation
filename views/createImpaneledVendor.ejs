@@ -36,11 +36,11 @@
     <div class="row">
         <div class="col-md-6">
         <label for="districtUpper">Districts - Upper Zone <span style="color: red;">*</span> </label>
-       <select id="districtUpper" name="districtUpper" class="form-control item_unit" multiple disabled ></select>
+       <select id="districtUpper" name="districtUpper" class="form-control item_unit" multiple readonly ></select>
         </div>
       <div class="col-md-6">
         <label for="districtLower">Districts - Lower Zone <span style="color: red;">*</span> </label>
-       <select id="districtLower" name="districtLower" class="form-control item_unit" multiple disabled ></select>
+       <select id="districtLower" name="districtLower" class="form-control item_unit" multiple readonly ></select>
       </div>
     </div>
 </div>
@@ -181,7 +181,7 @@
         let val = this.value.replaceAll(' ','_');
         $('#state').attr('disabled',!val);
         $('#state').find('option').not(':first').remove();
-        $('#districtUpper,#districtLower').attr('disabled',true);
+        $('#districtUpper,#districtLower').attr('readonly',true);
         $('#districtUpper,#districtLower').html('');
         let states = eval(val);
         for(let i=0; i < states.length; i++)
@@ -200,13 +200,13 @@
         let state =this.value.replaceAll(' ','_');
         
         let Zone = $('#zone').val();
-        $('#districtUpper,#districtLower').attr('disabled',true);
+        $('#districtUpper,#districtLower').attr('readonly',true);
         $('#districtUpper,#districtLower').html('');
 
         if(state != 'Online/PAN_India'){
         let list = eval(state);
         if(Zone == 'Upper Zone' && list?.length > 0 ){
-          $('#districtUpper').attr('disabled',false);
+          $('#districtUpper').attr('readonly',false);
           list.forEach(dt=>{
             $('#districtUpper')
            .append($("<option></option>")
@@ -217,7 +217,7 @@
 
         }
         else if(Zone == 'Lower Zone' && list?.length > 0 ){
-          $('#districtLower').attr('disabled',false);
+          $('#districtLower').attr('readonly',false);
           list.forEach(dt=>{
             $('#districtLower')
            .append($("<option></option>")
@@ -231,7 +231,7 @@
         }
       }
       else{
-        $('#districtUpper').attr('disabled',false);
+        $('#districtUpper').attr('readonly',false);
           onlinePan.forEach(dt=>{
             $('#districtUpper')
            .append($("<option></option>")
