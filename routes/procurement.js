@@ -2623,7 +2623,7 @@ router.post('/updateVendor',(request,response)=>{
                          'GST_No__c = \''+gst+'\', '+ 
                          'Reason_for_not_providing_GST_no__c = \''+reason+'\' ,'+ 
                          'Districts_Upper_Zone__c = \''+districtUpper+'\' ,'+ 
-                         'Geographic_Zone__c = \''+zone+'\' ,'+                       
+                         'Geographic_Zone__c = \''+zone+'\' '+                       
                          'WHERE sfid = $1';
                         //  console.log('dolorr>>>>>>>>>>>',$1)
   console.log('updateQuerry  '+updateQuerry);
