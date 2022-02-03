@@ -2208,14 +2208,14 @@ router.post('/saveItemDescription',(request,response)=>{
 
     district = districtLower || districtUpper;
 
-    let dMsg = 'Please Choose District';
+    let dMsg = `Please Choose ${zone} District`;
     if(gst == null || gst == '' )
     {    
         if(request.body.pan){
             console.log('aaaaaaaaaaaaaaaa');
             schema=joi.object({
                 state:joi.string().required().label('Please Choose State'),
-               district:joi.string().required().label(),
+               district:joi.string().required().label(dMsg),
                name:joi.string().min(3).max(80).required().label('Please Fill Vendor Name'),
                conta:joi.string().required().label('Please Enter Contact Number'),
                cont:joi.number().integer().min(1000000000).max(9999999999).required().label('Contact number should have exact 10 digits'),
@@ -2234,7 +2234,7 @@ router.post('/saveItemDescription',(request,response)=>{
             console.log('bbbbbbbbbbbbbbbbbbbb');
             schema=joi.object({
                 state:joi.string().required().label('Please Choose State'),
-               district:joi.string().required().label('Please Choose District'),
+               district:joi.string().required().label(dMsg),
                name:joi.string().min(3).max(80).required().label('Please Fill Vendor Name'),
                conta:joi.string().required().label('Please Enter Contact Number'),
                cont:joi.number().integer().min(1000000000).max(9999999999).required().label('Contact number should have exact 10 digits'),
@@ -2258,7 +2258,7 @@ router.post('/saveItemDescription',(request,response)=>{
              console.log('ccccccccccccccc');
             schema=joi.object({
                 state:joi.string().required().label('Please Choose State'),
-                district:joi.string().required().label('Please Choose District'),
+                district:joi.string().required().label(dMsg),
                 name:joi.string().min(3).max(80).required().label('Please Fill Vendor Name'),
                 conta:joi.string().required().label('Please Enter Contact Number'),
                 cont:joi.number().integer().min(1000000000).max(9999999999).required().label('Contact number should have exact 10 digits'),
@@ -2274,7 +2274,7 @@ router.post('/saveItemDescription',(request,response)=>{
              console.log('dddddddddddddddddddddddddddd');
             schema=joi.object({
                 state:joi.string().required().label('Please Choose State'),
-                district:joi.string().required().label('Please Choose District'),
+                district:joi.string().required().label(dMsg),
                 name:joi.string().min(3).max(80).required().label('Please Fill Vendor Name'),
                 conta:joi.string().required().label('Please Enter Contact Number'),
                 cont:joi.number().integer().min(1000000000).max(9999999999).required().label('Contact number should have exact 10 digits'),
@@ -2310,7 +2310,9 @@ router.post('/saveItemDescription',(request,response)=>{
     record.push(add);
     record.push(accNo);
     record.push(state);
-    record.push(district);
+    record.push(districtLower);
+    record.push(districtUpper);
+    record.push(zone);
    // record.push(url);
    // record.push(other);
     record.push(reason);
@@ -2318,7 +2320,7 @@ let recordlist=[];
 recordlist.push(record);
 console.log(recordlist);
 
-       let impaneledVendor = format('INSERT INTO salesforce.Impaneled_Vendor__c (Vendor_Name__c,Name_of_Signing_Authority__c,Contact_No__c,Bank_Details__c,Bank_IFSC_Code__c, PAN_No__c,GST_No__c,Address__c,Bank_Account_No__c,State__c,District__c,Reason_for_not_providing_GST_no__c ) VALUES %L returning id',recordlist);
+       let impaneledVendor = format('INSERT INTO salesforce.Impaneled_Vendor__c (Vendor_Name__c,Name_of_Signing_Authority__c,Contact_No__c,Bank_Details__c,Bank_IFSC_Code__c, PAN_No__c,GST_No__c,Address__c,Bank_Account_No__c,State__c,District_Lower_Zone__c,Districts_Upper_Zone__c,Geographic_Zone__c,Reason_for_not_providing_GST_no__c ) VALUES %L returning id',recordlist);
        console.log('impaneledVendor=>'+impaneledVendor);
     pool.query(impaneledVendor)
     .then((vendorQueryResult) => {
