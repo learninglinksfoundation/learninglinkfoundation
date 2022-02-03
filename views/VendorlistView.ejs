@@ -648,6 +648,7 @@ let st =["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Go
             let zone12 = zone1.replaceAll(' ','_');
             let stateList = eval(zone12);
             console.log(stateList,response);
+            $('#state').find('option').not(':first').remove();
             stateList.forEach(dt=>{
                $('#state')
                    .append($("<option></option>")
@@ -662,7 +663,7 @@ let st =["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Go
             console.log(state);
             let Zone = zone1;
                 $('#districtUpper,#districtLower').attr('readonly',true);
-                $('#districtUpper,#districtLower').find('option').not(':first').remove();
+                $('#districtUpper,#districtLower').html('');
                 state = state.replaceAll(' ','_');
                 if(state != 'Online/PAN_India'){
                 let list = eval(state);
@@ -673,8 +674,9 @@ let st =["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Go
                    .append($("<option></option>")
                    .attr("value",dt)
                    .text(dt))
-
                   })
+                  $('#districtUpper').val(response.VendorDetail[0].districts_upper_zone__c.split(';'))
+
 
                 }
                 else if(Zone == 'Lower Zone' && list?.length > 0 ){
@@ -684,8 +686,8 @@ let st =["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Go
                    .append($("<option></option>")
                    .attr("value",dt)
                    .text(dt))
-                    
                   })
+                  $('#districtUpper').val(response.VendorDetail[0].district_lower_zone__c.split(';'))
                 }
                 else{
 
