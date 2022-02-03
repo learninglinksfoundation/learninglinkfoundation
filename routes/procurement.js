@@ -2556,8 +2556,8 @@ router.post('/updateVendor',(request,response)=>{
     console.log('add  '+add);
     console.log('gst  '+gst);
     console.log('other'  +other);
-    console.log('quote  '+quote);
-    console.log('reason  '+reason);
+    console.log('quote  ',districtLower);
+    console.log('reason  ',districtUpper);
 
 
     districtUpper =  districtUpper && typeof districtUpper !== 'object' ? [districtUpper] :  districtUpper;
