@@ -654,6 +654,7 @@ let st =["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Go
                    .attr("value",dt)
                    .text(dt))
             })
+            $('#state').attr('disabled',false);
             console.log(stateList,zone1);
             let state = response.VendorDetail[0].state__c;
             $('#state').val(state);
@@ -663,7 +664,7 @@ let st =["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Go
                 $('#districtUpper,#districtLower').attr('readonly',true);
                 $('#districtUpper,#districtLower').find('option').not(':first').remove();
 
-                if(state != 'Online/PAN_India'){
+                if(state != 'Online/PAN India'){
                 let list = eval(state);
                 if(Zone == 'Upper Zone' && list?.length > 0 ){
                   $('#districtUpper').attr('readonly',false);
@@ -699,6 +700,8 @@ let st =["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Go
                    .text(dt))
 
                   })
+                  $('#districtUpper').val('Online/PAN India');
+
 
               } 
 
@@ -711,11 +714,11 @@ let st =["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Go
 
 
 
-            document.forms["editvendor"]["state"].value = response.VendorDetail[0].state__c;
-             state =state.replaceAll(' ','_');
+            //document.forms["editvendor"]["state"].value = response.VendorDetail[0].state__c;
+             //state =state.replaceAll(' ','_');
         
                 
-            document.forms["editvendor"]["district"].value=response.VendorDetail[0].district__c;
+            //document.forms["editvendor"]["district"].value=response.VendorDetail[0].district__c;
             document.forms["editvendor"]["quote"].value = response.VendorDetail[0].quote_public_url__c;
             document.forms["editvendor"]["gst"].value = response.VendorDetail[0].gst_no__c;
             document.forms["editvendor"]["reason"].value = response.VendorDetail[0].reason_for_not_providing_gst_no__c;
