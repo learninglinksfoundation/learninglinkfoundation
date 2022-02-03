@@ -2201,7 +2201,7 @@ router.post('/saveItemDescription',(request,response)=>{
     let schema, result;
     let district = '';
     console.log('body  : '+JSON.stringify(body));
-    const{name,authority,districtUpper,districtLower,zone, cont,bankkDet,ifsc,pan,gst,add,accNo,state,url,other,reason}=request.body;
+    let {name,authority,districtUpper,districtLower,zone, cont,bankkDet,ifsc,pan,gst,add,accNo,state,url,other,reason}=request.body;
     
     districtUpper = districtUpper ? districtUpper.join(';') : districtUpper;
     districtLower = districtLower ? districtLower.join(';') : districtLower;
