@@ -2199,17 +2199,23 @@ router.post('/saveItemDescription',(request,response)=>{
   router.post('/saveVendor',(request,response)=>{
     let body = request.body;
     let schema, result;
+    let district = '';
     console.log('body  : '+JSON.stringify(body));
-    const{name,authority, cont,bankkDet,ifsc,pan,gst,add,accNo,state,url,other,district,reason}=request.body;
+    const{name,authority,districtUpper,districtLower,zone, cont,bankkDet,ifsc,pan,gst,add,accNo,state,url,other,reason}=request.body;
     console.log(name+authority+cont+bankkDet+ifsc+pan+gst+add+accNo+state+url+other+district+reason);
+    districtUpper = districtUpper ? districtUpper.join(';') : districtUpper;
+    districtLower = districtLower ? districtLower.join(';') : districtLower;
 
+    district = districtLower || districtUpper;
+
+    let dMsg = 'Please Choose District';
     if(gst == null || gst == '' )
     {    
         if(request.body.pan){
             console.log('aaaaaaaaaaaaaaaa');
             schema=joi.object({
                 state:joi.string().required().label('Please Choose State'),
-               district:joi.string().required().label('Please Choose District'),
+               district:joi.string().required().label(),
                name:joi.string().min(3).max(80).required().label('Please Fill Vendor Name'),
                conta:joi.string().required().label('Please Enter Contact Number'),
                cont:joi.number().integer().min(1000000000).max(9999999999).required().label('Contact number should have exact 10 digits'),
