@@ -267,7 +267,8 @@ let st =["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Go
             name: ' Vendor List ID',
             vendorname: 'Vendor Name',
             state:'State',
-            district:' District',
+            //district:' District',
+            zone : 'Geographic Zone',
             signAuthority:'Name of Signing Authority',
             contact:'Contact Number',
            // add:'Address',
@@ -366,16 +367,23 @@ let st =["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Go
                             vendorDetailRow += '<td colspan="4" style="background-color:#d3d3d3;"><h5>Item Metrics</h5></td>';    
                             vendorDetailRow += '</tr>';
 
-                                vendorDetailRow += '<tr>';
-                                    vendorDetailRow += '<td><strong> VendorList  ID<strong></td>';
-                                    vendorDetailRow += '<td>'+eachRecord.name+'</td>';
-                                    vendorDetailRow += '<td><strong>State<strong></td>';
-                                        vendorDetailRow += '<td>'+eachRecord.state__c+'</td>';
-                                vendorDetailRow += '</tr>'; 
+                            vendorDetailRow += '<tr>';
+                            vendorDetailRow += '<td><strong> VendorList  ID<strong></td>';
+                            vendorDetailRow += '<td>'+eachRecord.name+'</td>';
+                            vendorDetailRow += '<td><strong>Geographic Zone<strong></td>';
+                            vendorDetailRow += '<td>'+eachRecord.geographic_zone__c+'</td>';
+                            vendorDetailRow += '</tr>'; 
+
+                            vendorDetailRow += '<tr>';
+                            vendorDetailRow += '<td><strong> Districts - Upper Zone  ID<strong></td>';
+                            vendorDetailRow += '<td>'+eachRecord.district_upper_zone__c+'</td>';
+                            vendorDetailRow += '<td><strong>District- Lower Zone<strong></td>';
+                            vendorDetailRow += '<td>'+eachRecord.district_lower_zone__c+'</td>';
+                            vendorDetailRow += '</tr>'; 
 
                                 vendorDetailRow += '<tr>';
-                                    vendorDetailRow += '<td><strong>District<strong></td>';
-                                    vendorDetailRow += '<td>'+eachRecord.district__c+'</td>';
+                                    vendorDetailRow += '<td><strong>State<strong></td>';
+                                        vendorDetailRow += '<td>'+eachRecord.state__c+'</td>';
                                     vendorDetailRow += '<td><strong> Vendor Name<strong></td>';
                                         vendorDetailRow += '<td>'+eachRecord.vendor_name__c+'</td>';
                                 vendorDetailRow += '</tr>';
