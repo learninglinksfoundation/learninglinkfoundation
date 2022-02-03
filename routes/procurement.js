@@ -2202,13 +2202,16 @@ router.post('/saveItemDescription',(request,response)=>{
     let district = '';
     console.log('body  : '+JSON.stringify(body));
     const{name,authority,districtUpper,districtLower,zone, cont,bankkDet,ifsc,pan,gst,add,accNo,state,url,other,reason}=request.body;
-    console.log(name+authority+cont+bankkDet+ifsc+pan+gst+add+accNo+state+url+other+district+reason);
+    
     districtUpper = districtUpper ? districtUpper.join(';') : districtUpper;
     districtLower = districtLower ? districtLower.join(';') : districtLower;
 
     district = districtLower || districtUpper;
 
     let dMsg = `Please Choose ${zone} District`;
+
+
+    console.log(name+authority+cont+bankkDet+ifsc+pan+gst+add+accNo+state+url+other+district+reason,districtLower,districtUpper,zone);
     if(gst == null || gst == '' )
     {    
         if(request.body.pan){
