@@ -2542,7 +2542,9 @@ router.post('/sendProcurementAccountsApproval',verify,(request, response) => {
 router.post('/updateVendor',(request,response)=>{
     let body = request.body;
     console.log('body  : '+JSON.stringify(body));
-    let { name, state,district,aacc,districtUpper,districtLower,zone,auth,cont,bankDetail,ifsc,pan,add,gst,other,quote,hide,reason} = request.body;
+    let { name, state,district,aacc,zone,auth,cont,bankDetail,ifsc,pan,add,gst,other,quote,hide,reason} = request.body;
+    let districtUpper = body['districtUpper[]'],districtLower = body['districtLower[]'];
+
     console.log('state state state  '+state);
     console.log('Vendor id  '+hide);
     console.log('name  '+name);
