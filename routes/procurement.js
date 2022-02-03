@@ -2621,9 +2621,9 @@ router.post('/updateVendor',(request,response)=>{
                          'pan_no__c = \''+pan+'\', '+
                          'address__c = \''+add+'\', '+
                          'GST_No__c = \''+gst+'\', '+ 
-                         'Reason_for_not_providing_GST_no__c = \''+reason+'\' '+ 
-                         'Districts_Upper_Zone__c = \''+districtUpper+'\' '+ 
-                         'Geographic_Zone__c = \''+zone+'\' '+                       
+                         'Reason_for_not_providing_GST_no__c = \''+reason+'\' ,'+ 
+                         'Districts_Upper_Zone__c = \''+districtUpper+'\' ,'+ 
+                         'Geographic_Zone__c = \''+zone+'\' ,'+                       
                          'WHERE sfid = $1';
                         //  console.log('dolorr>>>>>>>>>>>',$1)
   console.log('updateQuerry  '+updateQuerry);
