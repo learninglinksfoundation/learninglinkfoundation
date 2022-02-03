@@ -2204,6 +2204,9 @@ router.post('/saveItemDescription',(request,response)=>{
     let {name,authority,districtUpper,districtLower,zone, cont,bankkDet,ifsc,pan,gst,add,accNo,state,url,other,reason}=request.body;
     
     console.log(districtUpper,districtLower)
+    districtUpper =  districtUpper && typeof districtUpper !== 'object' ? [districtUpper] :  districtUpper;
+    districtLower =  districtLower && typeof districtLower !== 'object' ? [districtLower] :  districtLower;
+
     districtUpper = districtUpper ? districtUpper.join(';') : districtUpper;
     districtLower = districtLower ? districtLower.join(';') : districtLower;
 
