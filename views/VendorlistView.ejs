@@ -642,15 +642,14 @@ let st =["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Go
             document.forms["editvendor"]["add"].value = response.VendorDetail[0].address__c;
             document.forms["editvendor"]["aacc"].value = response.VendorDetail[0].bank_account_no__c;
             document.forms["editvendor"]["auth"].value = response.VendorDetail[0].name_of_signing_authority__c; 
-            document.forms["editvendor"]["state"].value = response.VendorDetail[0].state__c;
+            let zone1 = response.VendorDetail[0].geographic_zone__c;
+            document.forms["editvendor"]["zone"].value  = zone1;
 
+            zone1 = zone1.replaceAll(' ','_');
             let state = response.VendorDetail[0].state__c;
-            
-             state =state.replaceAll(' ','_');
-        
-                let Zone = $('#zone').val();
+            let Zone = zone1
                 $('#districtUpper,#districtLower').attr('readonly',true);
-                $('#districtUpper,#districtLower').html('');
+                $('#districtUpper,#districtLower').find('option').not(':first').remove();
 
                 if(state != 'Online/PAN_India'){
                 let list = eval(state);
@@ -690,6 +689,20 @@ let st =["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Go
                   })
 
               } 
+
+
+            
+            state
+            //document.forms["editvendor"]["state"].value
+
+
+
+
+
+            document.forms["editvendor"]["state"].value = response.VendorDetail[0].state__c;
+             state =state.replaceAll(' ','_');
+        
+                
             document.forms["editvendor"]["district"].value=response.VendorDetail[0].district__c;
             document.forms["editvendor"]["quote"].value = response.VendorDetail[0].quote_public_url__c;
             document.forms["editvendor"]["gst"].value = response.VendorDetail[0].gst_no__c;
