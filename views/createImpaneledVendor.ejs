@@ -303,7 +303,9 @@
           $('#errorMessages').empty();
           $("#CreateVendor").attr("disabled", false);
           $('#errorMessages').append(errorHtml);
-        
+        window.setTimeout(function(){
+          window.location.reload();
+        },2000);
          
        }
        else

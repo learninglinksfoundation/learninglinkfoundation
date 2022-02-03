@@ -2203,6 +2203,7 @@ router.post('/saveItemDescription',(request,response)=>{
     console.log('body  : '+JSON.stringify(body));
     let {name,authority,districtUpper,districtLower,zone, cont,bankkDet,ifsc,pan,gst,add,accNo,state,url,other,reason}=request.body;
     
+    console.log(districtUpper,districtLower)
     districtUpper = districtUpper ? districtUpper.join(';') : districtUpper;
     districtLower = districtLower ? districtLower.join(';') : districtLower;
 
