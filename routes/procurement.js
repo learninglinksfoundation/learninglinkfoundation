@@ -2217,6 +2217,7 @@ router.post('/saveItemDescription',(request,response)=>{
         if(request.body.pan){
             console.log('aaaaaaaaaaaaaaaa');
             schema=joi.object({
+                zone :joi.string().required().label('Please Choose Geographic Zone'),
                 state:joi.string().required().label('Please Choose State'),
                district:joi.string().required().label(dMsg),
                name:joi.string().min(3).max(80).required().label('Please Fill Vendor Name'),
@@ -2229,13 +2230,14 @@ router.post('/saveItemDescription',(request,response)=>{
                reason:joi.string().min(3).max(255).required().label('Please Fill Reason for not providing GST no.'),
                
                  })
-           result = schema.validate({pan:pan,conta:cont,cont:cont,state:state,district:district,name:name,bankkDet:bankkDet,accNo:accNo,ifsc:ifsc,reason:reason});
+           result = schema.validate({zone:zone,pan:pan,conta:cont,cont:cont,state:state,district:district,name:name,bankkDet:bankkDet,accNo:accNo,ifsc:ifsc,reason:reason});
            
         }
         else{
 
             console.log('bbbbbbbbbbbbbbbbbbbb');
             schema=joi.object({
+                zone :joi.string().required().label('Please Choose Geographic Zone'),
                 state:joi.string().required().label('Please Choose State'),
                district:joi.string().required().label(dMsg),
                name:joi.string().min(3).max(80).required().label('Please Fill Vendor Name'),
@@ -2248,7 +2250,7 @@ router.post('/saveItemDescription',(request,response)=>{
                reason:joi.string().min(3).max(255).required().label('Please Fill Reason for not providing GST no.'),
                
                  })
-             result = schema.validate({conta:cont,cont:cont,state:state,district:district,name:name,bankkDet:bankkDet,accNo:accNo,ifsc:ifsc,reason:reason});
+             result = schema.validate({zone:zone,conta:cont,cont:cont,state:state,district:district,name:name,bankkDet:bankkDet,accNo:accNo,ifsc:ifsc,reason:reason});
            
 
         }
@@ -2260,6 +2262,7 @@ router.post('/saveItemDescription',(request,response)=>{
          if(request.body.pan){
              console.log('ccccccccccccccc');
             schema=joi.object({
+                zone :joi.string().required().label('Please Choose Geographic Zone'),
                 state:joi.string().required().label('Please Choose State'),
                 district:joi.string().required().label(dMsg),
                 name:joi.string().min(3).max(80).required().label('Please Fill Vendor Name'),
@@ -2270,12 +2273,13 @@ router.post('/saveItemDescription',(request,response)=>{
                 accNo:joi.number().required().label('Please Fill Bank Account Number'),
                 ifsc:joi.string().min(3).max(20).required().label('Please Fill Bank IFSC Code.'),
                   })
-             result = schema.validate({pan:pan,conta:cont,cont:cont,state:state,district:district,name:name,bankkDet:bankkDet,accNo:accNo,ifsc:ifsc});
+             result = schema.validate({zone:zone,pan:pan,conta:cont,cont:cont,state:state,district:district,name:name,bankkDet:bankkDet,accNo:accNo,ifsc:ifsc});
 
          }
          else{
              console.log('dddddddddddddddddddddddddddd');
             schema=joi.object({
+                zone :joi.string().required().label('Please Choose Geographic Zone'),
                 state:joi.string().required().label('Please Choose State'),
                 district:joi.string().required().label(dMsg),
                 name:joi.string().min(3).max(80).required().label('Please Fill Vendor Name'),
@@ -2286,7 +2290,7 @@ router.post('/saveItemDescription',(request,response)=>{
                 accNo:joi.number().required().label('Please Fill Bank Account Number'),
                 ifsc:joi.string().min(3).max(20).required().label('Please Fill Bank IFSC Code.'),
                   })
-             result = schema.validate({conta:cont,cont:cont,state:state,district:district,name:name,bankkDet:bankkDet,accNo:accNo,ifsc:ifsc});
+             result = schema.validate({zone:zone,conta:cont,cont:cont,state:state,district:district,name:name,bankkDet:bankkDet,accNo:accNo,ifsc:ifsc});
 
 
          }
