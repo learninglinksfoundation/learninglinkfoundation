@@ -630,6 +630,8 @@ let st =["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Go
                 }
             })
           .then((response)=>{
+
+            $('#zone,#state,#districtUpper,#districtLower')
             console.log('response from Edit Ajax +='+JSON.stringify(response));
             console.log('rtecordDeatail '+response.VendorDetail[0].name);
             //dist=response.VendorDetail[0].state__c;

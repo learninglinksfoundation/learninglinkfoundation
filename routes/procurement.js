@@ -2542,7 +2542,7 @@ router.post('/sendProcurementAccountsApproval',verify,(request, response) => {
 router.post('/updateVendor',(request,response)=>{
     let body = request.body;
     console.log('body  : '+JSON.stringify(body));
-    const { name, state,district,aacc,auth,cont,bankDetail,ifsc,pan,add,gst,other,quote,hide,reason} = request.body;
+    let { name, state,district,aacc,districtUpper,districtLower,zone,auth,cont,bankDetail,ifsc,pan,add,gst,other,quote,hide,reason} = request.body;
     console.log('state state state  '+state);
     console.log('Vendor id  '+hide);
     console.log('name  '+name);
@@ -2559,11 +2559,23 @@ router.post('/updateVendor',(request,response)=>{
     console.log('quote  '+quote);
     console.log('reason  '+reason);
 
+
+    districtUpper =  districtUpper && typeof districtUpper !== 'object' ? [districtUpper] :  districtUpper;
+    districtLower =  districtLower && typeof districtLower !== 'object' ? [districtLower] :  districtLower;
+
+    districtUpper = districtUpper ? districtUpper.join(';') : districtUpper;
+    districtLower = districtLower ? districtLower.join(';') : districtLower;
+
+    district = districtLower || districtUpper;
+
+    let dMsg = `Please Choose ${zone} District`;
+
     if(gst == null || gst == '' )
     {
          schema=joi.object({
+            zone :joi.string().required().label('Please Choose Geographic Zone'),
             state:joi.string().required().label('Please Choose State'),
-            district:joi.string().required().label('Please Choose District'),
+            district:joi.string().required().label(dMsg),
             name:joi.string().min(3).max(80).required().label('Please Fill Vendor Name'),
             bankDetail:joi.string().min(3).max(255).required().label('Please Fill Bank Details'),
             aacc:joi.string().min(3).required().label('Please Fill Bank Account Number'),
@@ -2571,20 +2583,21 @@ router.post('/updateVendor',(request,response)=>{
             reason:joi.string().min(3).max(255).required().label('Please Fill Reason for not providing GST no.'),
             
               })
-        result = schema.validate({state:state,district:district,name:name,bankDetail:bankDetail,aacc:aacc,ifsc:ifsc,reason:reason});
+        result = schema.validate({zone:zone,state:state,district:district,name:name,bankDetail:bankDetail,aacc:aacc,ifsc:ifsc,reason:reason});
         
     }
     else
     {
         schema=joi.object({
+            zone :joi.string().required().label('Please Choose Geographic Zone'),
            state:joi.string().required().label('Please Choose State'),
-           district:joi.string().required().label('Please Choose District'),
+           district:joi.string().required().label(dMsg),
            name:joi.string().min(3).max(80).required().label('Please Fill Vendor Name'),
            bankDetail:joi.string().min(3).max(255).required().label('Please Fill Bank Details'),
            aacc:joi.string().required(3).label('Please Fill Bank Account Number'),
            ifsc:joi.string().min(3).max(20).required().label('Please Fill Bank IFSC Code.'),
              })
-        result = schema.validate({state:state,district:district,name:name,bankDetail:bankDetail,aacc:aacc,ifsc:ifsc});
+        result = schema.validate({zone:zone,state:state,district:district,name:name,bankDetail:bankDetail,aacc:aacc,ifsc:ifsc});
     }
 
     if(result.error){
@@ -2592,9 +2605,11 @@ router.post('/updateVendor',(request,response)=>{
         response.send(result.error.details[0].context.label);    
     }
     else{
+
+        //,,,
     let updateQuerry = 'UPDATE salesforce.Impaneled_Vendor__c SET '+
                          'vendor_Name__c = \''+name+'\', '+
-                         'District__c = \''+district+'\', '+
+                         'District_Lower_Zone__c = \''+districtLower+'\', '+
                          'State__c = \''+state+'\', '+
                          'Bank_Account_No__c = \''+aacc+'\', '+
                          'contact_no__c = \''+cont+'\', '+
@@ -2605,8 +2620,8 @@ router.post('/updateVendor',(request,response)=>{
                          'address__c = \''+add+'\', '+
                          'GST_No__c = \''+gst+'\', '+ 
                          'Reason_for_not_providing_GST_no__c = \''+reason+'\' '+ 
-                      //   'Others__c = \''+other+'\' '+ 
-                      //   'quote_public_url__c = \''+quote+'\' '+                       
+                         'Districts_Upper_Zone__c = \''+districtUpper+'\' '+ 
+                         'Geographic_Zone__c = \''+zone+'\' '+                       
                          'WHERE sfid = $1';
                         //  console.log('dolorr>>>>>>>>>>>',$1)
   console.log('updateQuerry  '+updateQuerry);
