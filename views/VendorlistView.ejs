@@ -663,8 +663,8 @@ let st =["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Go
             let Zone = zone1;
                 $('#districtUpper,#districtLower').attr('readonly',true);
                 $('#districtUpper,#districtLower').find('option').not(':first').remove();
-
-                if(state != 'Online/PAN India'){
+                state = state.replaceAll(' ','_');
+                if(state != 'Online/PAN_India'){
                 let list = eval(state);
                 if(Zone == 'Upper Zone' && list?.length > 0 ){
                   $('#districtUpper').attr('readonly',false);
