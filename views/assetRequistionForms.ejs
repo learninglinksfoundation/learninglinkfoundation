@@ -696,7 +696,7 @@
                     </button>
                     <!-- <button class="btn btn-primary float-right" id="pettyCashButton" >New</button> -->
                  
-                    <button class="btn btn-primary float-right procurementNonIT"  id="pettyCashButton" style="color:white;" >New</button>              
+                    <a href = "#" class="btn btn-primary float-right procurementNonIT"  id="pettyCashButton" style="color:white;" >New</a>              
                  
                 </h5>
               </div>
@@ -861,7 +861,7 @@
       $(document).ready(() => {
       $('assetId').hide();
       
-      $('button.procurementNonIT').click(() => {
+      $('a.procurementNonIT').click(() => {
       console.log('procurementNonIT anchor tag ');
       var assetId = document.getElementById('expenseIdpTag').innerHTML;
       console.log('assetId : '+assetId);
@@ -974,8 +974,8 @@
             })
             .done((assetDetails) =>{
     console.log('assetDetails : '+JSON.stringify(assetDetails));
-
-
+    
+    
     //$('#procuremnetItTable').empty();$('#procuremnetNonItTable').empty();
     if(assetDetails.assetFormDetails.length > 0)
     {
