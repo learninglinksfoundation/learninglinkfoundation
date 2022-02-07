@@ -5,7 +5,7 @@
 <div class="container-fluid bg-gray" id="accordion-style-1" style="align-items: center;">
 </br>
 
-<a class="btn btn-primary btn-md bg-gray" href="/procurement/getVendorListView" >Go To Vendor List View </a>
+<a class="btn btn-primary btn-md bg-gray" id="venderButton" href="/procurement/getVendorListView" >Go To Vendor List View </a>
 </br>
 <h3 style="text-align: center;">Create New :  Vendor List </h3>
 <div class="">
@@ -304,7 +304,7 @@
           $("#CreateVendor").attr("disabled", false);
           $('#errorMessages').append(errorHtml);
         window.setTimeout(function(){
-          window.location.reload();
+          $('#venderButton')[0].click();
         },2000);
          
        }
