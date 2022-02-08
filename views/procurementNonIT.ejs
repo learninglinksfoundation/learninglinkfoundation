@@ -208,8 +208,8 @@ let st =["Andaman and Nicobar Islands","Andhra Pradesh","Arunachal Pradesh","Ass
         html += '<td><select id="zone'+cnt+'"  name="zone" class="form-control item_unit"><option value="">Select</option><option value="Upper_Zone">Upper Zone</option><option value="Lower_Zone">Lower Zone</option></select></td>';
         html += '<td><select id="state'+cnt+'" style="width: 200px;" name="state" disabled class="form-control item_unit"><option value="">Select</option></select></td>';
 
-        html += '<td><select id="districtUpper'+cnt+'" style="width: 180px;" disabled name="districtUpper" multiple class="form-control item_unit" ></select></td>';
-        html += '<td><select id="districtLower'+cnt+'" style="width: 180px;" disabled name="districtLower" multiple class="form-control item_unit" ></select></td>';
+        html += '<td><select id="districtUpper'+cnt+'" style="width: 200px;" disabled name="districtUpper" multiple class="form-control item_unit" ></select></td>';
+        html += '<td><select id="districtLower'+cnt+'" style="width: 200px;" disabled name="districtLower" multiple class="form-control item_unit" ></select></td>';
         
         html += '<td><select name="category" id="category'+cnt+'" class="form-control item_unit "><option value="">Select</option><option value="NonIT">Non-IT</option><option value="IT">IT</option></select></td>';
         html += '<td><select name="itemsCategory" disabled style="width: 170px;" id="cat'+cnt+'" class="form-control item_unit itemsCategory"><option value="">Select</option></select></td>';
@@ -273,9 +273,9 @@ let st =["Andaman and Nicobar Islands","Andhra Pradesh","Arunachal Pradesh","Ass
         $('#districtUpper'+cnt +',#districtLower'+cnt).attr('readonly',true);
         $('#districtUpper'+cnt +',#districtLower'+cnt).html('');
 
-        let dt = ['category','cat','','other','vendor','unitCost','unit','gst','itemSpecification','quantity','budget','totalApproved','justification'];
+        //let dt = ['category','cat','','other','vendor','unitCost','unit','gst','itemSpecification','quantity','budget','totalApproved','justification'];
 
-        clearData(dt,cnt);
+        //clearData(dt,cnt);
 
         if(state != 'Online/PAN_India'){
         let list = eval(state);
