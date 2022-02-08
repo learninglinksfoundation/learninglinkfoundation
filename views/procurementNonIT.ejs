@@ -205,11 +205,11 @@ let st =["Andaman and Nicobar Islands","Andhra Pradesh","Arunachal Pradesh","Ass
         var html = '';
         html += '<tr>';
         html += '<td>'+cnt+'</td>';
-        html += '<td><select id="zone'+cnt+'" name="zone" class="form-control item_unit"><option value="">Select</option><option value="Upper_Zone">Upper Zone</option><option value="Lower_Zone">Lower Zone</option></select></td>';
-        html += '<td><select id="state'+cnt+'" name="state" readonly class="form-control item_unit"><option value="">Select</option></select></td>';
+        html += '<td><select id="zone'+cnt+'"  name="zone" class="form-control item_unit"><option value="">Select</option><option value="Upper_Zone">Upper Zone</option><option value="Lower_Zone">Lower Zone</option></select></td>';
+        html += '<td><select id="state'+cnt+'" style="width: 200px;" name="state" disabled class="form-control item_unit"><option value="">Select</option></select></td>';
 
-        html += '<td><select id="upperZone'+cnt+'" readonly name="upperZone" multiple class="form-control item_unit" ></select></td>';
-        html += '<td><select id="lowerZone'+cnt+'" readonly name="lowerZone" multiple class="form-control item_unit" ></select></td>';
+        html += '<td><select id="upperZone'+cnt+'" style="width: 180px;" disabled name="upperZone" multiple class="form-control item_unit" ></select></td>';
+        html += '<td><select id="lowerZone'+cnt+'" style="width: 180px;" disabled name="lowerZone" multiple class="form-control item_unit" ></select></td>';
         
         html += '<td><select name="category" id="category'+cnt+'" class="form-control item_unit "><option value="">Select</option><option value="NonIT">Non-IT</option><option value="IT">IT</option></select></td>';
         html += '<td><select name="itemsCategory" disabled style="width: 170px;" id="cat'+cnt+'" class="form-control item_unit itemsCategory"><option value="">Select</option></select></td>';
@@ -245,9 +245,15 @@ let st =["Andaman and Nicobar Islands","Andhra Pradesh","Arunachal Pradesh","Ass
         $('#state'+cnt).attr('disabled',!val);
         $('#state'+cnt).find('option').not(':first').remove();
         $('#districtUpper'+cnt +',#districtLower'+cnt).attr('readonly',true);
+
+        let dt = ['districtUpper','districtLower','category','cat','','other','vendor','unitCost','unit','gst','itemSpecification','quantity','budget','totalApproved','justification'];
+
+        clearData(dt,cnt);
+
+
         $('#districtUpper'+cnt +',#districtLower'+cnt).html('');
         let states = eval(val);
-        for(let i=0; i < states.length; i++)
+        for(let i=0; i < states?.length; i++)
         {
           $('#state'+cnt)
           .append($("<option></option>")
@@ -257,19 +263,70 @@ let st =["Andaman and Nicobar Islands","Andhra Pradesh","Arunachal Pradesh","Ass
 
 
       });
+
+
+
+      $('#state'+cnt).on('change',function(){
+        let state =this.value.replaceAll(' ','_');
+        
+        let Zone = $('#zone'+cnt).val();
+        $('#districtUpper'+cnt +',#districtLower'+cnt).attr('readonly',true);
+        $('#districtUpper'+cnt +',#districtLower'+cnt).html('');
+
+        let dt = ['category','cat','','other','vendor','unitCost','unit','gst','itemSpecification','quantity','budget','totalApproved','justification'];
+
+        clearData(dt,cnt);
+
+        if(state != 'Online/PAN_India'){
+        let list = eval(state);
+        if(Zone == 'Upper Zone' && list?.length > 0 ){
+          $('#districtUpper'+cnt).attr('readonly',false);
+          list.forEach(dt=>{
+            $('#districtUpper'+cnt)
+           .append($("<option></option>")
+           .attr("value",dt)
+           .text(dt))
+
+          })
+
+        }
+        else if(Zone == 'Lower Zone' && list?.length > 0 ){
+          $('#districtLower'+cnt).attr('readonly',false);
+          list.forEach(dt=>{
+            $('#districtLower'+cnt)
+           .append($("<option></option>")
+           .attr("value",dt)
+           .text(dt))
+            
+          })
+        }
+        else{
+
+        }
+      }
+      else{
+        $('#districtUpper'+cnt).attr('readonly',false);
+          onlinePan.forEach(dt=>{
+            $('#districtUpper'+cnt)
+           .append($("<option></option>")
+           .attr("value",dt)
+           .text(dt))
+
+          })
+
+      } 
+                 
+     })
+
+     
+     
+
+
         
 
-        if(st.length > 0)
-        {
+        
 
-          for(let i=0; i < st.length; i++)
-          {
-            $('#state'+cnt)
-            .append($("<option></option>")
-            .attr("value",st[i])
-            .text(st[i]))
-          }
-        }
+
         $('#category'+cnt).on('change',function(){
           let sel = this.value;
           let dt = ['cat','','other','vendor','unitCost','unit','gst','itemSpecification','quantity','budget','totalApproved','justification'];
@@ -306,7 +363,7 @@ let st =["Andaman and Nicobar Islands","Andhra Pradesh","Arunachal Pradesh","Ass
           }
           
         });
-        $('#state'+cnt).on('change',function(){
+       /* $('#state'+cnt).on('change',function(){
            let state =this.value;
            sts=state;
            let dt = ['category','cat','','other','vendor','unitCost','unit','gst','itemSpecification','quantity','budget','totalApproved','justification'];
@@ -820,7 +877,7 @@ else if(state=='Uttarakhand')
           })           
         })
 
-
+*/
 
 
         var lstVendorDetail=[]; let itVal=''; let sid='';
