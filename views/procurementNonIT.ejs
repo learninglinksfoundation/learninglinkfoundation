@@ -10,6 +10,9 @@
     @media (max-width: 768px){
   .mb-mobile{margin-bottom: 10px;}
   }
+  #item_table td {
+    vertical-align: middle;
+  }
   </style> 
 
 <% include ./partials/messages %>
@@ -268,7 +271,7 @@ let st =["Andaman and Nicobar Islands","Andhra Pradesh","Arunachal Pradesh","Ass
 
       $('#state'+cnt).on('change',function(){
         let state =this.value.replaceAll(' ','_');
-        
+        sts = this.value;
         let Zone = $('#zone'+cnt).val();
         $('#districtUpper'+cnt +',#districtLower'+cnt).attr('readonly',true);
         $('#districtUpper'+cnt +',#districtLower'+cnt).html('');
@@ -972,6 +975,17 @@ else if(state=='Uttarakhand')
               $('#'+cnt).unbind('change');
               $('#'+cnt).on('change', function() {
                   itVal=this.value;
+
+                  let zone = $('#zone'+cnt).val();
+                  if(zone == 'Upper Zone'){
+                    dstr = $('#districtUpper'+cnt).val().join(',');
+                  }
+                  else if(zone == 'Lower Zone'){
+                    dstr = $('#districtLower'+cnt).val().join(',');
+                  }
+                  else{
+                    dstr = '';
+                  }
                   
                    itemValue = this.value;
                       var data =[];
@@ -1009,12 +1023,12 @@ else if(state=='Uttarakhand')
                             let value = this.value;
                             let data = {};
                             data.state = $('#state'+cnt).val();
-                            data.dist = $('#district'+cnt).val();
+                            data.dist = dstr;
                             data.category = $('#cat'+cnt).val();
                             data.item = $('#'+cnt).val();
                             data.others = value;
                             console.log(data);
-
+                            console.log(dstr);
                             $.ajax({
                                       url : '/procurement/getOtherItemsVendor',
                                       type : 'get',
@@ -1071,7 +1085,7 @@ else if(state=='Uttarakhand')
                           let value = this.value;
                           let data = {};
                           data.state = $('#state'+cnt).val();
-                          data.dist = $('#district'+cnt).val();
+                          data.dist = dstr;
                           data.category = $('#cat'+cnt).val();
                           data.item = $('#'+cnt).val();
                           data.others = value;
