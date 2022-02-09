@@ -1244,16 +1244,26 @@ router.get('/getRelatedQuote',(request, response) => {
 router.get('/getOtherItems',async(request,response)=>{
     let data=request.query.data;
     let vender=[];
-    let qryItem=`select itd.sfid as itemId ,itd.Other_Items__c as others,itd.name as item,itd.Impaneled_Vendor__c as ItemVender,itd.Items__c as itemName,ivd.sfid as sfid ,ivd.vendor_name__c as vendor_name__c ,ivd.GST_No__c as GST_No__c from salesforce.Item_Description__c itd `+
+    let qryItem=`select itd.sfid as itemId ,ivd.districts_upper_zone__c as upperd,ivd.district_lower_zone__c as lowerd,itd.Other_Items__c as others,itd.name as item,itd.Impaneled_Vendor__c as ItemVender,itd.Items__c as itemName,ivd.sfid as sfid ,ivd.vendor_name__c as vendor_name__c ,ivd.GST_No__c as GST_No__c from salesforce.Item_Description__c itd `+
                   ` INNER JOIN salesforce.Impaneled_Vendor__c ivd on itd.impaneled_vendor__c = ivd.sfid `+
-                  ` WHERE itd.Items__c = '${data.item}' AND itd.Category__c = '${data.category}' AND ivd.state__c = '${data.state}' AND ivd.District__c = '${data.dist}'`; 
-    console.log(qryItem);
+                  ` WHERE itd.Items__c = '${data.item}' AND itd.Category__c = '${data.category}' AND ivd.state__c = '${data.state}' `; 
+    console.log(qryItem);//AND (ivd.districts_upper_zone__c like  '%${data.dist}%' OR ivd.district_lower_zone__c like '%${data.dist}%' )
     pool
      .query(qryItem)
      .then((resp)=>{
-        console.log('other',JSON.stringify(resp))
+        
         if(resp.rowCount > 0){
-            response.send(resp.rows);
+            let obj = resp.rows;
+            console.log('other',JSON.stringify(obj))
+            let temp = [];
+            obj.forEach(dt=>{
+                if(dt.upperd.includes(data.dist) || dt.lowerd.includes(data.dist)){
+                    temp.push(dt);
+                }
+
+            });
+
+            response.send(temp);
         }
         else{
             response.send([]);
