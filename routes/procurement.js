@@ -1324,7 +1324,7 @@ router.get('/getCostandGSt',async(request,response)=>{
     let qry='';
     let vender=[];
     let itemDesId=[];
-    let qryItem=`select itd.sfid as itemId ,itd.name as item,itd.Impaneled_Vendor__c as ItemVender,itd.Items__c as itemName,ivd.sfid as sfid ,ivd.vendor_name__c as vendor_name__c ,ivd.GST_No__c as GST_No__c from salesforce.Item_Description__c itd `+
+    let qryItem=`select itd.sfid as itemId ,itd.name as item,itd.Impaneled_Vendor__c as ItemVender,ivd.districts_upper_zone__c as upperd,ivd.district_lower_zone__c as lowerd,itd.Items__c as itemName,ivd.sfid as sfid ,ivd.vendor_name__c as vendor_name__c ,ivd.GST_No__c as GST_No__c from salesforce.Item_Description__c itd `+
                   ` INNER JOIN salesforce.Impaneled_Vendor__c ivd on itd.impaneled_vendor__c = ivd.sfid `+
                   ` WHERE itd.Items__c = '${ite}' AND  ivd.state__c = '${st}' `;  
 
