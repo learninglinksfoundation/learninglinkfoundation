@@ -1257,7 +1257,7 @@ router.get('/getOtherItems',async(request,response)=>{
             console.log('other',JSON.stringify(obj))
             let temp = [];
             obj.forEach(dt=>{
-                if(dt.upperd?.includes(data.dist) || dt.lowerd?.includes(data.dist)){
+                if((dt.upperd && dt.upperd.includes(data.dist)) || (dt.lowerd && dt.lowerd.includes(data.dist))) {
                     temp.push(dt);
                 }
 
