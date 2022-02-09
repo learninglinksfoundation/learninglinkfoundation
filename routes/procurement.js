@@ -864,16 +864,28 @@ router.post('/nonItProducts', (request,response) => {
     let parentProcurementId = nonItFormResult.parentProcurementId;
     console.log('parent Id Asset Requisition Form '+parentProcurementId);
  
-    const {state,district,unit,unitCost,vendor,category,totalApproved,itemsCategory,items,itemSpecification,quantity,budget} = request.body;
+    let {zone,districtUpper,districtLower,state,district,unit,unitCost,vendor,category,totalApproved,itemsCategory,items,itemSpecification,quantity,budget} = request.body;
     let numberOfRows,lstNonItProcurement = [];
 
-    console.log(category,district);
+    console.log('testssss',districtUpper,districtLower);
+
+    districtUpper =  districtUpper && typeof districtUpper !== 'object' ? [districtUpper] :  districtUpper;
+    districtLower =  districtLower && typeof districtLower !== 'object' ? [districtLower] :  districtLower;
+
+    districtUpper = districtUpper ? districtUpper.join(';') : districtUpper;
+    districtLower = districtLower ? districtLower.join(';') : districtLower;
+
+    district = districtLower || districtUpper;
+
+    let dMsg = `Please select ${zone} District`;
+
     
     if(typeof(nonItFormResult.quantity) != 'object')
     { 
          let schema=joi.object({
+             zone:joi.string().required().label('Please select Geographic Zone.'),
              state:joi.string().required().label('Please select State.'),
-              district:joi.string().required().label('Please select District.'),
+              district:joi.string().required().label(dMsg),
               category : joi.string().required().label('Please select Category.'),
               itemsCategory:joi.string().required().label('Please select Item Category.'),
               items:joi.string().invalid('None').required().label('Please fill Items'),
@@ -888,7 +900,7 @@ router.post('/nonItProducts', (request,response) => {
              totalApprovedN:joi.number().min(0).label('The Approved Budget for Purchase cannot be negative.'),
              
          })
-         let result=schema.validate({state:state,category:category,items:items,itemsCategory:itemsCategory,district:district,vendor:vendor,itemSpecification:itemSpecification,itemSpeci:itemSpecification,quantity:quantity,quanty:quantity,budget:budget,budg:budget,totalApproved:totalApproved,totalApprovedN:totalApproved});
+         let result=schema.validate({zone:zone,state:state,category:category,items:items,itemsCategory:itemsCategory,district:district,vendor:vendor,itemSpecification:itemSpecification,itemSpeci:itemSpecification,quantity:quantity,quanty:quantity,budget:budget,budg:budget,totalApproved:totalApproved,totalApprovedN:totalApproved});
          console.log('validation hsh '+JSON.stringify(result.error));
          if(result.error){
              console.log('fd'+result.error);
@@ -922,6 +934,10 @@ router.post('/nonItProducts', (request,response) => {
                 singleRecordValues.push(nonItFormResult.category);
              singleRecordValues.push(nonItFormResult.otherItems);
              singleRecordValues.push(nonItFormResult.totalApproved);
+
+             singleRecordValues.push(nonItFormResult.zone);
+             singleRecordValues.push(districtUpper);
+             singleRecordValues.push(districtLower);
              lstNonItProcurement.push(singleRecordValues);
              console.log('lstNOnIt'+lstNonItProcurement);
             }
@@ -936,8 +952,9 @@ router.post('/nonItProducts', (request,response) => {
          for(let i=0; i< numberOfRows ; i++)
          { 
              let schema=joi.object({
+                zone:joi.string().required().label(`Please select Geographic Zone in row ${i+1}.`),
                  state:joi.string().required().label(`Please select State in row ${i+1}.`),
-                 district:joi.string().required().label(`Please select District in row ${i+1}.`),
+                 district:joi.string().required().label(`${dMsg} in row ${i+1}.`),
                  category : joi.string().required().label(`Please select Category in row ${i+1}.`),
                  itemsCategory:joi.string().required().label(`Please select Item Category in row ${i+1}.`),
                  items:joi.string().invalid('None').required().label(`Please fill Items in row ${i+1}.`),
@@ -953,7 +970,7 @@ router.post('/nonItProducts', (request,response) => {
                  
      
              })
-             let result=schema.validate({state:state[i],category:category[i],items:items[i],itemsCategory:itemsCategory[i],district:district[i],vendor:vendor[i],itemSpecification:itemSpecification[i],itemSpeci:itemSpecification[i],quantity:quantity[i],quanty:quantity[i],budget:budget[i],budg:budget[i],totalApproved:totalApproved[i], totalApprovedN:totalApproved[i]});
+             let result=schema.validate({zone:zone[i],state:state[i],category:category[i],items:items[i],itemsCategory:itemsCategory[i],district:district[i],vendor:vendor[i],itemSpecification:itemSpecification[i],itemSpeci:itemSpecification[i],quantity:quantity[i],quanty:quantity[i],budget:budget[i],budg:budget[i],totalApproved:totalApproved[i], totalApprovedN:totalApproved[i]});
              console.log('validation REsult mul'+JSON.stringify(result.error));
              if(result.error){
                  console.log('Validation error'+result.error);
@@ -989,7 +1006,12 @@ router.post('/nonItProducts', (request,response) => {
                      else
                         singleRecordValues.push(nonItFormResult.category[i]);
                      singleRecordValues.push(nonItFormResult.otherItems[i]);
-                     singleRecordValues.push(nonItFormResult.totalApproved[i]); 
+                     singleRecordValues.push(nonItFormResult.totalApproved[i]);
+
+                     singleRecordValues.push(nonItFormResult.zone[i]);
+                    // singleRecordValues.push(districtUpper);
+                     //singleRecordValues.push(districtLower); 
+
                      lstNonItProcurement.push(singleRecordValues);
                      console.log('dj'+singleRecordValues);
                  }
