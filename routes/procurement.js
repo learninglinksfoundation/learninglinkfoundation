@@ -1280,17 +1280,26 @@ router.get('/getOtherItems',async(request,response)=>{
 router.get('/getOtherItemsVendor',async(request,response)=>{
     let data=request.query.data;
     let vender=[];
-    let qryItem=`select itd.sfid as itemId ,itd.Other_Items__c as others,itd.name as item,itd.Impaneled_Vendor__c as ItemVender,itd.Items__c as itemName,ivd.sfid as sfid ,ivd.vendor_name__c as vendor_name__c ,ivd.GST_No__c as GST_No__c from salesforce.Item_Description__c itd `+
+    let qryItem=`select itd.sfid as itemId ,itd.Other_Items__c as others,ivd.districts_upper_zone__c as upperd,ivd.district_lower_zone__c as lowerd,itd.name as item,itd.Impaneled_Vendor__c as ItemVender,itd.Items__c as itemName,ivd.sfid as sfid ,ivd.vendor_name__c as vendor_name__c ,ivd.GST_No__c as GST_No__c from salesforce.Item_Description__c itd `+
                   ` INNER JOIN salesforce.Impaneled_Vendor__c ivd on itd.impaneled_vendor__c = ivd.sfid `+
-                  ` WHERE itd.Other_Items__c = '${data.others}' AND  itd.Items__c = '${data.item}' AND itd.Category__c = '${data.category}' AND ivd.state__c = '${data.state}' AND ivd.District__c = '${data.dist}'`; 
+                  ` WHERE itd.Other_Items__c = '${data.others}' AND  itd.Items__c = '${data.item}' AND itd.Category__c = '${data.category}' AND ivd.state__c = '${data.state}' `; //AND ivd.District__c = '${data.dist}'
     console.log(qryItem);
     pool
      .query(qryItem)
      .then((resp)=>{
         console.log(JSON.stringify(resp))
         if(resp.rowCount > 0){
+            let obj = resp.rows;
+            console.log('vendor',JSON.stringify(obj))
+            let temp = [];
+            obj.forEach(dt=>{
+                if((dt.upperd && dt.upperd.includes(data.dist)) || (dt.lowerd && dt.lowerd.includes(data.dist))) {
+                    temp.push(dt);
+                }
 
-            response.send(resp.rows);
+            });
+
+            response.send(temp);
         }
         else{
             response.send([]);
@@ -1317,22 +1326,33 @@ router.get('/getCostandGSt',async(request,response)=>{
     let itemDesId=[];
     let qryItem=`select itd.sfid as itemId ,itd.name as item,itd.Impaneled_Vendor__c as ItemVender,itd.Items__c as itemName,ivd.sfid as sfid ,ivd.vendor_name__c as vendor_name__c ,ivd.GST_No__c as GST_No__c from salesforce.Item_Description__c itd `+
                   ` INNER JOIN salesforce.Impaneled_Vendor__c ivd on itd.impaneled_vendor__c = ivd.sfid `+
-                  ` WHERE itd.Items__c = '${ite}'  `;  
+                  ` WHERE itd.Items__c = '${ite}' AND  ivd.state__c = '${st}' `;  
 
 
-    if(!dstr){
+    /*if(!dstr){
        qryItem = `${qryItem} AND  ivd.state__c = '${st}' `;
     }
     else{
-        qryItem = `${qryItem} AND  ivd.state__c = '${st}' AND ivd.district__c = '${dstr}' `;
-    }
+        qryItem = `${qryItem}  AND ivd.district__c = '${dstr}' `;
+    }*/
     console.log(qryItem);
     pool
      .query(qryItem)
      .then((resp)=>{
         console.log(JSON.stringify(resp))
         if(resp.rowCount > 0){
-            response.send(resp.rows);
+            //response.send(resp.rows);
+            let obj = resp.rows;
+            console.log('vendor',JSON.stringify(obj))
+            let temp = [];
+            obj.forEach(dt=>{
+                if((dt.upperd && dt.upperd.includes(dstr)) || (dt.lowerd && dt.lowerd.includes(dstr))) {
+                    temp.push(dt);
+                }
+
+            });
+
+            response.send(temp);
         }
         else{
             response.send([]);
