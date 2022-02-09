@@ -397,6 +397,7 @@
           let dt = ['','other','vendor','unitCost','unit','gst','itemSpecification','quantity','budget','totalApproved','justification'];
 
               clearData(dt,cnt);
+              $('#other'+cnt).find('option:not(:first)').remove();
                $('#'+cnt).empty();
                itemsCategoryValue = this.value;
                console.log('itemsCategoryValue',itemsCategoryValue);
