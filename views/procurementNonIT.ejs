@@ -166,8 +166,8 @@
         html += '<td><select id="zone'+cnt+'"  name="zone" class="form-control item_unit"><option value="">Select</option><option value="Upper Zone">Upper Zone</option><option value="Lower Zone">Lower Zone</option></select></td>';
         html += '<td><select id="state'+cnt+'" style="width: 200px;" name="state" disabled class="form-control item_unit"><option value="">Select</option></select></td>';
 
-        html += '<td><select id="districtUpper'+cnt+'" style="width: 200px;" readonly name="districtUpper[]" multiple class="form-control item_unit" ></select></td>';
-        html += '<td><select id="districtLower'+cnt+'" style="width: 200px;" readonly name="districtLower[]" multiple class="form-control item_unit" ></select></td>';
+        html += '<td><select id="districtUpper'+cnt+'" style="width: 200px;" readonly name="districtUpper" multiple class="form-control item_unit" ></select></td>';
+        html += '<td><select id="districtLower'+cnt+'" style="width: 200px;" readonly name="districtLower" multiple class="form-control item_unit" ></select></td>';
         
         html += '<td><select name="category" id="category'+cnt+'" class="form-control item_unit "><option value="">Select</option><option value="NonIT">Non-IT</option><option value="IT">IT</option></select></td>';
         html += '<td><select name="itemsCategory" disabled style="width: 170px;" id="cat'+cnt+'" class="form-control item_unit itemsCategory"><option value="">Select</option></select></td>';
@@ -649,11 +649,22 @@ function drawOptions(optList,cnt){
       $('form#formdata').bind('submit', function () {
         $("#submitButton").attr("disabled", true);
        // alert('qt'+qt);
+       let tmpList = [];
+
+       $('#item_table > tbody > tr').each(function(i,data){
+        let obj = {};
+        //obj.zone
+        
+       })
+       
+
+
+
        console.log($('form#formdata').serialize());
           $.ajax({
             type: 'post',
             url: '/procurement/nonItProducts',   // Need to make changes in post method url
-            data:$('form#formdata').serialize(),
+            data:JSON.stringify({gg:'sss',eee:'sds'}),
             success: function (data) {
               console.log(data);
              // alert(data);
