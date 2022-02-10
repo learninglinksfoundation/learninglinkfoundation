@@ -402,12 +402,22 @@
                               htmlTable += '<tr>';
                               htmlTable += '<td><strong>Impaneled Vendor</strong></td>';
                               htmlTable += '<td>'+record.vendorname+'</td>';
+                              htmlTable += '<td><strong>Geographic Zone</strong></td>';
+                              htmlTable += '<td>'+record.geographic_zone__c+'</td>';
+                              htmlTable += '</tr>';
+
+                              htmlTable += '<tr>';
                               htmlTable += '<td><strong>State</strong></td>';
                               htmlTable += '<td>'+record.state__c+'</td>';
+                              htmlTable += '<td><strong>Districts - Upper Zone</strong></td>';
+                              htmlTable += '<td>'+record.district_upper_zone__c+'</td>';
                               htmlTable += '</tr>';
+
+
+
                               htmlTable += '<tr>';
-                              htmlTable += '<td><strong>District</strong></td>';
-                              htmlTable += '<td>'+record.district__c+'</td>';
+                              htmlTable += '<td><strong>Districts - Lower Zone</strong></td>';
+                              htmlTable += '<td>'+record.districts_lower_zone__c+'</td>';
                               htmlTable += '<td><strong></strong></td>';
                               htmlTable += '<td></td>';
                               htmlTable += '</tr>';
