@@ -869,15 +869,15 @@ router.post('/nonItProducts', (request,response) => {
 
     console.log('testssss',districtUpper,districtLower);
 
-    districtUpper =  districtUpper && typeof districtUpper !== 'object' ? [districtUpper] :  districtUpper;
-    districtLower =  districtLower && typeof districtLower !== 'object' ? [districtLower] :  districtLower;
+    //districtUpper =  districtUpper && typeof districtUpper !== 'object' ? [districtUpper] :  districtUpper;
+    //districtLower =  districtLower && typeof districtLower !== 'object' ? [districtLower] :  districtLower;
 
-    districtUpper = districtUpper ? districtUpper.join(';') : districtUpper;
-    districtLower = districtLower ? districtLower.join(';') : districtLower;
+    //districtUpper = districtUpper ? districtUpper.join(';') : districtUpper;
+    //districtLower = districtLower ? districtLower.join(';') : districtLower;
 
-    district = districtLower || districtUpper;
+    
 
-    let dMsg = `Please select ${zone} District`;
+    let dMsg ;//= `Please select ${zone} District`;
 
     
     if(typeof(nonItFormResult.quantity) != 'object')
@@ -951,8 +951,10 @@ router.post('/nonItProducts', (request,response) => {
          console.log('ROW COUnct'+numberOfRows);
          for(let i=0; i< numberOfRows ; i++)
          { 
+            district = districtLower[i] || districtUpper[i];
+            dMsg = `Please select ${zone[i]} District`;
              let schema=joi.object({
-                zone:joi.string().required().label(`Please select Geographic Zone in row ${i+1}.`),
+                 zone:joi.string().required().label(`Please select Geographic Zone in row ${i+1}.`),
                  state:joi.string().required().label(`Please select State in row ${i+1}.`),
                  district:joi.string().required().label(`${dMsg} in row ${i+1}.`),
                  category : joi.string().required().label(`Please select Category in row ${i+1}.`),

@@ -190,7 +190,7 @@
         
        // html += '<td style="display:none;"><input type="hidden" id="qt'+cnt+'" name="quoteNum" class="form-control" /></td>';
         //    html += '<td style="display:none;"><input id="impId'+cnt+'" type="hidden" name="impaneledVendorId" value="" class="form-control" /></td>';
-        html += '<td style="display:none;"><input  type="hidden" name="parentProcurementId" value="<%= parentAssetId %>" class="form-control" /></td>';
+        html += '<td style="display:none;"><input  type="hidden" id="parentRec'+cnt+'" name="parentProcurementId" value="<%= parentAssetId %>" class="form-control" /></td>';
         html += '<td><button type="button" name="remove" class="btn btn-danger btn-sm remove"><span class="glyphicon glyphicon-minus">Delete</span></button></td></tr>';
         
         $('#item_table').append(html);
@@ -649,12 +649,158 @@ function drawOptions(optList,cnt){
       $('form#formdata').bind('submit', function () {
         $("#submitButton").attr("disabled", true);
        // alert('qt'+qt);
-       let tmpList = [];
+       let obj = {};
 
        $('#item_table > tbody > tr').each(function(i,data){
-        let obj = {};
-        //obj.zone
+        if(i > 0){
+          if(typeof obj.zone === 'object'){
+            obj.zone.push($('#zone'+i).val());
+          }
+          else{
+            obj.zone = [$('#zone'+i).val()];
+          }
+
+          if(typeof obj.districtUpper === 'object'){
+            obj.districtUpper.push($('#districtUpper'+i).val().join(';'));
+          }
+          else{
+            obj.districtUpper = [$('#districtUpper'+i).val().join(';')];
+          }
+
+          if(typeof obj.districtLower === 'object'){
+            obj.districtLower.push($('#districtLower'+i).val().join(';'));
+          }
+          else{
+            obj.districtLower = [$('#districtLower'+i).val().join(';')];
+          }
+
+          if(typeof obj.state === 'object'){
+            obj.state.push($('#state'+i).val());
+          }
+          else{
+            obj.state = [$('#state'+i).val()];
+          }
+
+          if(typeof obj.unit === 'object'){
+            obj.unit.push($('#unit'+i).val());
+          }
+          else{
+            obj.unit = [$('#unit'+i).val()];
+          }
+
+          if(typeof obj.unitCost === 'object'){
+            obj.unitCost.push($('#unitCost'+i).val());
+          }
+          else{
+            obj.unitCost = [$('#unitCost'+i).val()];
+          }
+          
+          if(typeof obj.vendor === 'object'){
+            obj.vendor.push($('#vendor'+i).val());
+          }
+          else{
+            obj.vendor = [$('#vendor'+i).val()];
+          }
+
+          if(typeof obj.category === 'object'){
+            obj.category.push($('#category'+i).val());
+          }
+          else{
+            obj.category = [$('#category'+i).val()];
+          }
+          
+          if(typeof obj.totalApproved === 'object'){
+            obj.totalApproved.push($('#totalApproved'+i).val());
+          }
+          else{
+            obj.totalApproved = [$('#totalApproved'+i).val()];
+          }
+
+          if(typeof obj.itemsCategory === 'object'){
+            obj.itemsCategory.push($('#cat'+i).val());
+          }
+          else{
+            obj.itemsCategory = [$('#cat'+i).val()];
+          }
+          
+          if(typeof obj.items === 'object'){
+            obj.items.push($('#'+i).val());
+          }
+          else{
+            obj.items = [$('#'+i).val()];
+          }
+
+          if(typeof obj.itemSpecification === 'object'){
+            obj.itemSpecification.push($('#itemSpecification'+i).val());
+          }
+          else{
+            obj.itemSpecification = [$('#itemSpecification'+i).val()];
+          }
+
+          if(typeof obj.quantity === 'object'){
+            obj.quantity.push($('#quantity'+i).val());
+          }
+          else{
+            obj.quantity = [$('#quantity'+i).val()];
+          }
+          
+          if(typeof obj.budget === 'object'){
+            obj.budget.push($('#budget'+i).val());
+          }
+          else{
+            obj.budget = [$('#budget'+i).val()];
+          }
+
+          if(typeof obj.imgpath1 === 'object'){
+            obj.imgpath1.push($('#file_1'+i).val());
+          }
+          else{
+            obj.imgpath1 = [$('#file_1'+i).val()];
+          }
+
+          if(typeof obj.imgpath2 === 'object'){
+            obj.imgpath2.push($('#file_2'+i).val());
+          }
+          else{
+            obj.imgpath2 = [$('#file_2'+i).val()];
+          }
+
+          if(typeof obj.imgpath3 === 'object'){
+            obj.imgpath3.push($('#file_3'+i).val());
+          }
+          else{
+            obj.imgpath3 = [$('#file_3'+i).val()];
+          }
+
+          if(typeof obj.justification === 'object'){
+            obj.justification.push($('#justification'+i).val());
+          }
+          else{
+            obj.justification = [$('#justification'+i).val()];
+          }
+
+          if(typeof obj.parentProcurementId === 'object'){
+            obj.parentProcurementId.push($('#parentRec'+i).val());
+          }
+          else{
+            obj.parentProcurementId = [$('#parentRec'+i).val()];
+          }
+
+          if(typeof obj.quoteNum === 'object'){
+            obj.quoteNum.push($('#qtNo'+i).val());
+          }
+          else{
+            obj.quoteNum = [$('#qtNo'+i).val()];
+          }
+
+          if(typeof obj.otherItems === 'object'){
+            obj.otherItems.push($('#other'+i).val());
+          }
+          else{
+            obj.otherItems = [$('#other'+i).val()];
+          }
         
+        }
        })
        
 
@@ -664,7 +810,7 @@ function drawOptions(optList,cnt){
           $.ajax({
             type: 'post',
             url: '/procurement/nonItProducts',   // Need to make changes in post method url
-            data:JSON.stringify({gg:'sss',eee:'sds'}),
+            data:obj,
             success: function (data) {
               console.log(data);
              // alert(data);
