@@ -858,13 +858,13 @@ router.post('/updateasset',(request,response)=>{
 
 router.post('/nonItProducts', (request,response) => {
 
-    let nonItFormResult = request.body;
+    let nonItFormResult = JSON.parse(request.body.obj);
  
     console.log('nonItFormResult  '+JSON.stringify(nonItFormResult));
     let parentProcurementId = nonItFormResult.parentProcurementId;
     console.log('parent Id Asset Requisition Form '+parentProcurementId);
  
-    let {zone,districtUpper,districtLower,state,district,unit,unitCost,vendor,category,totalApproved,itemsCategory,items,itemSpecification,quantity,budget} = request.body;
+    let {zone,districtUpper,districtLower,state,district,unit,unitCost,vendor,category,totalApproved,itemsCategory,items,itemSpecification,quantity,budget} = JSON.parse(request.body.obj);
     let numberOfRows,lstNonItProcurement = [];
 
     console.log('testssss',districtUpper,districtLower);

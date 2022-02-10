@@ -804,13 +804,13 @@ function drawOptions(optList,cnt){
        })
        
 
-
+      console.log(obj);
 
        console.log($('form#formdata').serialize());
           $.ajax({
             type: 'post',
             url: '/procurement/nonItProducts',   // Need to make changes in post method url
-            data:obj,
+            data:{obj:JSON.stringify(obj) },
             success: function (data) {
               console.log(data);
              // alert(data);
