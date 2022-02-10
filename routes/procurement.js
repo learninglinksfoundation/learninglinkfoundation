@@ -1012,8 +1012,8 @@ router.post('/nonItProducts', (request,response) => {
                      singleRecordValues.push(nonItFormResult.totalApproved[i]);
 
                      singleRecordValues.push(nonItFormResult.zone[i]);
-                     singleRecordValues.push(districtUpper);
-                     singleRecordValues.push(districtLower); 
+                     singleRecordValues.push(nonItFormResult.districtUpper[i]);
+                     singleRecordValues.push(nonItFormResult.districtLower[i]); 
 
                      lstNonItProcurement.push(singleRecordValues);
                      console.log('dj'+singleRecordValues);
