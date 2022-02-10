@@ -915,7 +915,7 @@ router.post('/nonItProducts', (request,response) => {
              singleRecordValues.push(nonItFormResult.itemsCategory);
              singleRecordValues.push(nonItFormResult.items);
              singleRecordValues.push(nonItFormResult.state);
-             singleRecordValues.push(nonItFormResult.district);
+            // singleRecordValues.push(nonItFormResult.district);
              singleRecordValues.push(nonItFormResult.unitCost);
              singleRecordValues.push(nonItFormResult.unit);
              singleRecordValues.push(nonItFormResult.itemSpecification);
@@ -991,7 +991,7 @@ router.post('/nonItProducts', (request,response) => {
                      singleRecordValues.push(nonItFormResult.itemsCategory[i]);
                      singleRecordValues.push(nonItFormResult.items[i]);
                      singleRecordValues.push(nonItFormResult.state[i]);
-                     singleRecordValues.push(nonItFormResult.district[i]);
+                     //singleRecordValues.push(nonItFormResult.district[i]);
                      singleRecordValues.push(nonItFormResult.unitCost[i]);
                      singleRecordValues.push(nonItFormResult.unit[i]);
                      singleRecordValues.push(nonItFormResult.itemSpecification[i]);
@@ -1024,7 +1024,7 @@ router.post('/nonItProducts', (request,response) => {
     }
     if(typeof(nonItFormResult.quantity) != 'object')
     {
-     let nonItProductsInsertQuery = format('INSERT INTO salesforce.Product_Line_Item__c (Products_Services_Name__c, Items__c,State__c,District__c,Per_Unit_Cost__c,unit__c, Product_Service__c, Quantity__c, Budget__c, Quote1__c,Quote2__c	,Quote3__c,Number_of_quotes__c,justification__c,Impaneled_Vendor__c, Asset_Requisition_Form__c, Catgeory__c, Others__c, Total_Approved_Budget_for_the_purchase__c,Geographic_Zone__c,District_Upper_Zone__c,Districts_Lower_Zone__c ) VALUES %L returning id',lstNonItProcurement);
+     let nonItProductsInsertQuery = format('INSERT INTO salesforce.Product_Line_Item__c (Products_Services_Name__c, Items__c,State__c,Per_Unit_Cost__c,unit__c, Product_Service__c, Quantity__c, Budget__c, Quote1__c,Quote2__c	,Quote3__c,Number_of_quotes__c,justification__c,Impaneled_Vendor__c, Asset_Requisition_Form__c, Catgeory__c, Others__c, Total_Approved_Budget_for_the_purchase__c,Geographic_Zone__c,District_Upper_Zone__c,Districts_Lower_Zone__c ) VALUES %L returning id',lstNonItProcurement);
      console.log('nonItProductsInsertQuery '+nonItProductsInsertQuery);
      pool.query(nonItProductsInsertQuery)
      .then((nonItProductsInsertQueryResult) => {
@@ -1039,7 +1039,7 @@ router.post('/nonItProducts', (request,response) => {
     else{
      console.log('lstNonItProcurement:'+lstNonItProcurement.length+' number of rows :'+nonItFormResult.quantity.length);
     if(lstNonItProcurement.length==nonItFormResult.quantity.length){
-     let nonItProductsInsertQuery = format('INSERT INTO salesforce.Product_Line_Item__c (Products_Services_Name__c, Items__c,State__c,District__c,Per_Unit_Cost__c,unit__c, Product_Service__c, Quantity__c, Budget__c, Quote1__c,Quote2__c	,Quote3__c,Number_of_quotes__c,justification__c,Impaneled_Vendor__c, Asset_Requisition_Form__c, Catgeory__c, Others__c, Total_Approved_Budget_for_the_purchase__c,Geographic_Zone__c,District_Upper_Zone__c,Districts_Lower_Zone__c ) VALUES %L returning id',lstNonItProcurement);
+     let nonItProductsInsertQuery = format('INSERT INTO salesforce.Product_Line_Item__c (Products_Services_Name__c, Items__c,State__c,Per_Unit_Cost__c,unit__c, Product_Service__c, Quantity__c, Budget__c, Quote1__c,Quote2__c	,Quote3__c,Number_of_quotes__c,justification__c,Impaneled_Vendor__c, Asset_Requisition_Form__c, Catgeory__c, Others__c, Total_Approved_Budget_for_the_purchase__c,Geographic_Zone__c,District_Upper_Zone__c,Districts_Lower_Zone__c ) VALUES %L returning id',lstNonItProcurement);
      console.log('nonItProductsInsertQuery '+nonItProductsInsertQuery);
      pool.query(nonItProductsInsertQuery)
      .then((nonItProductsInsertQueryResult) => {
