@@ -41,6 +41,7 @@
     overflow: hidden auto;
     height: 200px;
     min-width: 200px;
+    width: max-content;
   }
 
   .dropdown-toggle{
@@ -80,7 +81,7 @@
          <table class="table table-bordered" id="item_table">
           <tr>
             <th>SR. NO</th>
-            <th>Geographic Zone <span style="color: red;">*</span></th>
+            <th style="text-transform: uppercase;" >Geographic Zone <span style="color: red;">*</span></th>
             <th>STATE <span style="color: red;">*</span></th>
             <th>DISTRICTS - UPPER ZONE  <span style="color: red;">*</span></th>
             <th>DISTRICTS - LOWER ZONE <span style="color: red;">*</span></th>
@@ -239,7 +240,7 @@
         $('#item_table').append(html);
 
 
-
+      $('#districtUpper'+cnt +',#districtLower'+cnt).multiselect();
       $('#state'+cnt).attr('disabled',true);
       $('#zone'+cnt).on('change',function(){
         let val = this.value.replaceAll(' ','_');
@@ -274,6 +275,7 @@
         $('#districtUpper'+cnt +',#districtLower'+cnt).attr('disabled',true);
         $('#districtUpper'+cnt +',#districtLower'+cnt).html('');
 
+
         let dt = ['category','cat','','other','vendor','unitCost','unit','gst','itemSpecification','quantity','budget','totalApproved','justification'];
 
         clearData(dt,cnt);
@@ -289,6 +291,7 @@
            .text(dt))
 
           })
+          $('#districtUpper'+cnt).multiselect('rebuild');
 
         }
         else if(Zone == 'Lower Zone' && list?.length > 0 ){
@@ -300,6 +303,7 @@
            .text(dt))
             
           })
+          $('#districtLower'+cnt).multiselect('rebuild');
         }
         else{
 
@@ -314,6 +318,7 @@
            .text(dt))
 
           })
+          $('#districtUpper'+cnt).multiselect('rebuild');
 
       } 
                  
