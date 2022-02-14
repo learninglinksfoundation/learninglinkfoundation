@@ -245,6 +245,8 @@
 
 
       $('#districtUpper'+cnt +',#districtLower'+cnt).multiselect();
+      addClass('districtUpper',cnt);
+      addClass('districtLower',cnt);
       $('#state'+cnt).attr('disabled',true);
       $('#zone'+cnt).on('change',function(){
         let val = this.value.replaceAll(' ','_');
