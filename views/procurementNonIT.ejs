@@ -254,6 +254,7 @@
 
 
         $('#districtUpper'+cnt +',#districtLower'+cnt).html('');
+        $('#districtUpper'+cnt +',#districtLower'+cnt).multiselect('rebuild');
         let states = eval(val);
         for(let i=0; i < states?.length; i++)
         {
@@ -274,7 +275,8 @@
         let Zone = $('#zone'+cnt).val();
         $('#districtUpper'+cnt +',#districtLower'+cnt).attr('disabled',true);
         $('#districtUpper'+cnt +',#districtLower'+cnt).html('');
-
+        $('#districtUpper'+cnt +',#districtLower'+cnt).multiselect('rebuild');
+        $('#districtUpper'+cnt +',#districtLower'+cnt).multiselect('disabled');
 
         let dt = ['category','cat','','other','vendor','unitCost','unit','gst','itemSpecification','quantity','budget','totalApproved','justification'];
 
@@ -284,6 +286,7 @@
         let list = eval(state);
         if(Zone == 'Upper Zone' && list?.length > 0 ){
           $('#districtUpper'+cnt).attr('disabled',false);
+          $('#districtUpper'+cnt).multiselect('enable');
           list.forEach(dt=>{
             $('#districtUpper'+cnt)
            .append($("<option></option>")
@@ -296,6 +299,7 @@
         }
         else if(Zone == 'Lower Zone' && list?.length > 0 ){
           $('#districtLower'+cnt).attr('disabled',false);
+          $('#districtLower'+cnt).multiselect('enable');
           list.forEach(dt=>{
             $('#districtLower'+cnt)
            .append($("<option></option>")
@@ -311,6 +315,7 @@
       }
       else{
         $('#districtUpper'+cnt).attr('disabled',false);
+        $('#districtUpper'+cnt).multiselect('enable');
           onlinePan.forEach(dt=>{
             $('#districtUpper'+cnt)
            .append($("<option></option>")
