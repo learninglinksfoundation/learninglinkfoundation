@@ -254,7 +254,8 @@
 
 
         $('#districtUpper'+cnt +',#districtLower'+cnt).html('');
-        $('#districtUpper'+cnt +',#districtLower'+cnt).multiselect('rebuild');
+        '#districtUpper'+cnt +',#districtLower'+cnt).multiselect('rebuild');
+        $('#districtUpper'+cnt +',#districtLower'+cnt).multiselect('disabled');
         let states = eval(val);
         for(let i=0; i < states?.length; i++)
         {
