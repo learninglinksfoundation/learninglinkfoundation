@@ -30,6 +30,18 @@
   #item_table td {
     vertical-align: middle;
   }
+
+  .btn-group{
+    border: 1.2px solid #dadada;
+    border-radius: 7px;
+
+  }
+
+  .show ul{
+    overflow: hidden auto;
+    height: 200px;
+    min-width: 200px;
+  }
   </style> 
 
 <% include ./partials/messages %>
@@ -183,8 +195,8 @@
         html += '<td><select id="zone'+cnt+'"  name="zone" class="form-control item_unit"><option value="">Select</option><option value="Upper Zone">Upper Zone</option><option value="Lower Zone">Lower Zone</option></select></td>';
         html += '<td><select id="state'+cnt+'" style="width: 200px;" name="state" disabled class="form-control item_unit"><option value="">Select</option></select></td>';
 
-        html += '<td><select id="districtUpper'+cnt+'" style="width: 200px;" readonly name="districtUpper" multiple class="form-control item_unit" ></select></td>';
-        html += '<td><select id="districtLower'+cnt+'" style="width: 200px;" readonly name="districtLower" multiple class="form-control item_unit" ></select></td>';
+        html += '<td><select id="districtUpper'+cnt+'" style="width: 200px;" disabled name="districtUpper" multiple class="form-control item_unit" ></select></td>';
+        html += '<td><select id="districtLower'+cnt+'" style="width: 200px;" disabled name="districtLower" multiple class="form-control item_unit" ></select></td>';
         
         html += '<td><select name="category" id="category'+cnt+'" class="form-control item_unit "><option value="">Select</option><option value="NonIT">Non-IT</option><option value="IT">IT</option></select></td>';
         html += '<td><select name="itemsCategory" disabled style="width: 170px;" id="cat'+cnt+'" class="form-control item_unit itemsCategory"><option value="">Select</option></select></td>';
@@ -219,7 +231,7 @@
         let val = this.value.replaceAll(' ','_');
         $('#state'+cnt).attr('disabled',!val);
         $('#state'+cnt).find('option').not(':first').remove();
-        $('#districtUpper'+cnt +',#districtLower'+cnt).attr('readonly',true);
+        $('#districtUpper'+cnt +',#districtLower'+cnt).attr('disabled',true);
 
         let dt = ['districtUpper','districtLower','category','cat','','other','vendor','unitCost','unit','gst','itemSpecification','quantity','budget','totalApproved','justification'];
 
@@ -239,13 +251,13 @@
 
       });
 
-
+//$("#districtUpper1").multiselect('rebuild');
 
       $('#state'+cnt).on('change',function(){
         let state =this.value.replaceAll(' ','_');
         sts = this.value;
         let Zone = $('#zone'+cnt).val();
-        $('#districtUpper'+cnt +',#districtLower'+cnt).attr('readonly',true);
+        $('#districtUpper'+cnt +',#districtLower'+cnt).attr('disabled',true);
         $('#districtUpper'+cnt +',#districtLower'+cnt).html('');
 
         let dt = ['category','cat','','other','vendor','unitCost','unit','gst','itemSpecification','quantity','budget','totalApproved','justification'];
@@ -255,7 +267,7 @@
         if(state != 'Online/PAN_India'){
         let list = eval(state);
         if(Zone == 'Upper Zone' && list?.length > 0 ){
-          $('#districtUpper'+cnt).attr('readonly',false);
+          $('#districtUpper'+cnt).attr('disabled',false);
           list.forEach(dt=>{
             $('#districtUpper'+cnt)
            .append($("<option></option>")
@@ -266,7 +278,7 @@
 
         }
         else if(Zone == 'Lower Zone' && list?.length > 0 ){
-          $('#districtLower'+cnt).attr('readonly',false);
+          $('#districtLower'+cnt).attr('disabled',false);
           list.forEach(dt=>{
             $('#districtLower'+cnt)
            .append($("<option></option>")
@@ -280,7 +292,7 @@
         }
       }
       else{
-        $('#districtUpper'+cnt).attr('readonly',false);
+        $('#districtUpper'+cnt).attr('disabled',false);
           onlinePan.forEach(dt=>{
             $('#districtUpper'+cnt)
            .append($("<option></option>")
