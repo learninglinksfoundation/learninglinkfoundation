@@ -57,6 +57,10 @@
     overflow: hidden;
     white-space: nowrap;
   }
+
+  .disableSelect{
+    background: #ecf0f1;
+  }
   </style> 
 
 <% include ./partials/messages %>
@@ -257,7 +261,9 @@
         $('#districtUpper'+cnt +',#districtLower'+cnt).multiselect('rebuild');
         $('#districtUpper'+cnt).multiselect('disable');
         $('#districtLower'+cnt).multiselect('disable');
-        
+        addClass('districtUpper',cnt);
+        addClass('districtLower',cnt);
+
         //$('#districtUpper'+cnt +',#districtLower'+cnt).multiselect('disabled');
         let states = eval(val);
         for(let i=0; i < states?.length; i++)
@@ -283,6 +289,8 @@
         //$('#districtUpper'+cnt +',#districtLower'+cnt).multiselect('disabled');
         $('#districtUpper'+cnt).multiselect('disable');
         $('#districtLower'+cnt).multiselect('disable');
+        addClass('districtUpper',cnt);
+        addClass('districtLower',cnt);
         let dt = ['category','cat','','other','vendor','unitCost','unit','gst','itemSpecification','quantity','budget','totalApproved','justification'];
 
         clearData(dt,cnt);
@@ -292,6 +300,7 @@
         if(Zone == 'Upper Zone' && list?.length > 0 ){
           $('#districtUpper'+cnt).attr('disabled',false);
           $('#districtUpper'+cnt).multiselect('enable');
+          removeClass('districtUpper',cnt);
           list.forEach(dt=>{
             $('#districtUpper'+cnt)
            .append($("<option></option>")
@@ -305,6 +314,7 @@
         else if(Zone == 'Lower Zone' && list?.length > 0 ){
           $('#districtLower'+cnt).attr('disabled',false);
           $('#districtLower'+cnt).multiselect('enable');
+          removeClass('districtLower',cnt);
           list.forEach(dt=>{
             $('#districtLower'+cnt)
            .append($("<option></option>")
@@ -321,6 +331,7 @@
       else{
         $('#districtUpper'+cnt).attr('disabled',false);
         $('#districtUpper'+cnt).multiselect('enable');
+        removeClass('districtUpper',cnt);
           onlinePan.forEach(dt=>{
             $('#districtUpper'+cnt)
            .append($("<option></option>")
@@ -337,8 +348,12 @@
      
      
 
-
-        
+      function addClass(id,cnt){
+        $('#'+id+cnt).siblings().addClass('disableSelect');
+      }
+       function removeClass(id,cnt){
+        $('#'+id+cnt).siblings().removeClass('disableSelect');
+      } 
 
         
 
