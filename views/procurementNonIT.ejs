@@ -137,7 +137,7 @@
     var Events = ["None","Others", "Suggest Hotels"];
     var MaterialsOnRent = ["None", "AV Systems", "Backdrop", "Hardware Peripherals", "Others" , "Projector"];
     var Miscellaneous = ["None","Any Other Expense", "Maintenance"];
-    var IT = ['','Cartridge','CPU','Desktop','Desktop Mouse','External Hard Disk','Keyboard','Laptop','Laptop Charger','Monitor','Others','Pen Drive','Printer','RAM','Server','Software','Tablet'];    
+    var IT = ['Select','Cartridge','CPU','Desktop','Desktop Mouse','External Hard Disk','Keyboard','Laptop','Laptop Charger','Monitor','Others','Pen Drive','Printer','RAM','Server','Software','Tablet'];    
     
 
     let Upper_Zone = ['Arunachal Pradesh','Assam','Bihar','Chandigarh','Delhi','Gujarat','Haryana','Himachal Pradesh','Jammu and Kashmir','Jharkhand','Ladakh','Madhya Pradesh','Manipur','Meghalaya','Mizoram','Nagaland','Punjab','Rajasthan','Sikkim','Tripura','Uttarakhand','Uttar Pradesh','Online/PAN India'].sort();
@@ -801,12 +801,15 @@ function drawOptions(optList,cnt){
           else{
             obj.itemsCategory = [$('#cat'+i).val()];
           }
+          let vals = $('#'+i).val();
+          let vals1 =  vals === 'Select' ? '' : vals;
+
           
           if(typeof obj.items === 'object'){
-            obj.items.push($('#'+i).val());
+            obj.items.push(vals1);
           }
           else{
-            obj.items = [$('#'+i).val()];
+            obj.items = [vals1];
           }
 
           if(typeof obj.itemSpecification === 'object'){
