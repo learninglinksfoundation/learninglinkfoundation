@@ -137,7 +137,7 @@
     var Events = ["None","Others", "Suggest Hotels"];
     var MaterialsOnRent = ["None", "AV Systems", "Backdrop", "Hardware Peripherals", "Others" , "Projector"];
     var Miscellaneous = ["None","Any Other Expense", "Maintenance"];
-    var IT = ['Select','Cartridge','CPU','Desktop','Desktop Mouse','External Hard Disk','Keyboard','Laptop','Laptop Charger','Monitor','Others','Pen Drive','Printer','RAM','Server','Software','Tablet'];    
+    var IT = ['','Cartridge','CPU','Desktop','Desktop Mouse','External Hard Disk','Keyboard','Laptop','Laptop Charger','Monitor','Others','Pen Drive','Printer','RAM','Server','Software','Tablet'];    
     
 
     let Upper_Zone = ['Arunachal Pradesh','Assam','Bihar','Chandigarh','Delhi','Gujarat','Haryana','Himachal Pradesh','Jammu and Kashmir','Jharkhand','Ladakh','Madhya Pradesh','Manipur','Meghalaya','Mizoram','Nagaland','Punjab','Rajasthan','Sikkim','Tripura','Uttarakhand','Uttar Pradesh','Online/PAN India'].sort();
@@ -198,6 +198,10 @@
     function clearData(data,i){
       data.forEach(dt=>{
         $(`#${dt}${i}`).val('');
+        if(dt === 'other' || dt === 'vendor' ){
+         // $(`#${dt}${i} option:not(:first)`).remove();
+        }
+
         //$(`#${dt}${i}`).html('');
       });
     }
