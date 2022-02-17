@@ -150,7 +150,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group">
+        <!--<div class="form-group">
             <div class="row">
               
               
@@ -163,7 +163,7 @@
                 <input type="text" class="form-control" id="quote" value=""   name="quote" >
                 </div>
             </div>
-        </div>
+        </div>-->
 
         <div class="form-group">
             <div class="row">
@@ -723,10 +723,10 @@ let st =["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Go
         
                 
             //document.forms["editvendor"]["district"].value=response.VendorDetail[0].district__c;
-            document.forms["editvendor"]["quote"].value = response.VendorDetail[0].quote_public_url__c;
+           // document.forms["editvendor"]["quote"].value = response.VendorDetail[0].quote_public_url__c;
             document.forms["editvendor"]["gst"].value = response.VendorDetail[0].gst_no__c;
             document.forms["editvendor"]["reason"].value = response.VendorDetail[0].reason_for_not_providing_gst_no__c;
-            document.forms["editvendor"]["other"].value = response.VendorDetail[0].others__c;
+            //document.forms["editvendor"]["other"].value = response.VendorDetail[0].others__c;
             document.forms["editvendor"]["hide"].value = response.VendorDetail[0].sfid;
           })
           .fail((jqXHR, status, error) =>{
