@@ -9,9 +9,10 @@
 <h3 style="text-align: center; margin-top: 20px;">Vendor List</h3>
 <div class="container">
     <div class="row mt-5 mb-3 align-items-center">
-        <div class="col-md-5">
+        <div class="col-md-5" style="display:flex;align-items: center;justify-content: space-evenly;" >
             <a class="btn btn-primary btn-md bg-gray" href="/procurement/createvendor" target="_blank" id="createNewVendor">Create New</a>
-            <a  href="/procurement/getvendorListView" style="color: #555;" id="ref" ><i class="fa fa-refresh" style="font-size:34px; margin-left: 10px; margin-top: 30px;"></i> </a>
+            <a  href="/procurement/getvendorListView" style="color: #555;" id="ref" ><i class="fa fa-refresh" style="font-size:34px;"></i> </a>
+            <button class="btn btn-primary btn-md bg-gray" disabled id="deleteRecord" >Delete Records </button>
                </div>
         <div class="col-md-4">
         <input type="text" class="form-control" placeholder="Search by Vendor List ID " id="searchField" style="margin-top: 5px;">
@@ -356,6 +357,35 @@ let st =["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Go
             })
     })
    var vendorIDS;
+
+   $('#deleteRecord').on('click',function(){
+    let idList = [];
+    $('.checkBoxes').each(function(){
+        if(this.checked){
+            idList.push(this.id);
+        }
+
+    })
+
+        if(alert('Are you sure to delete these records?') && idList.length > 0 ){
+            //
+            $.ajax({
+                    url : '/procurement/deleteVender',
+                    type:'post',
+                    data: {list:idList},
+                })
+                .done((data) => {
+                    console.log(data);
+                })
+                .fail(error=>{
+                    console.log(error);
+                })
+        }
+
+
+   });
+
+
     function anchorClickFunctionalities()
     {
         $('a.vendorTag').on('click',function(event){
@@ -502,6 +532,41 @@ let st =["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Go
             })
         })
     }
+
+        $('#allCheck').on('click',function(){
+            let isTrue = this.checked;
+            $('.checkBoxes').each(function(){
+                this.checked = isTrue;
+            })  
+
+        })
+
+        $('.checkBoxes').on('click',function(){
+            let count = 0;
+            $('.checkBoxes').each(function(){
+                if(this.checked){
+                    count++;
+                }
+                else{
+                    count--;
+                }
+            })
+
+            if(count > 0 ){
+                $('#deleteRecord').attr('disabled',false);
+            }
+            else{
+                $('#deleteRecord').attr('disabled',true)
+            }
+            if($('.checkBoxes').length === count){
+                $('#allCheck').prop('checked',true);
+            }
+            else{
+                $('#allCheck').prop('checked',false);
+            }
+
+
+        });
 
         $('a.newVendor').click(() => {
             console.log('newVendor anchor tag ');
