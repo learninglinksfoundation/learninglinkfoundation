@@ -282,6 +282,7 @@ let st =["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Go
     $(document).ready(function(){
         let columns ={
             sequence : 'Sequence',
+            isChecked : '<input style="height: 14px;width: 14px;" type="checkbox" id="allCheck" />',
             name: ' Vendor List ID',
             vendorname: 'Vendor Name',
             zone : 'Geographic Zone',
@@ -397,7 +398,7 @@ let st =["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Go
                             vendorDetailRow += '<td><strong>State<strong></td>';
                                         vendorDetailRow += '<td>'+eachRecord.state__c+'</td>';
                             vendorDetailRow += '<td><strong> Districts - Upper Zone<strong></td>';
-                            if(eachRecord.districts_upper_zone__c )
+                            if(eachRecord.districts_upper_zone__c && eachRecord.districts_upper_zone__c !== 'undefined' )
                                 vendorDetailRow += '<td>'+eachRecord.districts_upper_zone__c+'</td>';
                             else
                                vendorDetailRow +='<td>NA</td>'; 
@@ -406,7 +407,7 @@ let st =["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Go
 
                             vendorDetailRow += '<tr>';
                             vendorDetailRow += '<td><strong>District- Lower Zone<strong></td>';
-                            if(eachRecord.district_lower_zone__c)
+                            if(eachRecord.district_lower_zone__c && eachRecord.district_lower_zone__c !== 'undefined'  )
                                 vendorDetailRow += '<td>'+eachRecord.district_lower_zone__c+'</td>';
                             else
                                  vendorDetailRow +='<td>NA</td>'; 

@@ -2116,6 +2116,7 @@ router.get('/getVendorsList',(request,response)=>{
               obj.add = eachRecord.address__c;
               obj.createdDate = strDate;
               obj.zone = eachRecord.geographic_zone__c;
+              obj.isChecked = `<input type="checkbox" style="height: 14px;width: 14px;" id="${eachRecord.sfid}" class="checkBoxes"`;
               i= i+1;
               modifiedList.push(obj);
             })
@@ -2642,13 +2643,15 @@ router.post('/updateVendor',(request,response)=>{
             name:joi.string().min(3).max(80).required().label('Please Fill Vendor Name'),
             bankDetail:joi.string().min(3).max(255).required().label('Please Fill Bank Details'),
             aacc:joi.string().min(3).required().label('Please Fill Bank Account Number'),
+            conta:joi.string().required().label('Please Enter Contact Number'),
+               cont:joi.number().integer().min(1000000000).max(9999999999).required().label('Contact number should have exact 10 digits'),
             ifscL : joi.string().required().label('Please Fill Bank IFSC Code.'),
             ifsc:joi.string().min(11).max(11).required().label('Bank IFSC Code should have exact 11 digits'),
             
             reason:joi.string().min(3).max(255).required().label('Please Fill Reason for not providing GST no.'),
             
               })
-        result = schema.validate({zone:zone,state:state,district:district,name:name,bankDetail:bankDetail,aacc:aacc,ifsc:ifsc,ifscL:ifsc,reason:reason});
+        result = schema.validate({zone:zone,state:state,district:district,name:name,bankDetail:bankDetail,aacc:aacc,conta:cont,cont:cont,ifsc:ifsc,ifscL:ifsc,reason:reason});
         
     }
     else
@@ -2660,11 +2663,13 @@ router.post('/updateVendor',(request,response)=>{
            name:joi.string().min(3).max(80).required().label('Please Fill Vendor Name'),
            bankDetail:joi.string().min(3).max(255).required().label('Please Fill Bank Details'),
            aacc:joi.string().required(3).label('Please Fill Bank Account Number'),
+           conta:joi.string().required().label('Please Enter Contact Number'),
+            cont:joi.number().integer().min(1000000000).max(9999999999).required().label('Contact number should have exact 10 digits'),
            ifscL : joi.string().required().label('Please Fill Bank IFSC Code.'),
            ifsc:joi.string().min(11).max(11).required().label('Bank IFSC Code should have exact 11 digits'),
            gst : joi.string().min(15).max(15).required().label('GST Number should have exact 15 digits')
         })
-        result = schema.validate({zone:zone,state:state,district:district,name:name,bankDetail:bankDetail,aacc:aacc,ifsc:ifsc,ifscL:ifsc,gst:gst});
+        result = schema.validate({zone:zone,state:state,district:district,name:name,bankDetail:bankDetail,aacc:aacc,conta:cont,cont:cont,ifsc:ifsc,ifscL:ifsc,gst:gst});
     }
 
     if(result.error){
