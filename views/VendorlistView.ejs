@@ -388,6 +388,44 @@ let st =["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Go
 
     function anchorClickFunctionalities()
     {
+
+
+         $('#allCheck').on('click',function(){
+            let isTrue = this.checked;
+            $('.checkBoxes').each(function(){
+                this.checked = isTrue;
+            })  
+
+        })
+
+        $('.checkBoxes').on('click',function(){
+            let count = 0;
+            $('.checkBoxes').each(function(){
+                if(this.checked){
+                    count++;
+                }
+                else{
+                    count--;
+                }
+            })
+
+            if(count > 0 ){
+                $('#deleteRecord').attr('disabled',false);
+            }
+            else{
+                $('#deleteRecord').attr('disabled',true)
+            }
+            if($('.checkBoxes').length === count){
+                $('#allCheck').prop('checked',true);
+            }
+            else{
+                $('#allCheck').prop('checked',false);
+            }
+
+
+        });
+
+        
         $('a.vendorTag').on('click',function(event){
             event.stopImmediatePropagation();
             event.stopPropagation();
@@ -533,40 +571,7 @@ let st =["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Go
         })
     }
 
-        $('#allCheck').on('click',function(){
-            let isTrue = this.checked;
-            $('.checkBoxes').each(function(){
-                this.checked = isTrue;
-            })  
-
-        })
-
-        $('.checkBoxes').on('click',function(){
-            let count = 0;
-            $('.checkBoxes').each(function(){
-                if(this.checked){
-                    count++;
-                }
-                else{
-                    count--;
-                }
-            })
-
-            if(count > 0 ){
-                $('#deleteRecord').attr('disabled',false);
-            }
-            else{
-                $('#deleteRecord').attr('disabled',true)
-            }
-            if($('.checkBoxes').length === count){
-                $('#allCheck').prop('checked',true);
-            }
-            else{
-                $('#allCheck').prop('checked',false);
-            }
-
-
-        });
+       
 
         $('a.newVendor').click(() => {
             console.log('newVendor anchor tag ');
