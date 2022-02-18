@@ -2116,7 +2116,7 @@ router.get('/getVendorsList',(request,response)=>{
               obj.add = eachRecord.address__c;
               obj.createdDate = strDate;
               obj.zone = eachRecord.geographic_zone__c;
-              obj.isChecked = `<input type="checkbox" style="height: 14px;width: 14px;" id="${eachRecord.sfid}" class="checkBoxes"`;
+              obj.isChecked = `<input type="checkbox" style="height: 14px;width: 14px;" id="${eachRecord.sfid}" class="checkBoxes"/>`;
               i= i+1;
               modifiedList.push(obj);
             })
