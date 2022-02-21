@@ -2090,10 +2090,10 @@ router.get('/getVendorListView',verify,(request,response)=>{
 })
 
 router.post('/deleteVender',verify,(request,response)=>{
-    let idList = request.body;
-    console.log(JSON.stringify(idList));
+    
     let {list} = request.body;
-    console.log(idList,list);
+    let idList = JSON.parse(list);
+    console.log(list,idList);
     response.send(idList);
 
 })

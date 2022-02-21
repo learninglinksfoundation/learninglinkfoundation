@@ -367,12 +367,12 @@ let st =["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Go
 
     })
 
-        if(alert('Are you sure to delete these records?') && idList.length > 0 ){
+        if(confirm('Are you sure to delete these records?') && idList.length > 0 ){
             console.log(idList);
             $.ajax({
                     url : '/procurement/deleteVender',
                     type:'post',
-                    data: {list:idList},
+                    data: {list:JSON.stringify(idList)},
                 })
                 .done((data) => {
                     console.log(data);
