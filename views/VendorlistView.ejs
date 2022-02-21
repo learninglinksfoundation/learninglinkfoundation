@@ -368,7 +368,7 @@ let st =["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Go
     })
 
         if(alert('Are you sure to delete these records?') && idList.length > 0 ){
-            //
+            console.log(idList);
             $.ajax({
                     url : '/procurement/deleteVender',
                     type:'post',
@@ -392,6 +392,7 @@ let st =["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Go
 
          $('#allCheck').on('click',function(){
             let isTrue = this.checked;
+            $('#deleteRecord').attr('disabled',!isTrue)
             $('.checkBoxes').each(function(){
                 this.checked = isTrue;
             })  
@@ -400,16 +401,18 @@ let st =["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Go
 
         $('.checkBoxes').on('click',function(){
             let count = 0;
+             let counter = 0;
             $('.checkBoxes').each(function(){
                 if(this.checked){
                     count++;
+                    counter++;
                 }
                 else{
                     count--;
                 }
             })
 
-            if(count > 0 ){
+            if(counter > 0 ){
                 $('#deleteRecord').attr('disabled',false);
             }
             else{

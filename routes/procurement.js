@@ -2091,7 +2091,8 @@ router.get('/getVendorListView',verify,(request,response)=>{
 
 router.post('/deleteVender',verify,(request,response)=>{
     let idList = request.body.list;
-    console.log(idList);
+    let {list} = request.body;
+    console.log(idList,list);
     response.send(idList);
 
 })
