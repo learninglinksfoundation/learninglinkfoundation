@@ -375,10 +375,14 @@ let st =["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Go
                     data: {list:JSON.stringify(idList)},
                 })
                 .done((data) => {
-                    console.log(data);
+                    if(data === 'Deleted Successfully')
+                        window.location.reload();
+                    else
+                      alert(data);  
                 })
                 .fail(error=>{
                     console.log(error);
+                    alert('Some Error Occured');
                 })
         }
         else{
