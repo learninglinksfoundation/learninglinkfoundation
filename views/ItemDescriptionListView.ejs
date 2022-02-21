@@ -458,6 +458,25 @@
                .attr("value",itemsCategory[i])
                .text(itemsCategory[i]));		
     }
+
+
+    $('#cate').on('change',function(){
+        $('#item').find('option').not(':first').remove();
+        let dt = eval(this.value.replaceAll(' ',''));
+            console.log(dt);
+
+            dt.forEach(dts=>{
+                $('#item')
+               .append($("<option></option>")
+               .attr("value",dts)
+               .text(dts));
+
+            })
+
+
+
+    })
+
     
          //   alert(' editItem Modal ID=>'+itemId);
               $('#itemModal').modal('show'); 
