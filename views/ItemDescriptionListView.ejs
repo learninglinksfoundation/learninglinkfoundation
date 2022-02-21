@@ -10,8 +10,9 @@
 <h3 style="text-align: center;">Item Description</h3>
 <div class="container">
     <div class="row mt-5 mb-3 align-items-center">
-        <div class="col-md-5" style="display: flex;align-items: center;" >
+        <div class="col-md-6" style="display: flex;align-items: center;" >
             <a class="btn btn-primary btn-md bg-gray" style="margin-right: 5px;" href="/procurement/ItemDescription/<%=vendorId %>" target="_blank" id="createNewItem">Create New</a>
+            <button style="margin:0 10px 0 5px" class="btn btn-primary btn-md bg-gray" disabled id="deleteRecord" >Delete Records </button>
             <a class="btn btn-primary btn-md bg-gray" href="/procurement/ItemDescriptionViewRel/<%=vendorId %>" >Go To Impaneled Vendor </a>
              <a id="refresh" href="#" ><i class="fa fa-refresh" style="font-size:34px; margin-left: 10px;color: #555;"></i></a>
                </div>
@@ -194,6 +195,7 @@
 
         let columns ={
             sequence : 'Sequence',
+            isChecked : '<input style="height: 14px;width: 14px;" type="checkbox" id="allCheck" />',
             name: ' Item ID',
             category: 'Item Category',
             item : 'Items',
@@ -264,8 +266,85 @@
               console.log('error  : '+error);
             })
     })
+
+    $('#deleteRecord').on('click',function(){
+        let idList = [];
+        $('.checkBoxes').each(function(){
+            if(this.checked){
+                idList.push(this.id);
+            }
+
+        })
+
+        if(confirm('Are you sure to delete these records?') && idList.length > 0 ){
+            console.log(idList);
+            $.ajax({
+                    url : '/procurement/deleteItem',
+                    type:'post',
+                    data: {list:JSON.stringify(idList)},
+                })
+                .done((data) => {
+                    if(data === 'Deleted Successfully')
+                        window.location.reload();
+                    else
+                      alert(data);  
+                })
+                .fail(error=>{
+                    console.log(error);
+                    alert('Some Error Occured');
+                })
+        }
+        else{
+            console.log('not done');
+        }
+
+
+   });
+
+
+
     function anchorClickFunctionalities()
         {
+
+            $('#allCheck').on('click',function(){
+            let isTrue = this.checked;
+            $('#deleteRecord').attr('disabled',!isTrue)
+            $('.checkBoxes').each(function(){
+                this.checked = isTrue;
+            })  
+
+        })
+
+        $('.checkBoxes').on('click',function(){
+            let count = 0;
+             let counter = 0;
+            $('.checkBoxes').each(function(){
+                if(this.checked){
+                    count++;
+                    counter++;
+                }
+                else{
+                    count--;
+                }
+            })
+
+            if(counter > 0 ){
+                $('#deleteRecord').attr('disabled',false);
+            }
+            else{
+                $('#deleteRecord').attr('disabled',true)
+            }
+            if($('.checkBoxes').length === count){
+                $('#allCheck').prop('checked',true);
+            }
+            else{
+                $('#allCheck').prop('checked',false);
+            }
+
+
+        });
+
+            
                 $('a.itemDetailTag').on('click',function(event){
                         event.stopImmediatePropagation();
                         event.stopPropagation();

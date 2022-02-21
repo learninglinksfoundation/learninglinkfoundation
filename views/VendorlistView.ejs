@@ -359,13 +359,13 @@ let st =["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Go
    var vendorIDS;
 
    $('#deleteRecord').on('click',function(){
-    let idList = [];
-    $('.checkBoxes').each(function(){
-        if(this.checked){
-            idList.push(this.id);
-        }
+        let idList = [];
+        $('.checkBoxes').each(function(){
+            if(this.checked){
+                idList.push(this.id);
+            }
 
-    })
+        })
 
         if(confirm('Are you sure to delete these records?') && idList.length > 0 ){
             console.log(idList);

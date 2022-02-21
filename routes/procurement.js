@@ -2442,6 +2442,33 @@ router.get('/ItemDescriptionListView',verify,(request,response)=>{
 
 })
 
+
+router.post('/deleteItem',verify,(request,response)=>{
+    
+    let {list} = request.body;
+    let idList = JSON.parse(list);
+    console.log(list,idList);
+
+    if(idList.length > 0){
+        let ids =  `('${idList.join(',')}')` ;
+        let query = `DELETE FROM salesforce.Item_Description__c WHERE sfid IN ${ids}`;
+        pool.query(query)
+        .then(dt=>{
+            response.send('Deleted Successfully');
+        })
+        .catch(error=>{
+            response.send(error);
+        })
+
+   } 
+   else{
+        response.send('Records are not selected');
+   }
+
+})
+
+
+
 router.get('/getItemList',(request,response)=>{
     let id=request.query.id;
     console.log('Idd '+id);
@@ -2474,6 +2501,7 @@ router.get('/getItemList',(request,response)=>{
               obj.cost = eachRecord.per_unit_cost__c;
               obj.vendor=eachRecord.vendername;
               obj.createdDate = strDate;
+              obj.isChecked = `<input type="checkbox" style="height: 14px;width: 14px;" id="${eachRecord.sfid}" class="checkBoxes"/>`;
               i= i+1;
               modifieldList.push(obj);
             })
