@@ -140,11 +140,11 @@
                   
                   
                   <div class="col-md-6">
-                  <label for="cate">Category </label>
+                  <label for="cate">Item Category <span style="color: red;">*</span> </label>
                     <select id="cate" name="cate" class="form-control item_unit"><option value="">Select</option></select>
                   </div>
                   <div class="col-md-6">
-                    <label for="item">  Item </label>
+                    <label for="item">  Item <span style="color: red;">*</span> </label>
                     <select id="item" name="item" class="form-control item_unit" ><option value="">Select</option></select>
                     </div>
                 </div>
@@ -154,11 +154,11 @@
             <div class="form-group">
                 <div class="row">
                   <div class="col-md-6">
-                  <label for="unit">Unit </label>
+                  <label for="unit">Unit <span style="color: red;">*</span> </label>
                     <input type="text" class="form-control" id="unit" value=""   name="unit" >
                   </div>
                   <div class="col-md-6">
-                    <label for="cost"> Per Unit Cost </label>
+                    <label for="cost"> Per Unit Cost <span style="color: red;">*</span></label>
                     <input type="number" class="form-control" id="cost" value=""   name="cost" >
                     </div>
                 </div>
@@ -440,17 +440,18 @@
             event.stopImmediatePropagation();
             let itemId = this.id;
             
-    var itemsCategory = [ "Stationery", "Printing", "Electrical", "Events", "MaterialsOnRent", "Miscellaneous","IT"];
+    var itemsCategory = [ "Stationery", "Printing", "Electrical", "Events", "Materials On Rent", "Miscellaneous","IT"];
     var Stationery = ["A4 Size Paper Rim", "Pen", "Pencil", "Sharpner", "Eraser", "Markers", "Files", "White", "Magnetic Board", "Other Items"];
     var Printing = ["Books", "Brochures", "Leaflets", "Binding", "Posters", "Backdrop", "Standees", "Caps", "Certificates", "Other Items"];
     var Electrical = ["Lights", "UPS", "Inverter", "Battery", "Extension Board", "Heater", "Fans", "Other Items"];
     var Events = ["Suggested Hostels", "Other Items"];
-    var MaterialsOnRent = ["Projector", "AV Systems", "Hardware Peripherals", "Other Items"];
+    var Materials_On_Rent = ["Projector", "AV Systems", "Hardware Peripherals", "Other Items"];
     var Miscellaneous = ["Maintenance", "Any Other Expense"];
     let  IT =["External Hard disk", "Pen drive", "Desktop Mouse","Keyboard",
      "Ram", "Monitor", "CPU", "UPS" ,"Battery", "Software", "Laptop", "Desktop", "Laptop Chargers", "Base", "Screen",
      "Printer", "LCD projector", "Toner", "Cartridge", "Plasma",
      "Servers", "Telephones", "Camera", "Tablets","OtherItems"];
+     $('#cate').find('option').not(':first').remove();
     for(i=0;i<itemsCategory.length;i++)
     {
        $('#cate')
@@ -477,12 +478,28 @@
             document.forms["edititem"]["itemname"].value = response[0].itemname;
             document.forms["edititem"]["vendor"].value = response[0].vendername;
             document.forms["edititem"]["cate"].value = response[0].category__c;
-            document.forms["edititem"]["item"].value = response[0].items__c;
+            //document.forms["edititem"]["item"].value = response[0].items__c;
             document.forms["edititem"]["unit"].value = response[0].unit__c;
             document.forms["edititem"]["cost"].value = response[0].per_unit_cost__c;
             document.forms["edititem"]["other"].value = response[0].other_items__c;
             document.forms["edititem"]["hide"].value = response[0].sfid;
             document.forms["edititem"]["description"].value = response[0].description;
+
+            let dt = eval(response[0].category__c);
+            console.log(dt);
+            dt.forEach(dts=>{
+                $('#item')
+               .append($("<option></option>")
+               .attr("value",dts)
+               .text(dts);
+
+            })
+
+               $('#item').val(response[0].items__c);
+           // response[0].category__c;
+
+
+
             })
             .fail((jqXHR, status, error) =>{
                 $('#detailLoadingSpinner').show();
