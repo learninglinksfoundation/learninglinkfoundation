@@ -2765,7 +2765,7 @@ router.post('/updateVendor',(request,response)=>{
 router.get('/getItemDetail',(request,response)=>{
 let itemId=request.query.itemId;
 console.log('itemId '+itemId);
-let qry='select item.sfid ,item.name as itemName,item.items__c, item.category__c,item.Public_Quote_URL__c,item.per_unit_cost__c,item.unit__c,item.other_items__c,vend.name as vendername,item.impaneled_vendor__c '+
+let qry='select item.sfid ,item.name as itemName,item.items__c,item.Item_Description_Details__c as description, item.category__c,item.Public_Quote_URL__c,item.per_unit_cost__c,item.unit__c,item.other_items__c,vend.name as vendername,item.impaneled_vendor__c '+
                 'FROM salesforce.Item_Description__c item '+
                 'INNER JOIN salesforce.Impaneled_Vendor__c vend '+
                 'ON item.Impaneled_Vendor__c = vend.sfid '+

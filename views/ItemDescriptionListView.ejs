@@ -158,7 +158,7 @@
                     <input type="text" class="form-control" id="unit" value=""   name="unit" >
                   </div>
                   <div class="col-md-6">
-                    <label for="cost"> Cost Per Unit </label>
+                    <label for="cost"> Per Unit Cost </label>
                     <input type="number" class="form-control" id="cost" value=""   name="cost" >
                     </div>
                 </div>
@@ -173,6 +173,8 @@
                         </div>
                       <div class="col-md-6">
                         <input type="hidden" class="form-control" id="hide" value=""   name="hide" >
+                        <label for="description"> Item Description/Details</label>
+                        <textarea name="description" class="form-control" id="description" > </textarea>
                         </div>
                   </div>     
               </div>
@@ -229,7 +231,7 @@
             },
             tableDidUpdate: () => {
             console.log('table did update');
-          //   anchorClickFunctionalities();
+             anchorClickFunctionalities();
                additionalEditFunctionality();
             
             },
@@ -256,8 +258,8 @@
            .done((response) => {
                console.log('response item : '+JSON.stringify(response));
                table.setData(response, columns);
-               //anchorClickFunctionalities();
                anchorClickFunctionalities();
+               additionalEditFunctionality();
               
               
             })
@@ -344,7 +346,7 @@
 
         });
 
-            
+
                 $('a.itemDetailTag').on('click',function(event){
                         event.stopImmediatePropagation();
                         event.stopPropagation();
@@ -384,7 +386,7 @@
                             htmlTable += '<tr>';
                                 htmlTable += '<td><strong>Unit </strong></td>';
                                 htmlTable += '<td>'+response[0].unit__c+'</td>';
-                                htmlTable += '<td><strong>Cost Per Unit</strong></td>';
+                                htmlTable += '<td><strong>Per Unit Cost</strong></td>';
                                 htmlTable += '<td>'+response[0].per_unit_cost__c+'</td>';
                             htmlTable += '</tr>';
                             htmlTable += '<tr>';
@@ -399,6 +401,13 @@
                                 else{
                                   htmlTable +='<td></td>';
                                 }
+                            htmlTable += '</tr>';
+
+                            htmlTable += '<tr>';
+                                htmlTable += '<td><strong>Item Description/Details </strong></td>';
+                                htmlTable += '<td>'+response[0].description+'</td>';
+                                htmlTable += '<td><strong></strong></td>';
+                                htmlTable += '<td></td>';
                             htmlTable += '</tr>';
                               $('#itemDetailTable').empty();
                               $('#itemDetailTable').html(htmlTable);
@@ -473,6 +482,7 @@
             document.forms["edititem"]["cost"].value = response[0].per_unit_cost__c;
             document.forms["edititem"]["other"].value = response[0].other_items__c;
             document.forms["edititem"]["hide"].value = response[0].sfid;
+            document.forms["edititem"]["description"].value = response[0].description;
             })
             .fail((jqXHR, status, error) =>{
                 $('#detailLoadingSpinner').show();
