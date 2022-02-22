@@ -376,7 +376,7 @@
                                   htmlTable += '<td><strong>Name</strong></td>';
                                   htmlTable += '<td>'+response[0].itemname+'</td>';
                                   htmlTable += '<td><strong>Vendor Name</strong></td>';
-                                  htmlTable += '<td>'+response[0].vendername+'</td>';
+                                  htmlTable += '<td><a href="/procurement/ItemDescriptionViewRel/<%=vendorId %>">'+response[0].vendername+'</a></td>';
                               htmlTable += '</tr>';
                               htmlTable += '<tr>';
                                 htmlTable += '<td><strong>Item Category</strong></td>';
@@ -413,6 +413,7 @@
                               $('#itemDetailTable').empty();
                               $('#itemDetailTable').html(htmlTable);
                             }
+
                         })
                         .fail((jqXHR, status, error) =>{
                             $('#detailLoadingSpinner').hide();
@@ -557,6 +558,8 @@
                     })
                     .fail((jqXHR, status, error) => {
 
+                        if(jqXHR.responseText !== 'Success'){
+
                           let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+jqXHR.responseText+
                           '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
                           '<span aria-hidden="true">&times;</span>'+
@@ -565,7 +568,11 @@
                           $('#errorMessages').empty();
                           $('#errorMessages').append(errorHtml); 
                           $("#editItemButton").attr("disabled", false);
-
+                      }
+                      else{
+                        alert("Item Description succesfullly Updated!");
+                          window.location.reload();
+                      }
 
                           console.log('jqXHR  '+JSON.stringify(jqXHR));
                     }) 

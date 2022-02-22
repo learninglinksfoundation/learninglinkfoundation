@@ -2791,7 +2791,7 @@ router.post('/updateItemescription',(request,response)=>{
     console.log('other  '+other);
     console.log('Item ID  '+hide);
 
-if(item == 'Others'  ||  item == 'Any Other Expense' ||  item == 'Any Other Expense')
+if(item == 'Others'  ||  item == 'Any Other Expense')
     {
         schema=joi.object({
             category:joi.string().required().label('Please Choose Item Category'),
