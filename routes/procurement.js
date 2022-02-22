@@ -2783,31 +2783,66 @@ response.send(itemdescriptionQueryy.rows);
 router.post('/updateItemescription',(request,response)=>{
     let body = request.body;
     console.log('body  : '+JSON.stringify(body));
-    const { item, cate,cost,unit,other,quote,hide} = request.body;
-    console.log('item    '+item);
+    const { items, category,cost,unit,other,quote,hide,description} = request.body;
+    console.log('item    '+items);
     console.log('cost  '+cost);
-    console.log('cate  '+cate);
+    console.log('cate  '+category);
     console.log('unit  '+unit);
     console.log('other  '+other);
     console.log('Item ID  '+hide);
-    let updateQuerry = 'UPDATE salesforce.Item_Description__c SET '+
-    'category__c = \''+cate+'\', '+
-    'items__c = \''+item+'\', '+
-    'unit__c = \''+unit+'\', '+
-    'per_unit_cost__c = \''+cost+'\', '+
-    'Other_Items__c= \''+other+'\' '+
-    'WHERE sfid = $1';
-console.log('updateQuerry  '+updateQuerry);
-pool
-.query(updateQuerry,[hide])
-.then((updateQuerryResult) => {     
-console.log('updateQuerryResult =>>'+JSON.stringify(updateQuerryResult));
-response.send('Success');
-})
-.catch((updatetError) => {
-console.log('updatetError'+updatetError.stack);
-response.send('Error');
-})
+
+if(items == 'Others')
+    {
+        schema=joi.object({
+            category:joi.string().required().label('Please Choose Item Category'),
+            unit:joi.string().min(2).required().label('Please fill Unit'),
+            items:joi.string().required().label('Please Select Items'),
+            cost:joi.string().min(1).required().label('Please fill Per Unit Cost'),
+            other:joi.string().min(1).max(255).required().label('Please fill other Items'),
+              })
+        result = schema.validate({category:category,unit:unit,items:items,cost:cost,other:other});
+        
+    }
+    
+    else
+    {
+        schema=joi.object({
+            category:joi.string().required().label('Please Choose Item Category'),
+            unit:joi.string().min(2).required().label('Please fill Unit'),
+            items:joi.string().required().label('Please Select Items'),
+            cost:joi.string().min(1).required().label('Please fill Per Unit Cost'),
+              })
+        result = schema.validate({category:category,unit:unit,items:items,cost:cost});
+    }
+    if(result.error)
+    {
+        console.log('fd'+result.error);
+        response.send(result.error.details[0].context.label);    
+    }
+      else{
+
+        let updateQuerry = 'UPDATE salesforce.Item_Description__c SET '+
+        'category__c = \''+category+'\', '+
+        'items__c = \''+items+'\', '+
+        'unit__c = \''+unit+'\', '+
+        'per_unit_cost__c = \''+cost+'\', '+
+        'Other_Items__c= \''+other+'\' ,'+
+        'Item_Description_Details__c= \''+description+'\' ,'+
+        'WHERE sfid = $1';
+        console.log('updateQuerry  '+updateQuerry);
+        pool
+        .query(updateQuerry,[hide])
+        .then((updateQuerryResult) => {     
+        console.log('updateQuerryResult =>>'+JSON.stringify(updateQuerryResult));
+        response.send('Success');
+        })
+        .catch((updatetError) => {
+        console.log('updatetError'+updatetError.stack);
+        response.send('Error');
+        })
+
+
+      }
 
 
 })
