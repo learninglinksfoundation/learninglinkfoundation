@@ -2223,7 +2223,7 @@ router.post('/saveItemDescription',(request,response)=>{
     let schema, result;
     const{name,items,category,unit,cost,other,hide,itemDetails}=request.body;
     let record = [];
-    if(items == 'Others')
+    if(items == 'Others'  ||  items == 'Any Other Expense')
     {
         schema=joi.object({
             category:joi.string().required().label('Please Choose Item Category'),
@@ -2791,7 +2791,7 @@ router.post('/updateItemescription',(request,response)=>{
     console.log('other  '+other);
     console.log('Item ID  '+hide);
 
-if(item == 'Others' ||  item == '')
+if(item == 'Others'  ||  item == 'Any Other Expense' ||  item == 'Any Other Expense')
     {
         schema=joi.object({
             category:joi.string().required().label('Please Choose Item Category'),
@@ -2827,7 +2827,7 @@ if(item == 'Others' ||  item == '')
         'unit__c = \''+unit+'\', '+
         'per_unit_cost__c = \''+cost+'\', '+
         'Other_Items__c= \''+other+'\' ,'+
-        'Item_Description_Details__c= \''+description+'\' ,'+
+        'Item_Description_Details__c= \''+description+'\''+
         'WHERE sfid = $1';
         console.log('updateQuerry  '+updateQuerry);
         pool

@@ -106,30 +106,51 @@
                             vendorDetailRow += '</tr>';
 
                             vendorDetailRow += '<tr>';
-                                    vendorDetailRow += '<td><strong> Vendor List ID<strong></td>';
-                                    vendorDetailRow += '<td>'+eachRecord.name+'</td>';
-                                    vendorDetailRow += '<td><strong>State<strong></td>';
-                                        vendorDetailRow += '<td>'+eachRecord.state__c+'</td>';
-                                vendorDetailRow += '</tr>'; 
+                            vendorDetailRow += '<td><strong> VendorList  ID<strong></td>';
+                            vendorDetailRow += '<td>'+eachRecord.name+'</td>';
+                            vendorDetailRow += '<td><strong>Geographic Zone<strong></td>';
+                            vendorDetailRow += '<td>'+eachRecord.geographic_zone__c+'</td>';
+                            vendorDetailRow += '</tr>'; 
 
-                                vendorDetailRow += '<tr>';
-                                    vendorDetailRow += '<td><strong>District<strong></td>';
-                                    vendorDetailRow += '<td>'+eachRecord.district__c+'</td>';
-                                    vendorDetailRow += '<td><strong> Vendor Name<strong></td>';
-                                        vendorDetailRow += '<td>'+eachRecord.vendor_name__c+'</td>';
-                                vendorDetailRow += '</tr>';
-                                vendorDetailRow += '<tr>';
+                            vendorDetailRow += '<tr>';
+                            vendorDetailRow += '<td><strong>State<strong></td>';
+                                        vendorDetailRow += '<td>'+eachRecord.state__c+'</td>';
+                            vendorDetailRow += '<td><strong> Districts - Upper Zone<strong></td>';
+                            if(eachRecord.districts_upper_zone__c && eachRecord.districts_upper_zone__c !== 'undefined' )
+                                vendorDetailRow += '<td>'+eachRecord.districts_upper_zone__c+'</td>';
+                            else
+                               vendorDetailRow +='<td>NA</td>'; 
+                            
+                            vendorDetailRow += '</tr>'; 
+
+                            vendorDetailRow += '<tr>';
+                            vendorDetailRow += '<td><strong>District- Lower Zone<strong></td>';
+                            if(eachRecord.district_lower_zone__c && eachRecord.district_lower_zone__c !== 'undefined'  )
+                                vendorDetailRow += '<td>'+eachRecord.district_lower_zone__c+'</td>';
+                            else
+                                 vendorDetailRow +='<td>NA</td>'; 
+                            vendorDetailRow += '<td><strong> Vendor Name<strong></td>';
+                            vendorDetailRow += '<td>'+eachRecord.vendor_name__c+'</td>';
+                            vendorDetailRow += '</tr>';
+                            vendorDetailRow += '<tr>';
                     
                                 vendorDetailRow += '<tr>';
                                     vendorDetailRow += '<td><strong>Contact no.<strong></td>';
                                     vendorDetailRow += '<td>'+eachRecord.contact_no__c+'</td>';
                                     vendorDetailRow += '<td><strong>Name of Signing Authority from Vendor<strong></td>';
-                                    vendorDetailRow += '<td>'+eachRecord.name_of_signing_authority__c+'</td>';
+                                    if(eachRecord.name_of_signing_authority__c)
+                                        vendorDetailRow += '<td>'+eachRecord.name_of_signing_authority__c+'</td>';
+                                    else
+                                        vendorDetailRow +='<td></td>'; 
                                 vendorDetailRow += '</tr>';
 
                                 vendorDetailRow += '<tr>';
                                     vendorDetailRow += '<td><strong>PAN<strong></td>';
-                                    vendorDetailRow += '<td>'+eachRecord.pan_no__c+'</td>';
+                                    if(eachRecord.pan_no__c)
+                                        vendorDetailRow += '<td>'+eachRecord.pan_no__c+'</td>';
+                                    else{
+                                        vendorDetailRow +='<td></td>'; 
+                                    }
                                     vendorDetailRow += '<td><strong>Bank Account No.<strong></td>';
                                     vendorDetailRow += '<td>'+eachRecord.bank_account_no__c+'</td>';
                                 vendorDetailRow += '</tr>';
@@ -143,7 +164,10 @@
 
                                     vendorDetailRow += '<tr>';
                                     vendorDetailRow += '<td><strong>Address/Web Address<strong></td>';
-                                    vendorDetailRow += '<td>'+eachRecord.address__c+'</td>';
+                                    if(eachRecord.address__c)
+                                        vendorDetailRow += '<td>'+eachRecord.address__c+'</td>';
+                                    else
+                                        vendorDetailRow +='<td></td>';
                                     vendorDetailRow += '<td><strong>GST No.<strong></td>';
                                         if(eachRecord.gst_no__c!=null){
                                             vendorDetailRow += '<td>'+eachRecord.gst_no__c+'</td>';
@@ -165,6 +189,7 @@
                                         vendorDetailRow += '<td></td>';
                                     vendorDetailRow += '<td></td>';
                             vendorDetailRow += '</tr>'; 
+
                                
                                     $('#vendorDetail').html(vendorDetailRow);
 
