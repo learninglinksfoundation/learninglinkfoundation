@@ -410,14 +410,20 @@
                               htmlTable += '<td><strong>State</strong></td>';
                               htmlTable += '<td>'+record.state__c+'</td>';
                               htmlTable += '<td><strong>Districts - Upper Zone</strong></td>';
+                              if(record.district_upper_zone__c)
                               htmlTable += '<td>'+record.district_upper_zone__c+'</td>';
+                              else
+                                 htmlTable += '<td></td>';
                               htmlTable += '</tr>';
 
 
 
                               htmlTable += '<tr>';
                               htmlTable += '<td><strong>Districts - Lower Zone</strong></td>';
-                              htmlTable += '<td>'+record.districts_lower_zone__c+'</td>';
+                              if(record.districts_lower_zone__c)
+                                htmlTable += '<td>'+record.districts_lower_zone__c+'</td>';
+                              else
+                                 htmlTable += '<td></td>';
                               htmlTable += '<td><strong></strong></td>';
                               htmlTable += '<td></td>';
                               htmlTable += '</tr>';
@@ -425,7 +431,7 @@
                               htmlTable += '<tr><td colspan="6" style="background-color:#d3d3d3;"><h5>Quotes </h5></td></tr>';
                               htmlTable += '<tr>';
                               htmlTable += '<td><strong>Quote1</strong></td>';
-                              if(record.quote1__c!="demo1"){
+                              if(record.quote1__c && record.quote1__c!="demo1"){
                               htmlTable += '<td>'+'<a href="'+record.quote1__c+'" target="_blank">Click to View Quote</a></td>';
                               }
                               else{
@@ -433,7 +439,7 @@
                               }
                               //htmlTable += '<td>'+record.quote1__c+'</td>';
                               htmlTable += '<td><strong>Quote2</strong></td>';
-                              if(record.quote2__c!="demo2"){
+                              if(record.quote2__c && record.quote2__c!="demo2"){
                                 htmlTable += '<td>'+'<a href="'+record.quote2__c+'" target="_blank">Click to View Quote</a></td>';
                               }
                               else{
@@ -443,7 +449,7 @@
                               htmlTable += '</tr>';
                               htmlTable += '<tr>';
                               htmlTable += '<td><strong>Quote3</strong></td>';
-                              if(record.quote3__c!="demo3"){
+                              if( record.quote3__c && record.quote3__c!="demo3"){
                                 htmlTable += '<td>'+'<a href="'+record.quote3__c+'" target="_blank">Click to View Quote</a></td>';
                               }
                               else{
