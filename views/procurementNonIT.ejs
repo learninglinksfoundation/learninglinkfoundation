@@ -198,7 +198,7 @@
     function clearData(data,i){
       data.forEach(dt=>{
         $(`#${dt}${i}`).val('');
-        if(dt === 'other' || dt === 'vendor' || dt === '' ||  ){
+        if(dt === 'other' || dt === 'vendor' || dt === ''  ){
           $(`#${dt}${i} option:not(:first)`).remove();
         }
 
