@@ -2784,14 +2784,14 @@ router.post('/updateItemescription',(request,response)=>{
     let body = request.body;
     console.log('body  : '+JSON.stringify(body));
     const { item, cate,cost,unit,other,quote,hide,description} = request.body;
-    console.log('item    '+items);
+    console.log('item    '+item);
     console.log('cost  '+cost);
     console.log('cate  '+cate);
     console.log('unit  '+unit);
     console.log('other  '+other);
     console.log('Item ID  '+hide);
 
-if(items == 'Others')
+if(item == 'Others' ||  item == '')
     {
         schema=joi.object({
             category:joi.string().required().label('Please Choose Item Category'),
