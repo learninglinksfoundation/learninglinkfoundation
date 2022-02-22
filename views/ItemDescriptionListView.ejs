@@ -122,6 +122,7 @@
         </div>
       
         <div class="modal-body" id="editModalBody" >
+        <div id="errorMessages"></div>
             <form name="edititem" id="edititem" >
              <div class="form-group">
                 <div class="row">
@@ -541,6 +542,7 @@
                           console.log('fomvalues=> '+JSON.stringify(values));
                       });
                       console.log('fomvalues=> '+JSON.stringify(values));
+                      $("#editItemButton").attr("disabled", true);
                   //    alert('formValues : '+JSON.stringify(values));
                       $.ajax({
                         url : '/procurement/updateItemescription',
@@ -551,8 +553,20 @@
                     .done((response) => {
                           console.log('resonse   :'+response);
                           alert("Item Description succesfullly Updated!");
+                          window.location.reload();
                     })
                     .fail((jqXHR, status, error) => {
+
+                          let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+jqXHR.responseText+
+                          '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                          '<span aria-hidden="true">&times;</span>'+
+                          '</button>'+
+                          '</div>';
+                          $('#errorMessages').empty();
+                          $('#errorMessages').append(errorHtml); 
+                          $("#editItemButton").attr("disabled", false);
+
+
                           console.log('jqXHR  '+JSON.stringify(jqXHR));
                     }) 
                     })
