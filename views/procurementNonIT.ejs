@@ -362,6 +362,15 @@
       } 
 
         
+      $(`#districtUpper${cnt}, #districtLower${cnt}`).on('change',function(){
+
+        let dt = ['cat','','other','vendor','unitCost','unit','gst','itemSpecification','quantity','budget','totalApproved','justification'];
+
+           clearData(dt,cnt);
+      })
+
+      
+
 
 
         $('#category'+cnt).on('change',function(){
