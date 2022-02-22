@@ -524,7 +524,7 @@
                           data.push(filtervalues);
                           console.log(JSON.stringify(data));
                       let optList = [{value:'',text:'Select'}];
-                      if(itemValue == 'Others'){
+                      if(itemValue == 'Others' || itemValue == 'Any Other Expense' ){
                         $('#other'+cnt).attr("readonly",false);
                         $.ajax({
                           url : '/procurement/getOtherItems',
@@ -654,7 +654,7 @@
 
                       }
 
-                      if(itemValue != 'Others'){
+                      if(itemValue != 'Others' ||  itemValue != 'Any Other Expense' ){
                         $.ajax({
                           url : '/procurement/getCostandGSt',
                           type : 'get',
@@ -833,25 +833,28 @@ function drawOptions(optList,cnt){
             obj.budget = [$('#budget'+i).val()];
           }
 
+          let link1 = $('#file_1'+i).val() !== 'demo1' ? $('#file_1'+i).val() : '';
           if(typeof obj.imgpath1 === 'object'){
-            obj.imgpath1.push($('#file_1'+i).val());
+            obj.imgpath1.push(link1);
           }
           else{
-            obj.imgpath1 = [$('#file_1'+i).val()];
+            obj.imgpath1 = [link1];
           }
 
+          let link2 = $('#file_2'+i).val() !== 'demo1' ? $('#file_2'+i).val() : '';
           if(typeof obj.imgpath2 === 'object'){
-            obj.imgpath2.push($('#file_2'+i).val());
+            obj.imgpath2.push(link2);
           }
           else{
-            obj.imgpath2 = [$('#file_2'+i).val()];
+            obj.imgpath2 = [link2];
           }
 
+          let link3 = $('#file_3'+i).val() !== 'demo1' ? $('#file_3'+i).val() : '';
           if(typeof obj.imgpath3 === 'object'){
-            obj.imgpath3.push($('#file_3'+i).val());
+            obj.imgpath3.push(link3);
           }
           else{
-            obj.imgpath3 = [$('#file_3'+i).val()];
+            obj.imgpath3 = [link3];
           }
 
           if(typeof obj.justification === 'object'){
