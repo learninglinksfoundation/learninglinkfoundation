@@ -2783,10 +2783,10 @@ response.send(itemdescriptionQueryy.rows);
 router.post('/updateItemescription',(request,response)=>{
     let body = request.body;
     console.log('body  : '+JSON.stringify(body));
-    const { items, category,cost,unit,other,quote,hide,description} = request.body;
+    const { item, cate,cost,unit,other,quote,hide,description} = request.body;
     console.log('item    '+items);
     console.log('cost  '+cost);
-    console.log('cate  '+category);
+    console.log('cate  '+cate);
     console.log('unit  '+unit);
     console.log('other  '+other);
     console.log('Item ID  '+hide);
@@ -2800,7 +2800,7 @@ if(items == 'Others')
             cost:joi.string().min(1).required().label('Please fill Per Unit Cost'),
             other:joi.string().min(1).max(255).required().label('Please fill other Items'),
               })
-        result = schema.validate({category:category,unit:unit,items:items,cost:cost,other:other});
+        result = schema.validate({category:cate,unit:unit,items:item,cost:cost,other:other});
         
     }
     
@@ -2812,7 +2812,7 @@ if(items == 'Others')
             items:joi.string().required().label('Please Select Items'),
             cost:joi.string().min(1).required().label('Please fill Per Unit Cost'),
               })
-        result = schema.validate({category:category,unit:unit,items:items,cost:cost});
+        result = schema.validate({category:cate,unit:unit,items:item,cost:cost});
     }
     if(result.error)
     {
@@ -2822,8 +2822,8 @@ if(items == 'Others')
       else{
 
         let updateQuerry = 'UPDATE salesforce.Item_Description__c SET '+
-        'category__c = \''+category+'\', '+
-        'items__c = \''+items+'\', '+
+        'category__c = \''+cate+'\', '+
+        'items__c = \''+item+'\', '+
         'unit__c = \''+unit+'\', '+
         'per_unit_cost__c = \''+cost+'\', '+
         'Other_Items__c= \''+other+'\' ,'+
