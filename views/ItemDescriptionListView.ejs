@@ -503,7 +503,7 @@
             document.forms["edititem"]["hide"].value = response[0].sfid;
             document.forms["edititem"]["description"].value = response[0].description;
 
-            let dt = eval(response[0].category__c);
+            let dt = eval(response[0].category__c.replaceAll(' ',''));
             console.log(dt);
 
             dt.forEach(dts=>{
@@ -514,7 +514,7 @@
 
             })
 
-               $('#item').val(response[0].items__c.replaceAll(' ',''));
+               $('#item').val(response[0].items__c);
            // response[0].category__c;
 
 
