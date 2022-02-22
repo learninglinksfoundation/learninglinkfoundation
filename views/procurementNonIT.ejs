@@ -198,11 +198,11 @@
     function clearData(data,i){
       data.forEach(dt=>{
         $(`#${dt}${i}`).val('');
-        if(dt === 'other' || dt === 'vendor' ){
-         // $(`#${dt}${i} option:not(:first)`).remove();
+        if(dt === 'other' || dt === 'vendor' || dt === '' ||  ){
+          $(`#${dt}${i} option:not(:first)`).remove();
         }
 
-        //$(`#${dt}${i}`).html('');
+        $(`#${dt}${i}`).html('');
       });
     }
 
@@ -364,7 +364,7 @@
         
       $(`#districtUpper${cnt}, #districtLower${cnt}`).on('change',function(){
 
-        let dt = ['cat','','other','vendor','unitCost','unit','gst','itemSpecification','quantity','budget','totalApproved','justification'];
+        let dt = ['category','cat','','other','vendor','unitCost','unit','gst','itemSpecification','quantity','budget','totalApproved','justification'];
 
            clearData(dt,cnt);
       })
