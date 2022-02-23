@@ -663,7 +663,7 @@
 
                       }
 
-                      if(itemValue != 'Others' ||  itemValue != 'Any Other Expense' ){
+                      if(itemValue != 'Others' &&  itemValue != 'Any Other Expense' ){
                         $.ajax({
                           url : '/procurement/getCostandGSt',
                           type : 'get',
