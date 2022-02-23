@@ -2789,8 +2789,8 @@ router.post('/updateVendor',(request,response)=>{
     }
     else{
 
-        let lowZon = districtLower && districtLower !== 'undefined' ? districtLower : null;
-        let upZon = districtUpper && districtUpper !== 'undefined' ? districtUpper : null;
+        let lowZon = districtLower && districtLower !== 'undefined' ? districtLower : '';
+        let upZon = districtUpper && districtUpper !== 'undefined' ? districtUpper : '';
         //,,,
     let updateQuerry = 'UPDATE salesforce.Impaneled_Vendor__c SET '+
                          'vendor_Name__c = \''+name+'\', '+
