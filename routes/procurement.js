@@ -2788,7 +2788,7 @@ router.post('/updateVendor',(request,response)=>{
         response.send(result.error.details[0].context.label);    
     }
     else{
-
+ 
         let lowZon = districtLower && districtLower !== 'undefined' ? districtLower : '';
         let upZon = districtUpper && districtUpper !== 'undefined' ? districtUpper : '';
         //,,,
