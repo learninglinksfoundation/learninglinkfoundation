@@ -363,7 +363,7 @@
                               htmlTable += '<td><strong>Purchase Information ID</strong></td>';
                               htmlTable += '<td>'+record.procname+'</td>';
                               htmlTable += '<td><strong>Procurement Request Form</strong></td>';
-                              htmlTable += '<td>'+record.astname+'</td>';
+                              htmlTable += '<td><a target="_blank" href="/procurement/assetRequisitionViewRel/<%=parentAssetId %>&<%= isDisabled %>" >'+record.astname+'</a></td>';
                               htmlTable += '</tr>';
                               htmlTable += '<tr>';
                               htmlTable += '<td style="width: 36%;" ><strong>Total Approved Budget for the purchase</strong></td>';
