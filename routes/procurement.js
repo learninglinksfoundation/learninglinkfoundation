@@ -1282,9 +1282,27 @@ router.get('/getOtherItems',async(request,response)=>{
             console.log('other',JSON.stringify(obj))
             let temp = [];
             obj.forEach(dt=>{
-                if((dt.upperd && dt.upperd.includes(data.dist)) || (dt.lowerd && dt.lowerd.includes(data.dist))) {
-                    temp.push(dt);
+                let db = dt.upperd || dt.lowerd;
+
+                if(db){
+                    
+                    let listU = data.dist.split(';');
+                    let countr = 0;
+                    listU.forEach(re=>{
+                        if(db.includes(re)){
+                            countr++;
+                        }
+                    })
+                    if(countr === listU.length && countr > 0 ){
+                        temp.push(dt);
+                    }
+
                 }
+
+                /*if((dt.upperd && dt.upperd.includes(data.dist)) || (dt.lowerd && dt.lowerd.includes(data.dist))) {
+                    temp.push(dt);
+                }*/
+
 
             });
 
@@ -1318,9 +1336,27 @@ router.get('/getOtherItemsVendor',async(request,response)=>{
             console.log('vendor',JSON.stringify(obj))
             let temp = [];
             obj.forEach(dt=>{
-                if((dt.upperd && dt.upperd.includes(data.dist)) || (dt.lowerd && dt.lowerd.includes(data.dist))) {
-                    temp.push(dt);
+                let db = dt.upperd || dt.lowerd;
+
+                if(db){
+                    
+                    let listU = data.dist.split(';');
+                    let countr = 0;
+                    listU.forEach(re=>{
+                        if(db.includes(re)){
+                            countr++;
+                        }
+                    })
+                    if(countr === listU.length && countr > 0 ){
+                        temp.push(dt);
+                    }
+
                 }
+
+                /*if((dt.upperd && dt.upperd.includes(data.dist)) || (dt.lowerd && dt.lowerd.includes(data.dist))) {
+                    temp.push(dt);
+                }*/
+
 
             });
 
@@ -1371,9 +1407,31 @@ router.get('/getCostandGSt',async(request,response)=>{
             console.log('vendor',JSON.stringify(obj))
             let temp = [];
             obj.forEach(dt=>{
-                if((dt.upperd && dt.upperd.includes(dstr)) || (dt.lowerd && dt.lowerd.includes(dstr))) {
-                    temp.push(dt);
+
+                let db = dt.upperd || dt.lowerd;
+
+                if(db){
+                    
+                    let listU = dstr.split(';');
+                    let countr = 0;
+                    listU.forEach(re=>{
+                        if(db.includes(re)){
+                            countr++;
+                        }
+                    })
+                    if(countr === listU.length && countr > 0 ){
+                        temp.push(dt);
+                    }
+
                 }
+
+                /*if((dt.upperd && dt.upperd.includes(dstr)) || (dt.lowerd && dt.lowerd.includes(dstr))) {
+                    temp.push(dt);
+                }*/
+
+
+                
+                
 
             });
 
