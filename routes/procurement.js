@@ -1430,7 +1430,7 @@ router.get('/getCostandGSt',async(request,response)=>{
                 }*/
 
 
-                
+
                 
 
             });
@@ -2789,10 +2789,12 @@ router.post('/updateVendor',(request,response)=>{
     }
     else{
 
+        let lowZon = districtLower && districtLower !== 'undefined' ? districtLower : null;
+        let upZon = districtUpper && districtUpper !== 'undefined' ? districtUpper : null;
         //,,,
     let updateQuerry = 'UPDATE salesforce.Impaneled_Vendor__c SET '+
                          'vendor_Name__c = \''+name+'\', '+
-                         'District_Lower_Zone__c = \''+districtLower+'\', '+
+                         'District_Lower_Zone__c = \''+lowZon+'\', '+
                          'State__c = \''+state+'\', '+
                          'Bank_Account_No__c = \''+aacc+'\', '+
                          'contact_no__c = \''+cont+'\', '+
@@ -2803,7 +2805,7 @@ router.post('/updateVendor',(request,response)=>{
                          'address__c = \''+add+'\', '+
                          'GST_No__c = \''+gst+'\', '+ 
                          'Reason_for_not_providing_GST_no__c = \''+reason+'\' ,'+ 
-                         'Districts_Upper_Zone__c = \''+districtUpper+'\' ,'+ 
+                         'Districts_Upper_Zone__c = \''+upZon+'\' ,'+ 
                          'Geographic_Zone__c = \''+zone+'\' '+                       
                          'WHERE sfid = $1';
                         //  console.log('dolorr>>>>>>>>>>>',$1)
