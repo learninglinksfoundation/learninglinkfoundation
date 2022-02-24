@@ -63,161 +63,116 @@
             <div class="">
             <div id="errorMessages"></div>
             <form id="editvendor" class="needs-validation" novalidate  >
-              
-              <div class="form-group"> 
-                <div class="row">
-
-                <div class="col-md-6">
-                    <label for="zone" > Geographic Zone <span style="color: red;">*</span>  </label>
-                    <select id="zone" name="zone" class="form-control item_unit">
-                      <option value="">Select</option>
-                      <option value="Upper Zone">Upper Zone</option>
-                      <option value="Lower Zone">Lower Zone</option>
-                    </select>
-                </div>
-               
-                <div class="col-md-6">
-                  <label for="state">State <span style="color: red;">*</span> </label>
-                    <select id="state" name="state" class="form-control item_unit"><option value="">Select</option></select>
+               <div class="form-group">
+                  <div class="row">
+                     <div class="col-md-6">
+                        <label for="zone" > Geographic Zone <span style="color: red;">*</span>  </label>
+                        <select id="zone" name="zone" class="form-control item_unit">
+                           <option value="">Select</option>
+                           <option value="Upper Zone">Upper Zone</option>
+                           <option value="Lower Zone">Lower Zone</option>
+                        </select>
+                     </div>
+                     <div class="col-md-6">
+                        <label for="state">State <span style="color: red;">*</span> </label>
+                        <select id="state" name="state" class="form-control item_unit">
+                           <option value="">Select</option>
+                        </select>
+                     </div>
                   </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-md-6">
-                    <label for="districtUpper">Districts - Upper Zone <span style="color: red;">*</span> </label>
-                   <select id="districtUpper" name="districtUpper" class="form-control item_unit" multiple readonly ></select>
-                    </div>
-                  <div class="col-md-6">
-                    <label for="districtLower">Districts - Lower Zone <span style="color: red;">*</span> </label>
-                   <select id="districtLower" name="districtLower" class="form-control item_unit" multiple readonly ></select>
+               </div>
+               <div class="form-group">
+                  <div class="row">
+                     <div class="col-md-6">
+                        <label for="districtUpper">Districts - Upper Zone <span style="color: red;">*</span> </label>
+                        <select id="districtUpper" name="districtUpper" class="form-control item_unit" multiple readonly ></select>
+                     </div>
+                     <div class="col-md-6">
+                        <label for="districtLower">Districts - Lower Zone <span style="color: red;">*</span> </label>
+                        <select id="districtLower" name="districtLower" class="form-control item_unit" multiple readonly ></select>
+                     </div>
                   </div>
-                </div>
-            </div>
-
-
-            <div class="form-group"> 
-                <div class="row">
-                <div class="col-md-6">
-                      <label for="vendorId"> Vendor List ID</label>
-                      <input type="text" disabled class="form-control" id="vendorId" value=""   name="vendorId" >
-                    </div>
-
-                    <div class="col-md-6">
+               </div>
+               <div class="form-group">
+                  <div class="row">
+                     <div class="col-md-6">
+                        <label for="vendorId"> Vendor List ID</label>
+                        <input type="text" disabled class="form-control" id="vendorId" value=""   name="vendorId" >
+                     </div>
+                     <div class="col-md-6">
                         <label for="name">Vendor Name  <span style="color: red;">*</span> </label>
                         <input type="text"  class="form-control" id="name" value=""   name="name" >
-                      </div>
-                </div>
-              </div>
-
-
-
-              <div class="form-group">
-                <div class="row">
-                    <div class="col-md-6">
-                    <label for="auth"> Name of Signing Authority from Vendor</label>
-                    <input type="text" class="form-control" id="auth" value=""   name="auth" >
-                    </div>
-
-
-                    <div class="col-md-6">
-                <label for="pan"> Pan Number </label>
-                <input type="text" class="form-control" id="pan" value=""   name="pan" >
-                </div>
-
-                  
-                  
-                </div>
-            </div>
-        
-            <div class="form-group">
-                <div class="row">
-
-                <div class="col-md-6">
-                  <label for="aacc">Bank Account  No. <span style="color: red;">*</span>  </label>
-                  <input type="number" class="form-control" id="aacc" value=""   name="aacc" >
+                     </div>
                   </div>
-
-                  
-                  <div class="col-md-6">
-                    <label for="bankDetail">Bank Details(Name,Branch, etc) <span style="color: red;">*</span>  </label>
-                    <input type="text" class="form-control" id="bankDetail" value=""   name="bankDetail" >
-                    </div>
-                </div>
-            </div>
-        
-            
-        <div class="form-group">
-            <div class="row">
-
-            <div class="col-md-6">
-              <label for="add">Address/Web Address</label>
-                <input type="text" class="form-control" id="add" value=""   name="add" >
-              </div>
-
-            
-              <div class="col-md-6">
-              <label for="ifsc">Bank IFSC Code <span style="color: red;">*</span></label>
-                <input type="text" class="form-control" id="ifsc" value=""   name="ifsc" >
-              </div>
-              
-        </div>
-        <div class="form-group">
-            <div class="row">
-              
-              
-              <div class="col-md-6">
-                  <label for="cont">Contact No. <span style="color: red;">*</span>  </label>
-                    <input type="number" class="form-control" id="cont" value=""   name="cont" >
-                  </div>
-            </div>
-              <div class="col-md-6">
-                <label for="gst">GST No. </label>
-                <input type="text" class="form-control" id="gst" value=""   name="gst" >
-                </div>
-            </div>
-        </div>
-        <!--<div class="form-group">
-            <div class="row">
-              
-              
-              <div class="col-md-6">
-              <label for="other">Others </label>
-                <input type="text" class="form-control" id="other" value=""   name="other" >
-              </div>
-              <div class="col-md-6">
-                <label for="quote">Quote Public URL </label>
-                <input type="text" class="form-control" id="quote" value=""   name="quote" >
-                </div>
-            </div>
-        </div>-->
-
-        <div class="form-group">
-            <div class="row">
-            
-              <div class="col-md-6">
-                <label for="quote">Reason for not providing GST no.</label>
-                <input type="text" class="form-control" id="reason" value=""   name="reason" >
-                </div>
-            </div>
-        </div>
-        
-
-              <div class="form-group">
+               </div>
+               <div class="form-group">
                   <div class="row">
-                    
-                      <div class="col-md-6">
+                     <div class="col-md-6">
+                        <label for="auth"> Name of Signing Authority from Vendor</label>
+                        <input type="text" class="form-control" id="auth" value=""   name="auth" >
+                     </div>
+                     <div class="col-md-6">
+                        <label for="cont">Contact No. <span style="color: red;">*</span>  </label>
+                        <input type="number" class="form-control" id="cont" value=""   name="cont" >
+                     </div>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="row">
+                     <div class="col-md-6">
+                        <label for="aacc">Bank Account Number  <span style="color: red;">*</span>  </label>
+                        <input type="number" class="form-control" id="aacc" value=""   name="aacc" >
+                     </div>
+                     <div class="col-md-6">
+                        <label for="bankDetail">Bank Details(Name,Branch, etc) <span style="color: red;">*</span>  </label>
+                        <input type="text" class="form-control" id="bankDetail" value=""   name="bankDetail" >
+                     </div>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="row">
+                     <div class="col-md-6">
+                        <label for="add">Address/Web Address</label>
+                        <input type="text" class="form-control" id="add" value=""   name="add" >
+                     </div>
+                     <div class="col-md-6">
+                        <label for="ifsc">Bank IFSC Code <span style="color: red;">*</span></label>
+                        <input type="text" class="form-control" id="ifsc" value=""   name="ifsc" >
+                     </div>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="row">
+                     <div class="col-md-6">
+                        <label for="pan"> Pan Number </label>
+                        <input type="text" class="form-control" id="pan" value=""   name="pan" >
+                     </div>
+                     <div class="col-md-6">
+                        <label for="gst">GST No. </label>
+                        <input type="text" class="form-control" id="gst" value=""   name="gst" >
+                     </div>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="row">
+                     <div class="col-md-6">
+                        <label for="quote">Reason for not providing GST no.</label>
+                        <input type="text" class="form-control" id="reason" value=""   name="reason" >
+                     </div>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="row">
+                     <div class="col-md-6">
                         <input type="hidden" class="form-control" id="hide" value=""   name="hide" >
-                        </div>
-                  </div>     
-              </div>
-              <div class="modal-footer">
+                     </div>
+                  </div>
+               </div>
+               <div class="modal-footer">
                   <button type="submit" class="btn btn-primary" id="editVendorButton" >Save</button>
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
-
-              </form>
+               </div>
+            </form>
               </div>
               </div>
               </div>
