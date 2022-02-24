@@ -2234,8 +2234,8 @@ router.get('/getVendorDetail',async(request,response)=>{
     let recordDeatil={};
     await
     pool
-    .query('select sfid ,geographic_zone__c,District_Lower_Zone__c,Districts_Upper_Zone__c,name,vendor_Name__c ,contact_no__c,name_of_signing_authority__c,bank_details__c,pan_no__c,address__c,GST_No__c,Reason_for_not_providing_GST_no__c,Bank_IFSC_Code__c ,Bank_Account_No__c,ownerid,State__c,District__c '+
-    'FROM salesforce.Impaneled_Vendor__c where sfid =$1 ',[vendorId])
+    .query('select imp.sfid ,imp.geographic_zone__c,imp.Contact__c,con.Name as username,imp.District_Lower_Zone__c,imp.Districts_Upper_Zone__c,imp.name,imp.vendor_Name__c ,imp.contact_no__c,imp.name_of_signing_authority__c,imp.bank_details__c,imp.pan_no__c,imp.address__c,imp.GST_No__c,imp.Reason_for_not_providing_GST_no__c,imp.Bank_IFSC_Code__c ,imp.Bank_Account_No__c,imp.ownerid,imp.State__c,imp.District__c '+
+    'FROM salesforce.Impaneled_Vendor__c imp INNER JOIN salesforce.Contact con ON con.sfid = imp.Contact__c where imp.sfid =$1 ',[vendorId])
     .then((queryResult)=>{
         console.log('queryResult +>'+JSON.stringify(queryResult.rows));
         recordDeatil.VendorDetail=queryResult.rows;
