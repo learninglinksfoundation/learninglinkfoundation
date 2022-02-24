@@ -2341,9 +2341,9 @@ router.post('/saveItemDescription',(request,response)=>{
     let schema, result;
     let district = '';
     console.log('body  : '+JSON.stringify(body));
-    let {name,authority,districtUpper,districtLower,zone, cont,bankkDet,ifsc,pan,gst,add,accNo,state,url,other,reason}=request.body;
+    let {name,authority,createdBy,districtUpper,districtLower,zone, cont,bankkDet,ifsc,pan,gst,add,accNo,state,url,other,reason}=request.body;
     
-    console.log(districtUpper,districtLower)
+    console.log(districtUpper,districtLower,createdBy)
     districtUpper =  districtUpper && typeof districtUpper !== 'object' ? [districtUpper] :  districtUpper;
     districtLower =  districtLower && typeof districtLower !== 'object' ? [districtLower] :  districtLower;
 
@@ -2470,14 +2470,14 @@ router.post('/saveItemDescription',(request,response)=>{
     record.push(districtLower);
     record.push(districtUpper);
     record.push(zone);
-   // record.push(url);
+    record.push(createdBy);
    // record.push(other);
     record.push(reason);
 let recordlist=[];
 recordlist.push(record);
 console.log(recordlist);
 
-       let impaneledVendor = format('INSERT INTO salesforce.Impaneled_Vendor__c (Vendor_Name__c,Name_of_Signing_Authority__c,Contact_No__c,Bank_Details__c,Bank_IFSC_Code__c, PAN_No__c,GST_No__c,Address__c,Bank_Account_No__c,State__c,District_Lower_Zone__c,Districts_Upper_Zone__c,Geographic_Zone__c,Reason_for_not_providing_GST_no__c ) VALUES %L returning id',recordlist);
+       let impaneledVendor = format('INSERT INTO salesforce.Impaneled_Vendor__c (Vendor_Name__c,Name_of_Signing_Authority__c,Contact_No__c,Bank_Details__c,Bank_IFSC_Code__c, PAN_No__c,GST_No__c,Address__c,Bank_Account_No__c,State__c,District_Lower_Zone__c,Districts_Upper_Zone__c,Geographic_Zone__c,Reason_for_not_providing_GST_no__c,Contact__c ) VALUES %L returning id',recordlist);
        console.log('impaneledVendor=>'+impaneledVendor);
     pool.query(impaneledVendor)
     .then((vendorQueryResult) => {
