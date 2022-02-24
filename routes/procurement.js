@@ -2470,9 +2470,10 @@ router.post('/saveItemDescription',(request,response)=>{
     record.push(districtLower);
     record.push(districtUpper);
     record.push(zone);
-    record.push(createdBy);
+    
    // record.push(other);
     record.push(reason);
+    record.push(createdBy);
 let recordlist=[];
 recordlist.push(record);
 console.log(recordlist);
