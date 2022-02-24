@@ -159,6 +159,10 @@
                         <label for="quote">Reason for not providing GST no.</label>
                         <input type="text" class="form-control" id="reason" value=""   name="reason" >
                      </div>
+                     <div class="col-md-6">
+                        <label for="quote">Created by Name</label>
+                        <input type="text" class="form-control" id="conuser" value=""  disabled  name="conuser" >
+                     </div>
                   </div>
                </div>
                <div class="form-group">
@@ -724,7 +728,9 @@ let st =["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Go
             document.forms["editvendor"]["add"].value = response.VendorDetail[0].address__c;
             document.forms["editvendor"]["aacc"].value = response.VendorDetail[0].bank_account_no__c;
             document.forms["editvendor"]["auth"].value = response.VendorDetail[0].name_of_signing_authority__c; 
-            let zone1 = response.VendorDetail[0].geographic_zone__c;
+            document.forms["editvendor"]["conuser"].value = response.VendorDetail[0].username; 
+            let zone1 = response.VendorDetail[0].geographic_zone__c;  
+            
             document.forms["editvendor"]["zone"].value  = zone1;
 
             let zone12 = zone1.replaceAll(' ','_');
