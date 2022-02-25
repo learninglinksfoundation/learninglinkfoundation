@@ -936,7 +936,9 @@ function drawOptions(optList,cnt){
                   $("#submitButton").attr("disabled", false);
                 }
            
-             
+                window.setTimeout(function(){
+                     $('#errorMessages').empty();
+                  },2000)
               
             }
           });

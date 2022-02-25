@@ -864,7 +864,7 @@ router.post('/nonItProducts', (request,response) => {
     let parentProcurementId = nonItFormResult.parentProcurementId;
     console.log('parent Id Asset Requisition Form '+parentProcurementId);
  
-    let {zone,districtUpper,districtLower,state,district,unit,unitCost,vendor,category,totalApproved,itemsCategory,items,itemSpecification,quantity,budget} = JSON.parse(request.body.obj);
+    let {zone,districtUpper,districtLower,state,district,unit,unitCost,vendor,category,totalApproved,otherItems,itemsCategory,items,itemSpecification,quantity,budget} = JSON.parse(request.body.obj);
     let numberOfRows,lstNonItProcurement = [];
 
     console.log('testssss',districtUpper,districtLower);
@@ -960,6 +960,7 @@ router.post('/nonItProducts', (request,response) => {
                  category : joi.string().required().label(`Please select Category in row ${i+1}.`),
                  itemsCategory:joi.string().required().label(`Please select Item Category in row ${i+1}.`),
                  items:joi.string().invalid('None').required().label(`Please fill Items in row ${i+1}.`),
+                 others : joi.string().invalid('').required().label(`Please fill Other Items in row ${i+1}.`),
                  vendor:joi.string().required().label(` Please select Vendor from Vendor Picklist in row ${i+1}.`),
                  itemSpecification:joi.string().min(3).required().label(`Please fill Item Specification in row ${i+1}.`), 
                  itemSpeci:joi.string().invalid(' ').label(`Please fill Item Specification in row ${i+1}.`),            
@@ -972,7 +973,7 @@ router.post('/nonItProducts', (request,response) => {
                  
      
              })
-             let result=schema.validate({zone:zone[i],state:state[i],category:category[i],items:items[i],itemsCategory:itemsCategory[i],district:district[i],vendor:vendor[i],itemSpecification:itemSpecification[i],itemSpeci:itemSpecification[i],quantity:quantity[i],quanty:quantity[i],budget:budget[i],budg:budget[i],totalApproved:totalApproved[i], totalApprovedN:totalApproved[i]});
+             let result=schema.validate({zone:zone[i],state:state[i],category:category[i],others: items[i] === 'Others' || items[i] === 'Any Other Expense'? otherItems[i] :'test' ,items:items[i],itemsCategory:itemsCategory[i],district:district[i],vendor:vendor[i],itemSpecification:itemSpecification[i],itemSpeci:itemSpecification[i],quantity:quantity[i],quanty:quantity[i],budget:budget[i],budg:budget[i],totalApproved:totalApproved[i], totalApprovedN:totalApproved[i]});
              console.log('validation REsult mul'+JSON.stringify(result));
              if(result.error){
                  console.log('Validation error'+result.error);
