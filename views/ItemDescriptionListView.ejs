@@ -21,7 +21,7 @@
         <div class="col-md-6" style="display: flex;align-items: center;" >
             <a class="btn btn-primary btn-md bg-gray" style="margin-right: 5px;" href="/procurement/ItemDescription/<%=vendorId %>" target="_blank" id="createNewItem">Create New</a>
             <button style="margin:0 10px 0 5px" class="btn btn-primary btn-md bg-gray" disabled id="deleteRecord" >Delete Records </button>
-            <a class="btn btn-primary btn-md bg-gray" href="/procurement/ItemDescriptionViewRel/<%=vendorId %>" >Go To Impaneled Vendor </a>
+            <a class="btn btn-primary btn-md bg-gray" href="/procurement/ItemDescriptionViewRel/<%=vendorId %>" >Go To Vendor List </a>
              <a id="refresh" href="#" ><i class="fa fa-refresh" style="font-size:34px; margin-left: 10px;color: #555;"></i></a>
                </div>
         <div class="col-md-3">
@@ -182,8 +182,9 @@
                         </div>
                       <div class="col-md-6">
                         <input type="hidden" class="form-control" id="hide" value=""   name="hide" >
-                        <label for="description"> Item Description/Details</label>
-                        <textarea name="description" class="form-control" id="description" > </textarea>
+                        <label for="unit">Created by Name  </label>
+                        <input type="text" class="form-control" id="createdName" value="" disabled  name="createdName" >
+
                         </div>
                   </div>     
               </div>
@@ -191,8 +192,8 @@
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-6">
-                  <label for="unit">Created by Name  </label>
-                    <input type="text" class="form-control" id="createdName" value=""   name="createdName" >
+                  <label for="description"> Item Description/Details</label>
+                 <textarea name="description" class="form-control" id="description" > </textarea>
                   </div>
                   
                 </div>
