@@ -2155,9 +2155,9 @@ router.post('/deleteVender',verify,(request,response)=>{
 
     if(idList.length > 0){
         let ids =  `('${idList.join(',')}')` ;
-        let query = `DELETE FROM salesforce.Impaneled_Vendor__c WHERE sfid IN $1`;
+        let query = `DELETE FROM salesforce.Impaneled_Vendor__c WHERE sfid IN ${ids}`;
         console.log(query);
-        pool.query(query,[idList])
+        pool.query(query)
         .then(dt=>{
             if(dt.rowCount === idList.length){
                 response.send('Deleted Successfully');
