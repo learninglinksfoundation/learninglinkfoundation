@@ -3,11 +3,13 @@
 <% include ./partials/messages %>
 <p id="vendorId"><%= vendorId %></p>
 
+<style>
 #itemDetailTable td {
     max-width: 210px;
     overflow-wrap: break-word;
     vertical-align: middle !important;
 }
+</style>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="/stylesheets/table-sortable.css">
@@ -413,8 +415,8 @@
                             htmlTable += '<tr>';
                                 htmlTable += '<td><strong>Item Description/Details </strong></td>';
                                 htmlTable += '<td>'+response[0].description+'</td>';
-                                htmlTable += '<td><strong></strong></td>';
-                                htmlTable += '<td></td>';
+                                htmlTable += '<td><strong>Created by Name</strong></td>';
+                                htmlTable += `<td>${response[0].username}</td>`;
                             htmlTable += '</tr>';
                               $('#itemDetailTable').empty();
                               $('#itemDetailTable').html(htmlTable);
