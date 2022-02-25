@@ -2288,7 +2288,7 @@ router.post('/saveItemDescription',(request,response)=>{
     let body = request.body;
     console.log('body  : '+JSON.stringify(body));
     let schema, result;
-    const{name,items,category,unit,cost,other,hide,itemDetails}=request.body;
+    const{name,items,category,unit,cost,other,hide,itemDetails,userid}=request.body;
     let record = [];
     if(items == 'Others'  ||  items == 'Any Other Expense')
     {
@@ -2327,11 +2327,12 @@ router.post('/saveItemDescription',(request,response)=>{
                     record.push(other);
                     record.push(hide);
                     record.push(itemDetails);
+                    record.push(userid);
                     let recordlist=[];
                 recordlist.push(record);
                 console.log(recordlist);
 
-                let itemDescQuery = format('INSERT INTO salesforce.Item_Description__c (Items__c,Per_Unit_Cost__c, Category__c,Unit__c,Other_Items__c,Impaneled_Vendor__c,Item_Description_Details__c ) VALUES %L returning id',recordlist);
+                let itemDescQuery = format('INSERT INTO salesforce.Item_Description__c (Items__c,Per_Unit_Cost__c, Category__c,Unit__c,Other_Items__c,Impaneled_Vendor__c,Item_Description_Details__c,Created_by_Heroku_User__c ) VALUES %L returning id',recordlist);
                 console.log('impaneledVendor=>'+itemDescQuery);
                 pool
                 .query(itemDescQuery)
