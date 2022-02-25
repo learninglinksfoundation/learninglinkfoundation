@@ -2163,7 +2163,7 @@ router.post('/deleteVender',verify,(request,response)=>{
                 response.send('Deleted Successfully');
             }
             else{
-                response.send(dt);
+                response.send(dt,pool);
             }
             
         })
