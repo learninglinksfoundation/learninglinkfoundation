@@ -96,7 +96,7 @@
                                   htmlTable += '<td><strong>Name</strong></td>';
                                   htmlTable += '<td>'+response[0].itemname+'</td>';
                                   htmlTable += '<td><strong>Vendor Name</strong></td>';
-                                  htmlTable += '<td>'+response[0].vendername+'</td>';
+                                  htmlTable += `<td><a href="/procurement/ItemDescriptionViewRel/${response[0].impaneled_vendor__c}" >${response[0].vendername}</a></td>`;
                               htmlTable += '</tr>';
                               htmlTable += '<tr>';
                                 htmlTable += '<td><strong>Item Category</strong></td>';
