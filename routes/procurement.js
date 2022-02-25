@@ -2154,7 +2154,7 @@ router.post('/deleteVender',verify,(request,response)=>{
     //console.log(list,idList);
 
     if(idList.length > 0){
-        let ids =  `('${idList.join(',')}')` ;
+        let ids =  `('${idList.join("','")}')` ;
         let query = `DELETE FROM salesforce.Impaneled_Vendor__c WHERE sfid IN ${ids}`;
         console.log(query);
         pool.query(query)
@@ -2518,7 +2518,7 @@ router.post('/deleteItem',verify,(request,response)=>{
     console.log(list,idList);
 
     if(idList.length > 0){
-        let ids =  `('${idList.join(',')}')` ;
+        let ids =  `('${idList.join("','")}')` ;
         let query = `DELETE FROM salesforce.Item_Description__c WHERE sfid IN ${ids}`;
         pool.query(query)
         .then(dt=>{
