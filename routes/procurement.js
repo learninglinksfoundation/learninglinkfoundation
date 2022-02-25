@@ -2840,7 +2840,7 @@ let qry='select item.sfid ,item.Created_by_Heroku_User__c,con.name as username,i
                 'FROM salesforce.Item_Description__c item '+
                 'INNER JOIN salesforce.Impaneled_Vendor__c vend '+
                 'ON item.Impaneled_Vendor__c = vend.sfid '+
-                'INNER JOIN salesforce.Contact con' +
+                'INNER JOIN salesforce.Contact con ' +
                 'ON item.Created_by_Heroku_User__c = con.sfid '+
                 'where item.sfid=$1 ';
 pool.query(qry,[itemId])
