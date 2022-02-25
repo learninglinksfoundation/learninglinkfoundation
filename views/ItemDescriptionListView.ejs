@@ -187,6 +187,17 @@
                         </div>
                   </div>     
               </div>
+
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-6">
+                  <label for="unit">Created by Name  </label>
+                    <input type="text" class="form-control" id="createdName" value=""   name="createdName" >
+                  </div>
+                  
+                </div>
+            </div>
+
               <div class="modal-footer">
                   <button type="submit" class="btn btn-primary" id="editItemButton" data-dismiss="modal">Save</button>
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -377,6 +388,7 @@
                         .done((response) => {
                             console.log('Item DEatil  : '+JSON.stringify(response));
                             $('#detailLoadingSpinner').hide();
+                             $('#itemDetailTable').empty();
                             if(response.length > 0)
                             {
                                 let htmlTable='';
@@ -512,6 +524,7 @@
             document.forms["edititem"]["other"].value = response[0].other_items__c;
             document.forms["edititem"]["hide"].value = response[0].sfid;
             document.forms["edititem"]["description"].value = response[0].description;
+            document.forms["edititem"]["createdName"].value = response[0].username;
 
             let dt = eval(response[0].category__c.replaceAll(' ',''));
             console.log(dt);
