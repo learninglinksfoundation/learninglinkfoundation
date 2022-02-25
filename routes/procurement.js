@@ -2169,7 +2169,8 @@ router.post('/deleteVender',verify,(request,response)=>{
             
         })
         .catch(error=>{
-            response.send(error);
+             let obj = {error:error,pool:pool}
+            response.send(obj);
         })
 
    } 
