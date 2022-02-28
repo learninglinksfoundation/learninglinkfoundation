@@ -3,6 +3,15 @@
 <% include ./partials/messages %>
 <p id ="parentId"><%=parentId %></p>
 
+<style>
+.table td {
+    max-width: 300px;
+    text-overflow: ellipsis;
+    overflow-wrap: anywhere;
+    overflow: hidden;
+}
+</style>
+
 
 <link rel="stylesheet" href="/stylesheets/table-sortable.css">
 <script src="/scripts/table-sortable.js" ></script>
