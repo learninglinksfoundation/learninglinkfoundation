@@ -974,7 +974,10 @@
             })
             .done((assetDetails) =>{
     console.log('assetDetails : '+JSON.stringify(assetDetails));
-    
+    $('#assetDetails').empty();
+    $('#procuremnetNonItTable').empty();
+    $('#approvalTable').empty();
+    $('#notesbuttontable').empty();
     
     //$('#procuremnetItTable').empty();$('#procuremnetNonItTable').empty();
     if(assetDetails.assetFormDetails.length > 0)
