@@ -1,6 +1,17 @@
 <% include ./partials/navbar %>
 <% include ./partials/footer %>
 <% include ./partials/messages %>
+
+<style>
+
+#procTable td{
+  max-width: 210px;
+    overflow-wrap: break-word;
+    vertical-align: middle !important;
+}
+
+</style>
+
 <p id ="parentId"><%=parentAssetId %></p>
 <p id ="isDisabled"><%=isDisabled %></p>
 
@@ -355,6 +366,8 @@
             .done((response)=>{
                 $('#detailLoadingSpinner').hide();
                 console.log('response from the Procurement Tab;e Ajax '+JSON.stringify(response));
+                $('#procTable').empty();
+                $('#feedbackTable').empty();
                 if(response.proc.length>0){
                     let record = response.proc[0];
 
@@ -465,78 +478,7 @@
                               htmlTable += '<td></td>';
                               htmlTable += '</tr>';
 
-                              /*
-
-                                htmlTable += '<td><strong>Impaneled Vendor</strong></td>';
-                              //  htmlTable += '<td>'+'<a href="#" class="vendorDetTag" id="'+record.impaneled_vendor__c+'" >'+record.vendorname+'</a>'+'</td>';
-                              //  htmlTable += '<td>'+'<a href="#" class="vendorDetTag" id="'+record.impaneled_vendor__c+'" >'+record.vendorname+'</a>'+'</td>';
-                              htmlTable += '<td>'+record.vendorname+'</td>';
-                                htmlTable += '</tr>';
-                            htmlTable += '<tr>';
-                                htmlTable += '<td><strong>Item Category</strong></td>';
-                                htmlTable += '<td>'+record.products_services_name__c+'</td>';
-                                htmlTable += '<td><strong>Item</strong></td>';
-                                htmlTable += '<td>'+record.items__c+'</td>';
-                            htmlTable += '</tr>';
-                            htmlTable += '<tr>';
-                                htmlTable += '<td><strong>Quantity</strong></td>';
-                                htmlTable += '<td>'+record.quantity__c+'</td>';
-                                htmlTable += '<td><strong>Budget</strong></td>';
-                                htmlTable += '<td>'+record.budget__c+'</td>';
-                            htmlTable += '</tr>';
-                             htmlTable += '<tr>';
-                                htmlTable += '<td><strong>Item Specification</strong></td>';
-                                htmlTable += '<td>'+record.product_service__c+'</td>';
-                                htmlTable += '<td><strong>Other Items</strong></td>';
-                                htmlTable += '<td>'+record.others__c+'</td>';
-                            htmlTable += '</tr>';
-                            htmlTable += '<tr>';
-                              htmlTable += '<td><strong>Number Of Quotes</strong></td>';
-                      htmlTable += '<td>'+record.number_of_quotes__c+'</td>';
-                              htmlTable += '<td><strong>State</strong></td>';
-                              htmlTable += '<td>'+record.state__c+'</td>';
-                          htmlTable += '</tr>';
-                          htmlTable += '<tr>';
-                            htmlTable += '<td><strong>Quote1</strong></td>';
-                            if(record.quote1__c!="demo1"){
-                              htmlTable += '<td>'+'<a href="'+record.quote1__c+'" target="_blank">Click to View Quote</a></td>';
-                              }
-                              else{
-                                htmlTable +='<td></td>';
-                              }
-                            htmlTable += '<td><strong>District</strong></td>';
-                            htmlTable += '<td>'+record.district__c+'</td>';
-                        htmlTable += '</tr>';
-                        htmlTable += '<tr>';
-                          htmlTable += '<td><strong>Quote2</strong></td>';
-                          if(record.quote2__c!="demo2"){
-                            htmlTable += '<td>'+'<a href="'+record.quote2__c+'" target="_blank">Click to View Quote</a></td>';
-                            }
-                            else{
-                              htmlTable +='<td></td>';
-                            }
-                          htmlTable += '<td><strong>quote3</strong></td>';
-                          if(record.quote3__c!="demo3"){
-                            htmlTable += '<td>'+'<a href="'+record.quote3__c+'" target="_blank">Click to View Quote</a></td>';
-                            }
-                            else{
-                              htmlTable +='<td></td>';
-                            }
-                      htmlTable += '</tr>';
-                      htmlTable += '<tr>';
-                        htmlTable += '<td><strong>Unit</strong></td>';
-                        htmlTable += '<td>'+record.unit__c+'</td>';
-                        htmlTable += '<td><strong>Per Unit Cost</strong></td>';
-                        htmlTable += '<td>'+record.per_unit_cost__c+'</td>';
-                    htmlTable += '</tr>';
-                    htmlTable += '<tr>';
-                      htmlTable += '<td><strong>Justification</strong></td>';
-                      htmlTable += '<td>'+record.justification__c+'</td>';
-                      htmlTable +='<td style="max-width: 180px;" ><strong>Total Approved Budget for the purchase</strong></td>';
-                      htmlTable +=`<td> ${record.purchasebudg} </td>`;
                       
-                  htmlTable += '</tr>';
-                  */
                             $('#procTable').empty();
                             $('#procTable').html(htmlTable);
                 }

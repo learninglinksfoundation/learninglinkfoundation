@@ -12,20 +12,20 @@
 <div class="container-fluid bg-gray" id="accordion-style-1" style="align-items: center; margin-left: 2px; margin-right: 2px;" >
 </br>
 <div class="col-md-5" style="margin-left: 30px;">
-  <a class="btn btn-primary btn-md bg-gray mb-mobile" href="/procurement/assetRequisitionNonITFeedback/<%=procid %>" >Go To Asset Requisition </a>
-  <a class="btn btn-primary btn-md bg-gray mb-mobile" href="/procurement/feedbackProcurementNonIT/<%=procid %>">Go to Procurement-Non IT</a> 
+  <a class="btn btn-primary btn-md bg-gray mb-mobile" href="/procurement/assetRequisitionNonITFeedback/<%=procid %>" >Go To Procurement form </a>
+  <a class="btn btn-primary btn-md bg-gray mb-mobile" href="/procurement/feedbackProcurementNonIT/<%=procid %>">Go to Purchase information</a> 
 </div>
 </br>
-<h4 style="text-align: center; margin-top: 20px;">Feedback Procurement-Non IT</h4>
+<h4 style="text-align: center; margin-top: 20px;">Feedbacks</h4>
 </br>
 <div class="" style="margin-right: 4px; margin-left: 4px;" style="overflow-y: auto;">
-  <div id="errorMessages">
+  <div id="errorMessages"> </div>
     <form  method="POST" name="createfeed" id="formdata" >
       <div class="form-group">
         <div class="row">
             <div class="col-md-6">
-                <label for="Time">Timely submissions of all Deliverables </label>
-                <select id="time" name="time" class="form-control" required="true" >
+                <label for="Time">Timely submissions of all Deliverables <span style="color: red;">*</span></label>
+                <select id="Time" name="time" class="form-control"  >
                     <option value="">None</option>
                     <option value="Delighted">Delighted</option>
                     <option value="Satisfactory">Satisfactory	</option>
@@ -34,8 +34,8 @@
                 </select> 
               </div>
               <div class="col-md-6">
-                <label for="quality">Work Quality/Goods Quality </label>
-                <select id="quality" name="quality" class="form-control" required="true" >
+                <label for="quality">Work Quality/Goods Quality <span style="color: red;">*</span></label>
+                <select id="quality" name="quality" class="form-control"  >
                   <option value="">None</option>
                   <option value="Delighted">Delighted</option>
                   <option value="Satisfactory">Satisfactory	</option>
@@ -48,8 +48,8 @@
       <div class="form-group">
         <div class="row">          
           <div class="col-md-6">
-                <label for="issue">Issue Knowledge/ Expertise</label>
-                <select id="issue" name="issue" class="form-control" required="true" >
+                <label for="issue">Issue Knowledge/ Expertise <span style="color: red;">*</span></label>
+                <select id="issue" name="issue" class="form-control"  >
                     <option value="">None</option>
                     <option value="Delighted">Delighted</option>
                     <option value="Satisfactory">Satisfactory	</option>
@@ -58,8 +58,8 @@
                 </select> 
               </div>
               <div class="col-md-6">
-                <label for="quantity">Quantity Requested vs Received</label>
-                <select id="quantity" name="quantity" class="form-control" required="true" >
+                <label for="quantity">Quantity Requested vs Received <span style="color: red;">*</span></label>
+                <select id="quantity" name="quantity" class="form-control"  >
                     <option value="">None</option>
                     <option value="Delighted">Delighted</option>
                     <option value="Satisfactory">Satisfactory	</option>
@@ -70,7 +70,7 @@
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-6">
-                     <input type="hidden" class="form-control" id="hide" value="" required="true"  name="hide" > 
+                     <input type="hidden" class="form-control" id="hide" value=""  required="true" name="hide" > 
                     </div>
                 </div>
             </div>
@@ -80,8 +80,9 @@
       </br>
         <center><button style="align-content: center; border: 5px solid black; width:100px;height:50px;" type="submit" class="btn btn-primary"id="createFEED" >Save</button></center>  
   </form>  
-</div></div></div>
+</div></div>
 <script>
+//
     $(document).ready(function(){
 
         $('#parentId').hide();
@@ -95,6 +96,21 @@
     $(function () {
         $('form#formdata').bind('submit', function () {
           let data=$('form#formdata').serialize();
+          let obj = {};
+          $('select').each(function(){
+              let $label = $("label[for='"+this.id+"']")
+              obj[$label.text()] = this.value;
+          }); 
+
+          for (let name in obj) {
+            let dt = obj[name]
+              if( !dt || dt === '' || dt === null ){
+                toggleError(`Please choose ${name}`,'danger')
+                return;
+              }
+          }
+
+
         //  alert('Sumbit button clicked!' +data);
           console.log('data _+>'+data);
           $.ajax({
@@ -107,25 +123,14 @@
        if(data == 'Succesfully Inserted')
        {
         document.getElementById("formdata").reset();
-        let errorHtml = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+ data+
-            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-              '<span aria-hidden="true">&times;</span>'+
-            '</button>'+
-          '</div>';
-          $('#errorMessages').empty();
-          $('#errorMessages').append(errorHtml);
+
+          toggleError(data,'success')
           $("#submitButton").attr("disabled", false);
           window.location.reload()
        }
        else
        {
-        let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+ data+
-            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-              '<span aria-hidden="true">&times;</span>'+
-            '</button>'+
-          '</div>';
-          $('#errorMessages').empty();
-          $('#errorMessages').append(errorHtml);
+          toggleError(data,'danger')
           $("#submitButton").attr("disabled", false);
        }
         
@@ -140,4 +145,15 @@
 
         })
     })
+
+
+    function toggleError(msg,types){
+      let errorHtml = '<div class="alert alert-'+types+' alert-dismissible fade show" role="alert">'+ msg+
+            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+              '<span aria-hidden="true">&times;</span>'+
+            '</button>'+
+          '</div>';
+          $('#errorMessages').empty();
+          $('#errorMessages').append(errorHtml);
+    }
 </script>
