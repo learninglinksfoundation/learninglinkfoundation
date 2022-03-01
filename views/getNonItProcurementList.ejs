@@ -529,7 +529,7 @@
                 console.log('response from the feedback Tab Ajax '+JSON.stringify(response));
                 let msg = response;
                console.log('messageeee '+msg);
-               window.open(`/procurement/createFeedback/${proid}&procId='<%=parentAssetId %>'`,'_blank');
+               window.open(`/procurement/createFeedback/${proid}&procId=<%- parentAssetId %>`,'_blank');
               /* if(msg == 'OK'){
                 console.log('proccurement id '+proid);
           //  location.assign('/procurement/createFeedback/'+proid);
