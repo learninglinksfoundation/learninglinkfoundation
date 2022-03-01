@@ -11,8 +11,9 @@
 <div style="overflow-y: auto;">
 <div class="container-fluid bg-gray" id="accordion-style-1" style="align-items: center; margin-left: 2px; margin-right: 2px;" >
 </br>
-<div class="col-md-5" style="margin-left: 30px;">
-  <a class="btn btn-primary btn-md bg-gray mb-mobile" href="/procurement/assetRequisitionNonITFeedback/<%=procid %>" >Go To Procurement form </a>
+<div class="col-md-5" style="">
+  <a class="btn btn-primary btn-md bg-gray mb-mobile" style="margin-right: 2px;" href="/procurement/getfeedback/<%=procid %>" >Go To Feedbacks </a>
+  <a class="btn btn-primary btn-md bg-gray mb-mobile" style="margin-right: 5px;" href="/procurement/assetRequisitionNonITFeedback/<%=procid %>" >Go To Procurement Request </a>
   <a class="btn btn-primary btn-md bg-gray mb-mobile" href="/procurement/feedbackProcurementNonIT/<%=procid %>">Go to Purchase information</a> 
 </div>
 </br>
@@ -92,7 +93,7 @@
       //  alert('venbderoIDv'+vendId);
         document.forms["formdata"]["hide"].value = procid;
        // alert('parentId '+parentId);
-       console.log('<%- JSON.stringify(objUser) %>');
+       //console.log('<%- JSON.stringify(objUser) %>');
 
     })
 
