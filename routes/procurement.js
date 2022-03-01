@@ -3351,12 +3351,25 @@ router.get('/assetRequisitionITFeedback/:procid',verify,(request, response) => {
         response.render('procurementITLandingPage',{objUser,procurementId :procurementId }); 
 })
 
-router.get('/feedbackProcurementNonIT/:procid',verify,(request, response) => {
+router.get('/feedbackProcurementNonIT/:procid',verify, async (request, response) => {
     var procurementId  = request.params.procid;
     console.log('procid  '+procurementId );
-  let objUser=request.user;
+    let procId = '';
+    let query = 'SELECT id,sfid,Asset_Requisition_Form__c as asset from salesforce.Product_Line_Item__c where sfid = $1'
+     await pool
+        .query(query,[procurementId])
+        .then(data=>{
+            if(data.rows.length > 0){
+              procId =   data.rows[0].asset;
+            }
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+
+    let objUser=request.user;
         console.log('user '+objUser);  
-        response.render('ProcurementNonITLandingPage',{objUser,procurementId :procurementId }); 
+        response.render('ProcurementNonITLandingPage',{objUser,procurementId :procurementId,procId:procId }); 
 })
     
 router.get('/deleteProcurementIt/:parentId',(request,response)=>{

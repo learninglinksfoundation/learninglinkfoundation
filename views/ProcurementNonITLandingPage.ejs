@@ -18,7 +18,7 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Procurement-Non IT Detail</h5>
+          <h5 class="modal-title">Purchase Information Detail</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -106,7 +106,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Edit Procurement NON IT Form</h5>
+          <h5 class="modal-title">Edit Purchase Information </h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -188,7 +188,7 @@
         $('#parentId').hide();
        let procurementId = document.getElementById('parentId').innerHTML;
          //  alert('It Procurement ID=>'+procurementId);
-
+          console.log('<%=procId %>','idd');
            $('#procurementModal').modal('show');
             $.ajax({
                 url : '/procurement/getProcurementDetail',
