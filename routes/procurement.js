@@ -3061,16 +3061,16 @@ router.get('/getfeedbackdetailIT',(request,response)=>{
 router.post('/savefeedback',(request,response)=>{
     let body = request.body;
     console.log('body  : '+JSON.stringify(body));
-    const{time,quality, issue,quantity,hide}=request.body;
+    const{time,quality, issue,quantity,hide,createdBy}=request.body;
     console.log('time'+time);
     console.log('quality'+quality);
     console.log('procidt'+hide);
     console.log('issue'+issue);
-    console.log('quantity '+quantity);
+    console.log('quantity '+quantity,createdBy);
 
-    let feedCreateqry = 'INSERT INTO salesforce.Feedback__c (quantity_requested_vs_received__c,work_quality_goods_quality__c,timely_submissions_of_all_deliverables__c,procurement_non_it__c,issue_knowledge_expertise__c ) VALUES ($1,$2,$3,$4,$5)';
+    let feedCreateqry = 'INSERT INTO salesforce.Feedback__c (quantity_requested_vs_received__c,work_quality_goods_quality__c,timely_submissions_of_all_deliverables__c,procurement_non_it__c,issue_knowledge_expertise__c,Created_by_Heroku_User__c ) VALUES ($1,$2,$3,$4,$5,$6)';
     console.log('feedCreateqry=>'+feedCreateqry);
-    pool.query(feedCreateqry,[quantity,time,quality,hide,issue])
+    pool.query(feedCreateqry,[quantity,time,quality,hide,issue,createdBy])
     .then((queryResult)=>{
         console.log('feedback INsert query result '+JSON.stringify(queryResult));
         response.send('Succesfully Inserted');
