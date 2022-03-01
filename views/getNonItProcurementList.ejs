@@ -544,7 +544,7 @@
               $('#detailLoadingSpinner').hide();
                 console.log('jqXHR  : '+JSON.stringify(jqXHR));
                 console.log('error  : '+error);
-                window.open('/procurement/createFeedback/'+proid,'_blank');
+                window.open(`/procurement/createFeedback/${proid}&procId=<%- parentAssetId %>`,'_blank');
                /* if(jqXHR.responseText== "OK"){
                   console.log('proccurement id '+proid);
               //  location.assign('/procurement/createFeedback/'+proid);
