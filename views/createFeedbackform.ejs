@@ -16,7 +16,7 @@
   <a class="btn btn-primary btn-md bg-gray mb-mobile" href="/procurement/feedbackProcurementNonIT/<%=procid %>">Go to Purchase information</a> 
 </div>
 </br>
-<h4 style="text-align: center; margin-top: 20px;">Feedbacks</h4>
+<h3 style="text-align: center; margin-top: 20px;">Feedbacks</h3>
 </br>
 <div class="" style="margin-right: 4px; margin-left: 4px;" style="overflow-y: auto;">
   <div id="errorMessages"> </div>
@@ -91,22 +91,28 @@
       //  alert('venbderoIDv'+vendId);
         document.forms["formdata"]["hide"].value = procid;
        // alert('parentId '+parentId);
+       console.log('<%- JSON.stringify(objUser) %>');
+
     })
 
     $(function () {
-        $('form#formdata').bind('submit', function () {
+        $('form#formdata').bind('submit', function (e) {
           let data=$('form#formdata').serialize();
+          e.preventDefault();
+          e.stopPropagation();
           let obj = {};
           $('select').each(function(){
               let $label = $("label[for='"+this.id+"']")
-              obj[$label.text()] = this.value;
+              let str = $label.text();
+              str = str.substring(0,str.length-2);
+              obj[str] = this.value;
           }); 
 
           for (let name in obj) {
             let dt = obj[name]
               if( !dt || dt === '' || dt === null ){
                 toggleError(`Please choose ${name}`,'danger')
-                return;
+                return ;
               }
           }
 
@@ -155,5 +161,8 @@
           '</div>';
           $('#errorMessages').empty();
           $('#errorMessages').append(errorHtml);
+          window.setTimeout(function () {
+            $('#errorMessages').empty();
+          },2000)
     }
 </script>
