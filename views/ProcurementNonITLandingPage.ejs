@@ -188,7 +188,7 @@
         $('#parentId').hide();
        let procurementId = document.getElementById('parentId').innerHTML;
          //  alert('It Procurement ID=>'+procurementId);
-          console.log('<%=procId %>','idd');
+
            $('#procurementModal').modal('show');
             $.ajax({
                 url : '/procurement/getProcurementDetail',
@@ -208,13 +208,12 @@
                 console.log('response from the Procurement Tab;e Ajax '+JSON.stringify(response));
                 if(response.proc.length>0){
                     let record = response.proc[0];
-
                               let htmlTable = '';
                               htmlTable += '<tr>';
                               htmlTable += '<td><strong>Purchase Information ID</strong></td>';
                               htmlTable += '<td>'+record.procname+'</td>';
                               htmlTable += '<td><strong>Procurement Request Form</strong></td>';
-                              htmlTable += '<td>'+record.astname+'</td>';
+                              htmlTable += `<td><a target="_blank" href="/procurement/assetRequisitionViewRel/${record.asset_requisition_form__c}/false" >${record.astname}</a></td>`;
                               htmlTable += '</tr>';
                               htmlTable += '<tr>';
                               htmlTable += '<td style="width: 36%;" ><strong>Total Approved Budget for the purchase</strong></td>';
