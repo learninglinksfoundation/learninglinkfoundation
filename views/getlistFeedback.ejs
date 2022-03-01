@@ -13,7 +13,7 @@
     <div class="row mt-5 mb-3 align-items-center">
 
         <div class="col-md-5">
-        <a class="btn btn-primary btn-md bg-gray mb-mobile" style="margin-right: 5px;" href="/procurement/assetRequisitionNonITFeedback/<%=procid %>" >Go To Procurement Request </a>
+        <a class="btn btn-primary btn-md bg-gray mb-mobile" style="margin-right: 5px;" id="procReq" href="/procurement/assetRequisitionNonITFeedback/<%=procid %>" >Go To Procurement Request </a>
         <a class="btn btn-primary btn-md bg-gray mb-mobile" href="/procurement/feedbackProcurementNonIT/<%=procid %>">Go to Purchase information</a> 
         </div>
 
@@ -140,6 +140,11 @@
 
         $('#parentId').hide();
         let parentId=document.getElementById('parentId').innerHTML;
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const proId = urlParams.get('procId');
+        $('#procReq').attr('href',`/procurement/assetRequisitionViewRel/${proId}&true`);
+
        // alert('parentId '+parentId);
       /**************Table Sortable Start ***********/
   

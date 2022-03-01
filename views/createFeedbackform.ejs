@@ -13,7 +13,7 @@
 </br>
 <div class="col-md-7" style="">
   <a class="btn btn-primary btn-md bg-gray mb-mobile" style="margin-right: 5px;" href="/procurement/getfeedback/<%=procid %>" >Go To Feedbacks </a>
-  <a class="btn btn-primary btn-md bg-gray mb-mobile" style="margin-right: 5px;" href="/procurement/assetRequisitionNonITFeedback/<%=procid %>" >Go To Procurement Request </a>
+  <a class="btn btn-primary btn-md bg-gray mb-mobile" id="procReq" style="margin-right: 5px;" href="/procurement/assetRequisitionNonITFeedback/<%=procid %>" >Go To Procurement Request </a>
   <a class="btn btn-primary btn-md bg-gray mb-mobile" href="/procurement/feedbackProcurementNonIT/<%=procid %>">Go to Purchase information</a> 
 </div>
 </br>
@@ -84,8 +84,14 @@
   </form>  
 </div></div>
 <script>
+
+
 //
+
     $(document).ready(function(){
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const proId = urlParams.get('procId');
 
         $('#parentId').hide();
         let procid = document.getElementById('parentId').innerHTML;
@@ -94,7 +100,7 @@
         document.forms["formdata"]["hide"].value = procid;
        // alert('parentId '+parentId);
        //console.log('<%- JSON.stringify(objUser) %>');
-
+       $('#procReq').attr('href',`/procurement/assetRequisitionViewRel/${proId}&true`);
     })
 
     $(function () {
