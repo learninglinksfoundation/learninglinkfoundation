@@ -2,6 +2,16 @@
 <% include ./partials/footer %> 
 <% include ./partials/messages %>
 
+<style>
+
+#procTable td{
+  max-width: 210px;
+    overflow-wrap: break-word;
+    vertical-align: middle !important;
+}
+
+</style>
+
 <p id= "parentId"><%=procurementId %></p>
 
 <div id="procurementModal" class="modal fade">
@@ -193,82 +203,120 @@
             })
             .done((response)=>{
                 $('#detailLoadingSpinner').hide();
+                $('#procTable').empty();
+                $('#feedbackTable').empty();
                 console.log('response from the Procurement Tab;e Ajax '+JSON.stringify(response));
                 if(response.proc.length>0){
                     let record = response.proc[0];
+
                               let htmlTable = '';
                               htmlTable += '<tr>';
-                                htmlTable += '<td><strong>Procurement_Non-IT ID</strong></td>';
-                                htmlTable += '<td>'+record.procname+'</td>';
-                                htmlTable += '<td><strong>Impaneled Vendor</strong></td>';
-                              //  htmlTable += '<td>'+'<a href="#" class="vendorDetTag" id="'+record.impaneled_vendor__c+'" >'+record.vendorname+'</a>'+'</td>';
-                                htmlTable += '<td>'+'<a href="#" class="vendorDetTag" id="'+record.impaneled_vendor__c+'" >'+record.vendorname+'</a>'+'</td>';
-                         
-                                htmlTable += '</tr>';
-                            htmlTable += '<tr>';
-                                htmlTable += '<td><strong>Item Category</strong></td>';
-                                htmlTable += '<td>'+record.products_services_name__c+'</td>';
-                                htmlTable += '<td><strong>Item</strong></td>';
-                                htmlTable += '<td>'+record.items__c+'</td>';
-                            htmlTable += '</tr>';
-                            htmlTable += '<tr>';
-                                htmlTable += '<td><strong>Quantity</strong></td>';
-                                htmlTable += '<td>'+record.quantity__c+'</td>';
-                                htmlTable += '<td><strong>Budget</strong></td>';
-                                htmlTable += '<td>'+record.budget__c+'</td>';
-                            htmlTable += '</tr>';
-                             htmlTable += '<tr>';
-                                htmlTable += '<td><strong>Item Specification</strong></td>';
-                                htmlTable += '<td>'+record.product_service__c+'</td>';
-                                htmlTable += '<td><strong>Other Items</strong></td>';
-                                htmlTable += '<td>'+record.others__c+'</td>';
-                            htmlTable += '</tr>';
-                            htmlTable += '<tr>';
-                              htmlTable += '<td><strong>Number Of Quotes</strong></td>';
-                      htmlTable += '<td>'+record.number_of_quotes__c+'</td>';
+                              htmlTable += '<td><strong>Purchase Information ID</strong></td>';
+                              htmlTable += '<td>'+record.procname+'</td>';
+                              htmlTable += '<td><strong>Procurement Request Form</strong></td>';
+                              htmlTable += '<td><a target="_blank" href="/procurement/assetRequisitionViewRel/<%=parentAssetId %>&<%= isDisabled %>" >'+record.astname+'</a></td>';
+                              htmlTable += '</tr>';
+                              htmlTable += '<tr>';
+                              htmlTable += '<td style="width: 36%;" ><strong>Total Approved Budget for the purchase</strong></td>';
+                              htmlTable += '<td>'+record.purchasebudg+'</td>';
+                              htmlTable += '<td><strong>Budget</strong></td>';
+                              htmlTable += '<td>'+record.budget__c+'</td>';
+                              htmlTable += '</tr>';
+
+                              htmlTable += '<tr><td colspan="6" style="background-color:#d3d3d3;"><h5>Product Information</h5></td></tr>';
+                              htmlTable += '<tr>';
+                              htmlTable += '<td><strong>Catgeory</strong></td>';
+                              htmlTable += '<td>'+record.catgeory__c+'</td>';
+                              htmlTable += '<td><strong>Items Specification</strong></td>';
+                              htmlTable += '<td>'+record.product_service__c+'</td>';
+                              htmlTable += '</tr>';
+                              htmlTable += '<tr>';
+                              htmlTable += '<td><strong>Items Category</strong></td>';
+                              htmlTable += '<td>'+record.products_services_name__c+'</td>';
+                              htmlTable += '<td><strong>Other Items</strong></td>';
+                              htmlTable += '<td>'+record.others__c+'</td>';
+                              htmlTable += '</tr>';
+                              htmlTable += '<tr>';
+                              htmlTable += '<td><strong>Items</strong></td>';
+                              htmlTable += '<td>'+record.items__c+'</td>';
+                              htmlTable += '<td><strong>Unit</strong></td>';
+                              htmlTable += '<td>'+record.unit__c+'</td>';
+                              htmlTable += '</tr>';
+                              htmlTable += '<tr>';
+                              htmlTable += '<td><strong>Quantity</strong></td>';
+                              htmlTable += '<td>'+record.quantity__c+'</td>';
+                              htmlTable += '<td><strong>Per Unit Cost</strong></td>';
+                              htmlTable += '<td>'+record.per_unit_cost__c+'</td>';
+                              htmlTable += '</tr>';
+
+                              htmlTable += '<tr><td colspan="6" style="background-color:#d3d3d3;"><h5>Vendor Information</h5></td></tr>';
+                              htmlTable += '<tr>';
+                              htmlTable += '<td><strong>Impaneled Vendor</strong></td>';
+                              htmlTable += '<td>'+record.vendorname+'</td>';
+                              htmlTable += '<td><strong>Geographic Zone</strong></td>';
+                              htmlTable += '<td>'+record.geographic_zone__c+'</td>';
+                              htmlTable += '</tr>';
+
+                              htmlTable += '<tr>';
                               htmlTable += '<td><strong>State</strong></td>';
                               htmlTable += '<td>'+record.state__c+'</td>';
-                          htmlTable += '</tr>';
-                          htmlTable += '<tr>';
-                            htmlTable += '<td><strong>Quote1</strong></td>';
-                            if(record.quote1__c!="demo1"){
+                              htmlTable += '<td><strong>Districts - Upper Zone</strong></td>';
+                              if(record.district_upper_zone__c)
+                              htmlTable += '<td>'+record.district_upper_zone__c+'</td>';
+                              else
+                                 htmlTable += '<td></td>';
+                              htmlTable += '</tr>';
+
+
+
+                              htmlTable += '<tr>';
+                              htmlTable += '<td><strong>Districts - Lower Zone</strong></td>';
+                              if(record.districts_lower_zone__c)
+                                htmlTable += '<td>'+record.districts_lower_zone__c+'</td>';
+                              else
+                                 htmlTable += '<td></td>';
+                              htmlTable += '<td><strong></strong></td>';
+                              htmlTable += '<td></td>';
+                              htmlTable += '</tr>';
+
+                              htmlTable += '<tr><td colspan="6" style="background-color:#d3d3d3;"><h5>Quotes </h5></td></tr>';
+                              htmlTable += '<tr>';
+                              htmlTable += '<td><strong>Quote1</strong></td>';
+                              if(record.quote1__c && record.quote1__c!="demo1"){
                               htmlTable += '<td>'+'<a href="'+record.quote1__c+'" target="_blank">Click to View Quote</a></td>';
                               }
                               else{
                                 htmlTable +='<td></td>';
                               }
-                            htmlTable += '<td><strong>District</strong></td>';
-                            htmlTable += '<td>'+record.district__c+'</td>';
-                        htmlTable += '</tr>';
-                        htmlTable += '<tr>';
-                          htmlTable += '<td><strong>Quote2</strong></td>';
-                          if(record.quote2__c!="demo2"){
-                            htmlTable += '<td>'+'<a href="'+record.quote2__c+'" target="_blank">Click to View Quote</a></td>';
-                            }
-                            else{
-                              htmlTable +='<td></td>';
-                            }
-                          htmlTable += '<td><strong>quote3</strong></td>';
-                          if(record.quote3__c!="demo3"){
-                            htmlTable += '<td>'+'<a href="'+record.quote3__c+'" target="_blank">Click to View Quote</a></td>';
-                            }
-                            else{
-                              htmlTable +='<td></td>';
-                            }
-                      htmlTable += '</tr>';
-                      htmlTable += '<tr>';
-                        htmlTable += '<td><strong>Unit</strong></td>';
-                        htmlTable += '<td>'+record.unit__c+'</td>';
-                        htmlTable += '<td><strong>Per Unit Cost</strong></td>';
-                        htmlTable += '<td>'+record.per_unit_cost__c+'</td>';
-                    htmlTable += '</tr>';
-                    htmlTable += '<tr>';
-                      htmlTable += '<td><strong>Justification</strong></td>';
-                      htmlTable += '<td>'+record.justification__c+'</td>';
-                      htmlTable +='<td></td>';
-                      htmlTable +='<td></td>';
+                              //htmlTable += '<td>'+record.quote1__c+'</td>';
+                              htmlTable += '<td><strong>Quote2</strong></td>';
+                              if(record.quote2__c && record.quote2__c!="demo2"){
+                                htmlTable += '<td>'+'<a href="'+record.quote2__c+'" target="_blank">Click to View Quote</a></td>';
+                              }
+                              else{
+                                htmlTable +='<td></td>';
+                              }
+                              //htmlTable += '<td>'+record.quote2__c+'</td>';
+                              htmlTable += '</tr>';
+                              htmlTable += '<tr>';
+                              htmlTable += '<td><strong>Quote3</strong></td>';
+                              if( record.quote3__c && record.quote3__c!="demo3"){
+                                htmlTable += '<td>'+'<a href="'+record.quote3__c+'" target="_blank">Click to View Quote</a></td>';
+                              }
+                              else{
+                                htmlTable +='<td></td>';
+                              }
+                              //htmlTable += '<td>'+record.quote3__c+'</td>';
+                              htmlTable += '<td><strong>Number of quotes</strong></td>';
+                              htmlTable += '<td>'+record.number_of_quotes__c+'</td>';
+                              htmlTable += '</tr>';
+                              htmlTable += '<td><strong>Justification</strong></td>';
+                              htmlTable += '<td>'+record.justification__c+'</td>';
+                              htmlTable += '<td><strong></strong></td>';
+                              htmlTable += '<td></td>';
+                              htmlTable += '</tr>';
+
                       
-                  htmlTable += '</tr>';
                             $('#procTable').empty();
                             $('#procTable').html(htmlTable);
                 }
