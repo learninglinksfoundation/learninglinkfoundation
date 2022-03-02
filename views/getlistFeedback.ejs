@@ -49,19 +49,20 @@
 
 <!-- Edit MOdal for Feedback NON-IT -->
 <div class="">
-    <div id="errorMessages"></div>
+    
 
 <div id="fedNonItEditModal" class="modal fade ">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">EDIT FEEDBACKS</h5>
+          <h5 class="modal-title">Edit Feedback</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
       
         <div class="modal-body" id="editModalBody" >
+            <div id="errorMessages"></div>  
             <form name="editFeedNONit" id="editFeedNONit" >
              <div class="form-group">
                 <div class="row">
@@ -69,24 +70,33 @@
                       <label for="name">Feedback Name</label>
                       <input type="text" disabled class="form-control" id="name" value=""   name="name" >
                     </div>
-                    
+
                     <div class="col-md-6">
-                    <label for="time">Timely submissions of all Deliverables</label>
-                    <select id="time" name="time" class="form-control" required="true" >
-                        <option value="">None</option>
-                        <option value="Delighted">Delighted</option>
-                        <option value="Satisfactory">Satisfactory	</option>
-                        <option value="Dissatisfied">Dissatisfied</option>
-                        <option value="NA">NA</option>
-                    </select> 
+                        <label for="userId">Created by Name </label>
+                        <input type="text" class="form-control" id="userId" value="" disabled  name="userId" >
+                        <input type="hidden" class="form-control" id="feedid" value=""   name="feedid" >
                     </div>
+                    
+                    
                 </div>
               </div>
               
               <div class="form-group">
                 <div class="row">
+
                     <div class="col-md-6">
-                    <label for="quality">Work Quality/Goods Quality</label>
+                    <label for="time">Timely submissions of all Deliverables <span style="color: red;">*</span></label>
+                    <select id="time" name="time" class="form-control" required="true" >
+                        <option value="">None</option>
+                        <option value="Delighted">Delighted</option>
+                        <option value="Satisfactory">Satisfactory   </option>
+                        <option value="Dissatisfied">Dissatisfied</option>
+                        <option value="NA">NA</option>
+                    </select> 
+                    </div>
+
+                    <div class="col-md-6">
+                    <label for="quality">Work Quality/Goods Quality <span style="color: red;">*</span></label>
                     <select id="quality" name="quality" class="form-control" required="true" >
                         <option value="">None</option>
                         <option value="Delighted">Delighted</option>
@@ -96,23 +106,25 @@
                     </select> 
                    </div>
 
-                  <div class="col-md-6">
-                    <label for="issue">Issue Knowledge/ Expertise </label>
-                    <select id="issue" name="issue" class="form-control" required="true" >
-                        <option value="">None</option>
-                        <option value="Delighted">Delighted</option>
-                        <option value="Satisfactory">Satisfactory	</option>
-                        <option value="Dissatisfied">Dissatisfied</option>
-                        <option value="NA">NA</option>
-                    </select> 
-                 </div>
+                  
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-6">
-                    <label for="qua">Quantity Requested vs Received </label>
+                    <label for="issue">Issue Knowledge/ Expertise <span style="color: red;">*</span> </label>
+                    <select id="issue" name="issue" class="form-control" required="true" >
+                        <option value="">None</option>
+                        <option value="Delighted">Delighted</option>
+                        <option value="Satisfactory">Satisfactory   </option>
+                        <option value="Dissatisfied">Dissatisfied</option>
+                        <option value="NA">NA</option>
+                    </select> 
+                 </div>
+
+                    <div class="col-md-6">
+                    <label for="quantiReq">Quantity Requested vs Received <span style="color: red;">*</span></label>
                     <select id="quantiReq" name="qua" class="form-control" required="true" >
                         <option value="">None</option>
                         <option value="Delighted">Delighted</option>
@@ -121,11 +133,7 @@
                         <option value="NA">NA</option>
                     </select> 
                  </div>
-                    <div class="col-md-6">
-                    <label for="userId">Created by Name </label>
-                    <input type="text" class="form-control" id="userId" value="" disabled  name="userId" >
-                    <input type="hidden" class="form-control" id="feedid" value=""   name="feedid" >
-                    </div>
+                    
                 </div>
             </div>
           
@@ -373,6 +381,24 @@ function additionalEditFunctionality(){
                       console.log('fomvalues=> '+JSON.stringify(values));
                   });
                   console.log('fomvalues=> '+JSON.stringify(values));
+
+                  let obj = {};
+                  $('select').each(function(){
+                      let $label = $("label[for='"+this.id+"']")
+                      let str = $label.text();
+                      str = str.substring(0,str.length-2);
+                      obj[str] = this.value;
+                  }); 
+
+                  for (let name in obj) {
+                    let dt = obj[name]
+                      if( !dt || dt === '' || dt === null ){
+                        toggleError(`Please choose ${name}`,'danger')
+                        return ;
+                      }
+                  }
+
+
                //   alert('formValues : '+JSON.stringify(values));
                   $.ajax({
                     url : '/procurement/updatefeedBack',
@@ -386,20 +412,30 @@ function additionalEditFunctionality(){
                 .fail((jqXHR, status, error) =>{
                     console.log('jqXHR  : '+JSON.stringify(jqXHR));
                     console.log('error  : '+error);
-                    let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+jqXHR.responseText+
-                        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-                          '<span aria-hidden="true">&times;</span>'+
-                        '</button>'+
-                      '</div>';
-                      $('#errorMessages').empty();
-                      $('#errorMessages').append(errorHtml);
+                    toggleError(jqXHR.responseText,'danger')
+
+                    
                     if(jqXHR.responseText=='succesfully Update')
                     {
-                        alert('Successfully Update');
+                        toggleError('Successfully Update','danger')
+                        //alert('');
                        // $('#fedNonItEditModal').modal('hide');
                         document.getElementById("editFeedNONit").reset();
                     }
                   })
           })
 }
+
+function toggleError(msg,types){
+      let errorHtml = '<div class="alert alert-'+types+' alert-dismissible fade show" role="alert">'+ msg+
+            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+              '<span aria-hidden="true">&times;</span>'+
+            '</button>'+
+          '</div>';
+          $('#errorMessages').empty();
+          $('#errorMessages').append(errorHtml);
+          window.setTimeout(function () {
+            $('#errorMessages').empty();
+          },2000)
+    }
 </script>
