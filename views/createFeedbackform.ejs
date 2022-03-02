@@ -98,8 +98,7 @@
       //  let vendId = document.getElementById('parentId').innerHTML;
       //  alert('venbderoIDv'+vendId);
         document.forms["formdata"]["hide"].value = procid;
-       // alert('parentId '+parentId);
-       //console.log('<%- JSON.stringify(objUser) %>'); //?procId=<%=parentAssetId %>
+       
        $('#feedbackList').attr('href',`/procurement/getfeedback/<%=procid %>?procId=${proId}`);
        $('#procReq').attr('href',`/procurement/assetRequisitionViewRel/${proId}&true`);
     })
