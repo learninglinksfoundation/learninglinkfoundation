@@ -3032,7 +3032,7 @@ router.get('/getfeedbackITlist',verify,(request,response)=>{
 router.get('/getfeedbackdetail',(request,response)=>{
     let parentid=request.query.parentId;
     console.log('parentid '+parentid);
-    let qry = 'SELECT fd.sfid,fd.Name,fd.Timely_submissions_of_all_Deliverables__c,fd.Work_Quality_Goods_Quality__c,fd.Issue_Knowledge_Expertise__c,fd.Quantity_Requested_vs_Received__c as quantity ,fd.Created_by_Heroku_User__c,con.Name as username,fd.Procurement_Non_IT__c FROM salesforce.Feedback__c fd INNER JOIN salesforce.contact con ON con.sfid = fd.Created_by_Heroku_User__c WHERE sfid=$1';
+    let qry = 'SELECT fd.sfid,fd.Name,fd.Timely_submissions_of_all_Deliverables__c,fd.Work_Quality_Goods_Quality__c,fd.Issue_Knowledge_Expertise__c,fd.Quantity_Requested_vs_Received__c as quantity ,fd.Created_by_Heroku_User__c,con.Name as username,fd.Procurement_Non_IT__c FROM salesforce.Feedback__c fd INNER JOIN salesforce.contact con ON con.sfid = fd.Created_by_Heroku_User__c WHERE fd.sfid=$1';
     console.log('qry  =>'+qry)
     pool.query(qry,[parentid])
     .then((result)=>{
