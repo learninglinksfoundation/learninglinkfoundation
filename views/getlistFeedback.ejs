@@ -113,7 +113,7 @@
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-6">
-                    <label for="issue">Issue Knowledge/ Expertise <span style="color: red;">*</span> </label>
+                    <label for="issue"> Issue Knowledge/ Expertise <span style="color: red;">*</span> </label>
                     <select id="issue" name="issue" class="form-control" required="true" >
                         <option value="">None</option>
                         <option value="Delighted">Delighted</option>
@@ -408,19 +408,24 @@ function additionalEditFunctionality(){
                 })
                 .done((data)=>{
                     console.log('data '+JSON.stringify(data))
+                    toggleError('Successfully Updated','success')
                 })
                 .fail((jqXHR, status, error) =>{
                     console.log('jqXHR  : '+JSON.stringify(jqXHR));
                     console.log('error  : '+error);
-                    toggleError(jqXHR.responseText,'danger')
+                    
 
                     
                     if(jqXHR.responseText=='succesfully Update')
                     {
-                        toggleError('Successfully Update','danger')
+                        toggleError('Successfully Updated','success')
                         //alert('');
+                        window.location.reload();
                        // $('#fedNonItEditModal').modal('hide');
                         document.getElementById("editFeedNONit").reset();
+                    }
+                    else{
+                        toggleError(jqXHR.responseText,'danger')
                     }
                   })
           })
