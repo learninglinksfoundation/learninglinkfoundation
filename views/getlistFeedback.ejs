@@ -19,7 +19,7 @@
 <div class="container">
     <div class="row mt-5 mb-3 align-items-center">
 
-        <div class="col-md-5">
+        <div class="col-md-6">
         <a class="btn btn-primary btn-md bg-gray mb-mobile" style="margin-right: 5px;" id="procReq" href="/procurement/assetRequisitionNonITFeedback/<%=procid %>" >Go To Procurement Request </a>
         <a class="btn btn-primary btn-md bg-gray mb-mobile" href="/procurement/feedbackProcurementNonIT/<%=procid %>">Go To Purchase information</a> 
         </div>
@@ -122,7 +122,8 @@
                     </select> 
                  </div>
                     <div class="col-md-6">
-                    <input type="text" class="form-control" id="userId" value=""   name="userId" >
+                    <label for="userId">Created by Name </label>
+                    <input type="text" class="form-control" id="userId" value="" disabled  name="userId" >
                     <input type="hidden" class="form-control" id="feedid" value=""   name="feedid" >
                     </div>
                 </div>
