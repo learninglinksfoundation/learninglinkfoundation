@@ -14,7 +14,7 @@
 
         <div class="col-md-5">
         <a class="btn btn-primary btn-md bg-gray mb-mobile" style="margin-right: 5px;" id="procReq" href="/procurement/assetRequisitionNonITFeedback/<%=procid %>" >Go To Procurement Request </a>
-        <a class="btn btn-primary btn-md bg-gray mb-mobile" href="/procurement/feedbackProcurementNonIT/<%=procid %>">Go to Purchase information</a> 
+        <a class="btn btn-primary btn-md bg-gray mb-mobile" href="/procurement/feedbackProcurementNonIT/<%=procid %>">Go To Purchase information</a> 
         </div>
 
         <div class="col-md-3">
@@ -106,7 +106,7 @@
                 <div class="row">
                     <div class="col-md-6">
                     <label for="qua">Quantity Requested vs Received </label>
-                    <select id="qua" name="qua" class="form-control" required="true" >
+                    <select id="quantiReq" name="qua" class="form-control" required="true" >
                         <option value="">None</option>
                         <option value="Delighted">Delighted</option>
                         <option value="Satisfactory">Satisfactory	</option>
@@ -141,7 +141,7 @@
      <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">FEEDBACKS DETAIL</h5>
+          <h5 class="modal-title">Feedbacks Detail</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -152,7 +152,6 @@
             </table>
           
             <div class="modal-footer">
-                  <button type="submit" class="btn btn-primary" id="editfeedbutton" data-dismiss="modal">Save</button>
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
               </div>
             
@@ -169,7 +168,7 @@
 
 
 <script>
-
+//
     $(document).ready(function(){
 
         $('#parentId').hide();
@@ -265,7 +264,7 @@
                 event.stopPropagation();
                 let procurementId = this.id;
            
-            $('#procurementModal').modal('show');
+            $('#feedDetailModal').modal('show');
             $.ajax({
                 url : '/procurement/getfeedbackdetail',
                 type:'get',
@@ -282,6 +281,31 @@
                 console.log('response from the Procurement Tab;e Ajax '+JSON.stringify(response));
                 $('#feedbackTable').empty();
                 console.log(response)
+
+                if(response.length > 0){
+                  let record = response[0];
+                  let htmlTable = '';
+                  htmlTable += '<tr>';
+                  htmlTable += '<td ><strong>Feedback Name</strong></td>';
+                  htmlTable += '<td>'+record.name+'</td>';
+                  htmlTable += '<td><strong>Quantity Requested vs Received</strong></td>';
+                  htmlTable += '<td>'+record.username+'</td>';
+                  htmlTable += '</tr>';
+                  htmlTable += '<tr>';
+                  htmlTable += '<td><strong>Timely submissions of all Deliverables</strong></td>';
+                  htmlTable += '<td>'+record.timely_submissions_of_all_deliverables__c+'</td>';
+                  htmlTable += '<td><strong>Work Quality/Goods Quality</strong></td>';
+                  htmlTable += '<td> >'+record.work_quality_goods_quality__c+'</td>';
+                  htmlTable += '</tr>';
+                  htmlTable += '<tr>';
+                  htmlTable += '<td ><strong>Issue Knowledge/ Expertise</strong></td>';
+                  htmlTable += '<td>'+record.issue_knowledge_expertise__c+'</td>';
+                  htmlTable += '<td><strong>Quantity Requested vs Received</strong></td>';
+                  htmlTable += '<td>'+record.quantity+'</td>';
+                  htmlTable += '</tr>';
+                  $('#feedbackTable').html(htmlTable);
+
+                }
             })
         })
     }
@@ -315,7 +339,7 @@ function additionalEditFunctionality(){
           document.forms["editFeedNONit"]["feedid"].value = feedDetail.sfid;
           document.forms["editFeedNONit"]["issue"].value = feedDetail.issue_knowledge_expertise__c;
           document.forms["editFeedNONit"]["quality"].value = feedDetail.work_quality_goods_quality__c;
-          
+          document.forms["editFeedNONit"]["quantiReq"].value = feedDetail.quantity;
         })
         .fail((jqXHR, status, error) =>{
           $('#detailLoadingSpinner').show();
