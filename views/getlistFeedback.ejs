@@ -7,6 +7,13 @@
 <link rel="stylesheet" href="/stylesheets/table-sortable.css">
 <script src="/scripts/table-sortable.js" ></script>
 
+<style>
+#feedbackTable td {
+    padding: 20px 12px;
+}
+
+</style>
+
 <h3 style="text-align: center; margin-top: 20px;">Feedbacks</h3>
 
 <div class="container">
@@ -115,6 +122,7 @@
                     </select> 
                  </div>
                     <div class="col-md-6">
+                    <input type="text" class="form-control" id="userId" value=""   name="userId" >
                     <input type="hidden" class="form-control" id="feedid" value=""   name="feedid" >
                     </div>
                 </div>
@@ -295,7 +303,7 @@
                   htmlTable += '<td><strong>Timely submissions of all Deliverables</strong></td>';
                   htmlTable += '<td>'+record.timely_submissions_of_all_deliverables__c+'</td>';
                   htmlTable += '<td><strong>Work Quality/Goods Quality</strong></td>';
-                  htmlTable += '<td> >'+record.work_quality_goods_quality__c+'</td>';
+                  htmlTable += '<td> '+record.work_quality_goods_quality__c+'</td>';
                   htmlTable += '</tr>';
                   htmlTable += '<tr>';
                   htmlTable += '<td ><strong>Issue Knowledge/ Expertise</strong></td>';
@@ -335,6 +343,7 @@ function additionalEditFunctionality(){
           let feedDetail=response[0];
           console.log('feedDetail'+feedDetail);
           document.forms["editFeedNONit"]["name"].value = feedDetail.name;
+          document.forms["editFeedNONit"]["userId"].value = feedDetail.username;
           document.forms["editFeedNONit"]["time"].value = feedDetail.timely_submissions_of_all_deliverables__c;
           document.forms["editFeedNONit"]["feedid"].value = feedDetail.sfid;
           document.forms["editFeedNONit"]["issue"].value = feedDetail.issue_knowledge_expertise__c;
