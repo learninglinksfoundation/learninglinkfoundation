@@ -19,87 +19,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 <script src="/scripts/table-sortable.js" ></script>
 <p id="expenseIdpTag"> </p>
-<!-- 
-<script>
-  
-  $('#createAssetRequisitionFormButton').click(function() {
-   let projId = this.id;
-  console.log('procuremment fetchhhhhhh ');
-  console.log('projId'+projId);
-  $('#createAssetRequisitionForm').modal('show');
-  console.log('After Show Edit Modal ');
-  let lstActivityCodes = [];
- 
-  $.ajax({
-       url : '/procurement/fetchActivityCodeforCreateNew',
-       data : {
-          projId : projId
-       },
-       dataType : 'json',
-       type : 'get'
-   })
-   .done((response) => {
-       console.log('response  '+JSON.stringify(response));
-       if(response.length > 0)
-           {
-          
-           response.forEach((eachActivity) => {
-           console.log('eachActivity.name '+eachActivity.name);
-           $('#act')
-           .append($("<option></option>")
-           .attr("value",eachActivity.sfid)
-           .text(eachActivity.name))
-           }); 
-           }
-   })
-   .fail((jqXHR,text,err) => {
-       console.log('text  '+text + '  err '+err);
-   })
 
- 
-  $('#createAssetRequisitionForm').modal('show');
-  $('#assetRequisitionSubmitbutton').on('click',function(event){
- // alert('clcker save button');
-  event.preventDefault();
-  event.stopPropagation();
-  event.stopImmediatePropagation();
-  // alert('Save Button Clicked !');
-  var $inputs = $('#assetRequisitionForm :input');
-  // not sure if you wanted this, but I thought I'd add it.
-  // get an associative array of just the values.
-  var values = {};
-  $inputs.each(function() {
-  values[this.name] = $(this).val();
-  //console.log('fomvalues=> '+JSON.stringify(values));
-  });
- // alert('formValues : '+JSON.stringify(values));
-  $.ajax({
-  url : '/procurement/insertAsssetForm',
-  type:'post',
-  data: values,
-  dataType : 'json'
-  })
-  .done((response) => {
-  console.log('resonse :'+JSON.stringify(response));
-  
-  })
-  .fail((jqXHR, status, error) => {
-  console.log('jqXHR '+JSON.stringify(jqXHR));
-  let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+ jqXHR.responseText+
-  '<button type="button" class="close" data-dismiss="alert-success" aria-label="Close">'+
-  '<span aria-hidden="true">&times;</span>'+
-  '</button>'+
-  '</div>';
-  $('#errorMessages').empty();
-  $('#errorMessages').append(errorHtml); 
- 
- 
-  }) 
-  })
-  })
-  
-  </script>
- -->
 <!--Asset Requisition List View-->
 <p id="assetIdpTag"> </p>
 <div class="responsive">
@@ -245,7 +165,7 @@
   
   <div class="col-md-6">
   <label for="projectName">Project Name</label>
-  <input type="text" class="form-control" id="projectName" value="" name="projectName" readonly="true">
+  <input type="text" class="form-control" id="projectName" value="" name="projectName" disabled>
   </div>
   <div class="col-md-6">
     <label for="closurePlanDate">Target Date of Receiving</label>
@@ -277,7 +197,7 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="managementTeam">Comments by Management Team</label>
-                <textarea class="form-control" rows="3" name="managementTeam" readonly disabled cols="15" id="managementTeam" ></textarea>
+                <textarea class="form-control" rows="3" name="managementTeam"  disabled cols="15" id="managementTeam" ></textarea>
             </div>
             <div class="col-md-6">
                 <label for="commentsRaiser">Comments by Raiser</label>
@@ -290,11 +210,11 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="chairTeam">Comments by Chairperson</label>
-                <textarea class="form-control" rows="3" name="chairTeam" readonly disabled cols="15" id="chairTeam" ></textarea>
+                <textarea class="form-control" rows="3" name="chairTeam"  disabled cols="15" id="chairTeam" ></textarea>
             </div>
             <div class="col-md-6">
                 <label for="procureTeam">Comments by Procurement Committee</label>
-                <textarea class="form-control" rows="3" name="procureTeam" readonly disabled cols="15" id="procureTeam" ></textarea>
+                <textarea class="form-control" rows="3" name="procureTeam"  disabled cols="15" id="procureTeam" ></textarea>
             </div>
         </div> 
      </div>
@@ -417,9 +337,9 @@
         <div class="row">
         <div class="col-md-6">
         <label for="accApproval">Accounts Approval</label>
-        <input type="text" class="form-control" id="accApproval" value="" name="accApproval" readonly="true">
+        <input type="text" class="form-control" id="accApproval" value="" name="accApproval" disabled>
    <!--
- <select id="accApproval" class="custom-select custom-select-sm form-control" name="accApproval" readonly="true">
+ <select id="accApproval" class="custom-select custom-select-sm form-control" name="accApproval" disabled>
           <option value="">None</option>  
           <option value="Approved">Approved</option>
             <option value="Pending">Pending</option>
@@ -430,7 +350,7 @@
         
         <div class="col-md-6">
         <label for="utr">UTR Number/Transaction details</label>
-        <input type="text" class="form-control" id="utr" value="" name="utr" readonly="true" >
+        <input type="text" class="form-control" id="utr" value="" name="utr" disabled >
         </div>
         </div> 
         </div>
@@ -439,8 +359,8 @@
           <div class="row">
           <div class="col-md-6">
           <label for="advpay">Advance Payment Status</label>
-          <input type="text" class="form-control" id="advpay" value="" name="advpay" readonly="true" >
-      <!--   <select id="advpay" class="custom-select custom-select-sm form-control" name="advpay" readonly="true">
+          <input type="text" class="form-control" id="advpay" value="" name="advpay" disabled >
+      <!--   <select id="advpay" class="custom-select custom-select-sm form-control" name="advpay" disabled>
             <option value="">None</option>  
             <option value="Yes"></option>
               <option value="No">No</option>
@@ -450,8 +370,8 @@
           
           <div class="col-md-6">
             <label for="paymentStatus">Final payment Status</label>
-            <input type="text" class="form-control" id="paymentStatus" value="" name="paymentStatus" readonly="true" >
-           <!--<select id="paymentStatus" class="custom-select custom-select-sm form-control" name="paymentStatus" readonly="true">
+            <input type="text" class="form-control" id="paymentStatus" value="" name="paymentStatus" disabled >
+           <!--<select id="paymentStatus" class="custom-select custom-select-sm form-control" name="paymentStatus" disabled>
             <option value="">None</option>
             <option value="Released">Released</option>
             <option value="Rejected">Not Released</option>
@@ -474,7 +394,7 @@
             
             <div class="col-md-6">
               <label for="attachurl">PO Attachment URL</label>
-              <input type="text" class="form-control" id="attachurl" value="" name="attachurl" readonly="true" >
+              <input type="text" class="form-control" id="attachurl" value="" name="attachurl" disabled >
               </div>
             </div> 
             </div>
@@ -491,7 +411,7 @@
   <div class="form-group">
   <div class="row">
   <div class="col-md-6">
-  <label for="status">Status</label>
+  <label for="status">Form status</label>
   <select id="status" class="custom-select custom-select-sm form-control" name="status">
   <option value="Open" selected>Open</option>
   <option value="Closed">Closed</option>
@@ -783,7 +703,7 @@
           nononit: 'Number of Purchase Information',
           dateofRec:'Target Date of Receiving',
           accAppStatus:'Accounts Approval Status',
-          status:'Status',
+          Form status:'Status',
         //  itamount: 'IT Amount',
        //   nonitamount: 'Non-IT Amount' ,
           totalamount: 'Total Approved budget as per purchase', 
@@ -1181,7 +1101,7 @@
       assetDetailsTableRows += '<td colspan="4" style="background-color:#d3d3d3;"><h5>Received Stage( to be filled by Raiser)</h5></td>'; 
       assetDetailsTableRows += '</tr>';
       assetDetailsTableRows += '<tr>';
-      assetDetailsTableRows += '<td><strong>Status<strong></td>';
+      assetDetailsTableRows += '<td><strong>Form status<strong></td>';
       assetDetailsTableRows += '<td>'+assetDetailsRecord.status__c+'</td>';
       assetDetailsTableRows += '<td><strong>Goods/Service Received<strong></td>';
       assetDetailsTableRows += '<td>'+assetDetailsRecord.payment_received_acknowledgement__c+'</td>';
@@ -1361,15 +1281,15 @@
             console.log('hdjsj');
 
             console.log('Validation pqass');
-            $('#assetName').attr("readonly", true);
-            $('#datepicker1').attr("readonly", true);
-            $('#activityCode').attr("readonly", true);
+            $('#assetName').attr("disabled", true);
+            $('#datepicker1').attr("disabled", true);
+            $('#activityCode').attr("disabled", true);
             $('#quotations').attr("disabled", true);
-            $('#reason').attr("readonly", true);
-            $('#pricing').attr("readonly", true);
-            $('#deliveryPlace').attr("readonly", true);
-            $('#deliveryTime').attr("readonly", true);
-            $('#deliveryCost').attr("readonly", true);
+            $('#reason').attr("disabled", true);
+            $('#pricing').attr("disabled", true);
+            $('#deliveryPlace').attr("disabled", true);
+            $('#deliveryTime').attr("disabled", true);
+            $('#deliveryCost').attr("disabled", true);
         }
 
         if (assetRecord.total_amount__c == 0) {
