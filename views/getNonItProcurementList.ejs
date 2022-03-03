@@ -480,10 +480,10 @@
                       
                             $('#procTable').empty();
                             $('#procTable').html(htmlTable);
-                            let feed = response.feedback !== undefined && response.feedback !== null && response.feedback.length > 0
+                            let feed = response.feedback !== undefined && response.feedback !== null && response.feedback.length === 0
                             let acApproval = record.accountapproval === 'Approved';
 
-                            acApproval && feed ? $('button.feedback').attr('disabled',true) : $('button.feedback').attr('disabled',false)
+                            acApproval && feed ? $('button.feedback').attr('disabled',false) : $('button.feedback').attr('disabled',true)
                 }
                 vendorDetailFunction();
                 createFeedback(procurementId);
