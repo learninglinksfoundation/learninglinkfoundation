@@ -182,7 +182,7 @@
                         </div>
                       <div class="col-md-6">
                         <input type="hidden" class="form-control" id="hide" value=""   name="hide" >
-                        <label for="unit">Created by Name  </label>
+                        <label for="unit">Created by   </label>
                         <input type="text" class="form-control" id="createdName" value="" disabled  name="createdName" >
 
                         </div>
@@ -412,7 +412,7 @@
                                 htmlTable += '<td>'+response[0].per_unit_cost__c+'</td>';
                             htmlTable += '</tr>';
                             htmlTable += '<tr>';
-                                htmlTable += '<td><strong>Other </strong></td>';
+                                htmlTable += '<td><strong>Other Items </strong></td>';
                                 htmlTable += '<td>'+response[0].other_items__c+'</td>';
                                 htmlTable += '<td><strong>Quote URL </strong></td>';
                                 if(response[0].public_quote_url__c!="demo"){
@@ -428,7 +428,7 @@
                             htmlTable += '<tr>';
                                 htmlTable += '<td><strong>Item Description/Details </strong></td>';
                                 htmlTable += '<td>'+response[0].description+'</td>';
-                                htmlTable += '<td><strong>Created by Name</strong></td>';
+                                htmlTable += '<td><strong>Created by</strong></td>';
                                 htmlTable += `<td>${response[0].username}</td>`;
                             htmlTable += '</tr>';
                               $('#itemDetailTable').empty();

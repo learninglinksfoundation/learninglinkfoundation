@@ -157,10 +157,10 @@
                   <div class="row">
                      <div class="col-md-6">
                         <label for="quote">Reason for not providing GST no.</label>
-                        <input type="text" class="form-control" id="reason" value=""   name="reason" >
+                        <textarea  class="form-control" id="reason" value=""   name="reason" ></textarea>
                      </div>
                      <div class="col-md-6">
-                        <label for="quote">Created by Name</label>
+                        <label for="quote">Created by</label>
                         <input type="text" class="form-control" id="conuser" value=""  disabled  name="conuser" >
                      </div>
                   </div>
@@ -534,7 +534,7 @@ let st =["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Go
                                         else{
                                             vendorDetailRow +='<td></td>';
                                         }
-                                        vendorDetailRow += '<td>Created by Name </td>';
+                                        vendorDetailRow += '<td>Created by </td>';
                                     vendorDetailRow += `<td>${eachRecord.username}</td>`;
                             vendorDetailRow += '</tr>'; 
 
