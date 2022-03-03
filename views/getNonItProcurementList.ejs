@@ -483,10 +483,14 @@
                             let feed = response.feedback !== undefined && response.feedback !== null && response.feedback.length === 0
                             let acApproval = record.accountapproval === 'Approved';
 
-                            acApproval && feed ? $('button.feedback').attr('disabled',false) : $('button.feedback').attr('disabled',true)
+                            if(acApproval && feed){
+                              $('button.feedback').attr('disabled',false)
+                              createFeedback(procurementId);
+                            } else
+                               $('button.feedback').attr('disabled',true)
                 }
                 vendorDetailFunction();
-                createFeedback(procurementId);
+                
                 if(response.feedback.length>0){
                   let ftable='';
                   ftable +='<thead><th>Feedback Name</th><th>Quantity Requested vs Received</th><th>Timely submissions of all Deliverables</th><th>Work Quality/Goods Quality</th><th>Issue Knowledge/ Expertise</th>';
