@@ -165,7 +165,7 @@
   
   <div class="col-md-6">
   <label for="projectName">Project Name</label>
-  <input type="text" class="form-control" id="projectName" value="" name="projectName" disabled>
+  <input type="text" class="form-control" id="projectName" value="" name="projectName" readonly="true">
   </div>
   <div class="col-md-6">
     <label for="closurePlanDate">Target Date of Receiving</label>
@@ -337,9 +337,9 @@
         <div class="row">
         <div class="col-md-6">
         <label for="accApproval">Accounts Approval</label>
-        <input type="text" class="form-control" id="accApproval" value="" name="accApproval" disabled>
+        <input type="text" class="form-control" id="accApproval" value="" name="accApproval" readonly="true">
    <!--
- <select id="accApproval" class="custom-select custom-select-sm form-control" name="accApproval" disabled>
+ <select id="accApproval" class="custom-select custom-select-sm form-control" name="accApproval" readonly="true">
           <option value="">None</option>  
           <option value="Approved">Approved</option>
             <option value="Pending">Pending</option>
@@ -350,7 +350,7 @@
         
         <div class="col-md-6">
         <label for="utr">UTR Number/Transaction details</label>
-        <input type="text" class="form-control" id="utr" value="" name="utr" disabled >
+        <input type="text" class="form-control" id="utr" value="" name="utr" readonly="true" >
         </div>
         </div> 
         </div>
@@ -359,8 +359,8 @@
           <div class="row">
           <div class="col-md-6">
           <label for="advpay">Advance Payment Status</label>
-          <input type="text" class="form-control" id="advpay" value="" name="advpay" disabled >
-      <!--   <select id="advpay" class="custom-select custom-select-sm form-control" name="advpay" disabled>
+          <input type="text" class="form-control" id="advpay" value="" name="advpay" readonly="true" >
+      <!--   <select id="advpay" class="custom-select custom-select-sm form-control" name="advpay" readonly="true">
             <option value="">None</option>  
             <option value="Yes"></option>
               <option value="No">No</option>
@@ -370,8 +370,8 @@
           
           <div class="col-md-6">
             <label for="paymentStatus">Final payment Status</label>
-            <input type="text" class="form-control" id="paymentStatus" value="" name="paymentStatus" disabled >
-           <!--<select id="paymentStatus" class="custom-select custom-select-sm form-control" name="paymentStatus" disabled>
+            <input type="text" class="form-control" id="paymentStatus" value="" name="paymentStatus" readonly="true" >
+           <!--<select id="paymentStatus" class="custom-select custom-select-sm form-control" name="paymentStatus" readonly="true">
             <option value="">None</option>
             <option value="Released">Released</option>
             <option value="Rejected">Not Released</option>
@@ -394,7 +394,7 @@
             
             <div class="col-md-6">
               <label for="attachurl">PO Attachment URL</label>
-              <input type="text" class="form-control" id="attachurl" value="" name="attachurl" disabled >
+              <input type="text" class="form-control" id="attachurl" value="" name="attachurl" readonly="true" >
               </div>
             </div> 
             </div>
@@ -703,7 +703,7 @@
           nononit: 'Number of Purchase Information',
           dateofRec:'Target Date of Receiving',
           accAppStatus:'Accounts Approval Status',
-           status:'Form Status',
+           status:'Form status',
         //  itamount: 'IT Amount',
        //   nonitamount: 'Non-IT Amount' ,
           totalamount: 'Total Approved budget as per purchase', 
@@ -1281,15 +1281,15 @@
             console.log('hdjsj');
 
             console.log('Validation pqass');
-            $('#assetName').attr("disabled", true);
-            $('#datepicker1').attr("disabled", true);
-            $('#activityCode').attr("disabled", true);
+            $('#assetName').attr("readonly", true);
+            $('#datepicker1').attr("readonly", true);
+            $('#activityCode').attr("readonly", true);
             $('#quotations').attr("disabled", true);
-            $('#reason').attr("disabled", true);
-            $('#pricing').attr("disabled", true);
-            $('#deliveryPlace').attr("disabled", true);
-            $('#deliveryTime').attr("disabled", true);
-            $('#deliveryCost').attr("disabled", true);
+            $('#reason').attr("readonly", true);
+            $('#pricing').attr("readonly", true);
+            $('#deliveryPlace').attr("readonly", true);
+            $('#deliveryTime').attr("readonly", true);
+            $('#deliveryCost').attr("readonly", true);
         }
 
         if (assetRecord.total_amount__c == 0) {
