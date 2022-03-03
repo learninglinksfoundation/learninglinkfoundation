@@ -165,7 +165,7 @@
   
   <div class="col-md-6">
   <label for="projectName">Project Name</label>
-  <input type="text" class="form-control" id="projectName" value="" name="projectName" readonly="true">
+  <input type="text" class="form-control" id="projectName" value="" name="projectName" disabled="true">
   </div>
   <div class="col-md-6">
     <label for="closurePlanDate">Target Date of Receiving</label>
@@ -337,7 +337,7 @@
         <div class="row">
         <div class="col-md-6">
         <label for="accApproval">Accounts Approval</label>
-        <input type="text" class="form-control" id="accApproval" value="" name="accApproval" readonly="true">
+        <input type="text" class="form-control" id="accApproval" value="" name="accApproval" disabled="true">
    <!--
  <select id="accApproval" class="custom-select custom-select-sm form-control" name="accApproval" readonly="true">
           <option value="">None</option>  
@@ -350,7 +350,7 @@
         
         <div class="col-md-6">
         <label for="utr">UTR Number/Transaction details</label>
-        <input type="text" class="form-control" id="utr" value="" name="utr" readonly="true" >
+        <input type="text" class="form-control" id="utr" value="" name="utr" disabled="true" >
         </div>
         </div> 
         </div>
@@ -359,7 +359,7 @@
           <div class="row">
           <div class="col-md-6">
           <label for="advpay">Advance Payment Status</label>
-          <input type="text" class="form-control" id="advpay" value="" name="advpay" readonly="true" >
+          <input type="text" class="form-control" id="advpay" value="" name="advpay" disabled="true" >
       <!--   <select id="advpay" class="custom-select custom-select-sm form-control" name="advpay" readonly="true">
             <option value="">None</option>  
             <option value="Yes"></option>
@@ -370,7 +370,7 @@
           
           <div class="col-md-6">
             <label for="paymentStatus">Final payment Status</label>
-            <input type="text" class="form-control" id="paymentStatus" value="" name="paymentStatus" readonly="true" >
+            <input type="text" class="form-control" id="paymentStatus" value="" name="paymentStatus" disabled="true" >
            <!--<select id="paymentStatus" class="custom-select custom-select-sm form-control" name="paymentStatus" readonly="true">
             <option value="">None</option>
             <option value="Released">Released</option>
@@ -394,7 +394,7 @@
             
             <div class="col-md-6">
               <label for="attachurl">PO Attachment URL</label>
-              <input type="text" class="form-control" id="attachurl" value="" name="attachurl" readonly="true" >
+              <input type="text" class="form-control" id="attachurl" value="" name="attachurl" disabled="true" >
               </div>
             </div> 
             </div>
@@ -616,7 +616,7 @@
                     </button>
                     <!-- <button class="btn btn-primary float-right" id="pettyCashButton" >New</button> -->
                  
-                    <a href = "#" class="btn btn-primary float-right procurementNonIT"  id="pettyCashButton" style="color:white;pointer-events: auto !important;" >New</a>              
+                    <button class="btn btn-primary float-right procurementNonIT"  id="pettyCashButton" style="color:white;pointer-events: auto !important;" >New</button>              
                  
                 </h5>
               </div>
@@ -778,10 +778,9 @@
             })
     })
 
-      $(document).ready(() => {
-      $('assetId').hide();
-      
-      $('a.procurementNonIT').click(() => {
+    function newButtonClick(){
+        $('button.procurementNonIT').unbind('click');
+        $('button.procurementNonIT').click(() => {
       console.log('procurementNonIT anchor tag ');
       var assetId = document.getElementById('expenseIdpTag').innerHTML;
       console.log('assetId : '+assetId);
@@ -790,6 +789,14 @@
     //  location.assign('/procurement/nonItProducts/'+assetId);
       window.open('/procurement/nonItProducts/'+assetId+'&'+buttonDisable,'_blank');
       });
+    }
+
+
+
+      $(document).ready(() => {
+      $('assetId').hide();
+      
+      
       /*$('a.procurementIT').click(() => {
       console.log('procurementIT anchor tag ');
       var assetId = document.getElementById('expenseIdpTag').innerHTML;
@@ -1124,10 +1131,21 @@
       assetDetailsTableRows += '<td><strong><strong></td>';
       assetDetailsTableRows += '<td></td>';
       assetDetailsTableRows += '</tr>';
+
+      if(assetDetailsRecord.accounts_approval__c === 'Approved'){
+        newButtonClick();
+        $('button.procurementNonIT').attr('disabled',false);
+      }
+      else{
+        $('button.procurementNonIT').attr('disabled',true)
+      }
+
+      
    
       })
       $('#assetDetails').html(assetDetailsTableRows);
-      
+
+
       }
       if(assetDetails.nonItProducts.length > 0)
                     {
@@ -1281,15 +1299,15 @@
             console.log('hdjsj');
 
             console.log('Validation pqass');
-            $('#assetName').attr("readonly", true);
-            $('#datepicker1').attr("readonly", true);
-            $('#activityCode').attr("readonly", true);
+            $('#assetName').attr("disabled", true);
+            $('#datepicker1').attr("disabled", true);
+            $('#activityCode').attr("disabled", true);
             $('#quotations').attr("disabled", true);
-            $('#reason').attr("readonly", true);
-            $('#pricing').attr("readonly", true);
-            $('#deliveryPlace').attr("readonly", true);
-            $('#deliveryTime').attr("readonly", true);
-            $('#deliveryCost').attr("readonly", true);
+            $('#reason').attr("disabled", true);
+            $('#pricing').attr("disabled", true);
+            $('#deliveryPlace').attr("disabled", true);
+            $('#deliveryTime').attr("disabled", true);
+            $('#deliveryCost').attr("disabled", true);
         }
 
         if (assetRecord.total_amount__c == 0) {
