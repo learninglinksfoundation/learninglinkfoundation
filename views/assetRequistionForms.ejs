@@ -1133,11 +1133,12 @@
       assetDetailsTableRows += '</tr>';
 
       if(assetDetailsRecord.accounts_approval__c === 'Approved'){
-        newButtonClick();
-        $('button.procurementNonIT').attr('disabled',false);
+        $('button.procurementNonIT').attr('disabled',true)
       }
       else{
-        $('button.procurementNonIT').attr('disabled',true)
+        
+        newButtonClick();
+        $('button.procurementNonIT').attr('disabled',false);
       }
 
       
