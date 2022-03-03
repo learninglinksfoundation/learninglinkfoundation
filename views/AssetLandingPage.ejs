@@ -51,7 +51,7 @@
       <i class="fa fa-angle-double-right mr-3"></i>Purchase Information
       </button>
       <!-- <button class="btn btn-primary float-right" id="pettyCashButton" >New</button> -->
-      <a href="#" class="btn btn-primary float-right procurementNonIT" id="pettyCashButton" style="color:white;" >New</a>
+      <button class="btn btn-primary float-right procurementNonIT"  id="pettyCashButton" style="color:white;pointer-events: auto !important;" >New</button>  
       </h5>
       </div>
      
@@ -72,7 +72,7 @@
                 <button class="btn btn-link collapsed text-left" type="button"
                     data-toggle="collapse" data-target="#collapseThree"
                     aria-expanded="false" aria-controls="collapseThree">
-                    <i class="fa fa-angle-double-right mr-3"></i>Approval
+                    <i class="fa fa-angle-double-right mr-3"></i>Procurement Approval
                       </button>
                     </h5>
                   </div>
@@ -130,6 +130,22 @@
    </div>
 
 <script>
+
+function newButtonClick(){
+        $('button.procurementNonIT').unbind('click');
+        $('button.procurementNonIT').click(() => {
+      console.log('procurementNonIT anchor tag ');
+      var assetId = document.getElementById('parentId').innerHTML;
+      console.log('assetId : '+assetId);
+      let buttonDisable = document.getElementById(assetId).disabled;
+            console.log(' button Disable + '+buttonDisable);
+    //  location.assign('/procurement/nonItProducts/'+assetId);
+      window.open('/procurement/nonItProducts/'+assetId+'&'+buttonDisable,'_blank');
+      });
+    }
+
+
+
         $(document).ready(function(){
            $('#parentId').hide();
            $('#isDisabled').hide();
@@ -378,6 +394,15 @@
       assetDetailsTableRows += '<td><strong><strong></td>';
       assetDetailsTableRows += '<td></td>';
       assetDetailsTableRows += '</tr>';
+
+      if(assetDetailsRecord.accounts_approval__c === 'Approved'){
+        $('button.procurementNonIT').attr('disabled',true)
+      }
+      else{
+        
+        newButtonClick();
+        $('button.procurementNonIT').attr('disabled',false);
+      }
    
       })
       $('#assetDetails').html(assetDetailsTableRows);
@@ -415,12 +440,12 @@
                     if(assetDetails.approvals.length > 0)
                     {
                         let approvalHtml = '';
-                        approvalHtml+='<thead><th>Name </th><th>Type</th> <th>Status</th> <th>Approver Emails</th></thead>';
+                        approvalHtml+='<thead><th>Name </th><th>Type</th> <th>Status</th> </thead>';
                         assetDetails.approvals.forEach((eachApproval)=> {
                             approvalHtml += '<tr><td>'+eachApproval.name +'</td>';
                             approvalHtml += '<td>'+eachApproval.approval_type__c +'</td>';
-                            approvalHtml += '<td>'+eachApproval.status__c +'</td>';
-                            approvalHtml += '<td>'+eachApproval.approver_s_emails__c +'</td></tr>';      
+                            approvalHtml += '<td>'+eachApproval.status__c +'</td></tr>';
+                                  
                         })
                         approvalHtml+=  '<td colspan="6"><center><a target="_blank" href="/procurement/getProcurementApproval/'+assetId+'&'+isDisabled+'">View All</a></centre></td>';
                         $('#approvalTable').empty();
@@ -454,14 +479,7 @@
                     return false; */
                   
 
-                     $('a.procurementNonIT').click(() => {
-                       // alert('bhjsbvhjsdbjhd');
-                        console.log('procurementNonIT anchor tag ');
-                        var assetId = document.getElementById('parentId').innerHTML;
-                        console.log('assetId : '+assetId);
-                      //  location.assign('/procurement/nonItProducts/'+assetId);
-                        window.open('/procurement/nonItProducts/'+assetId+'&'+isDisabled,'_blank');
-                        });
+                     
 
                        // $('a.procurementIT').click(() => {
                        //     console.log('procurementIT anchor tag ');
