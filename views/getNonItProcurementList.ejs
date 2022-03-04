@@ -486,8 +486,11 @@
                             if(acApproval && feed){
                               $('button.feedback').attr('disabled',false)
                               createFeedback(procurementId);
-                            } else
+                            } else{
+                              $('button.feedback').unbind('click');
                                $('button.feedback').attr('disabled',true)
+                            }
+                              
                 }
                 vendorDetailFunction();
                 

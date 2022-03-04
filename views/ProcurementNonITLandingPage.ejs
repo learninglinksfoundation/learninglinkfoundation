@@ -65,7 +65,7 @@
         </button>
         <!-- <button class="btn btn-primary float-right" id="pettyCashButton" >New</button> -->
        <!--  <a href="#" class="btn btn-primary float-right procurementNonIT" id="createAssetRequisitionFormButton" style="color:white;" >New</a> -->
-        <a href="#" class="btn btn-primary float-right feedback" style="color:white;">New</a>
+        <button  class="btn btn-primary float-right feedback" style="color:white;">New</button>
         </h5>
         </div>
        
@@ -318,9 +318,20 @@
                       
                             $('#procTable').empty();
                             $('#procTable').html(htmlTable);
+
+                            let feed = response.feedback !== undefined && response.feedback !== null && response.feedback.length === 0
+                            let acApproval = record.accountapproval === 'Approved';
+
+                            if(acApproval && feed){
+                              $('button.feedback').attr('disabled',false)
+                              createFeedback(procurementId);
+                            } else{
+                              $('button.feedback').unbind('click');
+                               $('button.feedback').attr('disabled',true)
+                            }
                 }
                 vendorDetailFunction();
-                createFeedback(procurementId);
+                //createFeedback(procurementId);
                 if(response.feedback.length>0){
                   let ftable='';
                   ftable +='<thead><th>Feedback Name</th><th>Quantity Requested vs Received</th><th>Timely submissions of all Deliverables</th><th>Work Quality/Goods Quality</th><th>Issue Knowledge/ Expertise</th>';
@@ -346,7 +357,8 @@
 
         function createFeedback(proid){
          // alert('procId'+proid);
-          $('a.feedback').click(() => {
+         $('button.feedback').unbind('click');
+          $('button.feedback').click(() => {
             console.log('proccurement id '+proid);
           //  location.assign('/procurement/createFeedback/'+proid);
             window.open('/procurement/createFeedback/'+proid,'_blank');
