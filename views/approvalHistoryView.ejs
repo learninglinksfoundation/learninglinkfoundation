@@ -8,9 +8,9 @@
 <h3 style="text-align: center; margin-top: 20px;">Approval History</h3>
 <div class="container">
     <div class="row mt-5 mb-3 align-items-center">
-        <div class="col-md-5">
-          <a class="btn btn-primary btn-md bg-gray" href="/procurement/assetRequisitionViewRel/<%=parentAssetId %>&<%= isDisabled %>" >Go To Procurement Request Form </a>
-          <!--   <a class="btn btn-primary btn-md bg-gray" href="#" id="">Create New Non It Procurement</a> -->
+        <div class="col-md-6" style="display:flex" >
+          <a class="btn btn-primary btn-md bg-gray" style="margin-right: 5px;" href="/procurement/assetRequisitionViewRel/<%=parentAssetId %>&<%= isDisabled %>" >Go To Procurement Request Form </a>
+             <a class="btn btn-primary btn-md bg-gray" href="/procurement/getProcurementApproval/<%=parentAssetId %>&<%= isDisabled %>" id="">Go To Approvals</a> 
             <!-- <a class="btn btn-primary btn-md bg-gray" href="/procurement/getNonItProcurementListVIew/" >Refresh</a> -->
         </div>
         <div class="col-md-3">
