@@ -780,6 +780,7 @@ router.post('/updateasset',(request,response)=>{
             
         })
         .catch(err=>{
+            console.log(JSON.stringify(err));
             response.send(err);
         })
 
