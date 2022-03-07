@@ -772,7 +772,7 @@ router.post('/updateasset',async (request,response)=>{
                     }
                 })
                 if(Object.keys(obj).length === 0 ){
-                    response.send('Purchase information has not any feedbacks. ');
+                    response.send('Form Status can be chosen as Closed when each purchase information has feedback against it ');
                     return ;
                 }
                 else{
