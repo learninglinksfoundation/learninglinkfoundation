@@ -742,6 +742,46 @@ router.post('/updateasset',(request,response)=>{
     var payPass='';
     var attchPass='';
     var quant='';
+
+    if(status === 'Closed'){
+        //assetsfid
+        pool.query('SELECT sfid, Name,Products_Services_Name__c, Items__c,Quantity__c, Others__c, Budget__c FROM  salesforce.Product_Line_Item__c WHERE Asset_Requisition_Form__c = $1',[assetsfid])
+        then(res=>{
+            let tmp = "";
+            res.rows.forEach(dt=>{
+                tmp = `${tmp}'${dt.sfid}',`;
+            })
+            tmp = `(${tmp.substr(0,tmp.length-1)})`;
+            let q = 'SELECT sfid,Name,Timely_submissions_of_all_Deliverables__c,Work_Quality_Goods_Quality__c,Issue_Knowledge_Expertise__c,quantity_requested_vs_received__c,Procurement_Non_IT__c FROM salesforce.Feedback__c WHERE Procurement_Non_IT__c In $1'
+            pool.query(q,[tmp])
+            .then(resp=>{
+                let obj = {};
+                resp.rows.forEach(dt=>{
+                    if(!obj[dt.procurement_non_it__c]){
+                        obj[dt.procurement_non_it__c] = [dt]
+                    }
+                    else{
+                        obj[dt.procurement_non_it__c].push(dt);
+                    }
+                })
+                
+                response.send(obj)
+            })
+            .catch(err=>{
+                response.send(err)
+            })
+
+
+            
+        })
+        .catch(err=>{
+            response.send(err)
+        })
+
+    }
+
+
+
     
     console.log('---- 731 procurement.js receivedQuantity: ' + receivedQuantity);
     if(receivedQuantity > 0 || receivedQuantity == null || receivedQuantity == '')

@@ -1505,7 +1505,10 @@ $('#editassetForm').on('click',function(event){
       '</div>';
       $('#errorMessages1').empty();
       $('#errorMessages1').append(errorHtml); 
- alert('Error :'+jqXHR.responseText);
+ //alert('Error :'+jqXHR.responseText);
+    window.setTimeout(()=>{
+        $('#errorMessages1').empty();
+    },2000)
 
  }
  
