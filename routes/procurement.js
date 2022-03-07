@@ -744,23 +744,23 @@ router.post('/updateasset',(request,response)=>{
     var quant='';
 
     if(status === 'Closed'){
-        console.log(status,assetsfid)
+        console.log(status,assetsfid);
         //assetsfid
-        pool.query('SELECT sfid, Name,Products_Services_Name__c, Items__c,Quantity__c, Others__c, Budget__c FROM  salesforce.Product_Line_Item__c WHERE Asset_Requisition_Form__c = '+ `'${assetsfid}'`)
+        pool.query('SELECT sfid, Name FROM  salesforce.Product_Line_Item__c WHERE Asset_Requisition_Form__c = '+ `'${assetsfid}'`)
         then(res=>{
-            console.log(JSON.stringify(res))
+            console.log(JSON.stringify(res));
             let tmp = "";
             res.rows.forEach(dt=>{
                 tmp = `${tmp}'${dt.sfid}',`;
             })
             tmp = `(${tmp.substr(0,tmp.length-1)})`;
-            console.log(tmp)
+            console.log(tmp);
             let q = 'SELECT sfid,Name,Timely_submissions_of_all_Deliverables__c,Work_Quality_Goods_Quality__c,Issue_Knowledge_Expertise__c,quantity_requested_vs_received__c,Procurement_Non_IT__c FROM salesforce.Feedback__c WHERE Procurement_Non_IT__c In '+ tmp
-            console.log(q)
+            console.log(q);
             pool.query(q)
             .then(resp=>{
                 let obj = {};
-                 console.log(JSON.stringify(resp))
+                 console.log(JSON.stringify(resp));
                 resp.rows.forEach(dt=>{
                     if(!obj[dt.procurement_non_it__c]){
                         obj[dt.procurement_non_it__c] = [dt]
@@ -769,18 +769,18 @@ router.post('/updateasset',(request,response)=>{
                         obj[dt.procurement_non_it__c].push(dt);
                     }
                 })
-                 console.log(JSON.stringify(obj))
-                response.send(obj)
+                 console.log(JSON.stringify(obj));
+                response.send(obj);
             })
             .catch(err=>{
-                response.send(err)
+                response.send(err);
             })
 
 
             
         })
         .catch(err=>{
-            response.send(err)
+            response.send(err);
         })
 
     }
