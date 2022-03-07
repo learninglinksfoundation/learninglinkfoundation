@@ -1505,10 +1505,11 @@ $('#editassetForm').on('click',function(event){
       '</div>';
       $('#errorMessages1').empty();
       $('#errorMessages1').append(errorHtml); 
+      document.getElementById('assetRequisitionEditModal').scrollTop = 0;
  //alert('Error :'+jqXHR.responseText);
     window.setTimeout(()=>{
         $('#errorMessages1').empty();
-    },2000)
+    },5000)
 
  }
  
