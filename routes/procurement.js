@@ -676,7 +676,7 @@ else{
 }
 })
 
-router.post('/updateasset',(request,response)=>{
+router.post('/updateasset',async (request,response)=>{
     let body = request.body;
     let closurePlanDate =request.body.date_from1;
     let goodsDate=request.body.goodsDate;
@@ -748,8 +748,8 @@ router.post('/updateasset',(request,response)=>{
         //assetsfid
         let ary = `SELECT sfid, Name FROM  salesforce.Product_Line_Item__c WHERE Asset_Requisition_Form__c = '${assetsfid}'`;
         console.log(ary);
-        pool.query(ary)
-        .then(res=>{
+       let res =  await  pool.query(ary)
+        //.then(res=>{
             console.log(JSON.stringify(res));
             let tmp = "";
             res.rows.forEach(dt=>{
@@ -759,8 +759,8 @@ router.post('/updateasset',(request,response)=>{
             console.log(tmp);
             let q = 'SELECT sfid,Name,Timely_submissions_of_all_Deliverables__c,Work_Quality_Goods_Quality__c,Issue_Knowledge_Expertise__c,quantity_requested_vs_received__c,Procurement_Non_IT__c FROM salesforce.Feedback__c WHERE Procurement_Non_IT__c In '+ tmp
             console.log(q);
-            pool.query(q)
-            .then(resp=>{
+           let resp = await pool.query(q)
+            //.then(resp=>{
                 let obj = {};
                  console.log(JSON.stringify(resp));
                 resp.rows.forEach(dt=>{
@@ -786,17 +786,12 @@ router.post('/updateasset',(request,response)=>{
 
                 console.log(JSON.stringify(obj));
                 //response.send(obj);
-            })
-            .catch(err=>{
-                response.send(err);
-            })
+            //})
+           
 
             
-        })
-        .catch(err=>{
-            console.log(JSON.stringify(err));
-            response.send(err);
-        })
+        //})
+        
 
 
         if(paymentStatus !== 'Released'){
