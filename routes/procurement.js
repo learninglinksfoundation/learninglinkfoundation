@@ -771,13 +771,25 @@ router.post('/updateasset',(request,response)=>{
                         obj[dt.procurement_non_it__c].push(dt);
                     }
                 })
-                 console.log(JSON.stringify(obj));
-                response.send(obj);
+                if(Object.keys(obj).length === 0 ){
+                    response.send('Purchase information has not any feedbacks. ');
+                    return ;
+                }
+                else{
+                    for (let name in obj) {
+                        if(obj[name].length === 0){
+                           response.send('Purchase information has not any feedbacks.');
+                            return ; 
+                        }
+                    }
+                }
+
+                console.log(JSON.stringify(obj));
+                //response.send(obj);
             })
             .catch(err=>{
                 response.send(err);
             })
-
 
             
         })
@@ -785,6 +797,13 @@ router.post('/updateasset',(request,response)=>{
             console.log(JSON.stringify(err));
             response.send(err);
         })
+
+
+        if(paymentStatus !== 'Released'){
+            response.send('Form Status can be chosen as Closed when Final Payment Status is Released.');
+            return ;
+        }
+
 
     }
 
