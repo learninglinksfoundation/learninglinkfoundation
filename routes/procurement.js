@@ -778,7 +778,7 @@ router.post('/updateasset',(request,response)=>{
                 else{
                     for (let name in obj) {
                         if(obj[name].length === 0){
-                           response.send('Purchase information has not any feedbacks.');
+                           response.send('Form Status can be chosen as Closed when each purchase information has feedback against it');
                             return ; 
                         }
                     }
