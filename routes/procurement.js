@@ -746,8 +746,10 @@ router.post('/updateasset',(request,response)=>{
     if(status === 'Closed'){
         console.log(status,assetsfid);
         //assetsfid
-        pool.query('SELECT sfid, Name FROM  salesforce.Product_Line_Item__c WHERE Asset_Requisition_Form__c = '+ `'${assetsfid}'`)
-        then(res=>{
+        let ary = `SELECT sfid, Name FROM  salesforce.Product_Line_Item__c WHERE Asset_Requisition_Form__c = '${assetsfid}'`;
+        console.log(ary);
+        pool.query(ary)
+        .then(res=>{
             console.log(JSON.stringify(res));
             let tmp = "";
             res.rows.forEach(dt=>{
