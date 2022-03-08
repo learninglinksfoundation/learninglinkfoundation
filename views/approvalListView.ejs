@@ -48,7 +48,7 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Approval Details</h5>
+          <h5 class="modal-title"> Procurement Procurement Approval Details</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -64,12 +64,12 @@
           </nav>
           <div class="tab-content" id="nav-tabContent">
           <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-          <!--Approval Details --> 
+          <!--Procurement Approval Details --> 
           <div id="detailLoadingSpinner">
           <center> <img src="/spinner-gif-transparent-background-14.gif" /> </center>
           </div>
           <div class="table-responsive">
-          <table id="approvalTable" class="table">
+          <table id="Procurement approvalTable" class="table">
           </table>
           </div>
           <!-- Particul Non It Details-->
@@ -127,7 +127,7 @@
       /**************Table Sortable Start ***********/
   
           let columns ={
-            name : 'Approval Name',
+            name : 'Procurement Approval Name',
             type : 'Approval Type',
             asset: 'Procurement Request Form',
             status: 'Status',
@@ -219,7 +219,7 @@ function anchorClickFunctionalities(){
                               let record = response.approvalFormDetails[0];
                               let htmlTable = '';
                               htmlTable += '<tr>';
-                                htmlTable += '<td><strong>Approval Name</strong></td>';
+                                htmlTable += '<td><strong>Procurement Approval Name</strong></td>';
                                 htmlTable += '<td>'+record.appname+'</td>';
                                 htmlTable += '<td><strong>Approval type</strong></td>';
                                 htmlTable += '<td>'+record.approval_type__c+'</td>';

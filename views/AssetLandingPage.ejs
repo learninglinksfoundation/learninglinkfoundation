@@ -395,13 +395,24 @@ function newButtonClick(){
       assetDetailsTableRows += '<td></td>';
       assetDetailsTableRows += '</tr>';
 
+      
+   
+      })
+      $('#assetDetails').html(assetDetailsTableRows);
+      
+      }
+
+      let assetDetailsRecord =  assetDetails.assetFormDetails.length > 0 ? assetDetails.assetFormDetails[0] : {};
       let isAccountTrue = assetDetailsRecord.accounts_approval__c === 'Approved' || assetDetailsRecord.accounts_approval__c === 'Pending';
       let isFirstTrue = assetDetailsRecord.chairperson_approval__c === 'Approved' || assetDetailsRecord.chairperson_approval__c === 'Pending' || assetDetailsRecord.management_approval__c === 'Approved' || assetDetailsRecord.management_approval__c === 'Pending' ||
              assetDetailsRecord.management_approval_for_fortnight_limit__c === 'Approved' || assetDetailsRecord.management_approval_for_fortnight_limit__c === 'Pending' || assetDetailsRecord.management_approval_less_than_3_quotes__c === 'Approved' || assetDetailsRecord.management_approval_less_than_3_quotes__c === 'Pending' ||
              assetDetailsRecord.manager_approval__c === 'Approved' || assetDetailsRecord.manager_approval__c === 'Pending' || assetDetailsRecord.procurement_committee_approval__c === 'Approved' || assetDetailsRecord.procurement_committee_approval__c === 'Pending' ||
              assetDetailsRecord.procurement_comt_approval_for_fortnight__c === 'Approved' || assetDetailsRecord.procurement_comt_approval_for_fortnight__c === 'Pending'  || assetDetailsRecord.procurement_head_approval__c === 'Approved' || assetDetailsRecord.procurement_head_approval__c === 'Pending' ||
              assetDetailsRecord.management_approval_activity_code__c === 'Approved' || assetDetailsRecord.management_approval_activity_code__c === 'Pending'
-      if(isAccountTrue || isFirstTrue){
+      let isAccountReject = assetDetailsRecord.accounts_approval__c === 'Rejected';
+
+      let isButtonEnable = (isAccountTrue || isFirstTrue) &&  !isAccountReject ;
+      if(isButtonEnable){
         $('button.procurementNonIT').attr('disabled',true)
         $('button.procurementNonIT').unbind('click');
       }
@@ -410,11 +421,8 @@ function newButtonClick(){
         newButtonClick();
         $('button.procurementNonIT').attr('disabled',false);
       }
-   
-      })
-      $('#assetDetails').html(assetDetailsTableRows);
+
       
-      }
       if(assetDetails.nonItProducts.length > 0)
                     {
                         let nonItProductTable = '';
@@ -425,7 +433,7 @@ function newButtonClick(){
                             nonItProductTable += '<td>'+eachNonIt.quantity__c +'</td>';
                             nonItProductTable += '<td>'+eachNonIt.budget__c +'</td></tr>';  
                         })
-                        nonItProductTable+=  '<td colspan="6"><center><a target="_blank" href="/procurement/getNonItProcurementListVIew/'+assetId+'&'+isDisabled+'">View All</a></centre></td>';
+                        nonItProductTable+=  '<td colspan="6"><center><a target="_blank" href="/procurement/getNonItProcurementListVIew/'+assetId+'&'+isButtonEnable+'">View All</a></centre></td>';
                             $('#procuremnetNonItTable').empty();
                             $('#procuremnetNonItTable').append(nonItProductTable);
                     }
