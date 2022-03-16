@@ -437,9 +437,9 @@ router.get('/timesheet',verify, function(request,response){
                     var taskQueryText = 'SELECT sfid, Name FROM salesforce.Milestone1_Task__c  WHERE Project_Name__c IN ('+projectParams.join(',')+') AND  Project_Milestone__c IN (SELECT sfid FROM salesforce.Milestone1_Milestone__c WHERE Name = \'Timesheet Category\') AND sfid IS NOT NULL';
                     console.log('taskQueryText  : '+taskQueryText);
                     
-                    let qry = `SELECT sfid,Id,Name FROM salesforce.contact WHERE Reporting_Manager__c = ${objUser.sfid}`;
+                    let qry = `SELECT sfid,Name FROM salesforce.contact WHERE Reporting_Manager__c = '${objUser.sfid}'`;
                    
-                   console.log('run')
+                   console.log('run',qry)
                     await pool
                       .query(qry)
                       .then(data=>{
