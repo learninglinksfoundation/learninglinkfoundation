@@ -439,18 +439,22 @@ router.get('/timesheet',verify, function(request,response){
                     
                     let qry = `SELECT sfid,Id,Name FROM salesforce.contact WHERE Reporting_Manager__c = ${objUser.sfid}`;
                    
+                   console.log('run')
                     await pool
                       .query(qry)
                       .then(data=>{
+                        console.log('run1',data);
                           if(data.rowCount > 0){
                             isReportingManager = true
                           }
+                          console.log('run2',isReportingManager);
                           
                       })
                       .catch(err=>{
+                        console.log('runERROR',isReportingManager);
                         response.send(403);
                       })
-    
+    console.log('run23',isReportingManager);
   
                       pool
                       .query(taskQueryText, lstProjectId)
