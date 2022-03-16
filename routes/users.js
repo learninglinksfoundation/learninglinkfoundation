@@ -344,7 +344,7 @@ router.get('/getProjectMemeber',verify, (request, response) => {
 
 
 
-router.get('/timesheet',verify, async function(request,response){ 
+router.get('/timesheet',verify, function(request,response){ 
 
   console.log('request.user '+JSON.stringify(request.user));
   var userId = request.user.sfid;
@@ -398,7 +398,7 @@ router.get('/timesheet',verify, async function(request,response){
                console.log('project query from user '+projetQueryText);
                 pool.
                 query(projetQueryText)
-                .then((projectQueryResult) => { 
+                .then(async (projectQueryResult) => { 
                       console.log('Number of Projects '+projectQueryResult.rows.length);
                       console.log('Project sfid '+projectQueryResult.rows[0].sfid+ 'Project Name '+projectQueryResult.rows[0].name +' MAnager '+projectQueryResult.rows[0].project_manager__c);
                       var projectList = projectQueryResult.rows;
