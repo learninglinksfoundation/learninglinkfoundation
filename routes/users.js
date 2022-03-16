@@ -443,7 +443,7 @@ router.get('/timesheet',verify, function(request,response){
                     await pool
                       .query(qry)
                       .then(data=>{
-                        console.log('run1',data);
+                        console.log('run1',data.rows);
                           if(data.rowCount > 0){
                             isReportingManager = true
                           }
