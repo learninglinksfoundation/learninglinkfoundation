@@ -344,7 +344,7 @@ router.get('/getProjectMemeber',verify, (request, response) => {
 
 
 
-router.get('/timesheet',verify,function(request,response){ 
+router.get('/timesheet',verify, async function(request,response){ 
 
   console.log('request.user '+JSON.stringify(request.user));
   var userId = request.user.sfid;
@@ -361,6 +361,7 @@ router.get('/timesheet',verify,function(request,response){
     .then(contactResult => {
       console.log('Name of Contact  ::     '+contactResult.rows[0].name+' sfid'+contactResult.rows[0].sfid);
       var contactId = contactResult.rows[0].sfid;
+      let isReportingManager = false;
         pool
         .query('SELECT sfid, name, Team__c FROM salesforce.Team_Member__c')
         .then(teamMemberResult => {
@@ -436,14 +437,27 @@ router.get('/timesheet',verify,function(request,response){
                     var taskQueryText = 'SELECT sfid, Name FROM salesforce.Milestone1_Task__c  WHERE Project_Name__c IN ('+projectParams.join(',')+') AND  Project_Milestone__c IN (SELECT sfid FROM salesforce.Milestone1_Milestone__c WHERE Name = \'Timesheet Category\') AND sfid IS NOT NULL';
                     console.log('taskQueryText  : '+taskQueryText);
                     
-  
+                    let qry = `SELECT sfid,Id,Name FROM salesforce.contact WHERE Reporting_Manager__c = ${objUser.sfid}`;
+                   
+                    await pool
+                      .query(qry)
+                      .then(data=>{
+                          if(data.rowCount > 0){
+                            isReportingManager = true
+                          }
+                          
+                      })
+                      .catch(err=>{
+                        response.send(403);
+                      })
+    
   
                       pool
                       .query(taskQueryText, lstProjectId)
                       .then((taskQueryResult) => {
                           console.log('taskQueryResult  rows '+taskQueryResult.rows.length);
                           
-                          response.render('./timesheets/timesheetcalendar',{taskType:taskType,objUser, objname : objusername, objUserId : userId, projectList : projectQueryResult.rows, contactList : contactResult.rows, taskList : taskQueryResult.rows }); // render calendar
+                          response.render('./timesheets/timesheetcalendar',{taskType:taskType,objUser, objname : objusername, objUserId : userId, projectList : projectQueryResult.rows, contactList : contactResult.rows, taskList : taskQueryResult.rows,isReportingManager:isReportingManager }); // render calendar
                       })
                       .catch((taskQueryError) => {
                           console.log('taskQueryError : '+taskQueryError.stack);
@@ -454,21 +468,21 @@ router.get('/timesheet',verify,function(request,response){
                 .catch((projectQueryError) => {
                       console.log('projectQueryError '+projectQueryError.stack);
                       //response.send(403);
-                      response.render('./timesheets/timesheetcalendar',{taskType:{},objUser, projectList : [], contactList : [], taskList : [] }); // render calendar
+                      response.render('./timesheets/timesheetcalendar',{taskType:{},objUser, projectList : [], contactList : [], taskList : [],isReportingManager:false }); // render calendar
                 })
              
             })
               .catch((projectTeamQueryError) =>{
                 console.log('projectTeamQueryError : '+projectTeamQueryError.stack);
                // response.send(403);
-               response.render('./timesheets/timesheetcalendar',{taskType:{},objUser, projectList : [], contactList : [], taskList : [] }); 
+               response.render('./timesheets/timesheetcalendar',{taskType:{},objUser, projectList : [], contactList : [], taskList : [] ,isReportingManager:false}); 
               })          
            })
 
           .catch((teamMemberQueryError) => {
             console.log('Error in team member query '+teamMemberQueryError.stack);
             //response.send(403);
-            response.render('./timesheets/timesheetcalendar',{taskType:{},objUser, projectList : [], contactList : [], taskList : [] }); 
+            response.render('./timesheets/timesheetcalendar',{taskType:{},objUser, projectList : [], contactList : [], taskList : [] ,isReportingManager:false}); 
           })
   
         }) 
