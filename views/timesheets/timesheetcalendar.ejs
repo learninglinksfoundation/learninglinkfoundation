@@ -600,6 +600,7 @@
                 let selectProj = $('#selproject').val();
                 selectedView = $('#Selectview').val();
 
+                 console.log('calEvent ',calEvent);
                 if(calEvent.title == 'Create Task')
                 {
                      
@@ -680,7 +681,7 @@
                 else if(calEvent.title == 'Fill Actuals')
                 {
                   
-                   
+                   console.log('fill ');
                 
                     if(seletedDate.getTime() > currentDate.getTime())
                     {
@@ -694,8 +695,43 @@
                         window.saveDom = jsEvent;
                         window.editIndex.length = 0;
                         $('#Allcheckbox').prop('checked',false);
+
+                        if (selectProj == 'allproject' && selectedView == 'reportManager') {
+                            console.log(seletedDate,seletedDate.toLocaleDateString());
+                            $.ajax({ 
+                            type: 'GET',
+                            url: '/timesheets/getTaskListReporting',  
+                            data : {date:seletedDate.toLocaleDateString()},
+                            dataType: 'json'     
+                            })
+                            .done(resp=>{
+                                loadDataOnClick(resp);
+                                
+                            })
+                            .fail(console.log);
+                            
+                        } 
+                        else if (selectProj != 'allproject' && selectedView == 'reportManager') {
+                            console.log('selected project for current User ' + selectProj);
+                            $.ajax({
+                                    type: 'GET',
+                                    url: '/timesheets/getProjectByIdReporting',
+                                    data: {
+                                        'projectId': selectProj,
+                                        'date': seletedDate.toLocaleDateString()
+                                    },
+                                    dataType: 'json'
+                                })
+                                .done(function(data) {
+                                    loadDataOnClick(data);
+                                })
+                                .fail(function(jqXHR, textStatus, err) {
+                                    console.log('AJAX error response :', textStatus);
+                                })
+                            
+                        } 
                         
-                        if (selectProj == 'allproject' && selectedView == 'currentuser') {
+                        else if (selectProj == 'allproject' && selectedView == 'currentuser') {
                             console.log(seletedDate,seletedDate.toLocaleDateString());
                             $.ajax({ 
                             type: 'GET',
