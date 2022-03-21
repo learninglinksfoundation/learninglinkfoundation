@@ -174,7 +174,57 @@
             console.log('slected months ' + selecteddate);
             selectProj = $('#selproject').val();
 
-            if (selectProj == 'allproject' && selectedView == 'currentuser') {
+            if(selectProj == 'allproject' && selectedView == 'reportManager'){
+                $.ajax({
+                        type: 'GET',
+                        url: '/users/getTaskDetailsForReportingAll',
+                        data: {
+                            'date': selecteddate
+                        },
+                        dataType: 'json'
+                    })
+                    .done(function(data) {
+                        console.log("Sample of data:", data);
+                        eventsData = data;
+                        console.log('JSON.Stringied Data of events : ' + JSON.stringify(eventsData));
+                        $('#bootstrapModalFullCalendar').fullCalendar('removeEvents');
+                        $('#bootstrapModalFullCalendar').fullCalendar('addEventSource', eventsData);
+                        $('#bootstrapModalFullCalendar').fullCalendar('rerenderEvents');
+                        
+
+                    })
+                    .fail(function(jqXHR, textStatus, err) {
+                        console.log('AJAX error response :', textStatus);
+                    })
+
+
+            }
+            else if(selectProj !== 'allproject' && selectedView == 'reportManager'){
+                console.log('selected project for current User ' + selectProj);
+                $.ajax({
+                        type: 'GET',
+                        url: '/users/geteventsProjReporting',
+                        data: {
+                            'projectid': selectProj,
+                            'date': selecteddate
+                        },
+                        dataType: 'json'
+                    })
+                    .done(function(data) {
+                        console.log("current view on particuar project Sample of data:", data);
+                        eventsData = data;
+                        console.log('JSON.Stringied Data of events Team View : ' + JSON.stringify(eventsData));
+                        $('#bootstrapModalFullCalendar').fullCalendar('removeEvents');
+                        $('#bootstrapModalFullCalendar').fullCalendar('addEventSource', eventsData);
+                        $('#bootstrapModalFullCalendar').fullCalendar('rerenderEvents');
+                    })
+                    .fail(function(jqXHR, textStatus, err) {
+                        console.log('AJAX error response :', textStatus);
+                    })
+
+            }
+
+            else if (selectProj == 'allproject' && selectedView == 'currentuser') {
 
                 $.ajax({
                         type: 'GET',
