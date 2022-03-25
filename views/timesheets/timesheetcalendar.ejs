@@ -113,7 +113,7 @@
 //
     function createButton(create){
         let ele = document.getElementsByClassName('fc-left');
-        console.log('<%- objUser %>','<%= objUser %>')
+        console.log('<%- JSON.stringify(objUser) %>','<%= objUser.sfid %>')
 
         if(create === 'del'){
             ele[0].innerHTML = '';
@@ -132,7 +132,7 @@
                   url: '/timesheets/getRepList',
                   data : {
                       'current': $('#Selectview').val(),
-                      'userId': '<% -objUser.sfid %>'
+                      'userId': '<%- JSON.stringify(objUser.sfid) %>'
                   },
                   
               })
