@@ -101,6 +101,12 @@
     float: none;
     margin-right: 12px;
 }
+.scroll{
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: white;
+}
 
 </style>
 
@@ -1804,10 +1810,10 @@ function callRemover(){
           </button>
         </div>
         <div style="margin: 15px 0 0 15px;" id="errorMessageTaskReport"></div>
-        <div class="modal-body" id="taskReportBody" style="overflow-y: auto;">
-           <div>
+        <div class="modal-body" id="taskReportBody" >
+           <div style="max-height: 55vh;overflow: auto;" >
            <table class="table"> 
-           <thead>
+           <thead class="scroll" >
            <th>
             Name
            </th>
