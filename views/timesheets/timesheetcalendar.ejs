@@ -125,7 +125,7 @@
             $('#teamRepView').on('click',function(){
                 console.log('running');
                 $("#DetailReporteeModal").modal("show");
-                //listBody
+                $('#listBody').empty()
 
                 $.ajax({ 
                   type: 'GET',
@@ -138,7 +138,14 @@
               })
               .done(function( data ) {
                   console.log( "Initial data load Sample of data:", data );
-                  
+                  let row = '';
+                  data.forEach(dt=>{
+                      row += '<tr>';
+                      row += `<td> ${dt.name} </td>`
+                      row += `<td> ${dt.email} </td>`
+                      row += '</tr>';
+                  })
+                  $('#listBody').html(row)
 
               })
               .fail(function(jqXHR, textStatus, err){
@@ -1799,7 +1806,7 @@ function callRemover(){
         <div style="margin: 15px 0 0 15px;" id="errorMessageTaskReport"></div>
         <div class="modal-body" id="taskReportBody" style="overflow-y: auto;">
            <div>
-           <table id="reporteeList"> 
+           <table class="table"> 
            <thead>
            <th>
             Name
@@ -1809,7 +1816,7 @@ function callRemover(){
            </th>
            </thead>
 
-           <tbody id="listBody" >
+            <tbody id="listBody" >
 
            </tbody>
 
