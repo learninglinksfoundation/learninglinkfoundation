@@ -129,7 +129,8 @@
                   type: 'GET',
                   url: '/timesheets/getRepList',
                   data : {
-                      'current': $('#Selectview').val()
+                      'current': $('#Selectview').val(),
+                      'userId': '<% -objUser.sfid %>'
                   },
                   
               })
