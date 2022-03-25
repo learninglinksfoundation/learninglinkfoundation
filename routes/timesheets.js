@@ -1869,10 +1869,29 @@ console.log('taskId Id1111 ='+taskId);
 
 
 router.get('/getRepList',(request,response)=>{
-
+  let objUser = request.user;
   var current  = request.query.current;
   console.log('taskId Id1111 ='+current);
-  response.send(current);
+
+  let query = '';
+  if(current.toLowerCase() == 'reportmanager'){
+     query = `Select sfid,Name,Email FROM salesforce.Contact  WHERE Reporting_Manager__c = '${objUser.sfid}' `;
+  }
+  else{
+    query = 'Select sfid,Name,Email FROM salesforce.Contact';
+  }
+
+  pool.query(query)
+  .then(resp=>{
+      response.send(resp.rows);
+
+  })
+  .catch(err=>{
+    response.send([err]);
+  })
+
+
+  
 
     
 })
