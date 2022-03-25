@@ -111,14 +111,19 @@
 
 <script>
 //
-    function createButton(){
+    function createButton(create){
         let ele = document.getElementsByClassName('fc-left');
-        ele[0].innerHTML = '<button  class="btn btn-primary" id="teamRepView" > Reportee/Team Members </button>'
+        if(create === 'del'){
+            ele[0].innerHTML = '';
+        }
+        else{
+            ele[0].innerHTML = '<button  class="btn btn-primary" id="teamRepView" > Reportee/Team Members </button>'
 
-        $('#teamRepView').unbind('click')
-        $('#teamRepView').on('click',function(){
-            console.log('running');
-        })
+            $('#teamRepView').unbind('click')
+            $('#teamRepView').on('click',function(){
+                console.log('running');
+            })
+        }
 
     }
 
@@ -168,6 +173,7 @@
           $('#bootstrapModalFullCalendar').fullCalendar( 'removeEvents');
           $('#bootstrapModalFullCalendar').fullCalendar( 'addEventSource', eventsData);         
          $('#bootstrapModalFullCalendar').fullCalendar( 'rerenderEvents' );
+
       })
       .fail(function(jqXHR, textStatus, err){
           console.log('AJAX error response :',textStatus);
@@ -208,13 +214,14 @@
                         dataType: 'json'
                     })
                     .done(function(data) {
+
                         console.log("Sample of data:", data);
                         eventsData = data;
                         console.log('JSON.Stringied Data of events : ' + JSON.stringify(eventsData));
                         $('#bootstrapModalFullCalendar').fullCalendar('removeEvents');
                         $('#bootstrapModalFullCalendar').fullCalendar('addEventSource', eventsData);
                         $('#bootstrapModalFullCalendar').fullCalendar('rerenderEvents');
-                        
+                        createButton();
 
                     })
                     .fail(function(jqXHR, textStatus, err) {
@@ -241,6 +248,7 @@
                         $('#bootstrapModalFullCalendar').fullCalendar('removeEvents');
                         $('#bootstrapModalFullCalendar').fullCalendar('addEventSource', eventsData);
                         $('#bootstrapModalFullCalendar').fullCalendar('rerenderEvents');
+                        createButton();
                     })
                     .fail(function(jqXHR, textStatus, err) {
                         console.log('AJAX error response :', textStatus);
@@ -265,6 +273,7 @@
                         $('#bootstrapModalFullCalendar').fullCalendar('removeEvents');
                         $('#bootstrapModalFullCalendar').fullCalendar('addEventSource', eventsData);
                         $('#bootstrapModalFullCalendar').fullCalendar('rerenderEvents');
+                        createButton('del')
                     })
                     .fail(function(jqXHR, textStatus, err) {
                         console.log('AJAX error response :', textStatus);
@@ -286,6 +295,7 @@
                         $('#bootstrapModalFullCalendar').fullCalendar('removeEvents');
                         $('#bootstrapModalFullCalendar').fullCalendar('addEventSource', eventsData);
                         $('#bootstrapModalFullCalendar').fullCalendar('rerenderEvents');
+                        createButton();
                     })
                     .fail(function(jqXHR, textStatus, err) {
                         console.log('AJAX error response :', textStatus);
@@ -308,6 +318,7 @@
                         $('#bootstrapModalFullCalendar').fullCalendar('removeEvents');
                         $('#bootstrapModalFullCalendar').fullCalendar('addEventSource', eventsData);
                         $('#bootstrapModalFullCalendar').fullCalendar('rerenderEvents');
+                        createButton('del')
                     })
                     .fail(function(jqXHR, textStatus, err) {
                         console.log('AJAX error response :', textStatus);
@@ -347,6 +358,7 @@
                         $('#bootstrapModalFullCalendar').fullCalendar('removeEvents');
                         $('#bootstrapModalFullCalendar').fullCalendar('addEventSource', eventsData);
                         $('#bootstrapModalFullCalendar').fullCalendar('rerenderEvents');
+                        createButton();
                     })
                     .fail(function(jqXHR, textStatus, err) {
                         console.log('AJAX error response :', textStatus);
