@@ -1867,6 +1867,17 @@ console.log('taskId Id1111 ='+taskId);
 })
 
 
+
+router.get('/getRepList',(request,response)=>{
+
+  var current  = request.params.current;
+console.log('taskId Id1111 ='+current);
+response.send(current);
+
+    
+})
+
+
 router.get('/deleteBulkTask',(request,response)=>{
 
   var taskId  = '(' + request.query.taskId + ')';

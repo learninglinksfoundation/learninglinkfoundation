@@ -122,6 +122,26 @@
             $('#teamRepView').unbind('click')
             $('#teamRepView').on('click',function(){
                 console.log('running');
+                $("#DetailReporteeModal").modal("show");
+                //listBody
+
+                $.ajax({ 
+                  type: 'GET',
+                  url: '/users/getRepList',
+                  data : {
+                      'current': $('#Selectview').val()
+                  },
+                  dataType: 'json'
+              })
+              .done(function( data ) {
+                  console.log( "Initial data load Sample of data:", data );
+                  
+
+              })
+              .fail(function(jqXHR, textStatus, err){
+                  console.log('AJAX error response :',textStatus);
+              }) 
+
 
             })
         }
@@ -1776,7 +1796,21 @@ function callRemover(){
         <div style="margin: 15px 0 0 15px;" id="errorMessageTaskReport"></div>
         <div class="modal-body" id="taskReportBody" style="overflow-y: auto;">
            <div>
-           Testing
+           <table id="reporteeList"> 
+           <thead>
+           <th>
+            Name
+           </th>
+           <th>
+            Email
+           </th>
+           </thead>
+
+           <tbody id="listBody" >
+
+           </tbody>
+
+            </table>
            </div>
             
            
