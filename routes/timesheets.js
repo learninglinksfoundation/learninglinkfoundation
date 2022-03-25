@@ -1871,19 +1871,14 @@ console.log('taskId Id1111 ='+taskId);
 router.get('/getRepList',(request,response)=>{
   let userId = request.query.userId;
   var current  = request.query.current;
-  console.log('taskId Id1111 ='+current);
 
   let query = '';
-  console.log(current,userId,current.toLowerCase())
+  console.log(userId)
   if(current.toLowerCase() == 'reportmanager'){
-    console.log('test')
      query = `Select id,sfid,Name,Email FROM salesforce.Contact  WHERE Reporting_Manager__c = '${userId}' `;
-    console.log('test12')
   }
   else{
-    console.log('test13')
     query = 'Select sfid,Name,Email FROM salesforce.Contact';
-    console.log('test15')
   }
 
   console.log(query);
