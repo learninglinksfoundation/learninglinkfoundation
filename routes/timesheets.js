@@ -1870,9 +1870,9 @@ console.log('taskId Id1111 ='+taskId);
 
 router.get('/getRepList',(request,response)=>{
 
-  var current  = request.params.current;
-console.log('taskId Id1111 ='+current);
-response.send(current);
+  var current  = request.query.current;
+  console.log('taskId Id1111 ='+current);
+  response.send(current);
 
     
 })
