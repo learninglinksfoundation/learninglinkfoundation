@@ -1875,14 +1875,16 @@ router.get('/getRepList',(request,response)=>{
 
   let query = '';
   if(current.toLowerCase() == 'reportmanager'){
-     query = `Select sfid,Name,Email FROM salesforce.Contact  WHERE Reporting_Manager__c = '${objUser.sfid}' `;
+     query = `Select id,sfid,Name,Email FROM salesforce.Contact  WHERE Reporting_Manager__c = '${objUser.sfid}' `;
   }
   else{
     query = 'Select sfid,Name,Email FROM salesforce.Contact';
   }
 
+  console.log(query);
   pool.query(query)
   .then(resp=>{
+    console.log(resp)
       response.send(resp.rows);
 
   })
