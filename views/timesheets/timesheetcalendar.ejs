@@ -90,6 +90,17 @@
     vertical-align: middle;
 }
 
+.fc-toolbar{
+    display: flex;
+    justify-content: flex-end;
+    text-align: unset;
+    align-items: center;
+}
+
+.fc-left {
+    float: none;
+    margin-right: 12px;
+}
 
 </style>
 
@@ -100,6 +111,19 @@
 
 <script>
 //
+    function createButton(){
+        let ele = document.getElementsByClassName('fc-left');
+        ele[0].innerHTML = '<button  class="btn btn-primary" id="teamRepView" > Reportee/Team Members </button>'
+
+        $('#teamRepView').unbind('click')
+        $('#teamRepView').on('click',function(){
+            console.log('running');
+        })
+
+    }
+
+
+
     $(document).ready(function() { 
       $('#objUser').hide();
       console.log('<%- isReportingManager %>')
@@ -107,7 +131,7 @@
       $('#objname').hide();
       $('#objUserId').hide();
       $('#contactList').hide(); 
-  //    $('#contactList').hide();
+     //$('#contactList').hide();
       let objUser = document.getElementById('objUser').innerHTML; 
       let objUserName = document.getElementById('objname').innerHTML; 
       let objUserId = document.getElementById('objUserId').innerHTML; 
