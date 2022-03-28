@@ -149,6 +149,7 @@
                       row += '<tr>';
                       row += `<td> ${dt.name} </td>`
                       row += `<td> ${dt.email} </td>`
+                      row += `<td> ${dt.employee_id__c} </td>`
                       row += '</tr>';
                   })
                   $('#listBody').html(row)
@@ -1314,7 +1315,7 @@ function handleChange(e){
                     </div>
                    
                     <div class="col-md-6">
-                      <label for="validationTooltip02">function<span style="color: red;">*</span></label>
+                      <label for="validationTooltip02">Function<span style="color: red;">*</span></label>
                       <select class="custom-select custom-select-sm form-control" onchange="handleChange(event);" id="function" name="function">
                           <option selected value=''>None</option>
                           <option value="Accounts">Accounts </option>
@@ -1819,6 +1820,9 @@ function callRemover(){
            </th>
            <th>
             Email
+           </th>
+           <th>
+           Employee ID
            </th>
            </thead>
 

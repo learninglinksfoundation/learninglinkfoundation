@@ -1875,23 +1875,75 @@ router.get('/getRepList',(request,response)=>{
   let query = '';
   console.log(userId)
   if(current.toLowerCase() == 'reportmanager'){
-     query = `Select id,sfid,Name,Email FROM salesforce.Contact  WHERE Reporting_Manager__c = '${userId}' `;
+     query = `Select id,sfid,Name,Email,Employee_ID__c,reporting_manager__c FROM salesforce.Contact `;
   }
-  else{
-    query = 'Select sfid,Name,Email FROM salesforce.Contact';
+  else if(current.toLowerCase() == 'team view') {
+    query = 'Select sfid,Name,Email,Employee_ID__c FROM salesforce.Contact';
   }
 
   console.log(query);
-  pool.query(query)
-  .then(resp=>{
-    console.log(resp)
-      response.send(resp.rows);
+  if(query){
+    pool.query(query)
+    .then(resp=>{
+      console.log(resp)
+      let temp = resp.rows;
+      if(current.toLowerCase() == 'reportmanager'){
+      w = {};
+      temp.forEach((dt,i)=>{
+        if( dt.reporting_manager__c && !w[dt.reporting_manager__c]  ){
+            //console.log(dt,i)
+            w[dt.reporting_manager__c] = [dt]
+        }
+          else if(dt.reporting_manager__c) {
+               //console.log(dt,i)
+              w[dt.reporting_manager__c].push(dt)
+          }
+          
+      })
 
-  })
-  .catch(err=>{
-    response.send([err]);
-  })
+      let users = w[userId]  ? w[userId] : [];
 
+      kt = []
+
+      function addData(dt){
+
+            dt.forEach(d=>{
+                console.log(d)
+                
+                kt.push(d)
+                console.log(kt)
+                if(w[d.sfid]){
+                    addData(w[d.sfid])
+                }
+            })
+      }
+
+      users.forEach(dt=>{
+          kt .push(dt)
+          console.log(dt)
+          if(w[dt.sfid])
+           addData(w[dt.sfid])
+          
+      })
+
+
+      response.send(kt);
+    }
+    else if(current.toLowerCase() == 'team view') {
+      response.send(temp); 
+    }
+    else{
+      response.send([]);
+    }
+
+    })
+    .catch(err=>{
+      response.send([err]);
+    })
+}
+else{
+    response.send(['Invalid View']);
+}
 
   
 
