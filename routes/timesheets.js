@@ -1877,7 +1877,7 @@ router.get('/getRepList',(request,response)=>{
   if(current.toLowerCase() == 'reportmanager'){
      query = `Select id,sfid,Name,Email,Employee_ID__c,reporting_manager__c FROM salesforce.Contact `;
   }
-  else if(current.toLowerCase() == 'team view') {
+  else if(current.toLowerCase() == 'teamview') {
     query = 'Select sfid,Name,Email,Employee_ID__c FROM salesforce.Contact';
   }
 
@@ -1929,7 +1929,7 @@ router.get('/getRepList',(request,response)=>{
 
       response.send(kt);
     }
-    else if(current.toLowerCase() == 'team view') {
+    else if(current.toLowerCase() == 'teamview') {
       response.send(temp); 
     }
     else{
