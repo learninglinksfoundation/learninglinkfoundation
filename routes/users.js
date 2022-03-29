@@ -1633,6 +1633,51 @@ router.get('/getTaskDetailsForReportingAll',verify, async function(req, res, nex
 
     //let qrys = 'Select sfid,Name FROM salesforce.contact Where Reporting_Manager__c = $1'
 
+  let str = `Select id,sfid,Name,Email,Employee_ID__c,reporting_manager__c FROM salesforce.Contact `;
+
+   let conList =   await pool.query(str);
+   let temp = conList.rows;
+   console.log(temp)
+   w = {};
+      temp.forEach((dt,i)=>{
+        if( dt.reporting_manager__c && !w[dt.reporting_manager__c]  ){
+            //console.log(dt,i)
+            w[dt.reporting_manager__c] = [dt]
+        }
+          else if(dt.reporting_manager__c) {
+               //console.log(dt,i)
+              w[dt.reporting_manager__c].push(dt)
+          }
+          
+      })
+
+      let users = w[userId]  ? w[userId] : [];
+
+      kt = []
+
+      function addData(dt){
+
+            dt.forEach(d=>{
+                console.log(d)
+                
+                kt.push(d)
+                console.log(kt)
+                if(w[d.sfid]){
+                    addData(w[d.sfid])
+                }
+            })
+      }
+
+      users.forEach(dt=>{
+          kt .push(dt)
+          console.log(dt)
+          if(w[dt.sfid])
+           addData(w[dt.sfid])
+          
+      })
+
+      console.log(kt)
+      //response.send(kt);
 
 
 
