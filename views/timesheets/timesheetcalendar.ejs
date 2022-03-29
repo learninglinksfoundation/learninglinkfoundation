@@ -145,14 +145,18 @@
               .done(function( data ) {
                   console.log( "Initial data load Sample of data:", data );
                   let row = '';
-                  data.forEach(dt=>{
-                      row += '<tr>';
-                      row += `<td> ${dt.name} </td>`
-                      row += `<td> ${dt.email} </td>`
-                      row += `<td> ${dt.employee_id__c} </td>`
-                      row += '</tr>';
-                  })
-                  $('#listBody').html(row)
+                  
+                  if(!data.includes('Invalid View')){
+                      data.sort((a, b) =>  (a.name > b.name) ? 1 : -1);
+                      data.forEach(dt=>{
+                          row += '<tr>';
+                          row += `<td> ${dt.name} </td>`
+                          row += `<td> ${dt.email} </td>`
+                          row += `<td> ${dt.employee_id__c} </td>`
+                          row += '</tr>';
+                      })
+                      $('#listBody').html(row)
+              }
 
               })
               .fail(function(jqXHR, textStatus, err){

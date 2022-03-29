@@ -1873,7 +1873,7 @@ router.get('/getRepList',(request,response)=>{
   var current  = request.query.current;
 
   let query = '';
-  console.log(userId)
+  console.log(userId,current)
   if(current.toLowerCase() == 'reportmanager'){
      query = `Select id,sfid,Name,Email,Employee_ID__c,reporting_manager__c FROM salesforce.Contact `;
   }
