@@ -1888,7 +1888,7 @@ router.get('/getRepList',(request,response)=>{
       console.log(resp)
       let temp = resp.rows;
       if(current.toLowerCase() == 'reportmanager'){
-      w = {};
+      let w = {};
       temp.forEach((dt,i)=>{
         if( dt.reporting_manager__c && !w[dt.reporting_manager__c]  ){
             //console.log(dt,i)
@@ -1903,7 +1903,7 @@ router.get('/getRepList',(request,response)=>{
 
       let users = w[userId]  ? w[userId] : [];
 
-      kt = []
+      let kt = []
 
       function addData(dt){
 

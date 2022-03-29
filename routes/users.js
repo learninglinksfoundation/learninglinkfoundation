@@ -1638,7 +1638,7 @@ router.get('/getTaskDetailsForReportingAll',verify, async function(req, res, nex
    let conList =   await pool.query(str);
    let temp = conList.rows;
    console.log(temp)
-   w = {};
+   let w = {};
       temp.forEach((dt,i)=>{
         if( dt.reporting_manager__c && !w[dt.reporting_manager__c]  ){
             //console.log(dt,i)
@@ -1653,8 +1653,8 @@ router.get('/getTaskDetailsForReportingAll',verify, async function(req, res, nex
 
       let users = w[userId]  ? w[userId] : [];
 
-      kt = []
-
+      let kt = []
+      console.log(users,w);
       function addData(dt){
 
             dt.forEach(d=>{
@@ -1667,7 +1667,7 @@ router.get('/getTaskDetailsForReportingAll',verify, async function(req, res, nex
                 }
             })
       }
-
+      console.log('23456');
       users.forEach(dt=>{
           kt .push(dt)
           console.log(dt)
