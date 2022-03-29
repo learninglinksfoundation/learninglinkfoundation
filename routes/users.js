@@ -1637,7 +1637,7 @@ router.get('/getTaskDetailsForReportingAll',verify, async function(req, res, nex
 
    let conList =   await pool.query(str);
    let temp = conList.rows;
-   console.log(temp)
+   //console.log(temp)
    let w = {};
       temp.forEach((dt,i)=>{
         if( dt.reporting_manager__c && !w[dt.reporting_manager__c]  ){
@@ -1654,20 +1654,20 @@ router.get('/getTaskDetailsForReportingAll',verify, async function(req, res, nex
       let users = w[userId]  ? w[userId] : [];
 
       let kt = []
-      console.log(users,w);
+      //console.log(users,w);
       function addData(dt){
 
             dt.forEach(d=>{
-                console.log(d)
+                //console.log(d)
                 
                 kt.push(d)
-                console.log(kt)
+                //console.log(kt)
                 if(w[d.sfid]){
                     addData(w[d.sfid])
                 }
             })
       }
-      console.log('23456');
+      //console.log('23456');
       users.forEach(dt=>{
           kt .push(dt)
           console.log(dt)
@@ -1676,7 +1676,7 @@ router.get('/getTaskDetailsForReportingAll',verify, async function(req, res, nex
           
       })
 
-      console.log('test',kt.length,kt)
+      //console.log('test',kt.length,kt)
       let idList = new Set();
       kt.forEach(dt=>{
         idList.add(dt.sfid);
@@ -1687,9 +1687,9 @@ router.get('/getTaskDetailsForReportingAll',verify, async function(req, res, nex
       console.log('idList',idList)
       let idArray = [...idList];
       let strings = `('${idArray.join("','")}')`
+      console.log(strings);
 
-
-  await pool.query('SELECT Id, sfid , Planned_Hours__c, Start_Date__c FROM salesforce.Milestone1_Task__c WHERE Assigned_Manager__c IN  $1 ',[strings])
+  await pool.query('SELECT Id, sfid , Planned_Hours__c, Start_Date__c FROM salesforce.Milestone1_Task__c WHERE Assigned_Manager__c IN  $1 ',[idArray])
   .then((taskQueryResult) => {
     console.log('taskQuery allProject curretUser '+JSON.stringify(taskQueryResult.rows));
     for(let i=1; i<= taskQueryResult.rowCount ; i++)
