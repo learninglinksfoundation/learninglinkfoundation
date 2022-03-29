@@ -1676,9 +1676,15 @@ router.get('/getTaskDetailsForReportingAll',verify, async function(req, res, nex
           
       })
 
-      console.log(kt)
-      //response.send(kt);
+      console.log('test',kt.length,kt)
+      let idList = new Set();
+      kt.forEach(dt=>{
+        idList.add(dt.sfid);
 
+      })
+
+      //response.send(kt);
+      console.log('idList',idList)
 
 
   await pool.query('SELECT Id, sfid , Planned_Hours__c, Start_Date__c FROM salesforce.Milestone1_Task__c WHERE Assigned_Manager__c IN ( Select sfid FROM salesforce.contact Where Reporting_Manager__c = $1 )',[userId])
