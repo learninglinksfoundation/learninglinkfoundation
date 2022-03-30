@@ -343,6 +343,55 @@ router.get('/getProjectMemeber',verify, (request, response) => {
 });
 
 
+router.get('/getProjectMemeberReport',verify, (request, response) => {
+
+  console.log('request.user '+JSON.stringify(request.user),request.query);
+  let id = request.query.projectId;
+  pool
+  .query(`SELECT Name, sfid,  Team__c FROM salesforce.Project_Team__c where Project__c = '${id}'`)
+  .then((contactQueryResult) => {
+    console.log('contactQueryResult  : '+JSON.stringify(contactQueryResult.rows));
+    let teamList = [];
+    contactQueryResult.rows.forEach(dt=>{
+        teamList.push(dt.team__c);
+    });
+    console.log('1',`SELECT Team__c, Representative__c, sfId, Name FROM salesforce.Team_Member__c WHERE Team__c IN ('${teamList.join("','")}') ORDER BY Name`);
+    pool.query(`SELECT Team__c, Representative__c, sfId, Name FROM salesforce.Team_Member__c WHERE Team__c IN ('${teamList.join("','")}') ORDER BY Name`)
+      .then(data=>{
+        console.log('2');
+        let conId = [];
+        data.rows.forEach(dt=>{
+          conId.push( dt.representative__c);
+        });
+        console.log(conId,`SELECT sfid, Name FROM salesforce.Contact WHERE sfid IN ('${conId.join("','")}') ORDER BY Name`);
+        pool.query(`SELECT sfid, Name FROM salesforce.Contact WHERE sfid IN ('${conId.join("','")}') ORDER BY Name`)
+        .then(data1=>{
+          console.log(data1.rows);
+          response.send(data1.rows);
+        })
+        .catch((contactQueryError) => {
+            console.error('Error executing contact query', contactQueryError.stack);
+            response.send(403);
+        });
+        
+      })
+      .catch((contactQueryError) => {
+        console.error('Error executing contact query', contactQueryError.stack);
+        response.send(403);
+      });
+      
+    
+  })
+  .catch((contactQueryError) => {
+    console.error('Error executing contact query', contactQueryError.stack);
+    response.send(403);
+});
+
+});
+
+
+
+
 
 router.get('/timesheet',verify, function(request,response){ 
 

@@ -1481,16 +1481,7 @@ function handleChange(e){
                 type : 'get'
            })
             .done((response) => {
-                console.log('response  ',response);
-                    $('#assignedresource' +index+' option:not(:first)').remove();
-                    response.forEach((eachContact) => {
-                    console.log('eachContact.name '+eachContact);
-                    $('#assignedresource'+index)
-                    .append($("<option></option>")
-                    .attr("value",eachContact.sfid)
-                    .text(eachContact.name))
-                    }); 
-                    
+                createUserData(response,index);
             })
             .fail((jqXHR,text,err) => {
                 console.log('text  '+text + '  err '+err);
@@ -1500,7 +1491,47 @@ function handleChange(e){
 
 
         }
+        else if(selectedView == 'reportManager'){
+              console.log('<%- JSON.stringify(objUser) %>');
+              let obj = '<%- JSON.stringify(objUser) %>'
+              console.log('hii i m inside reporting Manager view',obj);
+              $('#assignedresource'+index).attr("readonly",false);
+              $('#assignedresource'+index).css('pointer-events','visible');  
+              $('#assignedresource'+index).val(''); 
+              $.ajax({
+                    url : '/users/getProjectMemeberReport',
+                    data : {
+                      projectId : value
+                    },
+                    dataType : 'json',
+                    type : 'get'
+               })
+                .done((response) => {
+                    createUserData(response,index);
+                        
+                })
+                .fail((jqXHR,text,err) => {
+                    console.log('text  '+text + '  err '+err);
+                    console.log('jqXHR '+JSON.stringify(jqXHR));
+
+                }) 
+
+        }
+
     }
+
+    function createUserData(response,index){
+        console.log('response  ',response);
+        $('#assignedresource' +index+' option:not(:first)').remove();
+        response.forEach((eachContact) => {
+            console.log('eachContact.name '+eachContact);
+            $('#assignedresource'+index)
+            .append($("<option></option>")
+            .attr("value",eachContact.sfid)
+            .text(eachContact.name))
+        }); 
+    }
+
 
 
     $('#newRowBtn').click(function() {
