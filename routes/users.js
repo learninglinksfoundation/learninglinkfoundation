@@ -439,7 +439,7 @@ console.log('obj',obj)
 
 
           console.log('finalList',finalList,obj);
-          response.send(obj);
+          response.send(temp);
         })
         .catch((contactQueryError) => {
             console.error('Error executing contact query', contactQueryError.stack);
