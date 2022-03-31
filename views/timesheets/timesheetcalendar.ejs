@@ -1492,7 +1492,7 @@ function handleChange(e){
 
         }
         else if(selectedView == 'reportManager'){
-              let userId = '<%- JSON.stringify(objUser.sfid) %>'
+              let userId = '<%- objUser.sfid %>'
               console.log('hii i m inside reporting Manager view',userId);
               $('#assignedresource'+index).attr("readonly",false);
               $('#assignedresource'+index).css('pointer-events','visible');  
