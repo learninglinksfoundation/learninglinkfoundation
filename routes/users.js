@@ -440,8 +440,8 @@ console.log('outside',projTeam);
               
           })
 
-          console.log('w',w,JSON.stringify(temp));
-
+          console.log('w',kt,JSON.stringify(w));
+/*
           let projData = []
           temp.forEach(dt=>{
             if(projTeam.includes(dt.sfid)){
@@ -452,9 +452,9 @@ console.log('outside',projTeam);
           
           console.log(finalList);
 
+*/
 
-
-          response.send(finalList);
+          response.send(users);
 
 
              
