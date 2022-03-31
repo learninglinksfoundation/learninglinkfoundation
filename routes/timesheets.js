@@ -1878,7 +1878,7 @@ router.get('/getRepList',(request,response)=>{
      query = `Select id,sfid,Name,Email,Employee_ID__c,reporting_manager__c FROM salesforce.Contact `;
   }
   else if(current.toLowerCase() == 'teamview') {
-    query = 'Select sfid,Name,Email,Employee_ID__c FROM salesforce.Contact';
+    query = 'Select sfid,Name,Email,Employee_ID__c,reporting_manager__c FROM salesforce.Contact';
   }
 
   console.log(query);

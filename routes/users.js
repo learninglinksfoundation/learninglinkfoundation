@@ -343,11 +343,12 @@ router.get('/getProjectMemeber',verify, (request, response) => {
 });
 
 
-router.get('/getProjectMemeberReport',verify, (request, response) => {
+router.get('/getProjectMemeberReport',verify, async (request, response) => {
 
   console.log('request.user '+JSON.stringify(request.user),request.query);
   let id = request.query.projectId;
-  pool
+  let userId = request.query.userId;
+  await pool
   .query(`SELECT Name, sfid,  Team__c FROM salesforce.Project_Team__c where Project__c = '${id}'`)
   .then((contactQueryResult) => {
     console.log('contactQueryResult  : '+JSON.stringify(contactQueryResult.rows));
@@ -356,18 +357,88 @@ router.get('/getProjectMemeberReport',verify, (request, response) => {
         teamList.push(dt.team__c);
     });
     console.log('1',`SELECT Team__c, Representative__c, sfId, Name FROM salesforce.Team_Member__c WHERE Team__c IN ('${teamList.join("','")}') ORDER BY Name`);
-    pool.query(`SELECT Team__c, Representative__c, sfId, Name FROM salesforce.Team_Member__c WHERE Team__c IN ('${teamList.join("','")}') ORDER BY Name`)
+   await pool.query(`SELECT Team__c, Representative__c, sfId, Name FROM salesforce.Team_Member__c WHERE Team__c IN ('${teamList.join("','")}') ORDER BY Name`)
       .then(data=>{
         console.log('2');
         let conId = [];
         data.rows.forEach(dt=>{
           conId.push( dt.representative__c);
         });
-        console.log(conId,`SELECT sfid, Name FROM salesforce.Contact WHERE sfid IN ('${conId.join("','")}') ORDER BY Name`);
-        pool.query(`SELECT sfid, Name FROM salesforce.Contact WHERE sfid IN ('${conId.join("','")}') ORDER BY Name`)
-        .then(data1=>{
-          console.log(data1.rows);
-          response.send(data1.rows);
+        console.log(conId,`SELECT sfid, Name,reporting_manager__c FROM salesforce.Contact WHERE sfid IN ('${conId.join("','")}') ORDER BY Name`);
+        await pool.query(`Select id,sfid,Name,Email,Employee_ID__c,reporting_manager__c FROM salesforce.Contact `)
+            .then(data1=>{
+
+              let temp = data1.rows;
+          
+          let w = {};
+          temp.forEach((dt,i)=>{
+            if( dt.reporting_manager__c && !w[dt.reporting_manager__c]  ){
+                //console.log(dt,i)
+                w[dt.reporting_manager__c] = [dt]
+            }
+              else if(dt.reporting_manager__c) {
+                   //console.log(dt,i)
+                  w[dt.reporting_manager__c].push(dt)
+              }
+              
+          })
+
+          let users = w[userId]  ? w[userId] : [];
+
+          let kt = []
+
+          function addData(dt){
+
+                dt.forEach(d=>{
+                    console.log(d)
+                    
+                    kt.push(d)
+                    console.log(kt)
+                    if(w[d.sfid]){
+                        addData(w[d.sfid])
+                    }
+                })
+          }
+
+          users.forEach(dt=>{
+              kt .push(dt)
+              console.log(dt)
+              if(w[dt.sfid])
+               addData(w[dt.sfid])
+              
+          })
+
+          let idSet = new Set();
+          let projData = []
+          temp.forEach(dt=>{
+            if(conId.includes(dt.sfid)){
+              projData.push(dt);
+            }
+          });
+          let finalList = kt.concat(projData);
+
+          const unique = [...new Set(finalList.map(item => item.sfid))];
+          let obj = [];
+          unique.forEach(dt=>{
+            obj.push({sfid:dt});
+          });
+
+          finalList.forEach(dt=>{
+            let str = dt.sfid;
+            obj.forEach((d,i)=>{
+              if(d.sfid === str){
+                 d.name = dt.name; 
+              }
+
+            })
+
+          })
+          
+
+
+
+          console.log(obj);
+          response.send(obj);
         })
         .catch((contactQueryError) => {
             console.error('Error executing contact query', contactQueryError.stack);

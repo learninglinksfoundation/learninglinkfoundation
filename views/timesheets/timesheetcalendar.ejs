@@ -1492,16 +1492,17 @@ function handleChange(e){
 
         }
         else if(selectedView == 'reportManager'){
-              console.log('<%- JSON.stringify(objUser) %>');
-              let obj = '<%- JSON.stringify(objUser) %>'
-              console.log('hii i m inside reporting Manager view',obj);
+              //console.log('<%- JSON.stringify(objUser) %>');
+              let userId = '<%- JSON.stringify(objUser.sfid) %>'
+              console.log('hii i m inside reporting Manager view',userId);
               $('#assignedresource'+index).attr("readonly",false);
               $('#assignedresource'+index).css('pointer-events','visible');  
               $('#assignedresource'+index).val(''); 
               $.ajax({
                     url : '/users/getProjectMemeberReport',
                     data : {
-                      projectId : value
+                      projectId : value,
+                      userId : userId
                     },
                     dataType : 'json',
                     type : 'get'
