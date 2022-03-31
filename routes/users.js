@@ -416,13 +416,14 @@ router.get('/getProjectMemeberReport',verify, (request, response) => {
             }
           });
           let finalList = kt.concat(projData);
-
+          console.log('kttt',kt)
           const unique = [...new Set(finalList.map(item => item.sfid))];
           let obj = [];
           unique.forEach(dt=>{
             obj.push({sfid:dt});
           });
 
+console.log('obj',obj)
           finalList.forEach(dt=>{
             let str = dt.sfid;
             obj.forEach((d,i)=>{
@@ -437,7 +438,7 @@ router.get('/getProjectMemeberReport',verify, (request, response) => {
 
 
 
-          console.log(obj);
+          console.log('finalList',finalList,obj);
           response.send(obj);
         })
         .catch((contactQueryError) => {
