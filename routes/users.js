@@ -343,32 +343,64 @@ router.get('/getProjectMemeber',verify, (request, response) => {
 });
 
 
-router.get('/getProjectMemeberReport',verify, (request, response) => {
+router.get('/getProjectMemeberReport',verify, async (request, response) => {
 
   console.log('request.user '+JSON.stringify(request.user),request.query);
   let id = request.query.projectId;
   let userId = request.query.userId;
-
-   pool.query(`SELECT Name, sfid,  Team__c FROM salesforce.Project_Team__c where Project__c = '${id}'`)
-  .then((contactQueryResult) => {
+  let projTeam = [];
+  let finalRows = [];
+   await pool.query(`SELECT Name, sfid,  Team__c FROM salesforce.Project_Team__c where Project__c = '${id}'`)
+  .then( async (contactQueryResult) => {
     console.log('contactQueryResult  : '+JSON.stringify(contactQueryResult.rows));
     let teamList = [];
     contactQueryResult.rows.forEach(dt=>{
         teamList.push(dt.team__c);
     });
     console.log('1',`SELECT Team__c, Representative__c, sfId, Name FROM salesforce.Team_Member__c WHERE Team__c IN ('${teamList.join("','")}') ORDER BY Name`);
-    pool.query(`SELECT Team__c, Representative__c, sfId, Name FROM salesforce.Team_Member__c WHERE Team__c IN ('${teamList.join("','")}') ORDER BY Name`)
-      .then(data=>{
+     await pool.query(`SELECT Team__c, Representative__c, sfId, Name FROM salesforce.Team_Member__c WHERE Team__c IN ('${teamList.join("','")}') ORDER BY Name`)
+      .then(async data=>{
         console.log('2');
         let conId = [];
         data.rows.forEach(dt=>{
           conId.push( dt.representative__c);
         });
+        projTeam = conId;
+        console.log('inside');
         console.log(conId,`SELECT sfid, Name,reporting_manager__c FROM salesforce.Contact WHERE sfid IN ('${conId.join("','")}') ORDER BY Name`);
-         pool.query(`Select id,sfid,Name,Email,Employee_ID__c,reporting_manager__c FROM salesforce.Contact `)
-            .then(data1=>{
+         /*await pool.query(`SELECT sfid, Name,reporting_manager__c FROM salesforce.Contact WHERE sfid IN ('${conId.join("','")}') ORDER BY Name` )
+            .then( data1=>{
 
-              let temp = data1.rows;
+             projTeam = data1.rows;
+
+
+          //console.log('finalList',finalList,obj);
+          //response.send(temp);
+        })
+        .catch((contactQueryError) => {
+            console.error('Error executing contact query', contactQueryError.stack);
+            response.send(403);
+        });
+        */
+      })
+      .catch((contactQueryError) => {
+        console.error('Error executing contact query', contactQueryError.stack);
+        response.send(403);
+      });
+      
+    
+  })
+  .catch((contactQueryError) => {
+    console.error('Error executing contact query', contactQueryError.stack);
+    response.send(403);
+});
+
+
+console.log('outside',projTeam);
+  await pool.query(`SELECT sfid, Name,reporting_manager__c FROM salesforce.Contact` )
+        .then( data1=>{
+
+          let temp = data1.rows;
           
           let w = {};
           temp.forEach((dt,i)=>{
@@ -408,10 +440,9 @@ router.get('/getProjectMemeberReport',verify, (request, response) => {
               
           })
 
-          let idSet = new Set();
           let projData = []
           temp.forEach(dt=>{
-            if(conId.includes(dt.sfid)){
+            if(projTeam.includes(dt.sfid)){
               projData.push(dt);
             }
           });
@@ -438,26 +469,22 @@ console.log('obj',obj)
 
 
 
-          console.log('finalList',finalList,obj);
-          response.send(temp);
+
+
+             
         })
         .catch((contactQueryError) => {
             console.error('Error executing contact query', contactQueryError.stack);
             response.send(403);
         });
-        
-      })
-      .catch((contactQueryError) => {
-        console.error('Error executing contact query', contactQueryError.stack);
-        response.send(403);
-      });
-      
-    
-  })
-  .catch((contactQueryError) => {
-    console.error('Error executing contact query', contactQueryError.stack);
-    response.send(403);
-});
+
+
+
+   
+
+
+
+
 
 });
 
