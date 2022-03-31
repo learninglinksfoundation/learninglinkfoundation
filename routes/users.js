@@ -349,7 +349,7 @@ router.get('/getProjectMemeberReport',verify, async (request, response) => {
   let id = request.query.projectId;
   let userId = request.query.userId;
   let projTeam = [];
-  let finalRows = [];
+  //let finalRows = [];
    await pool.query(`SELECT Name, sfid,  Team__c FROM salesforce.Project_Team__c where Project__c = '${id}'`)
   .then( async (contactQueryResult) => {
     console.log('contactQueryResult  : '+JSON.stringify(contactQueryResult.rows));
@@ -396,7 +396,7 @@ router.get('/getProjectMemeberReport',verify, async (request, response) => {
 });
 
 
-console.log('outside',projTeam);
+//console.log('outside',projTeam);
   await pool.query(`SELECT sfid, Name,reporting_manager__c FROM salesforce.Contact` )
         .then( data1=>{
 
@@ -422,10 +422,10 @@ console.log('outside',projTeam);
           function addData(dt){
 
                 dt.forEach(d=>{
-                    console.log(d)
+                   // console.log(d)
                     
                     kt.push(d)
-                    console.log(kt)
+                   // console.log(kt)
                     if(w[d.sfid]){
                         addData(w[d.sfid])
                     }
@@ -434,14 +434,14 @@ console.log('outside',projTeam);
 
           users.forEach(dt=>{
               kt .push(dt)
-              console.log(dt)
+              //console.log(dt)
               if(w[dt.sfid])
                addData(w[dt.sfid])
               
           })
 
-          console.log('w',kt,JSON.stringify(w));
-/*
+          //console.log('w',kt,JSON.stringify(w));
+
           let projData = []
           temp.forEach(dt=>{
             if(projTeam.includes(dt.sfid)){
@@ -449,12 +449,19 @@ console.log('outside',projTeam);
             }
           });
           let finalList = kt.concat(projData);
+
+          let distinctData = {};
+
+          finalList.forEach(dt=>{
+
+            distinctData[dt.sfid] = dt;
+          })
           
-          console.log(finalList);
+          console.log(finalList,JSON.stringify(distinctData));
 
-*/
 
-          response.send(users);
+
+          response.send(Object.values(distinctData));
 
 
              
