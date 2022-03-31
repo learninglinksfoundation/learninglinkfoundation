@@ -440,6 +440,8 @@ console.log('outside',projTeam);
               
           })
 
+          console.log('w',w,JSON.stringify(temp));
+
           let projData = []
           temp.forEach(dt=>{
             if(projTeam.includes(dt.sfid)){
@@ -447,7 +449,34 @@ console.log('outside',projTeam);
             }
           });
           let finalList = kt.concat(projData);
-          console.log('kttt',kt)
+          
+          console.log(finalList);
+
+
+
+          response.send(finalList);
+
+
+             
+        })
+        .catch((contactQueryError) => {
+            console.error('Error executing contact query', contactQueryError.stack);
+            response.send(403);
+        });
+
+
+
+   
+
+
+
+
+
+});
+
+
+/*
+console.log('kttt',kt)
           const unique = [...new Set(finalList.map(item => item.sfid))];
           let obj = [];
           unique.forEach(dt=>{
@@ -467,26 +496,7 @@ console.log('obj',obj)
           })
           
 
-
-
-
-
-             
-        })
-        .catch((contactQueryError) => {
-            console.error('Error executing contact query', contactQueryError.stack);
-            response.send(403);
-        });
-
-
-
-   
-
-
-
-
-
-});
+*/
 
 
 
