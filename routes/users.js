@@ -343,13 +343,13 @@ router.get('/getProjectMemeber',verify, (request, response) => {
 });
 
 
-router.get('/getProjectMemeberReport',verify, async (request, response) => {
+router.get('/getProjectMemeberReport',verify, (request, response) => {
 
   console.log('request.user '+JSON.stringify(request.user),request.query);
   let id = request.query.projectId;
   let userId = request.query.userId;
-  await pool
-  .query(`SELECT Name, sfid,  Team__c FROM salesforce.Project_Team__c where Project__c = '${id}'`)
+
+   pool.query(`SELECT Name, sfid,  Team__c FROM salesforce.Project_Team__c where Project__c = '${id}'`)
   .then((contactQueryResult) => {
     console.log('contactQueryResult  : '+JSON.stringify(contactQueryResult.rows));
     let teamList = [];
@@ -357,7 +357,7 @@ router.get('/getProjectMemeberReport',verify, async (request, response) => {
         teamList.push(dt.team__c);
     });
     console.log('1',`SELECT Team__c, Representative__c, sfId, Name FROM salesforce.Team_Member__c WHERE Team__c IN ('${teamList.join("','")}') ORDER BY Name`);
-   await pool.query(`SELECT Team__c, Representative__c, sfId, Name FROM salesforce.Team_Member__c WHERE Team__c IN ('${teamList.join("','")}') ORDER BY Name`)
+    pool.query(`SELECT Team__c, Representative__c, sfId, Name FROM salesforce.Team_Member__c WHERE Team__c IN ('${teamList.join("','")}') ORDER BY Name`)
       .then(data=>{
         console.log('2');
         let conId = [];
@@ -365,7 +365,7 @@ router.get('/getProjectMemeberReport',verify, async (request, response) => {
           conId.push( dt.representative__c);
         });
         console.log(conId,`SELECT sfid, Name,reporting_manager__c FROM salesforce.Contact WHERE sfid IN ('${conId.join("','")}') ORDER BY Name`);
-        await pool.query(`Select id,sfid,Name,Email,Employee_ID__c,reporting_manager__c FROM salesforce.Contact `)
+         pool.query(`Select id,sfid,Name,Email,Employee_ID__c,reporting_manager__c FROM salesforce.Contact `)
             .then(data1=>{
 
               let temp = data1.rows;
