@@ -247,6 +247,7 @@
             selectProj = $('#selproject').val();
 
             if(selectProj == 'allproject' && selectedView == 'reportManager'){
+                 createButton();
                 $.ajax({
                         type: 'GET',
                         url: '/users/getTaskDetailsForReportingAll',
@@ -263,7 +264,7 @@
                         $('#bootstrapModalFullCalendar').fullCalendar('removeEvents');
                         $('#bootstrapModalFullCalendar').fullCalendar('addEventSource', eventsData);
                         $('#bootstrapModalFullCalendar').fullCalendar('rerenderEvents');
-                        createButton();
+                       
 
                     })
                     .fail(function(jqXHR, textStatus, err) {
@@ -273,7 +274,8 @@
 
             }
             else if(selectProj !== 'allproject' && selectedView == 'reportManager'){
-                console.log('selected project for current User ' + selectProj);
+                //console.log('selected project for current User ' + selectProj);
+                 createButton();
                 $.ajax({
                         type: 'GET',
                         url: '/users/geteventsProjReporting',
@@ -290,7 +292,7 @@
                         $('#bootstrapModalFullCalendar').fullCalendar('removeEvents');
                         $('#bootstrapModalFullCalendar').fullCalendar('addEventSource', eventsData);
                         $('#bootstrapModalFullCalendar').fullCalendar('rerenderEvents');
-                        createButton();
+                       
                     })
                     .fail(function(jqXHR, textStatus, err) {
                         console.log('AJAX error response :', textStatus);
@@ -299,7 +301,7 @@
             }
 
             else if (selectProj == 'allproject' && selectedView == 'currentuser') {
-
+                        createButton('del')
                 $.ajax({
                         type: 'GET',
                         url: '/users/getevents',
@@ -315,12 +317,13 @@
                         $('#bootstrapModalFullCalendar').fullCalendar('removeEvents');
                         $('#bootstrapModalFullCalendar').fullCalendar('addEventSource', eventsData);
                         $('#bootstrapModalFullCalendar').fullCalendar('rerenderEvents');
-                        createButton('del')
+
                     })
                     .fail(function(jqXHR, textStatus, err) {
                         console.log('AJAX error response :', textStatus);
                     })
             } else if (selectProj == 'allproject' && selectedView == 'teamview') {
+                createButton();
                 //   alert("team view & all project");
                 $.ajax({
                         type: 'GET',
@@ -337,13 +340,14 @@
                         $('#bootstrapModalFullCalendar').fullCalendar('removeEvents');
                         $('#bootstrapModalFullCalendar').fullCalendar('addEventSource', eventsData);
                         $('#bootstrapModalFullCalendar').fullCalendar('rerenderEvents');
-                        createButton();
+                        
                     })
                     .fail(function(jqXHR, textStatus, err) {
                         console.log('AJAX error response :', textStatus);
                     })
             } else if (selectProj != 'allproject' && selectedView == 'currentuser') {
                 console.log('selected project for current User ' + selectProj);
+                createButton('del')
                 $.ajax({
                         type: 'GET',
                         url: '/users/geteventsProj',
@@ -360,13 +364,14 @@
                         $('#bootstrapModalFullCalendar').fullCalendar('removeEvents');
                         $('#bootstrapModalFullCalendar').fullCalendar('addEventSource', eventsData);
                         $('#bootstrapModalFullCalendar').fullCalendar('rerenderEvents');
-                        createButton('del')
+                        
                     })
                     .fail(function(jqXHR, textStatus, err) {
                         console.log('AJAX error response :', textStatus);
                     })
             } else if (selectProj != 'allproject' && selectedView == 'teamview') {
                 console.log('Team View & particula project' + selectProj);
+                createButton();
                 /*   $.ajax({ 
                       type: 'GET',
                       url: '/users/getProjectRealted',
@@ -400,7 +405,7 @@
                         $('#bootstrapModalFullCalendar').fullCalendar('removeEvents');
                         $('#bootstrapModalFullCalendar').fullCalendar('addEventSource', eventsData);
                         $('#bootstrapModalFullCalendar').fullCalendar('rerenderEvents');
-                        createButton();
+                        
                     })
                     .fail(function(jqXHR, textStatus, err) {
                         console.log('AJAX error response :', textStatus);
