@@ -882,7 +882,7 @@
                                 })
                         }
 
-                        function loadDataOnClick(resp,currentDate){
+                        function loadDataOnClick(resp,selDates){
                             console.log(resp,dt);
                             document.getElementById('fillActualtBody').innerHTML = '';
                             resp.forEach((dt,i)=>{
@@ -1018,7 +1018,7 @@
                                    temp.taskId = objs.id;
                                    temp.user = objs.userId;
                                    let strDate = new Date(objs.createDdate);
-                                   temp.date = currentDate; //`${strDate.getFullYear()}-${strDate.getMonth()+1}-${strDate.getDate()}`;
+                                   temp.date = selDates; //`${strDate.getFullYear()}-${strDate.getMonth()+1}-${strDate.getDate()}`;
                                    listData.push(temp);
                                 });
                                 for(let j=0;j<listData.length;j++){
