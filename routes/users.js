@@ -1823,7 +1823,8 @@ router.get('/getTaskDetailsForReportingAll',verify, async function(req, res, nex
 
       //response.send(kt);
       console.log('idList',idList)
-      let idArray = [...idList];
+      let idArray = [...idList].filter(d=> d != userId);
+
       let strings = `('${idArray.join("','")}')`
       console.log(strings);
 
