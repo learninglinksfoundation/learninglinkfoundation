@@ -1837,7 +1837,7 @@ router.get('/getTaskListReporting',verify, async (request,response)=>{
  }
  console.log('queryText  taskkkkkkkkkkkkkkkkkkk',queryText);
   pool
-   .query(queryText,[strings])
+   .query(queryText,[`'${strings}'`])
   .then((taskQueryResult)=>{
     console.log('taskQueryResult '+JSON.stringify(taskQueryResult.rows) +'Row COUNT => '+taskQueryResult.rowCount);
     if(taskQueryResult.rowCount > 0)
