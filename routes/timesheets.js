@@ -1836,7 +1836,7 @@ router.get('/getTaskListReporting',verify, async (request,response)=>{
     queryText = queryText + `AND tsk.start_date__c = cast('${date}' as date)`;
  }
  let vals = [strings];
- console.log('queryText  taskkkkkkkkkkkkkkkkkkk',vals,vals.length,queryText);
+ console.log('queryText  taskkkkkkkkkkkkkkkkkkk',JSON.stringify(vals),vals.length,queryText);
   pool
    .query(queryText,vals)
   .then((taskQueryResult)=>{
