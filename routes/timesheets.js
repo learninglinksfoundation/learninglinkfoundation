@@ -1455,7 +1455,7 @@ router.get('/getTeamdetails',verify,async(request,response)=>{
     
   })
 
-router.get('/getProjectById',verify,(request, response) => {
+router.get('/getProjectById',verify, async (request, response) => {
     var selectedDate = request.query.date;
     var proId = request.query.projectId;
     let objUser=request.user;
