@@ -107,6 +107,9 @@
     z-index: 1;
     background: white;
 }
+.row{
+    margin : 0 !important;
+}
 
 </style>
 
@@ -788,7 +791,7 @@
                             dataType: 'json'     
                             })
                             .done(resp=>{
-                                loadDataOnClick(resp);
+                                loadDataOnClick(resp,dt);
                                 
                             })
                             .fail(console.log);
@@ -806,7 +809,7 @@
                                     dataType: 'json'
                                 })
                                 .done(function(data) {
-                                    loadDataOnClick(data);
+                                    loadDataOnClick(data,dt);
                                 })
                                 .fail(function(jqXHR, textStatus, err) {
                                     console.log('AJAX error response :', textStatus);
@@ -823,7 +826,7 @@
                             dataType: 'json'     
                             })
                             .done(resp=>{
-                                loadDataOnClick(resp);
+                                loadDataOnClick(resp,dt);
                                 
                             })
                             .fail(console.log);
@@ -839,7 +842,7 @@
                                     dataType: 'json'
                                 })
                                 .done(function(data) {
-                                    loadDataOnClick(data);
+                                    loadDataOnClick(data,dt);
                                 })
                                 .fail(function(jqXHR, textStatus, err) {
                                     console.log('AJAX error response :', textStatus);
@@ -856,7 +859,7 @@
                                     dataType: 'json'
                                 })
                                 .done(function(data) {
-                                    loadDataOnClick(data);
+                                    loadDataOnClick(data,dt);
                                 })
                                 .fail(function(jqXHR, textStatus, err) {
                                     console.log('AJAX error response :', textStatus);
@@ -872,15 +875,15 @@
                                     dataType: 'json'
                                 })
                                 .done(function(data) {
-                                    loadDataOnClick(data);
+                                    loadDataOnClick(data,dt);
                                 })
                                 .fail(function(jqXHR, textStatus, err) {
                                     console.log('AJAX error response :', textStatus);
                                 })
                         }
 
-                        function loadDataOnClick(resp){
-                            console.log(resp);
+                        function loadDataOnClick(resp,currentDate){
+                            console.log(resp,dt);
                             document.getElementById('fillActualtBody').innerHTML = '';
                             resp.forEach((dt,i)=>{
                                 let temp = document.getElementById('dummyTableBody').innerHTML;
@@ -1015,7 +1018,7 @@
                                    temp.taskId = objs.id;
                                    temp.user = objs.userId;
                                    let strDate = new Date(objs.createDdate);
-                                   temp.date = `${strDate.getFullYear()}-${strDate.getMonth()+1}-${strDate.getDate()}`;
+                                   temp.date = currentDate; //`${strDate.getFullYear()}-${strDate.getMonth()+1}-${strDate.getDate()}`;
                                    listData.push(temp);
                                 });
                                 for(let j=0;j<listData.length;j++){
