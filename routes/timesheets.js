@@ -1756,16 +1756,78 @@ router.get('/getTasklist',verify,(request,response)=>{
   }) 
 })
 
-router.get('/getTaskListReporting',verify,(request,response)=>{
+router.get('/getTaskListReporting',verify, async (request,response)=>{
   let date = request.query.date;
   let objUser=request.user;
+  let userId = objUser.sfid;
+
+  let str = `Select id,sfid,Name,Email,Employee_ID__c,reporting_manager__c FROM salesforce.Contact `;
+
+   let conList =   await pool.query(str);
+   let temp = conList.rows;
+   //console.log(temp)
+   let w = {};
+      temp.forEach((dt,i)=>{
+        if( dt.reporting_manager__c && !w[dt.reporting_manager__c]  ){
+            //console.log(dt,i)
+            w[dt.reporting_manager__c] = [dt]
+        }
+          else if(dt.reporting_manager__c) {
+               //console.log(dt,i)
+              w[dt.reporting_manager__c].push(dt)
+          }
+          
+      })
+
+      let users = w[userId]  ? w[userId] : [];
+
+      let kt = []
+      //console.log(users,w);
+      function addData(dt){
+
+            dt.forEach(d=>{
+                //console.log(d)
+                
+                kt.push(d)
+                //console.log(kt)
+                if(w[d.sfid]){
+                    addData(w[d.sfid])
+                }
+            })
+      }
+      //console.log('23456');
+      users.forEach(dt=>{
+          kt .push(dt)
+          console.log(dt)
+          if(w[dt.sfid])
+           addData(w[dt.sfid])
+          
+      })
+
+      //console.log('test',kt.length,kt)
+      let idList = new Set();
+      kt.forEach(dt=>{
+        idList.add(dt.sfid);
+
+      })
+
+      //response.send(kt);
+      console.log('idList',idList)
+      let idArray = [...idList].filter(d=> d != userId);
+
+      let strings = `('${idArray.join("','")}')`
+      console.log(strings);
+
+
+
+
   let queryText = 'SELECT tsk.Id,tsk.sfid as sfids,usr.Name as userName,cont1.name as createdname,cont1.sfid as creatednameid , usr.sfid as userSfid,tsk.Task_Assigned_by__c as assignedBy,tsk.Task_Type_Category__c as function,tsk.name as tskname,tsk.Task_Stage__c as stage,tsk.start_date__c ,tsk.Project_Name__c,tsk.Total_Hours__c ,tsk.assigned_manager__c,tsk.end_time__c,tsk.Task_Type__c,tsk.Planned_Hours__c,tsk.Start_Time__c,cont.sfid as contid ,cont.name as contname,proj.name as projname,tsk.createddate '+
                    'FROM salesforce.Milestone1_Task__c tsk '+ 
                    'INNER JOIN salesforce.Contact cont ON tsk.assigned_manager__c = cont.sfid '+
                    'INNER JOIN salesforce.USER usr ON tsk.CreatedById = usr.sfid '+
                    'INNER JOIN salesforce.Milestone1_Project__c proj ON tsk.Project_Name__c= proj.sfid '+
                    'INNER join (select sfid,Name from salesforce.Contact ct union all select sfid,Name from salesforce.USER us ) cont1 on tsk.Task_Assigned_by__c = cont1.sfid OR cont1.sfid = tsk.Task_Assigned_by_Salesforce__c '+
-                   'WHERE  tsk.Assigned_Manager__c IN ( Select sfid FROM salesforce.contact Where Reporting_Manager__c = $1 ) AND tsk.sfid IS NOT NULL ';
+                   'WHERE  tsk.Assigned_Manager__c IN $1  AND tsk.sfid IS NOT NULL ';
   
  if(date){
   console.log(date);
@@ -1775,7 +1837,7 @@ router.get('/getTaskListReporting',verify,(request,response)=>{
  }
  console.log('queryText  taskkkkkkkkkkkkkkkkkkk',queryText);
   pool
-   .query(queryText,[objUser.sfid])
+   .query(queryText,[strings])
   .then((taskQueryResult)=>{
     console.log('taskQueryResult '+JSON.stringify(taskQueryResult.rows) +'Row COUNT => '+taskQueryResult.rowCount);
     if(taskQueryResult.rowCount > 0)
