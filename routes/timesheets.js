@@ -1827,7 +1827,7 @@ router.get('/getTaskListReporting',verify, async (request,response)=>{
                    'INNER JOIN salesforce.USER usr ON tsk.CreatedById = usr.sfid '+
                    'INNER JOIN salesforce.Milestone1_Project__c proj ON tsk.Project_Name__c= proj.sfid '+
                    'INNER join (select sfid,Name from salesforce.Contact ct union all select sfid,Name from salesforce.USER us ) cont1 on tsk.Task_Assigned_by__c = cont1.sfid OR cont1.sfid = tsk.Task_Assigned_by_Salesforce__c '+
-                   'WHERE  tsk.Assigned_Manager__c IN $1  AND tsk.sfid IS NOT NULL ';
+                   "WHERE  tsk.Assigned_Manager__c IN ('$1')  AND tsk.sfid IS NOT NULL ";
   
  if(date){
   console.log(date);
@@ -1837,7 +1837,7 @@ router.get('/getTaskListReporting',verify, async (request,response)=>{
  }
  console.log('queryText  taskkkkkkkkkkkkkkkkkkk',queryText);
   pool
-   .query(queryText,[`'${strings}'`])
+   .query(queryText,[idArray.join("','")])
   .then((taskQueryResult)=>{
     console.log('taskQueryResult '+JSON.stringify(taskQueryResult.rows) +'Row COUNT => '+taskQueryResult.rowCount);
     if(taskQueryResult.rowCount > 0)
