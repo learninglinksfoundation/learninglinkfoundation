@@ -1459,12 +1459,26 @@ router.get('/getProjectById',verify,(request, response) => {
     var selectedDate = request.query.date;
     var proId = request.query.projectId;
     let objUser=request.user;
+    let userId = objUser.sfid;
+
+    let str = `Select id,sfid,Name,Email,Employee_ID__c,reporting_manager__c FROM salesforce.Contact `;
+
+   let conList =   await pool.query(str);
+   let temp = conList.rows;
+   let idArray = getReportingAllDepthData(temp,userId);
+   let strings =  `('${idArray.join("','")}')` 
+  
+   console.log(strings);
+
+
+
+
       console.log(selectedDate,objUser,proId); 
     let queryText = 'SELECT tsk.Id,tsk.sfid as sfids,tsk.name as tskname,tsk.Task_Assigned_by__c as assignedBy,tsk.Task_Type_Category__c as function,tsk.Task_Stage__c as stage,tsk.start_date__c ,tsk.Project_Name__c,tsk.Total_Hours__c ,tsk.assigned_manager__c,tsk.end_time__c,tsk.Task_Type__c,tsk.Planned_Hours__c,tsk.Start_Time__c,cont.sfid as contid ,cont.name as contname,proj.name as projname,tsk.createddate '+
                        'FROM salesforce.Milestone1_Task__c tsk '+ 
                        'INNER JOIN salesforce.Contact cont ON tsk.assigned_manager__c = cont.sfid '+
                        'INNER JOIN salesforce.Milestone1_Project__c proj ON tsk.Project_Name__c= proj.sfid '+
-                       `WHERE tsk.sfid IS NOT NULL AND tsk.Assigned_Manager__c = '${objUser.sfid}' AND tsk.Project_Name__c = '${proId}'  `; 
+                       `WHERE tsk.sfid IS NOT NULL AND tsk.Assigned_Manager__c IN ${strings} AND tsk.Project_Name__c = '${proId}'  `; 
     console.log(queryText) ;
     if(selectedDate){
       
@@ -1765,6 +1779,52 @@ router.get('/getTaskListReporting',verify, async (request,response)=>{
 
    let conList =   await pool.query(str);
    let temp = conList.rows;
+   let idArray = getReportingAllDepthData(temp,userId);
+   let strings =  `('${idArray.join("','")}')` 
+  
+   console.log(strings);
+   let queryText = 'SELECT tsk.Id,tsk.sfid as sfids,usr.Name as userName,cont1.name as createdname,cont1.sfid as creatednameid , usr.sfid as userSfid,tsk.Task_Assigned_by__c as assignedBy,tsk.Task_Type_Category__c as function,tsk.name as tskname,tsk.Task_Stage__c as stage,tsk.start_date__c ,tsk.Project_Name__c,tsk.Total_Hours__c ,tsk.assigned_manager__c,tsk.end_time__c,tsk.Task_Type__c,tsk.Planned_Hours__c,tsk.Start_Time__c,cont.sfid as contid ,cont.name as contname,proj.name as projname,tsk.createddate '+
+                   'FROM salesforce.Milestone1_Task__c tsk '+ 
+                   'INNER JOIN salesforce.Contact cont ON tsk.assigned_manager__c = cont.sfid '+
+                   'INNER JOIN salesforce.USER usr ON tsk.CreatedById = usr.sfid '+
+                   'INNER JOIN salesforce.Milestone1_Project__c proj ON tsk.Project_Name__c= proj.sfid '+
+                   'INNER join (select sfid,Name from salesforce.Contact ct union all select sfid,Name from salesforce.USER us ) cont1 on tsk.Task_Assigned_by__c = cont1.sfid OR cont1.sfid = tsk.Task_Assigned_by_Salesforce__c '+
+                   `WHERE  tsk.Assigned_Manager__c IN ${strings}  AND tsk.sfid IS NOT NULL `;
+  
+ if(date){
+  console.log(date);
+    //let s = new Date(date);
+    //let dt = `${s.getFullYear()}-${s.getMonth()+1}-${s.getDate()+1}`;
+    queryText = queryText + `AND tsk.start_date__c = cast('${date}' as date)`;
+ }
+ //let vals = [strings];
+ console.log('queryText  taskkkkkkkkkkkkkkkkkkk',queryText);
+  pool
+   .query(queryText)
+  .then((taskQueryResult)=>{
+    console.log('taskQueryResult '+JSON.stringify(taskQueryResult.rows) +'Row COUNT => '+taskQueryResult.rowCount);
+    if(taskQueryResult.rowCount > 0)
+    {
+        let modifiedTaskList = getMappedData(taskQueryResult,objUser);
+        response.send(modifiedTaskList);
+    }
+    else
+    {
+        response.send([]);
+    }
+
+  })
+  .catch((QueryError) => {
+    console.log('QueryError  timeshheer=t'+QueryError.stack);
+    response.send(QueryError.stack);
+  }) 
+})
+
+
+
+
+function getReportingAllDepthData(temp,userId){
+  
    //console.log(temp)
    let w = {};
       temp.forEach((dt,i)=>{
@@ -1814,49 +1874,10 @@ router.get('/getTaskListReporting',verify, async (request,response)=>{
       //response.send(kt);
       console.log('idList',idList)
       let idArray = [...idList].filter(d=> d != userId);
-
-      let strings = `('${idArray.join("','")}')`
-      console.log(strings);
-
-
-
-
-  let queryText = 'SELECT tsk.Id,tsk.sfid as sfids,usr.Name as userName,cont1.name as createdname,cont1.sfid as creatednameid , usr.sfid as userSfid,tsk.Task_Assigned_by__c as assignedBy,tsk.Task_Type_Category__c as function,tsk.name as tskname,tsk.Task_Stage__c as stage,tsk.start_date__c ,tsk.Project_Name__c,tsk.Total_Hours__c ,tsk.assigned_manager__c,tsk.end_time__c,tsk.Task_Type__c,tsk.Planned_Hours__c,tsk.Start_Time__c,cont.sfid as contid ,cont.name as contname,proj.name as projname,tsk.createddate '+
-                   'FROM salesforce.Milestone1_Task__c tsk '+ 
-                   'INNER JOIN salesforce.Contact cont ON tsk.assigned_manager__c = cont.sfid '+
-                   'INNER JOIN salesforce.USER usr ON tsk.CreatedById = usr.sfid '+
-                   'INNER JOIN salesforce.Milestone1_Project__c proj ON tsk.Project_Name__c= proj.sfid '+
-                   'INNER join (select sfid,Name from salesforce.Contact ct union all select sfid,Name from salesforce.USER us ) cont1 on tsk.Task_Assigned_by__c = cont1.sfid OR cont1.sfid = tsk.Task_Assigned_by_Salesforce__c '+
-                   `WHERE  tsk.Assigned_Manager__c IN ${strings}  AND tsk.sfid IS NOT NULL `;
-  
- if(date){
-  console.log(date);
-    //let s = new Date(date);
-    //let dt = `${s.getFullYear()}-${s.getMonth()+1}-${s.getDate()+1}`;
-    queryText = queryText + `AND tsk.start_date__c = cast('${date}' as date)`;
- }
- //let vals = [strings];
- console.log('queryText  taskkkkkkkkkkkkkkkkkkk',queryText);
-  pool
-   .query(queryText)
-  .then((taskQueryResult)=>{
-    console.log('taskQueryResult '+JSON.stringify(taskQueryResult.rows) +'Row COUNT => '+taskQueryResult.rowCount);
-    if(taskQueryResult.rowCount > 0)
-    {
-        let modifiedTaskList = getMappedData(taskQueryResult,objUser);
-        response.send(modifiedTaskList);
-    }
-    else
-    {
-        response.send([]);
-    }
-
-  })
-  .catch((QueryError) => {
-    console.log('QueryError  timeshheer=t'+QueryError.stack);
-    response.send(QueryError.stack);
-  }) 
-})
+      return idArray;
+      //let strings = `('${idArray.join("','")}')`
+      //console.log(strings);
+}
 
 
 router.get('/fetchTaskDetail',verify,(request,response)=>{
