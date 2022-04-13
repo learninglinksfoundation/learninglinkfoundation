@@ -1562,9 +1562,19 @@ router.get('/geteventsProjReporting',verify,async function(req,res,next){
       mnth = ("0" + (date.getMonth() + 1)).slice(-2),
       day = ("0" + date.getDate()).slice(-2);
     return [date.getFullYear(), mnth, day].join("-");
-  }  
+  } 
+
+    let str = `Select id,sfid,Name,Email,Employee_ID__c,reporting_manager__c FROM salesforce.Contact `;
+
+   let conList =   await pool.query(str);
+   let temp = conList.rows;
+   let idArray = getReportingAllDepthData(temp,userId);
+   let strings =  `('${idArray.join("','")}')`  
+
+
+
   
-  await pool.query('SELECT Id,name, sfid ,project_name__c, planned_Hours__c, Start_Date__c FROM salesforce.Milestone1_Task__c WHERE Assigned_Manager__c IN ( Select sfid FROM salesforce.contact Where Reporting_Manager__c = $1 ) AND project_name__c =$2' ,[userId,projId])
+  await pool.query(`SELECT Id,name, sfid ,project_name__c, planned_Hours__c, Start_Date__c FROM salesforce.Milestone1_Task__c WHERE Assigned_Manager__c IN  ${strings} AND project_name__c =$1` ,[projId])
   .then((taskQueryResult) => {
     console.log('sizzzz '+taskQueryResult.rowCount);
         if(taskQueryResult.rowCount > 0)
@@ -1739,43 +1749,8 @@ router.get('/geteventsProjReporting',verify,async function(req,res,next){
 })
 
 
-router.get('/getTaskDetailsForReportingAll',verify, async function(req, res, next) {
-    console.log('request.user '+JSON.stringify(req.user));
-    var userId = req.user.sfid;
-    console.log('userId : '+userId);
-
-
-    console.log('req.query :'+req.query.date);
-    var strdate = req.query.date;
-    console.log('typeof date '+typeof(strdate));
-    var selectedDate = new Date(strdate);
-    console.log('selectedDate   : '+selectedDate);
-    console.log('typeof(selectedDate)   : '+typeof(selectedDate));
-    var year = selectedDate.getFullYear();
-    var month = selectedDate.getMonth();
-    console.log('Month '+selectedDate.getMonth());
-    console.log('Year : '+selectedDate.getFullYear());
-    var numberOfDays = new Date(year, month+1, 0).getDate();
-    console.log('numberOfDays : '+numberOfDays);
-    let plannedHoursMap = new Map();
-    let actualHoursMap = new Map();
-
-    var timesheetParams=[];
-    var lsttskid =[];
-    function convert(str) {
-      var date = new Date(str),
-        mnth = ("0" + (date.getMonth() + 1)).slice(-2),
-        day = ("0" + date.getDate()).slice(-2);
-      return [date.getFullYear(), mnth, day].join("-");
-    }
-
-    //let qrys = 'Select sfid,Name FROM salesforce.contact Where Reporting_Manager__c = $1'
-
-  let str = `Select id,sfid,Name,Email,Employee_ID__c,reporting_manager__c FROM salesforce.Contact `;
-
-   let conList =   await pool.query(str);
-   let temp = conList.rows;
-   //console.log(temp)
+function getReportingAllDepthData(temp,userId){
+  
    let w = {};
       temp.forEach((dt,i)=>{
         if( dt.reporting_manager__c && !w[dt.reporting_manager__c]  ){
@@ -1824,9 +1799,51 @@ router.get('/getTaskDetailsForReportingAll',verify, async function(req, res, nex
       //response.send(kt);
       console.log('idList',idList)
       let idArray = [...idList].filter(d=> d != userId);
+      return idArray;
+      //let strings = `('${idArray.join("','")}')`
+      //console.log(strings);
+}
 
-      let strings = `('${idArray.join("','")}')`
-      console.log(strings);
+
+router.get('/getTaskDetailsForReportingAll',verify, async function(req, res, next) {
+    console.log('request.user '+JSON.stringify(req.user));
+    var userId = req.user.sfid;
+    console.log('userId : '+userId);
+
+
+    console.log('req.query :'+req.query.date);
+    var strdate = req.query.date;
+    console.log('typeof date '+typeof(strdate));
+    var selectedDate = new Date(strdate);
+    console.log('selectedDate   : '+selectedDate);
+    console.log('typeof(selectedDate)   : '+typeof(selectedDate));
+    var year = selectedDate.getFullYear();
+    var month = selectedDate.getMonth();
+    console.log('Month '+selectedDate.getMonth());
+    console.log('Year : '+selectedDate.getFullYear());
+    var numberOfDays = new Date(year, month+1, 0).getDate();
+    console.log('numberOfDays : '+numberOfDays);
+    let plannedHoursMap = new Map();
+    let actualHoursMap = new Map();
+
+    var timesheetParams=[];
+    var lsttskid =[];
+    function convert(str) {
+      var date = new Date(str),
+        mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+        day = ("0" + date.getDate()).slice(-2);
+      return [date.getFullYear(), mnth, day].join("-");
+    }
+
+
+
+    let str = `Select id,sfid,Name,Email,Employee_ID__c,reporting_manager__c FROM salesforce.Contact `;
+
+   let conList =   await pool.query(str);
+   let temp = conList.rows;
+   let idArray = getReportingAllDepthData(temp,userId);
+   let strings =  `('${idArray.join("','")}')`
+
 
   await pool.query('SELECT Id, sfid , Planned_Hours__c, Start_Date__c FROM salesforce.Milestone1_Task__c WHERE Assigned_Manager__c IN  '+ strings )
   .then((taskQueryResult) => {
