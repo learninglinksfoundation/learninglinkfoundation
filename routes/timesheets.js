@@ -1536,16 +1536,35 @@ router.get('/getProjectByIdReporting',verify,async(request, response) => {
 
 
 
-router.get('/getTeamsProject',verify,(request, response) => {
+router.get('/getTeamsProject',verify,async(request, response) => {
     var selectedDate = request.query.date;
     var proId = request.query.projectId;
     let objUser= request.user;
-      console.log(selectedDate,typeof selectedDate)   ; 
+    console.log(selectedDate,typeof selectedDate)   ; 
+    let userId = objUser.sfid;
+    let projectTeamQuery = 'SELECT projteam.id,projteam.name,projteam.sfid as sfid,projteam.Project__c,team.sfid as tsfid, team.Manager__c ' +
+    'FROM  salesforce.Team__c team  ' +
+    'INNER JOIN salesforce.Project_Team__c projteam  ON projteam.sfid =  team.Project_Team__c ' +
+    'WHERE projteam.Project__c IS NOT NULL AND team.Manager__c = $1 ';
+
+    var projTeampram = [],
+    lstProjTeam = [];
+    let lstProject = [];
+    let tmMnger = await pool.query(projectTeamQuery, [userId])
+
+    tmMnger.rows.forEach((dt,i)=>{
+       projTeampram.push('$' + (i+1));
+       lstProjTeam.push(dt.tsfid);
+       lstProject.push(dt.project__c)
+    });
+
+
+
     let queryText = 'SELECT tsk.Id,tsk.sfid as sfids,tsk.name as tskname,tsk.Task_Assigned_by__c as assignedBy,tsk.Task_Type_Category__c as function,tsk.Task_Stage__c as stage,tsk.start_date__c ,tsk.Project_Name__c,tsk.Total_Hours__c ,tsk.assigned_manager__c,tsk.end_time__c,tsk.Task_Type__c,tsk.Planned_Hours__c,tsk.Start_Time__c,cont.sfid as contid ,cont.name as contname,proj.name as projname,tsk.createddate '+
                        'FROM salesforce.Milestone1_Task__c tsk '+ 
                        'INNER JOIN salesforce.Contact cont ON tsk.assigned_manager__c = cont.sfid '+
                        'INNER JOIN salesforce.Milestone1_Project__c proj ON tsk.Project_Name__c= proj.sfid '+
-                       'WHERE tsk.sfid IS NOT NULL '; 
+                       `WHERE tsk.sfid IS NOT NULL AND tsk.Assigned_Manager__c IN  (SELECT  Representative__c FROM salesforce.Team_Member__c WHERE team__c IN (${projTeampram.join(',')}) )   `; 
     console.log(queryText) ;
     if(proId){
       queryText = queryText + ` AND tsk.Project_Name__c = '${proId}'  `;
@@ -1557,7 +1576,7 @@ router.get('/getTeamsProject',verify,(request, response) => {
     }
     console.log(queryText) ;
     pool
-    .query(queryText)
+    .query(queryText,lstProjTeam)
     .then(data=>{
       console.log('test',data);
       if(data.rowCount > 0){
