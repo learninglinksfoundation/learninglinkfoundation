@@ -1580,7 +1580,7 @@ router.get('/geteventsProjReporting',verify,async function(req,res,next){
 
 console.log(idArray,indexArray)
 
-let q = `SELECT Id,name, sfid ,project_name__c, planned_Hours__c, Start_Date__c FROM salesforce.Milestone1_Task__c WHERE Assigned_Manager__c IN  ('${indexArray.join("','")}') AND project_name__c = ${projId}`;
+let q = `SELECT Id,name, sfid ,project_name__c, planned_Hours__c, Start_Date__c FROM salesforce.Milestone1_Task__c WHERE Assigned_Manager__c IN  ('${indexArray.join("','")}') AND project_name__c = '${projId}'`;
   console.log(q);
   await pool.query( q,idArray)
   .then((taskQueryResult) => {
