@@ -1571,18 +1571,21 @@ router.get('/geteventsProjReporting',verify,async function(req,res,next){
    let idArray = getReportingAllDepthData(temp,userId);
    let indexArray = [];
    //let id
+   let tempAr = [];
+
    idArray.forEach((dt,i)=>{
+      tempAr.push(`'${dt}'`)
       indexArray.push(`$${i+1}`);
    })
 
 
    //let strings =  `('${idArray.join("','")}')`  
 
-console.log(idArray,indexArray)
+console.log(idArray,indexArray,tempAr)
 
 let q = "SELECT Id,name, sfid ,project_name__c, planned_Hours__c, Start_Date__c FROM salesforce.Milestone1_Task__c WHERE Assigned_Manager__c IN  ('" + indexArray.join("' , '") + "') AND project_name__c = '" + projId + "'";
   console.log(q);
-  await pool.query( q,idArray)
+  await pool.query( q,tempAr)
   .then((taskQueryResult) => {
 
     console.log('sizzzz '+taskQueryResult.rowCount);
