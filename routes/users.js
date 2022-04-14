@@ -1580,7 +1580,7 @@ router.get('/geteventsProjReporting',verify,async function(req,res,next){
 
 console.log(idArray,indexArray)
 
-let q = `SELECT Id,name, sfid ,project_name__c, planned_Hours__c, Start_Date__c FROM salesforce.Milestone1_Task__c WHERE Assigned_Manager__c IN  ('${indexArray.join("','")}') AND project_name__c = '${projId}'`;
+let q = `SELECT Id,name, sfid ,project_name__c, planned_Hours__c, Start_Date__c FROM salesforce.Milestone1_Task__c WHERE Assigned_Manager__c IN  ('${indexArray.join(",")}') AND project_name__c = '${projId}'`;
   console.log(q);
   await pool.query( q,idArray)
   .then((taskQueryResult) => {
@@ -1646,7 +1646,7 @@ let q = `SELECT Id,name, sfid ,project_name__c, planned_Hours__c, Start_Date__c 
   })
 
   console.log(idArray,indexArray)
-let qrt = `SELECT name,sfid, date__c, projecttimesheet__c,representative__c,calculated_hours__c FROM salesforce.Milestone1_Time__c WHERE Project_Task__c IN ('${indexArray.join("','")}')  AND sfid IS NOT null`;
+let qrt = `SELECT name,sfid, date__c, projecttimesheet__c,representative__c,calculated_hours__c FROM salesforce.Milestone1_Time__c WHERE Project_Task__c IN ('${indexArray.join(",")}')  AND sfid IS NOT null`;
 console.log(qrt);
   await pool.query(qrt,idArray)
   .then((timesheetQueryResult) => {
