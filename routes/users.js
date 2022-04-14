@@ -1569,21 +1569,33 @@ router.get('/geteventsProjReporting',verify,async function(req,res,next){
    let conList =   await pool.query(str);
    let temp = conList.rows;
    let idArray = getReportingAllDepthData(temp,userId);
-   let strings =  `('${idArray.join("','")}')`  
+   let indexArray = [];
+   //let id
+   idArray.forEach((dt,i)=>{
+      indexArray.push(`$${i+1}`);
+   })
+
+
+   //let strings =  `('${idArray.join("','")}')`  
 
 
 
   
-  await pool.query(`SELECT Id,name, sfid ,project_name__c, planned_Hours__c, Start_Date__c FROM salesforce.Milestone1_Task__c WHERE Assigned_Manager__c IN  ${strings} AND project_name__c =$1` ,[projId])
+  await pool.query(`SELECT Id,name, sfid ,project_name__c, planned_Hours__c, Start_Date__c FROM salesforce.Milestone1_Task__c WHERE Assigned_Manager__c IN  (${indexArray.join(',')}) AND project_name__c = ${projId}` ,[idArray])
   .then((taskQueryResult) => {
+
     console.log('sizzzz '+taskQueryResult.rowCount);
         if(taskQueryResult.rowCount > 0)
         {
+          indexArray = [];
+          idArray = [];
           console.log('taskQueryResult proj '+JSON.stringify(taskQueryResult.rows));
-              taskQueryResult.rows.forEach((eachTask) =>{
+              taskQueryResult.rows.forEach((eachTask,i) =>{
                   var date = convert(eachTask.start_date__c);
                   console.log('date  '+date+'  eachTask.planned_hours__c  : '+eachTask.planned_hours__c);
-                 
+
+                  indexArray.push(`$${i+1}`);
+                  idArray.push(eachTask.sfid)
                   console.log('plannedHoursMap.has(date)  '+plannedHoursMap.has(date));
                   console.log('Opposite plannedHoursMap.has(date)  '+(!plannedHoursMap.has(date)));
                   if( !plannedHoursMap.has(date))
@@ -1632,7 +1644,7 @@ router.get('/geteventsProjReporting',verify,async function(req,res,next){
         console.log('taskQueryError   :  '+taskQueryError.stack);
   })
 
-  await pool.query('SELECT name,sfid, date__c, projecttimesheet__c,representative__c,calculated_hours__c FROM salesforce.Milestone1_Time__c WHERE projecttimesheet__c=$1 AND representative__c=$2 AND sfid IS NOT null',[projId,userId])
+  await pool.query(`SELECT name,sfid, date__c, projecttimesheet__c,representative__c,calculated_hours__c FROM salesforce.Milestone1_Time__c WHERE Project_Task__c IN (${indexArray})  AND sfid IS NOT null`,idArray)
   .then((timesheetQueryResult) => {
    console.log('timesheetQueryResult project '+JSON.stringify(timesheetQueryResult.rows));
    console.log('timesheetQueryResult.rowCount '+timesheetQueryResult.rowCount);
