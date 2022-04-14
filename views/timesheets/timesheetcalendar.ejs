@@ -243,7 +243,7 @@
         });
 
         $('#Selectview,#selproject').on('change', function() {
-            selectedView = this.value;
+            selectedView = $('#Selectview').val();
             console.log('selected' + selectedView);
             let selecteddate = document.getElementById('calMonth').innerHTML;
             console.log('slected months ' + selecteddate);
