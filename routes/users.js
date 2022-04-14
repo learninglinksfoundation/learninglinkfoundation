@@ -1578,7 +1578,7 @@ router.get('/geteventsProjReporting',verify,async function(req,res,next){
 
    //let strings =  `('${idArray.join("','")}')`  
 
-
+console.log(idArray,indexArray)
 
   
   await pool.query(`SELECT Id,name, sfid ,project_name__c, planned_Hours__c, Start_Date__c FROM salesforce.Milestone1_Task__c WHERE Assigned_Manager__c IN  (${indexArray.join(',')}) AND project_name__c = ${projId}` ,[idArray])
@@ -1643,6 +1643,8 @@ router.get('/geteventsProjReporting',verify,async function(req,res,next){
   .catch((taskQueryError) => {
         console.log('taskQueryError   :  '+taskQueryError.stack);
   })
+
+  console.log(idArray,indexArray)
 
   await pool.query(`SELECT name,sfid, date__c, projecttimesheet__c,representative__c,calculated_hours__c FROM salesforce.Milestone1_Time__c WHERE Project_Task__c IN (${indexArray})  AND sfid IS NOT null`,idArray)
   .then((timesheetQueryResult) => {
