@@ -375,22 +375,7 @@
             } else if (selectProj != 'allproject' && selectedView == 'teamview') {
                 console.log('Team View & particula project' + selectProj);
                 createButton();
-                /*   $.ajax({ 
-                      type: 'GET',
-                      url: '/users/getProjectRealted',
-                      data : {
-                          'projectid': selectProj,
-                          'date': today
-                      },
-                      dataType: 'json'
-                  })
-                  .done((data)=>{
-                    console.log('data  '+JSON.stringify(data));   
-                  })
-                  .fail(function(jqXHR, textStatus, err){
-                    console.log('AJAX error response :',textStatus);
-                })
-                */
+                
 
                 $.ajax({
                         type: 'GET',
