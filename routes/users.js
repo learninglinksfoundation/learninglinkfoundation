@@ -1015,9 +1015,9 @@ router.get('/geteventsProjteam',verify,async function(req,res,next) {
   let projectTeamQuery = 'SELECT projteam.id,projteam.name,projteam.sfid as sfid,projteam.Project__c,team.sfid as tsfid, team.Manager__c ' +
     'FROM  salesforce.Team__c team  ' +
     'INNER JOIN salesforce.Project_Team__c projteam  ON projteam.sfid =  team.Project_Team__c ' +
-    'WHERE projteam.Project__c IS NOT NULL AND team.Manager__c = $1 ';
+    'WHERE projteam.Project__c = $2  AND team.Manager__c = $1 ';
   console.log('All project Team ' + projectTeamQuery);
-  pool.query(projectTeamQuery, [userId])
+  pool.query(projectTeamQuery, [userId,projId])
     .then((projTeamResult) => {
       console.log('projectsssds' + JSON.stringify(projTeamResult.rows));
       if (projTeamResult.rowCount > 0) {
