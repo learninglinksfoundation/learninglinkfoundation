@@ -985,6 +985,7 @@ router.get('/geteventsProjteam',verify,async function(req,res,next) {
   var lstTeams = [];
   var teamParam = [];
   let teamMember = [];
+  let twoDigitMonth;
   let teamMemberParam = [];
   teamMemberParam.push('$' + 1);
   teamMember.push(userId);
@@ -1118,8 +1119,8 @@ router.get('/geteventsProjteam',verify,async function(req,res,next) {
 
                         var lstEvents = [];
                         for (let i = 1; i <= numberOfDays; i++) {
-                          let day = i,
-                            twoDigitMonth = month + 1;
+                          let day = i;
+                          twoDigitMonth = month + 1;
                           if (day >= 1 && day <= 9) {
                             day = '0' + i;
                           }
@@ -1196,7 +1197,69 @@ router.get('/geteventsProjteam',verify,async function(req,res,next) {
             console.log('eroro in member Query ' + JSON.stringify(error.stack));
           })
       }
-   
+      else{
+
+
+        var lstEvents = [];
+                        for (let i = 1; i <= numberOfDays; i++) {
+                          let day = i;
+                            twoDigitMonth = month + 1;
+                          if (day >= 1 && day <= 9) {
+                            day = '0' + i;
+                          }
+                          if (twoDigitMonth >= 1 && twoDigitMonth <= 9) {
+                            twoDigitMonth = '0' + twoDigitMonth;
+                          }
+
+                          var date = year + '-' + twoDigitMonth + '-' + day;
+                          console.log('date inside events ' + date);
+                          //  console.log('plannedHoursMap.has(date)  '+plannedHoursMap.has(date))
+                          if (plannedHoursMap.has(date)) {
+                            console.log('plannedHoursMap.get(date)  : ' + plannedHoursMap.get(date));
+                            lstEvents.push({
+                              title: 'Planned Hours : ' + plannedHoursMap.get(date),
+                              start: year + '-' + twoDigitMonth + '-' + day,
+                            });
+
+                          } else {
+                            lstEvents.push({
+                              title: 'Planned Hours : ' + '0',
+                              start: year + '-' + twoDigitMonth + '-' + day,
+                            });
+                          }
+
+
+                          if (actualHoursMap.has(date)) {
+                            lstEvents.push({
+                              title: 'Actual Hours : ' + actualHoursMap.get(date),
+                              start: year + '-' + twoDigitMonth + '-' + day,
+                            });
+                          } else {
+                            lstEvents.push({
+                              title: 'Actual Hours : ' + '0',
+                              start: year + '-' + twoDigitMonth + '-' + day,
+                            });
+                          }
+
+                          lstEvents.push({
+                            title: 'Create Task',
+                            start: year + '-' + twoDigitMonth + '-' + day,
+                          });
+                          /*lstEvents.push({
+                            title : 'Details',
+                            start : year+'-'+twoDigitMonth+'-'+day,   
+                          });
+                          */
+                          lstEvents.push({
+                            title: 'Fill Actuals',
+                            start: year + '-' + twoDigitMonth + '-' + day,
+                          });
+
+                        }
+                        console.log('JSON.strigify teamView' + JSON.stringify(lstEvents));
+                        res.send(lstEvents);
+
+      }
 
     })
     .catch((error) => {
