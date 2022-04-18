@@ -301,7 +301,7 @@ router.get('/getProjectMemeber',verify, (request, response) => {
   console.log('request.user '+JSON.stringify(request.user),request.query);
   let id = request.query.projectId;
   pool
-  .query(`SELECT Name, sfid,  Team__c FROM salesforce.Project_Team__c where Project__c = '${id}'`)
+  .query(`SELECT pr.Name as name, pr.sfid as prjsfid , tm.sfid as team__c  FROM salesforce.Team__c tm INNER JOIN  salesforce.Project_Team__c pr on pr.sfid = tm.Project_Team__c where pr.Project__c = '${id}'`)
   .then((contactQueryResult) => {
     console.log('contactQueryResult  : '+JSON.stringify(contactQueryResult.rows));
     let teamList = [];
@@ -350,7 +350,7 @@ router.get('/getProjectMemeberReport',verify, async (request, response) => {
   let userId = request.query.userId;
   let projTeam = [];
   //let finalRows = [];
-   await pool.query(`SELECT Name, sfid,  Team__c FROM salesforce.Project_Team__c where Project__c = '${id}'`)
+   await pool.query(`SELECT pr.Name as name, pr.sfid as prjsfid , tm.sfid as team__c  FROM salesforce.Team__c tm INNER JOIN  salesforce.Project_Team__c pr on pr.sfid = tm.Project_Team__c where pr.Project__c = '${id}'`)
   .then( async (contactQueryResult) => {
     console.log('contactQueryResult  : '+JSON.stringify(contactQueryResult.rows));
     let teamList = [];
@@ -535,7 +535,7 @@ router.get('/timesheet',verify, function(request,response){
             projectTeamparams.push('$' + i);
             lstTeamId.push(teamMemberResult.rows[i-1].team__c);
           } 
-          var projectTeamQueryText = 'SELECT sfid, Name, Project__c FROM salesforce.Project_Team__c WHERE Team__c IN (' + projectTeamparams.join(',') + ') ORDER BY Name';
+          var projectTeamQueryText = 'SELECT  pr.sfid , pr.Project__c as project__c  FROM salesforce.Team__c tm INNER JOIN  salesforce.Project_Team__c pr on pr.sfid = tm.Project_Team__c WHERE tm.sfId IN (' + projectTeamparams.join(',') + ') ORDER BY Name';
           console.log('projectTeamQueryText '+projectTeamQueryText);
           
             pool
@@ -696,7 +696,7 @@ router.get('/geteventsTeam', verify, async function(req, res, next) {
     return [date.getFullYear(), mnth, day].join("-");
   }
 
-  let projectTeamQuery = 'SELECT id,name,sfid,Project__c,Team__c FROM salesforce.Project_Team__c WHERE Project__c IS NOT NULL';
+  let projectTeamQuery =  'SELECT   tm.sfid as team__c , pr.project__c as project__c  FROM salesforce.Team__c tm INNER JOIN  salesforce.Project_Team__c pr on pr.sfid = tm.Project_Team__c WHERE pr.Project__c IS NOT NULL'  ;// 'SELECT id,name,sfid,Project__c,Team__c FROM salesforce.Project_Team__c WHERE Project__c IS NOT NULL';
   console.log('All project Team ' + projectTeamQuery);
   pool.query(projectTeamQuery)
     .then((projTeamResult) => {
@@ -2732,7 +2732,7 @@ router.get('/getProjects',verify,(request, response) =>{
         projectTeamparams.push('$' + i);
         lstTeamId.push(teamMemberResult.rows[i-1].team__c);
       } 
-      var projectTeamQueryText = 'SELECT sfid, Name, Project__c FROM salesforce.Project_Team__c WHERE Team__c IN (' + projectTeamparams.join(',') + ')';
+      var projectTeamQueryText = 'SELECT   tm.sfid as team__c , pr.project__c as project__c  FROM salesforce.Team__c tm INNER JOIN  salesforce.Project_Team__c pr on pr.sfid = tm.Project_Team__c WHERE tm.sfid IN (' + projectTeamparams.join(',') + ')';
       console.log('projectTeamQueryText '+projectTeamQueryText);
       
         pool
@@ -2795,7 +2795,7 @@ router.get('/getProjects',verify,(request, response) =>{
         projectTeamparams.push('$' + i);
         lstTeamId.push(teamMemberResult.rows[i-1].sfid);
       } 
-      var projectTeamQueryText = 'SELECT sfid, Name, Project__c FROM salesforce.Project_Team__c WHERE Team__c IN (' + projectTeamparams.join(',') + ')';
+      var projectTeamQueryText = 'SELECT   tm.sfid as team__c , pr.project__c as project__c  FROM salesforce.Team__c tm INNER JOIN  salesforce.Project_Team__c pr on pr.sfid = tm.Project_Team__c WHERE tm.sfid IN IN (' + projectTeamparams.join(',') + ')';
       console.log('projectTeamQueryText '+projectTeamQueryText);
       
         pool
