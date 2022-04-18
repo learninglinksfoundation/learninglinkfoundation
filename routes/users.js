@@ -11,17 +11,17 @@ const joi = require('@hapi/joi');
 const { response } = require('express');
 const { Client } = require('pg');
 // const {check, validationResult }=require('express-validator');
-
+/*
 router.get('/testByAmit',(request,response) =>{
  
-  /*pool.query('INSERT INTO salesforce.Milestone1_Task__c (Name,RecordTypeId,Project_Name__c,Project_Task_Category__c) VALUES($1,$2,$3,$4) RETURNING *',['Test With RKKKK And Amit','0120p000000C8pqAAC','a030p000001low4AAA','Project Initiation'])
+  pool.query('INSERT INTO salesforce.Milestone1_Task__c (Name,RecordTypeId,Project_Name__c,Project_Task_Category__c) VALUES($1,$2,$3,$4) RETURNING *',['Test With RKKKK And Amit','0120p000000C8pqAAC','a030p000001low4AAA','Project Initiation'])
   .then((result)=>{
     console.log('result : '+JSON.stringify(result));
     response.send(result);
   })
   .catch((error)=>{
     console.log('error  '+error.stack);
-  }) */
+  }) 
 
 
   pool.query('DELETE FROM salesforce.custom_approval__c WHERE id = $1',['131'])
@@ -52,7 +52,7 @@ router.get('/testByAmit',(request,response) =>{
     console.log('error  '+error.stack);
   })
  
- })
+ }) */
  
 router.post('/savePldForm',(request, response) => {
 
