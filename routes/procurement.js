@@ -1678,7 +1678,7 @@ router.get('/getProjectList', verify ,(request,response) => {
             console.log('Name of Contact  :: '+contactResult.rows[0].name+' sfid'+contactResult.rows[0].sfid);
             var contactId = contactResult.rows[0].sfid;                 
             pool
-            .query('SELECT sfid, Name, Team__c FROM salesforce.Team_Member__c WHERE Representative__c = $1 ;',[contactId])
+            .query('SELECT sfid, Name, Team__c FROM salesforce.Team_Member__c WHERE Representative__c = $1 AND Team__c IS not NULL ;',[contactId])
             .then(teamMemberResult => 
               {
                 console.log('Name of TeamMemberId  : '+teamMemberResult.rows[0].name+'   sfid :'+teamMemberResult.rows[0].sfid);
@@ -1706,7 +1706,7 @@ router.get('/getProjectList', verify ,(request,response) => {
                         projectParams.push('$' + i);
                         lstProjectId.push(projectTeamResult.rows[i-1].project__c);
                           } 
-                        console.log('lstProjectId  : '+lstProjectId);
+                        console.log('lstProjectId  : ',lstProjectId);
                         var projetQueryText = 'SELECT sfid, Name FROM salesforce.Milestone1_Project__c WHERE sfid IN ('+ projectParams.join(',')+ ')';
                   
                           pool.
