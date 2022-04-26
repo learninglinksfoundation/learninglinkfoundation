@@ -326,7 +326,7 @@ router.get('/assetEditDetails',verify ,async(request, response) =>{
                             projectTeamparams.push('$' + i);
                             lstTeamId.push(teamMemberResult.rows[i-1].team__c);
                             } 
-                            var projectTeamQueryText = 'SELECT sfid, Name, Project__c FROM salesforce.Project_Team__c WHERE Team__c IN (' + projectTeamparams.join(',') + ')';
+                            var projectTeamQueryText = 'SELECT  pr.sfid , pr.Project__c as project__c  FROM salesforce.Team__c tm INNER JOIN  salesforce.Project_Team__c pr on pr.sfid = tm.Project_Team__c WHERE tm.sfId IN (' + projectTeamparams.join(',') + ')';
                             console.log('projectTeamQueryText '+projectTeamQueryText);
                             
                             pool
@@ -1609,7 +1609,7 @@ router.get('/getProjectList', verify ,(request,response) => {
                      projectTeamparams.push('$' + i);
                     lstTeamId.push(teamMemberResult.rows[i-1].sfid);
                     } 
-                  var projectTeamQueryText = 'SELECT sfid, Name, Project__c FROM salesforce.Project_Team__c WHERE Team__c IN (' + projectTeamparams.join(',') + ')';
+                  var projectTeamQueryText = 'SELECT  pr.sfid , pr.Project__c as project__c  FROM salesforce.Team__c tm INNER JOIN  salesforce.Project_Team__c pr on pr.sfid = tm.Project_Team__c WHERE tm.sfId IN (' + projectTeamparams.join(',') + ')';
                   console.log('projectTeamQueryText '+projectTeamQueryText);
                           
                    pool
@@ -1690,7 +1690,7 @@ router.get('/getProjectList', verify ,(request,response) => {
                      projectTeamparams.push('$' + i);
                     lstTeamId.push(teamMemberResult.rows[i-1].team__c);
                     } 
-                  var projectTeamQueryText = 'SELECT sfid, Name, Project__c FROM salesforce.Project_Team__c WHERE Team__c IN (' + projectTeamparams.join(',') + ')';
+                  var projectTeamQueryText = 'SELECT  pr.sfid , pr.Project__c as project__c  FROM salesforce.Team__c tm INNER JOIN  salesforce.Project_Team__c pr on pr.sfid = tm.Project_Team__c WHERE tm.sfId IN (' + projectTeamparams.join(',') + ')';
                   console.log('projectTeamQueryText '+projectTeamQueryText);
                           
                    pool
