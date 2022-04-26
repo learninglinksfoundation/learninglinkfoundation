@@ -314,7 +314,7 @@ router.get('/assetEditDetails',verify ,async(request, response) =>{
                                   })
 
                         pool
-                        .query('SELECT sfid, Name, Team__c FROM salesforce.Team_Member__c WHERE Representative__c = $1 ;',[objUser.sfid])
+                        .query('SELECT sfid, Name, Team__c FROM salesforce.Team_Member__c WHERE Representative__c = $1 AND Team__c IS not NULL  ;',[objUser.sfid])
                         .then(teamMemberResult => {
                             if(teamMemberResult.rowCount > 0){
                             console.log('Name of TeamMemberId  : '+teamMemberResult.rows[0].name+' sfid :'+teamMemberResult.rows[0].sfid);
@@ -1597,7 +1597,7 @@ router.get('/getProjectList', verify ,(request,response) => {
             console.log('Name of Contact  :: '+contactResult.rows[0].name+' sfid'+contactResult.rows[0].sfid);
             var contactId = contactResult.rows[0].sfid;                 
             pool
-            .query('SELECT sfid, Name FROM salesforce.team__c WHERE manager__c = $1 ;',[contactId])
+            .query('SELECT sfid, Name FROM salesforce.team__c WHERE manager__c = $1 AND Team__c IS not NULL  ;',[contactId])
             .then(teamMemberResult => 
               {
                 console.log('Name of TeamMemberId  : '+teamMemberResult.rows[0].name+'   sfid :'+teamMemberResult.rows[0].sfid);
@@ -1633,7 +1633,7 @@ router.get('/getProjectList', verify ,(request,response) => {
                          .then((projectQueryResult) => 
                            { 
                             console.log('Number of Projects '+projectQueryResult.rows.length);
-                            console.log('Project sfid '+projectQueryResult.rows[0].sfid+ 'Project Name '+projectQueryResult.rows[0].name);
+                            //console.log('Project sfid '+projectQueryResult.rows[0].sfid+ 'Project Name '+projectQueryResult.rows[0].name);
                             var projectList = projectQueryResult.rows;
                             var lstProjectId = [], projectParams = [];
                             var j = 1;
@@ -1714,7 +1714,7 @@ router.get('/getProjectList', verify ,(request,response) => {
                          .then((projectQueryResult) => 
                            { 
                             console.log('Number of Projects '+projectQueryResult.rows.length);
-                            console.log('Project sfid '+projectQueryResult.rows[0].sfid+ 'Project Name '+projectQueryResult.rows[0].name);
+                            //console.log('Project sfid '+projectQueryResult.rows[0].sfid+ 'Project Name '+projectQueryResult.rows[0].name);
                             var projectList = projectQueryResult.rows;
                             var lstProjectId = [], projectParams = [];
                             var j = 1;
