@@ -317,8 +317,8 @@ router.get('/assetEditDetails',verify ,async(request, response) =>{
                         .query('SELECT sfid, Name, Team__c FROM salesforce.Team_Member__c WHERE Representative__c = $1 AND Team__c IS not NULL  ;',[objUser.sfid])
                         .then(teamMemberResult => {
                             if(teamMemberResult.rowCount > 0){
-                            console.log('Name of TeamMemberId  : '+teamMemberResult.rows[0].name+' sfid :'+teamMemberResult.rows[0].sfid);
-                            console.log('Team Id  : '+teamMemberResult.rows[0].team__c);
+                            //console.log('Name of TeamMemberId  : '+teamMemberResult.rows[0].name+' sfid :'+teamMemberResult.rows[0].sfid);
+                            //console.log('Team Id  : '+teamMemberResult.rows[0].team__c);
                             console.log('Number of Team Member '+teamMemberResult.rows.length);
 
                             var projectTeamparams = [], lstTeamId = [];
@@ -1600,8 +1600,8 @@ router.get('/getProjectList', verify ,(request,response) => {
             .query('SELECT sfid, Name FROM salesforce.team__c WHERE manager__c = $1 AND Team__c IS not NULL  ;',[contactId])
             .then(teamMemberResult => 
               {
-                console.log('Name of TeamMemberId  : '+teamMemberResult.rows[0].name+'   sfid :'+teamMemberResult.rows[0].sfid);
-                console.log('Team Id  : '+teamMemberResult.rows[0].sfid);
+               // console.log('Name of TeamMemberId  : '+teamMemberResult.rows[0].name+'   sfid :'+teamMemberResult.rows[0].sfid);
+                //console.log('Team Id  : '+teamMemberResult.rows[0].sfid);
                 console.log('Number of Team Member '+teamMemberResult.rows.length);
                   var projectTeamparams = [], lstTeamId = [];
                   for(var i = 1; i <= teamMemberResult.rows.length; i++) 
@@ -1681,8 +1681,8 @@ router.get('/getProjectList', verify ,(request,response) => {
             .query('SELECT sfid, Name, Team__c FROM salesforce.Team_Member__c WHERE Representative__c = $1 AND Team__c IS not NULL ;',[contactId])
             .then(teamMemberResult => 
               {
-                console.log('Name of TeamMemberId  : '+teamMemberResult.rows[0].name+'   sfid :'+teamMemberResult.rows[0].sfid);
-                console.log('Team Id  : '+teamMemberResult.rows[0].team__c);
+                //console.log('Name of TeamMemberId  : '+teamMemberResult.rows[0].name+'   sfid :'+teamMemberResult.rows[0].sfid);
+                //console.log('Team Id  : '+teamMemberResult.rows[0].team__c);
                 console.log('Number of Team Member '+teamMemberResult.rows.length);
                   var projectTeamparams = [], lstTeamId = [];
                   for(var i = 1; i <= teamMemberResult.rows.length; i++) 
