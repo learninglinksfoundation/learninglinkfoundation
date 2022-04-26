@@ -333,7 +333,7 @@ router.get('/assetEditDetails',verify ,async(request, response) =>{
                             .query(projectTeamQueryText,lstTeamId)
                             .then((projectTeamResult) => {
                                 console.log('projectTeam Reocrds Length '+projectTeamResult.rows.length);
-                                console.log('projectTeam Name '+projectTeamResult.rows[0].name);
+                                //console.log('projectTeam Name '+projectTeamResult.rows[0].name);
 
                                 var projectParams = [], lstProjectId = [];
                                 for(var i = 1; i <= projectTeamResult.rows.length; i++) {
@@ -1617,7 +1617,7 @@ router.get('/getProjectList', verify ,(request,response) => {
                   .then((projectTeamResult) => 
                      {
                        console.log('projectTeam Reocrds Length '+projectTeamResult.rows.length);
-                        console.log('projectTeam Name '+projectTeamResult.rows[0].name);
+                        //console.log('projectTeam Name '+projectTeamResult.rows[0].name);
                   
                         var projectParams = [], lstProjectId = [];
                         for(var i = 1; i <= projectTeamResult.rows.length; i++) 
@@ -1698,7 +1698,7 @@ router.get('/getProjectList', verify ,(request,response) => {
                   .then((projectTeamResult) => 
                      {
                        console.log('projectTeam Reocrds Length '+projectTeamResult.rows.length);
-                        console.log('projectTeam Name '+projectTeamResult.rows[0].name);
+                        //console.log('projectTeam Name '+projectTeamResult.rows[0].name);
                   
                         var projectParams = [], lstProjectId = [];
                         for(var i = 1; i <= projectTeamResult.rows.length; i++) 
