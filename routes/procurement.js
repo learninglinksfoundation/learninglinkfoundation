@@ -1597,7 +1597,7 @@ router.get('/getProjectList', verify ,(request,response) => {
             console.log('Name of Contact  :: '+contactResult.rows[0].name+' sfid'+contactResult.rows[0].sfid);
             var contactId = contactResult.rows[0].sfid;                 
             pool
-            .query('SELECT sfid, Name FROM salesforce.team__c WHERE manager__c = $1 AND Team__c IS not NULL  ;',[contactId])
+            .query('SELECT sfid, Name FROM salesforce.team__c WHERE manager__c = $1   ;',[contactId])
             .then(teamMemberResult => 
               {
                // console.log('Name of TeamMemberId  : '+teamMemberResult.rows[0].name+'   sfid :'+teamMemberResult.rows[0].sfid);
