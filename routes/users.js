@@ -2739,7 +2739,7 @@ router.get('/getProjects',verify,(request, response) =>{
         .query(projectTeamQueryText,lstTeamId)
         .then((projectTeamResult) => {
             console.log('projectTeam Reocrds Length '+projectTeamResult.rows.length);
-            console.log('projectTeam Name '+projectTeamResult.rows[0].name);
+            //console.log('projectTeam Name '+projectTeamResult.rows[0].name);
 
             var projectParams = [], lstProjectId = [];
             for(var i = 1; i <= projectTeamResult.rows.length; i++) {
@@ -2802,7 +2802,7 @@ router.get('/getProjects',verify,(request, response) =>{
         .query(projectTeamQueryText,lstTeamId)
         .then((projectTeamResult) => {
             console.log('projectTeam Reocrds Length '+projectTeamResult.rows.length);
-            console.log('projectTeam Name '+projectTeamResult.rows[0].name);
+            //console.log('projectTeam Name '+projectTeamResult.rows[0].name);
 
             var projectParams = [], lstProjectId = [];
             for(var i = 1; i <= projectTeamResult.rows.length; i++) {
@@ -2947,7 +2947,7 @@ router.get('/geteventsTeams', verify, async function(req, res, next) {
         return [date.getFullYear(), mnth, day].join("-");
     }
 
-    let projectTeamQuery = 'SELECT projteam.id,projteam.name,projteam.sfid as sfid,projteam.Project__c,team.sfid as tsfid, team.Manager__c ' +
+    let projectTeamQuery = 'SELECT projteam.id,projteam.name,projteam.sfid as sfid,projteam.Project__c as project__c,team.sfid as tsfid, team.Manager__c ' +
         'FROM  salesforce.Team__c team  ' +
         'INNER JOIN salesforce.Project_Team__c projteam  ON projteam.sfid =  team.Project_Team__c ' +
         'WHERE projteam.Project__c IS NOT NULL AND team.Manager__c = $1 ';

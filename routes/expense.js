@@ -284,7 +284,7 @@ router.get('/fetchProjectforCreateNew', verify ,(request, response) =>
                      projectTeamparams.push('$' + i);
                     lstTeamId.push(teamcResult.rows[i-1].sfid);
                     } 
-                  var projectTeamQueryText = 'SELECT sfid, Name, Project__c FROM salesforce.Project_Team__c WHERE Team__c IN (' + projectTeamparams.join(',') + ')';
+                  var projectTeamQueryText = 'SELECT  pr.sfid , pr.Project__c as project__c  FROM salesforce.Team__c tm INNER JOIN  salesforce.Project_Team__c pr on pr.sfid = tm.Project_Team__c WHERE tm.sfId IN (' + projectTeamparams.join(',') + ')';
                   console.log('projectTeamQueryText '+projectTeamQueryText);
                           
                    pool
@@ -292,7 +292,7 @@ router.get('/fetchProjectforCreateNew', verify ,(request, response) =>
                   .then((projectTeamResult) => 
                      {
                        console.log('projectTeam Reocrds Length '+projectTeamResult.rows.length);
-                        console.log('projectTeam Name '+projectTeamResult.rows[0].name);
+                        //console.log('projectTeam Name '+projectTeamResult.rows[0].name);
                   
                         var projectParams = [], lstProjectId = [];
                         for(var i = 1; i <= projectTeamResult.rows.length; i++) 
@@ -366,7 +366,7 @@ router.get('/fetchProjectforCreateNew', verify ,(request, response) =>
                      projectTeamparams.push('$' + i);
                     lstTeamId.push(teamMemberResult.rows[i-1].team__c);
                     } 
-                  var projectTeamQueryText = 'SELECT sfid, Name, Project__c FROM salesforce.Project_Team__c WHERE Team__c IN (' + projectTeamparams.join(',') + ')';
+                  var projectTeamQueryText = 'SELECT  pr.sfid , pr.Project__c as project__c  FROM salesforce.Team__c tm INNER JOIN  salesforce.Project_Team__c pr on pr.sfid = tm.Project_Team__c WHERE tm.sfId IN (' + projectTeamparams.join(',') + ')';
                   console.log('projectTeamQueryText '+projectTeamQueryText);
                           
                    pool
@@ -374,7 +374,7 @@ router.get('/fetchProjectforCreateNew', verify ,(request, response) =>
                   .then((projectTeamResult) => 
                      {
                        console.log('projectTeam Reocrds Length '+projectTeamResult.rows.length);
-                        console.log('projectTeam Name '+projectTeamResult.rows[0].name);
+                        //console.log('projectTeam Name '+projectTeamResult.rows[0].name);
                   
                         var projectParams = [], lstProjectId = [];
                         for(var i = 1; i <= projectTeamResult.rows.length; i++) 
@@ -540,14 +540,14 @@ router.get('/saved-expense-details',verify, async (request, response) => {
       projectTeamparams.push('$' + i);
       lstTeamId.push(teamMemberResult.rows[i-1].team__c);
     } 
-    var projectTeamQueryText = 'SELECT sfid, Name, Project__c FROM salesforce.Project_Team__c WHERE Team__c IN (' + projectTeamparams.join(',') + ')';
+    var projectTeamQueryText = 'SELECT  pr.sfid , pr.Project__c as project__c  FROM salesforce.Team__c tm INNER JOIN  salesforce.Project_Team__c pr on pr.sfid = tm.Project_Team__c WHERE tm.sfId IN (' + projectTeamparams.join(',') + ')';
     console.log('projectTeamQueryText '+projectTeamQueryText);
     
       pool
       .query(projectTeamQueryText,lstTeamId)
       .then((projectTeamResult) => {
           console.log('projectTeam Reocrds Length '+projectTeamResult.rows.length);
-          console.log('projectTeam Name '+projectTeamResult.rows[0].name);
+          //console.log('projectTeam Name '+projectTeamResult.rows[0].name);
 
           var projectParams = [], lstProjectId = [];
           for(var i = 1; i <= projectTeamResult.rows.length; i++) {
@@ -1466,7 +1466,7 @@ router.post('/sendForApproval',verify, async(request, response) => {
                   console.log('Inside projectQuery  : '+projectId);
 
                   pool
-                  .query('SELECT sfid, name, Team__c FROM salesforce.Project_Team__c WHERE Project__c = $1 ',[projectId])
+                  .query('SELECT  pr.sfid as sfid,pr.name as name, tm.sfid as team__c , pr.project__c as project__c  FROM salesforce.Team__c tm INNER JOIN  salesforce.Project_Team__c pr on pr.sfid = tm.Project_Team__c WHERE pr.project__c = $1 ' ,[projectId]) //'SELECT sfid, name, Team__c FROM salesforce.Project_Team__c WHERE Project__c = $1 '
                   .then((projectTeamQueryResult) =>{
                     console.log('projectTeamQueryResult   : '+JSON.stringify(projectTeamQueryResult.rows));
                     if(projectTeamQueryResult.rowCount > 0)
