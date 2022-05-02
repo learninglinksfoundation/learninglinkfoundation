@@ -409,8 +409,8 @@
                     console.log('date '+date);
                     monthNumber=date.split('/')[0];
                     document.getElementById('calMonth').innerHTML= months[monthNumber-1]+' '+date.split('/')[2];
-                    $('#Selectview').val('None');
-                    $('#selproject').val('None');
+                    $('#Selectview').val('currentuser');
+                    $('#selproject').val('allproject');
                 
                     $.ajax({ 
                         type: 'GET',
@@ -439,8 +439,8 @@
             console.log('date '+date);
             monthNumber=date.split('/')[0];
             document.getElementById('calMonth').innerHTML= months[monthNumber-1]+' '+date.split('/')[2];
-            $('#Selectview').val('None');
-            $('#selproject').val('None');
+           $('#Selectview').val('currentuser');
+           $('#selproject').val('allproject');
         
             $.ajax({ 
                 type: 'GET',
