@@ -194,8 +194,10 @@
         var today = new Date();
         var eventsData ; 
         let dt = <%- objUser.isManager %>;
+        let isReport = <%- objUser.isReportingManager %>;
         console.log(dt); 
-        $('#Selectview').attr('readonly',!dt);
+        let finlData = (isReport || dt)
+        $('#Selectview').attr('readonly',!finlData);
 
          var  months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; 
        // $('calMonth').append('welcome to gohilinfotech.in');
