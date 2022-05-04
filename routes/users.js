@@ -204,7 +204,7 @@ return  */
    const {email, password} = request.body;
    console.log('email : '+email+' passoword '+password);
 
-  let errors = [], userId, objUser, isUserExist = false;
+  let errors = [], userId, objUser = {}, isUserExist = false;
 
    if (!email || !password) {
      errors.push({ msg: 'Please enter all fields' });
