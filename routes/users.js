@@ -161,6 +161,7 @@ router.get('/login', function(req, response, next) {
 
 
 router.get('/testApi', (request,response)=>{
+
   pool
   .query('SELECT Id, sfid, name  FROM salesforce.account')
   .then((queryResult) => {
@@ -231,6 +232,22 @@ return  */
      console.log('loginError   :  '+loginError.stack);
      isUserExist = false;
    })
+
+
+   await pool.query('SELECT sfid, Name,reporting_manager__c FROM salesforce.Contact where reporting_manager__c = $1 ',[userId])
+   .then(resp=>{
+      if(resp.rowCount > 0){
+        objUser.isReportingManager = true;
+      }
+      else{
+        objUser.isReportingManager = false;
+      }
+   })
+   .catch(err=>{
+    console.log('loginError   :  ',err);
+     objUser.isReportingManager = false;
+   })
+
 
    
   await pool.query('SELECT sfid FROM salesforce.Team__c WHERE Manager__c =  $1 ',[userId])
