@@ -243,7 +243,7 @@ router.post('/createMultipletask', async (request, response) => {
         });
         console.log(temp);
         formData.forEach((dt, i) => {
-          values = `${values},('${dt.taskname}','${temp[dt.projectname]}','0122y00000005mMAAQ','${dt.status}','${dt.projectname}','${dt.taskdate}','${dt.assignedresource}','${dt.tasktype}','${dt.plannedstarttime ? dt.plannedstarttime : 'CAST (NULL AS text) AS det_approx_lfd'}','${dt.plannedendtime ? dt.plannedendtime : '00:00'}','${dt.deadline}','${dt.function}','${dt.userId}')`;
+          values = `${values},('${dt.taskname}','${temp[dt.projectname]}','0122y00000005mMAAQ','${dt.status}','${dt.projectname}','${dt.taskdate}','${dt.assignedresource}','${dt.tasktype}','${dt.plannedstarttime ? dt.plannedstarttime : 'null::timestamptz AS decay_date_lfd'}','${dt.plannedendtime ? dt.plannedendtime : '00:00'}','${dt.deadline}','${dt.function}','${dt.userId}')`;
         });
         values = values.substring(1);
         console.log(values);
