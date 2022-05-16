@@ -2981,7 +2981,7 @@ router.get('/geteventsTeams', verify, async function(req, res, next) {
                     lstProject.push(projTeamResult.rows[i - 1].project__c)
                     //  projectTeamMap.set(projTeamResult.rows[i-2].team__c,projTeamResult.rows[i-2].project__c);
                 }
-                let teamUserQuery = 'SELECT Id, sfid,Representative__c , team__c FROM salesforce.Team_Member__c WHERE team__c IN (' + projTeampram.join(',') + ')';
+                let teamUserQuery = 'SELECT Representative__c FROM salesforce.Team_Member__c WHERE team__c IN (' + projTeampram.join(',') + ')';
                 console.log('teamUserQuery ' + teamUserQuery);
                 pool.query(teamUserQuery, lstProjTeam)
                     .then((memberQueryresult) => {
