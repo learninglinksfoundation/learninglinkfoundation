@@ -2991,7 +2991,7 @@ router.get('/geteventsTeams', verify, async function(req, res, next) {
                             teamMemberParam.push('$' + i);
                             teamMember.push(memberQueryresult.rows[i - 2].representative__c);
                         }
-                        console.log('Team Member involne in Team ' + teamMember + 'dollers ' + teamMemberParam);
+                        console.log('Team Member involne in Team ' , teamMember , 'dollers ' , teamMemberParam);
                         console.log('project list ' + lstProject.length + ' gh  ' + lstProject);
                         let qry = 'SELECT Id, sfid , Planned_Hours__c,Project_Name__c, Start_Date__c FROM salesforce.Milestone1_Task__c WHERE sfid IS NOT NULL AND Assigned_Manager__c IN (' + teamMemberParam.join(',') + ')';
                         console.log('taskQuery ' + qry);
