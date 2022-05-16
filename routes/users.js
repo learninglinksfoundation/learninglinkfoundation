@@ -2996,7 +2996,7 @@ router.get('/geteventsTeams', verify, async function(req, res, next) {
                         let qry = 'SELECT Id, sfid , Planned_Hours__c,Project_Name__c, Start_Date__c FROM salesforce.Milestone1_Task__c WHERE sfid IS NOT NULL AND Assigned_Manager__c IN ( ' + teamUserQuery + ' )'  //+ ` AND  Assigned_Manager__c IS NOT '${userId}' OR Task_Assigned_by__c =  '${userId}' `  ;
                         console.log('taskQuery ' + qry);
                         let lstSet = new Set()
-                        pool.query(qry)
+                        pool.query(qry,lstProjTeam)
                             .then((taskQueryResult) => {
                                 console.log('taskQueryResult Count' + taskQueryResult.rowCount);
                                 if (taskQueryResult.rowCount > 0) {
