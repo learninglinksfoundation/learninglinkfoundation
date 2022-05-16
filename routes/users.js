@@ -2995,6 +2995,7 @@ router.get('/geteventsTeams', verify, async function(req, res, next) {
                         console.log('project list ' + lstProject.length + ' gh  ' + lstProject);
                         let qry = 'SELECT Id, sfid , Planned_Hours__c,Project_Name__c, Start_Date__c FROM salesforce.Milestone1_Task__c WHERE sfid IS NOT NULL AND Assigned_Manager__c IN (' + teamMemberParam.join(',') + ')';
                         console.log('taskQuery ' + qry);
+                        let lstSet = new Set()
                         pool.query(qry, teamMember)
                             .then((taskQueryResult) => {
                                 console.log('taskQueryResult Count' + taskQueryResult.rowCount);
@@ -3002,9 +3003,10 @@ router.get('/geteventsTeams', verify, async function(req, res, next) {
                                     taskQueryResult.rows.forEach((eachTask) => {
                                         for (var i = 1; i <= lstProject.length; i++) {
                                             console.log('each prject inside if ' + lstProject[i - 1]);
-                                            if (eachTask.project_name__c == lstProject[i - 1]) {
+                                            //if (eachTask.project_name__c == lstProject[i - 1]) {
                                                 console.log('eachProject ' + lstProject[i - 1]);
-                                                lsttask.push(eachTask.sfid); //filter task ID for Timesheet Actual Hours
+                                                lstSet.add(eachTask.sfid)
+                                                //lsttask.push(eachTask.sfid); //filter task ID for Timesheet Actual Hours
                                                 var date = convert(eachTask.start_date__c);
                                                 console.log('date xxx  ' + date + '  eachTask.planned_hours__c  xxxxx : ' + eachTask.planned_hours__c);
 
@@ -3029,10 +3031,12 @@ router.get('/geteventsTeams', verify, async function(req, res, next) {
                                                     }
                                                 }
 
-                                            }
+                                           // }
 
                                         }
                                     })
+
+                                    lsttask = [...lstSet]
 
                                     for (var i = 1; i <= lsttask.length; i++) {
                                         taskparam.push('$' + i);
