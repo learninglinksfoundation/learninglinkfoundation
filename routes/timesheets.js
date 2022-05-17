@@ -1599,14 +1599,14 @@ router.get('/getTeamsProject',verify,async(request, response) => {
 
 function getMappedData(data,user){
   let modifiedTaskList = [];
-  console.log('inside fun');
+  //console.log('inside fun');
         data.rows.forEach((eachRecord,i) => {
 
           let isTrue  = true;;
           if(user)
             isTrue =   user.isManager ?  eachRecord.assignedby == user.sfid || eachRecord.contid == user.sfid  : true;//eachRecord.contid == user.sfid  ;
           let obj = {};
-          console.log(eachRecord);
+          //console.log(eachRecord);
             let createdDate = new Date(eachRecord.createddate);
             createdDate.setHours(createdDate.getHours() + 5);
             createdDate.setMinutes(createdDate.getMinutes() + 30);
