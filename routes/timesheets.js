@@ -1570,7 +1570,7 @@ router.get('/getTeamsProject',verify,async(request, response) => {
       queryText = queryText + ` AND tsk.Project_Name__c = '${proId}'  `;
     }
     else{
-       queryText = queryText + ` OR tsk.Project_Name__c IN ('${lstProject.join("','")}')  `;
+       queryText = queryText + ` AND tsk.Project_Name__c IN ('${lstProject.join("','")}')  `;
     }
 
     if(selectedDate){
