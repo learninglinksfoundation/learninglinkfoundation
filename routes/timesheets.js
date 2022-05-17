@@ -1578,11 +1578,11 @@ router.get('/getTeamsProject',verify,async(request, response) => {
     pool
     .query(queryText,lstProjTeam)
     .then(data=>{
-      console.log('test',data);
+      //console.log('test',data);
       if(data.rowCount > 0){
-        console.log('done');
+        //console.log('done');
         let modifiedTaskList = getMappedData(data,objUser);
-        console.log('after method');
+        //console.log('after method');
         response.send(modifiedTaskList);
       }
       else{
