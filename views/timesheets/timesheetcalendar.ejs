@@ -130,7 +130,14 @@
         }
         else{
             ele[0].innerHTML = `<button  class="btn btn-primary" id="teamRepView" > ${label} </button>`
-            $('#taskReportHead').html(label)
+
+            if(label === 'Team Members'){
+                $('#taskReportHead').html('List of '+label)
+            }
+            else if(label === 'Reportees List'){
+                $('#taskReportHead').html('List of Reportees')
+            }
+            
             $('#teamRepView').unbind('click')
             $('#teamRepView').on('click',function(){
                 console.log('running');
