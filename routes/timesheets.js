@@ -1576,7 +1576,7 @@ router.get('/getTeamsProject',verify,async(request, response) => {
     }
     console.log(queryText) ;
     pool
-    .query(queryText,lstProjTeam)
+    .query(queryText)
     .then(data=>{
       //console.log('test',data);
       if(data.rowCount > 0){
