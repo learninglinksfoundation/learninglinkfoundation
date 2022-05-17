@@ -120,7 +120,8 @@
 
 <script>
 //
-    function createButton(create){
+    function createButton(create,label){
+       // let lbl = label || ''
         let ele = document.getElementsByClassName('fc-left');
         console.log('<%- JSON.stringify(objUser) %>','<%= objUser.sfid %>')
         let userId = '<%= objUser.sfid %>';
@@ -128,8 +129,8 @@
             ele[0].innerHTML = '';
         }
         else{
-            ele[0].innerHTML = '<button  class="btn btn-primary" id="teamRepView" > Reportee/Team Members </button>'
-
+            ele[0].innerHTML = `<button  class="btn btn-primary" id="teamRepView" > ${label} </button>`
+            $('#taskReportHead').html(label)
             $('#teamRepView').unbind('click')
             $('#teamRepView').on('click',function(){
                 console.log('running');
@@ -252,7 +253,7 @@
             selectProj = $('#selproject').val();
 
             if(selectProj == 'allproject' && selectedView == 'reportManager'){
-                 createButton();
+                 createButton('','Reportees List');
                 $.ajax({
                         type: 'GET',
                         url: '/users/getTaskDetailsForReportingAll',
@@ -280,7 +281,7 @@
             }
             else if(selectProj !== 'allproject' && selectedView == 'reportManager'){
                 //console.log('selected project for current User ' + selectProj);
-                 createButton();
+                 createButton('','Reportees List');
                 $.ajax({
                         type: 'GET',
                         url: '/users/geteventsProjReporting',
@@ -328,7 +329,7 @@
                         console.log('AJAX error response :', textStatus);
                     })
             } else if (selectProj == 'allproject' && selectedView == 'teamview') {
-                createButton();
+                createButton('','Team Members');
                 //   alert("team view & all project");
                 $.ajax({
                         type: 'GET',
@@ -376,7 +377,7 @@
                     })
             } else if (selectProj != 'allproject' && selectedView == 'teamview') {
                 console.log('Team View & particula project' + selectProj);
-                createButton();
+                createButton('','Team Members');
                 
 
                 $.ajax({
