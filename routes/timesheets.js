@@ -1557,8 +1557,27 @@ router.get('/getTeamsProject',verify,async(request, response) => {
        lstProjTeam.push(dt.tsfid);
        lstProject.add(dt.project__c)
     });
+    let arr = [...lstProject]
+    let ind = [];
+    arr.forEach((dt,i)=>{
+        ind.push(`$${i+1}`)
+    })
 
-console.log('before',lstProject)
+    let queryText12 = 'SELECT tsk.Id,tsk.sfid as sfids,tsk.name as tskname,tsk.Task_Assigned_by__c as assignedBy,tsk.Task_Type_Category__c as function,tsk.Task_Stage__c as stage,tsk.start_date__c ,tsk.Project_Name__c,tsk.Total_Hours__c ,tsk.assigned_manager__c,tsk.end_time__c,tsk.Task_Type__c,tsk.Planned_Hours__c,tsk.Start_Time__c,cont.sfid as contid ,cont.name as contname,proj.name as projname,tsk.createddate '+
+                       'FROM salesforce.Milestone1_Task__c tsk '+ 
+                       'INNER JOIN salesforce.Contact cont ON tsk.assigned_manager__c = cont.sfid '+
+                       'INNER JOIN salesforce.Milestone1_Project__c proj ON tsk.Project_Name__c= proj.sfid '+
+                       `WHERE tsk.sfid IS NOT NULL AND tsk.Project_Name__c IN  (${ind})  `; 
+    console.log(queryText) ;
+
+
+    let resp22 = await pool.query(queryText12,arr);
+    let tskMap = {};
+    resp22.rows.forEach(dt=>{
+        tskMap[dt.sfids] = dt;
+    })
+
+console.log('before',lstProject,tskMap,queryText12)
 
     let queryText = 'SELECT tsk.Id,tsk.sfid as sfids,tsk.name as tskname,tsk.Task_Assigned_by__c as assignedBy,tsk.Task_Type_Category__c as function,tsk.Task_Stage__c as stage,tsk.start_date__c ,tsk.Project_Name__c,tsk.Total_Hours__c ,tsk.assigned_manager__c,tsk.end_time__c,tsk.Task_Type__c,tsk.Planned_Hours__c,tsk.Start_Time__c,cont.sfid as contid ,cont.name as contname,proj.name as projname,tsk.createddate '+
                        'FROM salesforce.Milestone1_Task__c tsk '+ 
@@ -1582,10 +1601,12 @@ console.log('before',lstProject)
       if(data.rowCount > 0){
         console.log('done');
         data.rows.forEach(dt=>{
-          lstProject.add(dt.project_name__c)
+          tskMap[dt.sfids] = dt;
         })
-        console.log('after',lstProject)
-        let modifiedTaskList = getMappedData(data,objUser);
+        let tmp = {rows:Object.values(tskMap)}
+
+        console.log('after',lstProject,tmp)
+        let modifiedTaskList = getMappedData(tmp,objUser);
         console.log('after method');
         response.send(modifiedTaskList);
       }
