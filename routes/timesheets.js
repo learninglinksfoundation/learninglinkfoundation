@@ -1577,7 +1577,7 @@ router.get('/getTeamsProject',verify,async(request, response) => {
         tskMap[dt.sfids] = dt;
     })
 
-console.log('before',lstProject,tskMap,queryText12)
+    console.log('before',lstProject,tskMap,queryText12)
 
     let queryText = 'SELECT tsk.Id,tsk.sfid as sfids,tsk.name as tskname,tsk.Task_Assigned_by__c as assignedBy,tsk.Task_Type_Category__c as function,tsk.Task_Stage__c as stage,tsk.start_date__c ,tsk.Project_Name__c,tsk.Total_Hours__c ,tsk.assigned_manager__c,tsk.end_time__c,tsk.Task_Type__c,tsk.Planned_Hours__c,tsk.Start_Time__c,cont.sfid as contid ,cont.name as contname,proj.name as projname,tsk.createddate '+
                        'FROM salesforce.Milestone1_Task__c tsk '+ 
@@ -1603,7 +1603,17 @@ console.log('before',lstProject,tskMap,queryText12)
         data.rows.forEach(dt=>{
           tskMap[dt.sfids] = dt;
         })
-        let tmp = {rows:Object.values(tskMap)}
+
+        let temp1 = []
+        for(let key in tskMap){
+          let tempObj = tskMap[key];
+          if(arr.includes(tempObj.project_name__c) || tempObj.assignedBy == userId ){
+                temp1.push(tempObj)
+          }
+
+        }
+
+        let tmp = {rows:tempObj}
 
         console.log('after',lstProject,tmp)
         let modifiedTaskList = getMappedData(tmp,objUser);
