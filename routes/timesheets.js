@@ -1549,28 +1549,25 @@ router.get('/getTeamsProject',verify,async(request, response) => {
 
     var projTeampram = [],
     lstProjTeam = [];
-    let lstProject = [];
+    let lstProject = new Set();
     let tmMnger = await pool.query(projectTeamQuery, [userId])
 
     tmMnger.rows.forEach((dt,i)=>{
        projTeampram.push('$' + (i+1));
        lstProjTeam.push(dt.tsfid);
-       lstProject.push(dt.project__c)
+       lstProject.add(dt.project__c)
     });
 
-
+console.log('before',lstProject)
 
     let queryText = 'SELECT tsk.Id,tsk.sfid as sfids,tsk.name as tskname,tsk.Task_Assigned_by__c as assignedBy,tsk.Task_Type_Category__c as function,tsk.Task_Stage__c as stage,tsk.start_date__c ,tsk.Project_Name__c,tsk.Total_Hours__c ,tsk.assigned_manager__c,tsk.end_time__c,tsk.Task_Type__c,tsk.Planned_Hours__c,tsk.Start_Time__c,cont.sfid as contid ,cont.name as contname,proj.name as projname,tsk.createddate '+
                        'FROM salesforce.Milestone1_Task__c tsk '+ 
                        'INNER JOIN salesforce.Contact cont ON tsk.assigned_manager__c = cont.sfid '+
                        'INNER JOIN salesforce.Milestone1_Project__c proj ON tsk.Project_Name__c= proj.sfid '+
-                       `WHERE tsk.sfid IS NOT NULL  AND (tsk.assigned_manager__c <> '${userId}'  AND tsk.Task_Assigned_by__c = '${userId}') `; //AND 
+                       `WHERE tsk.sfid IS NOT NULL AND tsk.Assigned_Manager__c IN  (SELECT  Representative__c FROM salesforce.Team_Member__c WHERE team__c IN (${projTeampram.join(',')}) )   `; 
     console.log(queryText) ;
     if(proId){
       queryText = queryText + ` AND tsk.Project_Name__c = '${proId}'  `;
-    }
-    else{
-       queryText = queryText + ` AND tsk.Project_Name__c IN ('${lstProject.join("','")}')  `;
     }
 
     if(selectedDate){
@@ -1579,13 +1576,17 @@ router.get('/getTeamsProject',verify,async(request, response) => {
     }
     console.log(queryText) ;
     pool
-    .query(queryText)
+    .query(queryText,lstProjTeam)
     .then(data=>{
-      //console.log('test',data);
+      console.log('test',data);
       if(data.rowCount > 0){
-        //console.log('done');
+        console.log('done');
+        data.rows.forEach(dt=>{
+          lstProject.add(dt.project_name__c)
+        })
+        console.log('after',lstProject)
         let modifiedTaskList = getMappedData(data,objUser);
-        //console.log('after method');
+        console.log('after method');
         response.send(modifiedTaskList);
       }
       else{
@@ -1595,7 +1596,6 @@ router.get('/getTeamsProject',verify,async(request, response) => {
     })
     .catch(error=>{
       console.log('catch');
-      console.log(error)
         response.send(error);
     });
 })
