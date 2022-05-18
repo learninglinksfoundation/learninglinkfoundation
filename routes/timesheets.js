@@ -1578,7 +1578,7 @@ console.log('before',lstProject)
     pool
     .query(queryText,lstProjTeam)
     .then(data=>{
-      console.log('test',data);
+      //console.log('test',data);
       if(data.rowCount > 0){
         console.log('done');
         data.rows.forEach(dt=>{
