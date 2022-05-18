@@ -1615,7 +1615,7 @@ router.get('/getTeamsProject',verify,async(request, response) => {
 
         }
 
-        let tmp = {rows:tempObj}
+        let tmp = {rows:temp1}
 
         console.log('after',lstProject,tmp)
         let modifiedTaskList = getMappedData(tmp,objUser);
