@@ -1604,7 +1604,7 @@ router.get('/getTeamsProject',verify,async(request, response) => {
     .query(queryText,lstProjTeam)
     .then(data=>{
       //console.log('test',data);
-      if(data.rowCount > 0){
+     // if(data.rowCount > 0){
         console.log('done');
         data.rows.forEach(dt=>{
           tskMap[dt.sfids] = dt;
@@ -1627,10 +1627,10 @@ router.get('/getTeamsProject',verify,async(request, response) => {
         let modifiedTaskList = getMappedData(tmp,objUser);
         console.log('after method');
         response.send(modifiedTaskList);
-      }
-      else{
-        response.send([]);
-      }
+      // }
+      // else{
+      //   response.send([]);
+      // }
       
     })
     .catch(error=>{
