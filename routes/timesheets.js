@@ -1568,7 +1568,7 @@ router.get('/getTeamsProject',verify,async(request, response) => {
                        'INNER JOIN salesforce.Contact cont ON tsk.assigned_manager__c = cont.sfid '+
                        'INNER JOIN salesforce.Milestone1_Project__c proj ON tsk.Project_Name__c= proj.sfid '+
                        `WHERE tsk.sfid IS NOT NULL AND tsk.Project_Name__c IN  (${ind})  `; 
-    console.log(queryText) ;
+    //console.log(queryText) ;
 
 
     let resp22 = await pool.query(queryText12,arr);
