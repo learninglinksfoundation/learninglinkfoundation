@@ -1615,7 +1615,7 @@ router.get('/getTeamsProject',verify,async(request, response) => {
         for(let key in tskMap){
           let tempObj = tskMap[key];
           console.log('tempObj',tempObj);
-          if(arr.includes(tempObj.project_name__c) || tempObj.assignedBy == userId ){
+          if(arr.includes(tempObj.project_name__c) || tempObj.assignedby == userId ){
                 temp1.push(tempObj)
           }
 
