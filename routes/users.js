@@ -2963,6 +2963,7 @@ router.get('/geteventsTeams', verify, async function(req, res, next) {
             day = ("0" + date.getDate()).slice(-2);
         return [date.getFullYear(), mnth, day].join("-");
     }
+    let projIdSet = new Set();
 
     let projectTeamQuery = 'SELECT projteam.id,projteam.name,projteam.sfid as sfid,projteam.Project__c as project__c,team.sfid as tsfid, team.Manager__c ' +
         'FROM  salesforce.Team__c team  ' +
@@ -2978,9 +2979,28 @@ router.get('/geteventsTeams', verify, async function(req, res, next) {
                 for (var i = 1; i <= projTeamResult.rows.length; i++) {
                     projTeampram.push('$' + i);
                     lstProjTeam.push(projTeamResult.rows[i - 1].tsfid);
-                    lstProject.push(projTeamResult.rows[i - 1].project__c)
+                    //lstProject.push()
+                    projIdSet.add(projTeamResult.rows[i - 1].project__c)
                     //  projectTeamMap.set(projTeamResult.rows[i-2].team__c,projTeamResult.rows[i-2].project__c);
                 }
+                lstProject = [...projIdSet]
+
+                let ind = [];
+                lstProject.forEach((dt,i)=>{
+                    ind.push(`$${i+1}`)
+                })
+
+
+
+                let qrrr = `SELECT Id, sfid , Task_Assigned_by__c,Planned_Hours__c,Project_Name__c, Start_Date__c FROM salesforce.Milestone1_Task__c WHERE sfid IS NOT NULL AND Assigned_Manager__c <> '${userId}' AND Project_Name__c IN  (${ind})  `
+
+
+                let resp22 = await pool.query(qrrr,lstProject);
+                let tskMap = {};
+                resp22.rows.forEach(dt=>{
+                    tskMap[dt.sfid] = dt;
+                })
+
                 let teamUserQuery = 'SELECT Representative__c FROM salesforce.Team_Member__c WHERE team__c IN (' + projTeampram.join(',') + ')';
                 console.log('teamUserQuery ' + teamUserQuery);
                 pool.query(teamUserQuery, lstProjTeam)
@@ -2993,14 +3013,30 @@ router.get('/geteventsTeams', verify, async function(req, res, next) {
                         }
                         console.log('Team Member involne in Team ' , teamMember , 'dollers ' , teamMemberParam);
                         console.log('project list ' + lstProject.length + ' gh  ' + lstProject);
-                        let qry = 'SELECT Id, sfid , Planned_Hours__c,Project_Name__c, Start_Date__c FROM salesforce.Milestone1_Task__c WHERE sfid IS NOT NULL AND Assigned_Manager__c IN ( ' + teamUserQuery + ' )'  //+ ` AND  Assigned_Manager__c IS NOT '${userId}' OR Task_Assigned_by__c =  '${userId}' `  ;
+                        let qry = 'SELECT Id, sfid , Task_Assigned_by__c,Planned_Hours__c,Project_Name__c, Start_Date__c FROM salesforce.Milestone1_Task__c WHERE sfid IS NOT NULL AND Assigned_Manager__c IN ( ' + teamUserQuery + ' )'  //+ ` AND  Assigned_Manager__c IS NOT '${userId}' OR Task_Assigned_by__c =  '${userId}' `  ;
                         console.log('taskQuery ' + qry);
                         let lstSet = new Set()
                         pool.query(qry,lstProjTeam)
                             .then((taskQueryResult) => {
                                 console.log('taskQueryResult Count' + taskQueryResult.rowCount);
-                                if (taskQueryResult.rowCount > 0) {
-                                    taskQueryResult.rows.forEach((eachTask) => {
+                                //if (taskQueryResult.rowCount > 0) {
+                                  taskQueryResult.rows.forEach(dt=>{
+                                    tskMap[dt.sfid] = dt;
+                                  })
+
+                                  let temp1 = [];
+                                  console.log('data=>>>>',JSON.stringify(tskMap))
+                                  for(let key in tskMap){
+                                    let tempObj = tskMap[key];
+                                    console.log('tempObj',tempObj);
+                                    if(lstProject.includes(tempObj.project_name__c) || tempObj.task_assigned_by__c == userId ){
+                                          temp1.push(tempObj)
+                                    }
+
+                                  }
+
+
+                                    temp1.forEach((eachTask) => {
                                         for (var i = 1; i <= lstProject.length; i++) {
                                             console.log('each prject inside if ' + lstProject[i - 1]);
                                            // if (eachTask.project_name__c == lstProject[i - 1]) {
@@ -3140,7 +3176,7 @@ router.get('/geteventsTeams', verify, async function(req, res, next) {
                                         })
 
 
-                                }
+                                //}
 
                             })
                             .catch((error) => {
