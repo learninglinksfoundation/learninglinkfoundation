@@ -1571,7 +1571,8 @@ router.get('/getTeamsProject',verify,async(request, response) => {
     console.log(arr) ;
 
     if(proId){
-        queryText12 =  ` ${queryText12} AND tsk.Project_Name__c =  '${proId}'   `
+        queryText12 =  ` ${queryText12} AND tsk.Project_Name__c =  $1   `
+        arr = [proId]
     }
     else{
        queryText12 =  ` ${queryText12} AND tsk.Project_Name__c IN  (${ind})  `
