@@ -1611,7 +1611,7 @@ router.get('/getTeamsProject',verify,async(request, response) => {
         })
 
         let temp1 = [];
-
+        console.log('data=>>>>',JSON.stringify(tskMap))
         for(let key in tskMap){
           let tempObj = tskMap[key];
           console.log('tempObj',tempObj);
