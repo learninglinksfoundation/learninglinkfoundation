@@ -1594,6 +1594,7 @@ router.get('/getTeamsProject',verify,async(request, response) => {
     console.log(queryText) ;
     if(proId){
       queryText = queryText + ` AND tsk.Project_Name__c = '${proId}'  `;
+      tskMap = {}
     }
 
     if(selectedDate){
