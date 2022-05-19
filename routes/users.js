@@ -2971,7 +2971,7 @@ router.get('/geteventsTeams', verify, async function(req, res, next) {
         'WHERE projteam.Project__c IS NOT NULL AND team.Manager__c = $1 ';
     console.log('All project Team ' + projectTeamQuery);
     pool.query(projectTeamQuery, [userId])
-        .then((projTeamResult) => {
+        .then(async (projTeamResult) => {
             console.log('projectsssds' + JSON.stringify(projTeamResult.rows));
             if (projTeamResult.rowCount > 0) {
                 //  projTeampram.push('$' + 1);
