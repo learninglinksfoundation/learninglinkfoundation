@@ -1598,7 +1598,7 @@ router.get('/getTeamsProject',verify,async(request, response) => {
       tskMap = {}
     }
     else{
-         ` AND tsk.Assigned_Manager__c IN  (SELECT  Representative__c FROM salesforce.Team_Member__c WHERE team__c IN (${projTeampram.join(',')}) )`
+        queryText = queryText +  ` AND tsk.Assigned_Manager__c IN  (SELECT  Representative__c FROM salesforce.Team_Member__c WHERE team__c IN (${projTeampram.join(',')}) )`
     }
 
     if(selectedDate){
