@@ -1575,10 +1575,10 @@ router.get('/getTeamsProject',verify,async(request, response) => {
         tempAr = [proId]
     }
     else{
-       queryText12 =  ` ${queryText12} AND tsk.Project_Name__c IN  (${ind})  `
+       //queryText12 =  ` ${queryText12} AND tsk.Project_Name__c IN  (${ind})  `
     }
 
-    let resp22 = await pool.query(queryText12,tempAr);
+    let resp22 = await pool.query(queryText12);
     let tskMap = {};
     resp22.rows.forEach(dt=>{
         tskMap[dt.sfids] = dt;
@@ -1598,7 +1598,7 @@ router.get('/getTeamsProject',verify,async(request, response) => {
       tskMap = {}
     }
     else{
-        queryText = queryText +  ` AND tsk.Assigned_Manager__c IN  (SELECT  Representative__c FROM salesforce.Team_Member__c WHERE team__c IN (${projTeampram.join(',')}) )`
+        queryText = queryText +  ` AND tsk.Assigned_Manager__c IN  (SELECT  Representative__c FROM salesforce.Team_Member__c WHERE team__c IN (${projTeampram.join(',')}) ) `
     }
 
     if(selectedDate){
