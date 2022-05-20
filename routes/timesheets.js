@@ -1590,11 +1590,15 @@ router.get('/getTeamsProject',verify,async(request, response) => {
                        'FROM salesforce.Milestone1_Task__c tsk '+ 
                        'INNER JOIN salesforce.Contact cont ON tsk.assigned_manager__c = cont.sfid '+
                        'INNER JOIN salesforce.Milestone1_Project__c proj ON tsk.Project_Name__c= proj.sfid '+
-                       `WHERE tsk.sfid IS NOT NULL AND tsk.Assigned_Manager__c IN  (SELECT  Representative__c FROM salesforce.Team_Member__c WHERE team__c IN (${projTeampram.join(',')}) )   `; 
+                       `WHERE tsk.sfid IS NOT NULL    `; 
     console.log(queryText) ;
     if(proId){
-      queryText = queryText + ` AND tsk.Project_Name__c = '${proId}'  `;
+      queryText = queryText + ` AND tsk.Project_Name__c = $1  `;
+      lstProjTeam = [proId]
       tskMap = {}
+    }
+    else{
+         ` AND tsk.Assigned_Manager__c IN  (SELECT  Representative__c FROM salesforce.Team_Member__c WHERE team__c IN (${projTeampram.join(',')}) )`
     }
 
     if(selectedDate){
