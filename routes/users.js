@@ -1065,7 +1065,7 @@ let projSet = new Set();
             let qry = 'SELECT Id, sfid , Planned_Hours__c,Project_Name__c,task_assigned_by__c, Start_Date__c FROM salesforce.Milestone1_Task__c WHERE sfid IS NOT NULL ' + `  AND Project_Name__c = '${projId}' `;
             console.log('taskQuery ' + qry);
             let lstSet = new Set()
-            pool.query(qry, lstProjTeam)
+            pool.query(qry)
               .then((taskQueryResult) => {
 
                 taskQueryResult.rows.forEach(dt=>{
