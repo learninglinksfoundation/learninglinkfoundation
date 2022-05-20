@@ -1134,7 +1134,7 @@ let projSet = new Set();
                   pool.query(timeQuery, lsttask)
                     .then((timesheetQueryResult) => {
                       console.log('timesheetQueryResult ' + timesheetQueryResult.rowCount);
-                      if (timesheetQueryResult.rowCount > 0) {
+                      //if (timesheetQueryResult.rowCount > 0) {
                         timesheetQueryResult.rows.forEach((eachTimesheet) => {
                           let fillingDate = convert(eachTimesheet.date__c);
                           console.log('fillingDate TeamView ' + fillingDate);
@@ -1217,7 +1217,7 @@ let projSet = new Set();
                         res.send(lstEvents);
 
 
-                      }
+                      //}
 
                     })
                     .catch((error) => {
