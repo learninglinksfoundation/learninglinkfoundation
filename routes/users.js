@@ -1061,7 +1061,7 @@ router.get('/geteventsProjteam',verify,async function(req,res,next) {
         let resp22 = await pool.query(qrrr,lstProject);
         let tskMap = {};
         resp22.rows.forEach(dt=>{
-            tskMap[dt.sfid] = dt;
+           // tskMap[dt.sfid] = dt;
         })
 
         let teamUserQuery = 'SELECT Representative__c  FROM salesforce.Team_Member__c WHERE team__c IN (' + projTeampram.join(',') + ')';
@@ -1076,7 +1076,7 @@ router.get('/geteventsProjteam',verify,async function(req,res,next) {
             }
             console.log('Team Member involne in Team ' + teamMember + 'dollers ' + teamMemberParam);
             console.log('project list ' + lstProject.length + ' gh  ' + lstProject);
-            let qry = 'SELECT Id, sfid , Task_Assigned_by__c,Planned_Hours__c,Project_Name__c, Start_Date__c FROM salesforce.Milestone1_Task__c WHERE sfid IS NOT NULL AND Assigned_Manager__c IN (' + teamUserQuery + ')';
+            let qry = `SELECT Id, sfid , Task_Assigned_by__c,Planned_Hours__c,Project_Name__c, Start_Date__c FROM salesforce.Milestone1_Task__c WHERE sfid IS NOT NULL AND Project_Name__c = '${projId}' AND Assigned_Manager__c IN ( ${teamUserQuery} )`;
             console.log('taskQuery ' + qry);
             let lstSet = new Set()
             pool.query(qry, lstProjTeam)
@@ -1136,7 +1136,7 @@ router.get('/geteventsProjteam',verify,async function(req,res,next) {
                     }
                   })
                   lsttask = [...lstSet]
-                  
+
                   for (var i = 1; i <= lsttask.length; i++) {
                     taskparam.push('$' + i);
 
