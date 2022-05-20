@@ -3015,10 +3015,10 @@ router.get('/geteventsTeams', verify, async function(req, res, next) {
 
 
 
-                let qrrr = `SELECT Id, sfid , Task_Assigned_by__c,Planned_Hours__c,Project_Name__c, Start_Date__c FROM salesforce.Milestone1_Task__c WHERE sfid IS NOT NULL AND Assigned_Manager__c <> '${userId}' AND Project_Name__c IN  (${ind})  `
+                let qrrr = `SELECT Id, sfid , Task_Assigned_by__c,Planned_Hours__c,Project_Name__c, Start_Date__c FROM salesforce.Milestone1_Task__c WHERE sfid IS NOT NULL AND Assigned_Manager__c <> '${userId}'   `
 
 
-                let resp22 = await pool.query(qrrr,lstProject);
+                let resp22 = await pool.query(qrrr);
                 let tskMap = {};
                 resp22.rows.forEach(dt=>{
                     tskMap[dt.sfid] = dt;
