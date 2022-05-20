@@ -1029,13 +1029,14 @@ router.get('/geteventsProjteam',verify,async function(req,res,next) {
     return [date.getFullYear(), mnth, day].join("-");
   }
 
-  
+let projSet = new Set();
+  let tskMap = {};
   let projectTeamQuery = 'SELECT projteam.id,projteam.name,projteam.sfid as sfid,projteam.Project__c,team.sfid as tsfid, team.Manager__c ' +
     'FROM  salesforce.Team__c team  ' +
     'INNER JOIN salesforce.Project_Team__c projteam  ON projteam.sfid =  team.Project_Team__c ' +
-    'WHERE projteam.Project__c = $2  AND team.Manager__c = $1 ';
+    'WHERE projteam.Project__c IS NOT NULL  AND team.Manager__c = $1 ';
   console.log('All project Team ' + projectTeamQuery);
-  pool.query(projectTeamQuery, [userId,projId])
+  pool.query(projectTeamQuery, [userId])
     .then((projTeamResult) => {
       console.log('projectsssds' + JSON.stringify(projTeamResult.rows));
       if (projTeamResult.rowCount > 0) {
@@ -1044,10 +1045,12 @@ router.get('/geteventsProjteam',verify,async function(req,res,next) {
         for (var i = 1; i <= projTeamResult.rows.length; i++) {
           projTeampram.push('$' + i);
           lstProjTeam.push(projTeamResult.rows[i - 1].tsfid);
-          lstProject.push(projTeamResult.rows[i - 1].project__c)
+          //lstProject.push(projTeamResult.rows[i - 1].project__c)
+          projSet.add(projTeamResult.rows[i - 1].project__c)
           //  projectTeamMap.set(projTeamResult.rows[i-2].team__c,projTeamResult.rows[i-2].project__c);
         }
-        let teamUserQuery = 'SELECT Id, sfid,Representative__c , team__c FROM salesforce.Team_Member__c WHERE team__c IN (' + projTeampram.join(',') + ')';
+        lstProject = [...projSet]
+        let teamUserQuery = 'SELECT Representative__c FROM salesforce.Team_Member__c WHERE team__c IN (' + projTeampram.join(',') + ')';
         console.log('teamUserQuery ' + teamUserQuery);
         pool.query(teamUserQuery, lstProjTeam)
           .then((memberQueryresult) => {
@@ -1059,14 +1062,31 @@ router.get('/geteventsProjteam',verify,async function(req,res,next) {
             }
             console.log('Team Member involne in Team ' + teamMember + 'dollers ' + teamMemberParam);
             console.log('project list ' + lstProject.length + ' gh  ' + lstProject);
-            let qry = 'SELECT Id, sfid , Planned_Hours__c,Project_Name__c, Start_Date__c FROM salesforce.Milestone1_Task__c WHERE sfid IS NOT NULL AND Assigned_Manager__c IN (' + teamMemberParam.join(',') + ')';
+            let qry = 'SELECT Id, sfid , Planned_Hours__c,Project_Name__c,task_assigned_by__c, Start_Date__c FROM salesforce.Milestone1_Task__c WHERE sfid IS NOT NULL AND Assigned_Manager__c IN (' + teamUserQuery + `)  AND Project_Name__c = '${projId}' `;
             console.log('taskQuery ' + qry);
             let lstSet = new Set()
-            pool.query(qry, teamMember)
+            pool.query(qry, lstProjTeam)
               .then((taskQueryResult) => {
+
+                taskQueryResult.rows.forEach(dt=>{
+                  tskMap[dt.sfids] = dt;
+                })
+
+
+                let temp1 = [];
+                  console.log('data=>>>>',JSON.stringify(tskMap))
+                  for(let key in tskMap){
+                    let tempObj = tskMap[key];
+                    console.log('tempObj',tempObj);
+                    if(lstProject.includes(tempObj.project_name__c) || tempObj.task_assigned_by__c == userId ){
+                          temp1.push(tempObj)
+                    }
+
+                  }
+
                 console.log('taskQueryResult Count' + taskQueryResult.rowCount);
-                if (taskQueryResult.rowCount > 0) {
-                  taskQueryResult.rows.forEach((eachTask) => {
+                //if (taskQueryResult.rowCount > 0) {
+                  temp1.forEach((eachTask) => {
                     for (var i = 1; i <= lstProject.length; i++) {
                       console.log('each prject inside if ' + lstProject[i - 1]);
                      // if (eachTask.project_name__c == lstProject[i - 1]) {
@@ -1205,7 +1225,7 @@ router.get('/geteventsProjteam',verify,async function(req,res,next) {
                     })
 
 
-                }
+                //}
 
               })
               .catch((error) => {
