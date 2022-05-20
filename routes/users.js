@@ -1069,7 +1069,7 @@ let projSet = new Set();
               .then((taskQueryResult) => {
 
                 taskQueryResult.rows.forEach(dt=>{
-                  tskMap[dt.sfids] = dt;
+                  tskMap[dt.sfid] = dt;
                 })
 
 
