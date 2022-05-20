@@ -1569,10 +1569,10 @@ router.get('/getTeamsProject',verify,async(request, response) => {
                        'INNER JOIN salesforce.Milestone1_Project__c proj ON tsk.Project_Name__c= proj.sfid '+
                        `WHERE tsk.sfid IS NOT NULL  AND tsk.start_date__c = cast('${selectedDate}' as date) AND tsk.Assigned_Manager__c <> '${userId}'  `; 
     console.log(arr) ;
-    let tempAr = JSON.parse(JSON.stringify(arr));
+    //let tempAr = JSON.parse(JSON.stringify(arr));
     if(proId){
-        queryText12 =  ` ${queryText12} AND tsk.Project_Name__c =  $1   `
-        tempAr = [proId]
+        queryText12 =  ` ${queryText12} AND tsk.Project_Name__c =  '${proId}'   `
+        //tempAr = [proId]
     }
     else{
        //queryText12 =  ` ${queryText12} AND tsk.Project_Name__c IN  (${ind})  `
