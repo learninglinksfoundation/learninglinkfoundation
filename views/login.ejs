@@ -20,14 +20,14 @@
       <!DOCTYPE html>
       <html>
         <body>
-          <div style="display:flex;height:99%">
+          <div style="display:flex;height:100%;overflow:hidden">
 
       <div id="container">
  <div class="row mt-5">
     <div class="col-md-6 m-auto">
       <div class="card card-body" style="margin-top:15px">
           <% include ./partials/messages %>
-          <img src="/image/logo.png"  style="align-self:center; width:100%">
+          <img src="/image/logo.png"  style="align-self:center; width:100px">
           <h1 class="text-center mb-3"> Login</h1>
       
         <form action="/users/login" method="POST">
@@ -51,11 +51,9 @@
               placeholder="Enter Password"
             />
           </div>
-          <div style="display: flex;
-          justify-content: flex-start;
-          align-items: center;">
+          <div style="display: flex;justify-content:flex-start;align-items: center;margin:10px 0px">
             <input type="checkbox" id="remember" name="remember">
-            <label for="remember" id="remember">Remember me</label>
+            <div style="margin:0px 4px;">Remember me</div>
           </div>
           <button type="submit" class="btn btn-primary btn-block">Login</button>
         </form>
