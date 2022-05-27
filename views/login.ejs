@@ -9,25 +9,25 @@
   /* 	 min-height:80%; */
       margin-left:auto;
       margin-right:auto;
-      width:70%;
+      width:50%;
       overflow-y: hidden;
       overflow-x: hidden;
       flex-grow:1;
-      background:lightblue
+      background:rgb(174, 216, 230)
   }
     </style>
 
       <!DOCTYPE html>
       <html>
         <body>
-          <div style="display:flex;height:100%">
+          <div style="display:flex;height:99%">
 
       <div id="container">
  <div class="row mt-5">
     <div class="col-md-6 m-auto">
       <div class="card card-body" style="margin-top:15px">
           <% include ./partials/messages %>
-          <img src="/image/logo.png" width="200" height="75" style="padding-left:85px">
+          <img src="/image/logo.png"  style="align-self:center; width:100%">
           <h1 class="text-center mb-3"> Login</h1>
       
         <form action="/users/login" method="POST">
@@ -51,9 +51,11 @@
               placeholder="Enter Password"
             />
           </div>
-          <div>
+          <div style="display: flex;
+          justify-content: flex-start;
+          align-items: center;">
             <input type="checkbox" id="remember" name="remember">
-            <label for="remember" id="remember">remember me</label>
+            <label for="remember" id="remember">Remember me</label>
           </div>
           <button type="submit" class="btn btn-primary btn-block">Login</button>
         </form>
@@ -66,7 +68,7 @@
 </div>
 
 <div style="width:50%">
-  <iframe src="https://www.learninglinksindia.org/" width="680" height="619" title="llf"></div></iframe>
+  <iframe src="https://www.learninglinksindia.org/" width="100%" height="100%" title="llf"></div></iframe>
 </div>
 </div>
 
