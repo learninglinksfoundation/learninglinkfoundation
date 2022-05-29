@@ -8,7 +8,7 @@ const { errors } = require('pg-promise');
 const Joi = require('@hapi/joi');
 const joi = require('@hapi/joi');
 
-
+ 
 router.get('/timesheet',verify,(request, response) => {
 
   console.log('Expense request.user '+JSON.stringify(request.user));
@@ -2029,7 +2029,7 @@ router.get('/getRepList',(request,response)=>{
   else if(current.toLowerCase() == 'teamview') {
 
 
-    query =  `Select mb.sfid as memberId,con.Name,con.Email,con.Employee_ID__c,con.sfid as conId FROM salesforce.Team_Member__c mb INNER JOIN salesforce.contact con on con.sfid = mb.Representative__c Where mb.Team__c IN (SELECT sfid FROM salesforce.Team__c WHERE Manager__c = '${userId}')`
+    query =  `Select mb.sfid as memberId,con.Name,con.Email,con.Employee_ID__c,con.reporting_manager__c,con.sfid as conId FROM salesforce.Team_Member__c mb INNER JOIN salesforce.contact con on con.sfid = mb.Representative__c Where mb.Team__c IN (SELECT sfid FROM salesforce.Team__c WHERE Manager__c = '${userId}')`
     //'Select sfid,Name,Email,Employee_ID__c,reporting_manager__c FROM salesforce.Contact';
   }
 
