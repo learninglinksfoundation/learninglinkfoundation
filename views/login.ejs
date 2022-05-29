@@ -7,27 +7,32 @@
   }
   #container {
   /* 	 min-height:80%; */
-     margin-left:auto;
+      margin-left:auto;
       margin-right:auto;
-      width:70%;
+      width:50%;
       overflow-y: hidden;
       overflow-x: hidden;
+      flex-grow:1;
+      background:rgb(174, 216, 230)
   }
     </style>
 
       <!DOCTYPE html>
       <html>
         <body>
+          <div style="display:flex;height:100%;overflow:hidden">
+
       <div id="container">
-<div class="row mt-5">
+ <div class="row mt-5">
     <div class="col-md-6 m-auto">
-      <div class="card card-body">
+      <div class="card card-body" style="margin-top:15px">
           <% include ./partials/messages %>
-        <h1 class="text-center mb-3"> Login</h1>
+          <img src="/image/logo.png"  style="align-self:center; width:100px">
+          <h1 class="text-center mb-3"> Login</h1>
       
         <form action="/users/login" method="POST">
           <div class="form-group">
-            <label for="email">Email</label>
+            <label for="email">Username</label>
             <input
               type="email"
               id="email"
@@ -46,6 +51,10 @@
               placeholder="Enter Password"
             />
           </div>
+          <div style="display: flex;justify-content:flex-start;align-items: center;margin:10px 0px">
+            <input type="checkbox" id="remember" name="remember">
+            <div style="margin:0px 4px;">Remember me</div>
+          </div>
           <button type="submit" class="btn btn-primary btn-block">Login</button>
         </form>
         <p class="lead mt-4">
@@ -55,5 +64,11 @@
     </div>
   </div>
 </div>
+
+<div style="width:50%">
+  <iframe src="https://www.learninglinksindia.org/" width="100%" height="100%" title="llf"></div></iframe>
+</div>
+</div>
+
 </body>
 </html>
