@@ -52,7 +52,7 @@
             />
           </div>
           <div style="display: flex;justify-content:flex-start;align-items: center;margin:10px 0px">
-            <input type="checkbox" id="remember" name="remember" onclick="callStorage()">
+            <input type="checkbox" id="remember" name="remember" >
             <div style="margin:0px 4px;">Remember me12</div>
           </div>
 
@@ -78,7 +78,7 @@
                   }
               </script>
               
-          <button type="submit" class="btn btn-primary btn-block">Login</button>
+          <button type="submit" class="btn btn-primary btn-block" onclick="callStorage()">Login</button>
         </form>
         <p class="lead mt-4">
            <a href="/users/forgotpassword">Forgot Password?</a>
