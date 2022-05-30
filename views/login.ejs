@@ -52,9 +52,32 @@
             />
           </div>
           <div style="display: flex;justify-content:flex-start;align-items: center;margin:10px 0px">
-            <input type="checkbox" id="remember" name="remember">
-            <div style="margin:0px 4px;">Remember me</div>
+            <input type="checkbox" id="remember" name="remember" onclick="callStorage()">
+            <div style="margin:0px 4px;">Remember me1</div>
           </div>
+
+              <script>
+                  const remcheck=document.getElementById("remember");
+                  const usern=document.getElementById("email");
+                  if(localStorage.checkbox!==''){
+                    remcheck.setAttribute("checked","checked");
+                    usern.value=localStorage.username;
+                  }else {
+                    remcheck.removeAttribute("checked");
+                    usern.value="";
+                  }
+                  function callStorage(){
+                    if(remcheck.Checked&&usern.value!==""){
+                      localStorage.username=usern.value;
+                      localStorage.checkbox=remcheck.value;
+                    }else {
+                      localStorage.username="";
+                      localStorage.checkbox="";
+                    }
+
+                  }
+              </script>
+              
           <button type="submit" class="btn btn-primary btn-block">Login</button>
         </form>
         <p class="lead mt-4">
