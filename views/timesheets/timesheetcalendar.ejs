@@ -163,7 +163,7 @@
                           row += '<tr>';
                           row += `<td> ${dt.name} </td>`
                           row += `<td> ${dt.email} </td>`
-                          row += `<td> ${dt.employee_id__c} </td>`
+                          row += `<td> ${dt.reportingname} </td>`
                           row += '</tr>';
                       })
                       $('#listBody').html(row)
@@ -1860,7 +1860,7 @@ function callRemover(){
             Email
            </th>
            <th>
-           Employee ID
+           Reporting manager
            </th>
            </thead>
 
