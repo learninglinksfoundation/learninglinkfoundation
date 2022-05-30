@@ -25,15 +25,23 @@
               </div>
               <div class="col-md-6">
                 <label for="empid">Employee ID</label>
-                <input type="text"  class="form-control" id="empid" value='<%=userdetail.Employee_ID__c %>' name="postal"  >
+                <input type="text"  class="form-control" id="empid" value='<%=userdetail.Employee_ID__c %>' name="empid"  >
               </div>
               <div class="col-md-6">
-                <label for="add">Employee Category</label>
-                <input type="text"  class="form-control" id="add" value='<%=userdetail.address__c %>'  name="add" >
+                <label for="empcat">Employee Category</label>
+                <input type="picklist"  class="form-control" id="empcat" value='<%=userdetail.Employee_Category_Band__c %>'  name="empcat" >
               </div>
               <div class="col-md-6">
                 <label for="add">Designation</label>
-                <input type="text"  class="form-control" id="desig" value='<%=userdetail.address__c %>'  name="desig" >
+                <input type="text"  class="form-control" id="desig" value='<%=userdetail.PM_email__c %>'  name="desig" >
+              </div>
+              <div class="col-md-6">
+                <label for="mob">Mobile</label>
+                <input type="number"  class="form-control" id="mob" value='<%=userdetail.MobilePhone %>' name="mob"  >
+              </div>
+              <div class="col-md-6">
+                <label for="repmanage">repmanage</label>
+                <input type="number"  class="form-control" id="repmanage" value='<%=userdetail.Reporting_Manager__c %>' name="repmanage"  >
               </div>
               <div class="col-md-6">
                 <input type="hidden"  class="form-control" id="uid" value='<%=userdetail.sfid %>'  name="uid" >

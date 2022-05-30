@@ -2462,7 +2462,7 @@ router.get('/editProfile',verify,(request,response)=>{
   let objUser=request.user;
   let userId=objUser.sfid;
   console.log('Sfidddd :'+JSON.stringify(objUser));
-  let queryContact = 'SELECT sfid,email, Employee_ID__c, postal_code__c, PM_email__c, Employee_Category_Band__c, address__c, name FROM salesforce.contact where sfid=$1' ;
+  let queryContact = 'SELECT sfid,email, Employee_ID__c, postal_code__c, PM_email__c, Employee_Category_Band__c, address__c,MobilePhone, name FROM salesforce.contact where sfid=$1' ;
   pool
   .query(queryContact,[userId])
   .then((queryResult)=>{
@@ -2505,7 +2505,7 @@ router.post('/updateProfile',(request,response)=>{
     return;
     } 
   console.log('body : '+ JSON.stringify(bdy));
-  const {nam , phn,empid, postal,add,uid }=request.body;
+  const {nam,phn,empid, postal,add,uid }=request.body;
   console.log('name '+nam);
   console.log('phn '+phn);
   console.log('napostalme '+postal);
@@ -2515,6 +2515,7 @@ router.post('/updateProfile',(request,response)=>{
   let qry ='UPDATE salesforce.contact SET '+
             'postal_code__c=\''+postal+'\', '+
             'Employee_ID__c=\''+empid+'\', '+
+            'PM_email__c=\''+desig+'\', '+
             'address__c=\''+add+'\' '+
              'WHERE sfid = $1';
              console.log('qry '+qry);
