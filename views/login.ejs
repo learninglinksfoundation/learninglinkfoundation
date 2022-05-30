@@ -35,8 +35,11 @@
 
            }
            else{
-             $('#email').val('')
+            window.setTimeout(()=>{
+              $('#email').val('')
              $('#password').val('');
+            })
+             
             setData()
            }
       });
