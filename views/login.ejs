@@ -17,6 +17,53 @@
   }
     </style>
 
+
+
+
+     <script>
+     //
+      $(document).ready(function() { 
+
+           if(localStorage.checked == 'true'){
+
+            let obj = localStorage.cred
+
+            obj = JSON.parse(obj);
+             $('#email').val(obj.user)
+             $('#password').val(obj.pass);
+             $('#remember').prop('checked',true);
+
+           }
+           else{
+            window.setTimeout(()=>{
+              $('#email').val('')
+             $('#password').val('');
+           },2500)
+             
+            setData()
+           }
+      });
+
+           function setData(){
+              let username = $('#email').val()
+              let pass = $('#password').val()
+              let check = $('#remember').prop('checked')
+
+              if(username && pass && check ){
+                let obj = {user:username,pass:pass};
+                localStorage.setItem('cred',JSON.stringify(obj));
+                localStorage.setItem('checked',check);
+
+              }
+
+              
+
+           }
+
+              </script>
+           
+              
+
       <!DOCTYPE html>
       <html>
         <body>
@@ -52,33 +99,12 @@
             />
           </div>
           <div style="display: flex;justify-content:flex-start;align-items: center;margin:10px 0px">
-            <input type="checkbox" id="remember" name="remember" >
-            <div style="margin:0px 4px;">Remember me12</div>
+            <input type="checkbox" id="remember" name="remember" />
+            <div style="margin:0px 4px;">Remember me</div>
           </div>
 
-          <!--    <script>
-                  const remcheck=document.getElementById("remember");
-                  const usern=document.getElementById("email");
-                  if(localStorage.checkbox!==''){
-                    remcheck.setAttribute("checked","checked");
-                    usern.value=localStorage.username;
-                  }else {
-                    remcheck.removeAttribute("checked");
-                    usern.value="";
-                  }
-                  function callStorage(){
-                    if(remcheck.Checked&&usern.value!==""){
-                      localStorage.username=usern.value;
-                      localStorage.checkbox=remcheck.value;
-                    }else {
-                      localStorage.username="";
-                      localStorage.checkbox="";
-                    }
-
-                  }
-              </script>-->
-              
-          <button type="submit" class="btn btn-primary btn-block" onclick="callStorage()">Login</button>
+            
+          <button type="submit" class="btn btn-primary btn-block" onclick="setData()">Login</button>
         </form>
         <p class="lead mt-4">
            <a href="/users/forgotpassword">Forgot Password?</a>
