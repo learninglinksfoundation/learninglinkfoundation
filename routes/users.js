@@ -2462,7 +2462,7 @@ router.get('/editProfile',verify,(request,response)=>{
   let objUser=request.user;
   let userId=objUser.sfid;
   console.log('Sfidddd :'+JSON.stringify(objUser));
-  let queryContact = 'SELECT sfid,email, Employee_ID__c, postal_code__c, PM_email__c, Employee_Category_Band__c, address__c,MobilePhone, name FROM salesforce.contact where sfid=$1' ;
+  let queryContact = 'SELECT sfid,email, Employee_ID__c, PM_email__c, Employee_Category_Band__c, address__c,MobilePhone, name FROM salesforce.contact where sfid=$1' ;
   pool
   .query(queryContact,[userId])
   .then((queryResult)=>{
