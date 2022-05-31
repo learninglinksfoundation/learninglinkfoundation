@@ -32,10 +32,9 @@
               </div>
               <div class="col-md-6">
                 <label for="empcat">Employee Category</label>
-                <select name="empc" class="form-control">
-                  <option value="Friday" selected="">Developer</option>
-                  <option value="Saturday">Marketing</option>
-                  <option value="Sunday">Sales</option>
+                <select name="empc" id="empCat" class="form-control">
+                  <option value="" >Select</option>
+                 
                 </select>
     
               </div>
@@ -77,6 +76,19 @@
         $('#userDetails').hide();
         let contactId = document.getElementById('userDetails').innerHTML;
       //  alert('Profile ID '+contactId);
+//Employee_Category_Band__c
+      let obj = JSON.parse('<%- userdetail %>')
+
+        let category = ['Full-Time','Fixed-Term Employment','Retainer'];
+        category.forEach(dt=>{
+                $('#empCat').append($("<option></option>")
+                .attr("value",dt)
+                .text(dt))
+        })
+        
+        $('#empCat').val(obj.employee_category_band__c)
+
+
         $('#saveProf').on('click',function(event){
             event.preventDefault();
             event.stopPropagation();
