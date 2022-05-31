@@ -42,6 +42,14 @@ body{
  top: 0;
  right: 0; 
 }
+  .camIcon {
+ left: 50px;
+    position: absolute;
+    z-index: 5;
+    color: #2c3e50;
+    bottom: 0;
+    background: white; 
+  }
 </style>
 
 
@@ -53,7 +61,7 @@ body{
   <div class="col-md-6 m-auto">
     <div class="card card-body" style="padding-top:3rem">
       <div class="avtar">K
-        <i class="fas fa-camera" style="padding-left:20px"></i>
+        <i class="fas fa-camera camIcon" ></i>
         <img src="/image/logo.png" class="profileImg"> 
       </div>
         <% include ./partials/messages %>
