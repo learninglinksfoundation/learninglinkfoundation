@@ -77,7 +77,7 @@
         let contactId = document.getElementById('userDetails').innerHTML;
       //  alert('Profile ID '+contactId);
 //Employee_Category_Band__c
-      let obj = JSON.parse('<%- userdetail %>')
+      let obj = '<%- userdetail %>'
 
         let category = ['Full-Time','Fixed-Term Employment','Retainer'];
         category.forEach(dt=>{
@@ -85,7 +85,7 @@
                 .attr("value",dt)
                 .text(dt))
         })
-        
+
         $('#empCat').val(obj.employee_category_band__c)
 
 
