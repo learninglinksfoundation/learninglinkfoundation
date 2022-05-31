@@ -1,8 +1,26 @@
 <% include ./partials/navbar %>
 
+
+<style>
+
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 88vh;
+    width: 100%;
+}
+
+</style>
+
+
 <p id='userDetails'><%=userdetail.sfid %></p>
 
-<div class="row mt-5">
+
+
+
+
+<div class="center">
   <div class="col-md-6 m-auto">
     <div class="card card-body">
 
@@ -60,7 +78,7 @@
                 <input type="hidden"  class="form-control" id="uid" value='<%=userdetail.sfid %>'  name="uid" >
               </div>
             </div>
-          <div style="margin-left: 280px;"><button type="submit" class="btn btn-primary" id="saveProf" >Save</button></div>
+          <div style="text-align:center"><button type="submit" class="btn btn-primary" id="saveProf" >Save</button></div>
         </form>
 
 
