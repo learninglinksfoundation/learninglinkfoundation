@@ -29,11 +29,21 @@
               </div>
               <div class="col-md-6">
                 <label for="empcat">Employee Category</label>
-                <input type="picklist"  class="form-control" id="empcat" value='<%=userdetail.Employee_Category_Band__c %>'  name="empcat" >
+                <select name="empc" class="form-control">
+                  <option value="Friday" selected="">Developer</option>
+                  <option value="Saturday">Marketing</option>
+                  <option value="Sunday">Sales</option>
+                </select>
+              <!-- < <input type="picklist"  class="form-control" id="empcat" value='<%=userdetail.Employee_Category_Band__c %>'  name="empcat" >-->
               </div>
               <div class="col-md-6">
                 <label for="add">Designation</label>
-                <input type="text"  class="form-control" id="desig" value='<%=userdetail.PM_email__c %>'  name="desig" >
+                <select name="desig" class="form-control">
+                  <option value="man" selected="">Manager</option>
+                  <option value="Scon">Senior consultant</option>
+                  <option value="brhed">Branch head</option>
+                </select>
+              <!--  <input type="text"  class="form-control" id="desig" value='<%=userdetail.PM_email__c %>'  name="desig" >-->
               </div>
               <div class="col-md-6">
                 <label for="mob">Mobile</label>
