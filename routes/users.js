@@ -2462,12 +2462,15 @@ router.get('/editProfile',verify,(request,response)=>{
   let objUser=request.user;
   let userId=objUser.sfid;
   console.log('Sfidddd :'+JSON.stringify(objUser));
-  let queryContact = 'SELECT c.sfid,c.email, c.Employee_ID__c,c.reporting_manager__c ,c.PM_email__c, c.Employee_Category_Band__c, c.address__c,c.MobilePhone, c.name,con.name as reportingname FROM salesforce.contact c INNER join salesforce.contact con on con.sfid = c.reporting_manager__c where c.sfid=$1  ' ;
+  let queryContact = 'SELECT c.sfid,c.email, c.Employee_ID__c,c.reporting_manager__c ,c.PM_email__c, c.Employee_Category_Band__c, c.address__c,c.MobilePhone, c.name FROM salesforce.contact c  where c.sfid=$1  ' ;
   pool
   .query(queryContact,[userId])
-  .then((queryResult)=>{
+  .then( async (queryResult)=>{
+
     let userdetail=queryResult.rows[0];
+    let resp = await pool.query('Select sfid,name from salesforce.contact where sfid = $1',[userdetail.reporting_manager__c])
     console.log('userdeat '+JSON.stringify(userdetail));
+    userdetail.reportingname = resp.rows.length > 0 ? resp.rows[0].name : ''
  /*    console.log('queryResult'+JSON.stringify(queryResult.rows));
     let obj = queryResult.rows;
     console.log('check'+JSON.stringify(obj[0]));
