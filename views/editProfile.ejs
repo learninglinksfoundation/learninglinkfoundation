@@ -58,11 +58,10 @@ body{
     
               </div>
               <div class="col-md-6">
-                <label for="add">Designation</label>
-                <select name="desig" class="form-control">
-                  <option value="man" selected="">Manager</option>
-                  <option value="Scon">Senior consultant</option>
-                  <option value="brhed">Branch head</option>
+                <label for="desig">Designation</label>
+                <select name="desig" id="desig" class="form-control">
+                  <option value="" >Select</option>
+                  
                 </select>
      
               </div>
@@ -94,16 +93,25 @@ body{
     $(document).ready(function(){
         $('#userDetails').hide();
         let contactId = document.getElementById('userDetails').innerHTML;
-      let obj = JSON.parse('<%- JSON.stringify(userdetail) %>')
+        let obj = JSON.parse('<%- JSON.stringify(userdetail) %>')
+        let desigobj=JSON.parse('<%-JSON.stingify(userdetail)%>')
 
         let category = ['Full-Time','Fixed-Term Employment','Retainer'];
+        let designation=['Managing Partner','Principal Partner','Senior Partner','Partner','Associate Partner','Managing Consultant','Principal Consultant','Senior Consultant','Lead Consultant','Consultant','Executive','Chairperson','Senior Managing Consultant']
+
         category.forEach(dt=>{
                 $('#empCat').append($("<option></option>")
                 .attr("value",dt)
                 .text(dt))
         })
 
+        designation.forEach(desin=>{ 
+            $('#desig').append($("<option></option>")
+            .attr("value",desin)
+            .text(desin))
+        })
         $('#empCat').val(obj.employee_category_band__c)
+        $('#desig').val(obj.pm_email__c)
 
 
         $('#saveProf').on('click',function(event){
