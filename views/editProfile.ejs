@@ -181,7 +181,7 @@ body{
                 '</div>';
                 $('#errorMessages').empty();
                 $('#errorMessages').append(errorHtml);
-
+                window.location.reload() 
                // alert('Error in Server Side '+JSON.stringify(response));
             })
             .fail((jqXHR, status, error) => {
