@@ -2486,7 +2486,7 @@ router.get('/editProfile',verify,(request,response)=>{
     response.send(QueryError);
   })
 })
-router.post('/updateProfile',(request,response)=>{
+router.post('/updateProfile',(request,response,next)=>{
   
   const {nam,phn,empid,desig,empCat, postal,mob,uid }=request.body;
   //let objUser=request.user;
@@ -2534,7 +2534,7 @@ router.post('/updateProfile',(request,response)=>{
   .then((querryResult)=>{
     console.log('querryResult'+JSON.stringify(querryResult));
     request.user.name = nam
-    response.send(querryResult);
+    response.send(response);
   })
   .catch((qurryError)=>{
     console.log('qrryError ' +qurryError.stack);
