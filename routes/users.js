@@ -2491,13 +2491,13 @@ router.get('/updateProfile',verify,(request,response)=>{
   const {nam,phn,empid,desig,empCat, postal,mob,uid }=request.query;
   let objUser=request.user;
 
-console.log(objUser)
+console.log(objUser,nam,phn,empid,desig,empCat, postal,mob,uid)
   /*  const errors = validationResult(req);
    if(!errors.isEmpty()){
      return res.status(422).JSON({errors:errors.array()})
    } */
  // request.checkQuery('postal','"Postal Code should not  be empty ').notEmpty().isInt();
-  let bdy= request.body;
+  let bdy= request.query;
    const schema = joi.object({
     nam:joi.string().min(4).max(20)
    /*
