@@ -2491,7 +2491,7 @@ router.get('/updateProfile',(request,response)=>{
   const {nam,phn,empid,desig,empCat, postal,mob,uid }=request.body;
   let objUser=request.user;
 
-
+  console.log(JSON.stringify(resquest.query),objUser)
   /*  const errors = validationResult(req);
    if(!errors.isEmpty()){
      return res.status(422).JSON({errors:errors.array()})
