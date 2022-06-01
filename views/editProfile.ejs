@@ -187,7 +187,7 @@ body{
             .fail((jqXHR, status, error) => {
                 console.log('jqXHR  '+JSON.stringify(jqXHR));
 
-              let errList = ['abcd','xyz', 'pqr'];
+              let errList = [ 'pqr'];
 
               let errorHtml = '';
               errList.forEach((eachError) => {
@@ -210,7 +210,7 @@ body{
                 $('#errorMessages').empty();
                 $('#errorMessages').append(errorHtml);
           }) 
-         // window.location.reload();
+          window.location.reload();
          // location.replace('https://learninglinksfoundation-test.herokuapp.com/users/login');
          
         })
