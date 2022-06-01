@@ -280,12 +280,8 @@ return  */
     
 }) 
 
-router.get('/home',verify, async (request, response) => {
+router.get('/home',verify, (request, response) => {
     let objUser = request.user;
-
-  let resp =  await pool.query('Select sfid,name from salesforce.contact where sfid = $1',[objUser.sfid])
-   objUser.name =  resp.rows.length > 0 ? resp.rows[0].name : objUser.name
-
     response.render('dashboard',{objUser});
 })
 
@@ -2490,18 +2486,16 @@ router.get('/editProfile',verify,(request,response)=>{
     response.send(QueryError);
   })
 })
-router.get('/updateProfile',verify,(request,response,next)=>{
+router.post('/updateProfile',(request,response)=>{
   
-  const {nam,phn,empid,desig,empCat, postal,mob,uid }=request.query;
-  let objUser=request.user;
-
-console.log(objUser,nam,phn,empid,desig,empCat, postal,mob,uid)
+  const {nam,phn,empid,desig,empCat, postal,mob,uid }=request.body;
+  //let objUser=request.user;
   /*  const errors = validationResult(req);
    if(!errors.isEmpty()){
      return res.status(422).JSON({errors:errors.array()})
    } */
  // request.checkQuery('postal','"Postal Code should not  be empty ').notEmpty().isInt();
-  let bdy= request.query;
+  let bdy= request.body;
    const schema = joi.object({
     nam:joi.string().min(4).max(20)
    /*
@@ -2512,7 +2506,7 @@ console.log(objUser,nam,phn,empid,desig,empCat, postal,mob,uid)
   }) 
  // const scema = joi.number().max(5);
   let result= schema.validate({nam:bdy.nam});
-  console.log('resutk '+JSON.stringify(request.get('referer')));
+  console.log('resutk '+JSON.stringify(result));
   if(result.error){
     response.status(400).send(result.error.details[0].message)
     return;
@@ -2537,13 +2531,7 @@ console.log(objUser,nam,phn,empid,desig,empCat, postal,mob,uid)
   .query(qry ,[uid])
   .then((querryResult)=>{
     console.log('querryResult'+JSON.stringify(querryResult));
-    //request.user.name = nam
-    //objUser.name = nam;
-    request.user.name = nam
-    next()
-   //response.render('dashboard',{objUser});
-   //response.redirect(request.get('referer'));
-    //response.render(response);
+    response.send(querryResult);
   })
   .catch((qurryError)=>{
     console.log('qrryError ' +qurryError.stack);
