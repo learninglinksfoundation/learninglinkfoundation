@@ -211,8 +211,11 @@ body{
                 $('#errorMessages').append(errorHtml);
           }) 
           window.location.reload();
-          location.replace('https://learninglinksfoundation-test.herokuapp.com/users/login');
-      })
+         // location.replace('https://learninglinksfoundation-test.herokuapp.com/users/login');
+         if(performance.navigation.type == 2){
+          location.reload(true);
+       }
+        })
      
 })
 </script>
