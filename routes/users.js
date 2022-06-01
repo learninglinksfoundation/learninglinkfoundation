@@ -2503,7 +2503,7 @@ router.post('/updateProfile',(request,response)=>{
     uid:joi.string(), */
   }) 
  // const scema = joi.number().max(5);
-  let result= schema.validate({nam:nam});
+  let result= schema.validate({nam:bdy.nam});
   console.log('resutk '+JSON.stringify(result));
   if(result.error){
     response.status(400).send(result.error.details[0].message)
