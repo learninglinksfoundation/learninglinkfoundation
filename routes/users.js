@@ -2479,6 +2479,7 @@ router.get('/editProfile',verify,(request,response)=>{
     console.log('user '+user);
     response.render('editProfile',{userI}); */
     response.render('editProfile',{userdetail, objUser});
+    response.redirect('/users/login');
   })
   .catch((QueryError)=>{
     console.log('QueryError'+QueryError.stack);
