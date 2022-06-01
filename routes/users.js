@@ -2478,8 +2478,8 @@ router.get('/editProfile',verify,(request,response)=>{
     let user =JSON.stringify(obj[0]); 
     console.log('user '+user);
     response.render('editProfile',{userI}); */
-   // response.render('editProfile',{userdetail, objUser});
-    response.render('login',{userdetail, objUser});
+    response.render('editProfile',{userdetail, objUser});
+    
   })
   .catch((QueryError)=>{
     console.log('QueryError'+QueryError.stack);
