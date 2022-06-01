@@ -2486,12 +2486,12 @@ router.get('/editProfile',verify,(request,response)=>{
     response.send(QueryError);
   })
 })
-router.get('/updateProfile',(request,response)=>{
+router.get('/updateProfile',verify,(request,response)=>{
   
-  const {nam,phn,empid,desig,empCat, postal,mob,uid }=request.body;
+  const {nam,phn,empid,desig,empCat, postal,mob,uid }=request.query;
   let objUser=request.user;
 
-  console.log(JSON.stringify(request.query),objUser)
+console.log(objUser)
   /*  const errors = validationResult(req);
    if(!errors.isEmpty()){
      return res.status(422).JSON({errors:errors.array()})
