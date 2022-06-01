@@ -2486,12 +2486,10 @@ router.get('/editProfile',verify,(request,response)=>{
     response.send(QueryError);
   })
 })
-router.get('/updateProfile',(request,response)=>{
+router.post('/updateProfile',(request,response)=>{
   
   const {nam,phn,empid,desig,empCat, postal,mob,uid }=request.body;
-  let objUser=request.user;
-
-
+  //let objUser=request.user;
   /*  const errors = validationResult(req);
    if(!errors.isEmpty()){
      return res.status(422).JSON({errors:errors.array()})
@@ -2533,10 +2531,7 @@ router.get('/updateProfile',(request,response)=>{
   .query(qry ,[uid])
   .then((querryResult)=>{
     console.log('querryResult'+JSON.stringify(querryResult));
-    //request.user.name = nam
-    objUser.name = nam;
-   response.render('dashboard',{objUser});
-    //response.render(response);
+    response.send(querryResult);
   })
   .catch((qurryError)=>{
     console.log('qrryError ' +qurryError.stack);
