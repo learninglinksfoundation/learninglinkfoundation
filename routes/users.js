@@ -2536,7 +2536,7 @@ router.post('/updateProfile',(request,response)=>{
     console.log('qrryError ' +qurryError.stack);
     response.send(qurryError);
   })
-
+  window.location.reload() ;
 });
 /* 
     TAsk Activity Code 
