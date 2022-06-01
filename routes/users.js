@@ -2495,7 +2495,7 @@ router.post('/updateProfile',(request,response)=>{
  // request.checkQuery('postal','"Postal Code should not  be empty ').notEmpty().isInt();
   let bdy= request.body;
    const schema = joi.object({
-    nam:joi.string().min(4).max(20),
+    nam:joi.string().min(4).max(20)
    /*
     
     phn:joi.string().required(),
