@@ -2512,7 +2512,7 @@ console.log(objUser,nam,phn,empid,desig,empCat, postal,mob,uid)
   }) 
  // const scema = joi.number().max(5);
   let result= schema.validate({nam:bdy.nam});
-  console.log('resutk '+JSON.stringify(result));
+  console.log('resutk '+JSON.stringify(request.get('referer')));
   if(result.error){
     response.status(400).send(result.error.details[0].message)
     return;
@@ -2539,7 +2539,8 @@ console.log(objUser,nam,phn,empid,desig,empCat, postal,mob,uid)
     console.log('querryResult'+JSON.stringify(querryResult));
     //request.user.name = nam
     objUser.name = nam;
-   response.render('dashboard',{objUser});
+   //response.render('dashboard',{objUser});
+   response.redirect(request.get('referer'));
     //response.render(response);
   })
   .catch((qurryError)=>{
