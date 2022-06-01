@@ -133,7 +133,7 @@ body{
         $('#userDetails').hide();
         let contactId = document.getElementById('userDetails').innerHTML;
         let obj = JSON.parse('<%- JSON.stringify(userdetail) %>')
-        let desigobj=JSON.parse('<%- JSON.stringify(userdetail)%>')
+      //  let desigobj=JSON.parse('<%- JSON.stringify(userdetail)%>')
 
         let category = ['Full-Time','Fixed-Term Employment','Retainer'];
         let designation=['Managing Partner','Principal Partner','Senior Partner','Partner','Associate Partner','Managing Consultant','Principal Consultant','Senior Consultant','Lead Consultant','Consultant','Executive','Chairperson','Senior Managing Consultant']
@@ -150,7 +150,7 @@ body{
             .text(desin))
         })
         $('#empCat').val(obj.employee_category_band__c)
-        $('#desig').val(desigobj.pm_email__c)
+        $('#desig').val(obj.pm_email__c)
 
 
         $('#saveProf').on('click',function(event){
