@@ -170,6 +170,7 @@ body{
                 //dataType : 'json'
             })
             .done((response)=>{
+                window.location.href = '/users/home'
                 console.log('Profile Updated Succesfuly',response);
                 let successText = 'Profile Updated Succesfuly';
                 let errorHtml = '';

@@ -280,8 +280,12 @@ return  */
     
 }) 
 
-router.get('/home',verify, (request, response) => {
+router.get('/home',verify, async (request, response) => {
     let objUser = request.user;
+
+  let resp =  await pool.query('Select sfid,name from salesforce.contact where sfid = $1',[objUser.sfid])
+   objUser.name =  resp.rows.length > 0 ? resp.rows[0].name : objUser.name
+
     response.render('dashboard',{objUser});
 })
 
