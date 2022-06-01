@@ -2486,7 +2486,7 @@ router.get('/editProfile',verify,(request,response)=>{
     response.send(QueryError);
   })
 })
-router.post('/updateProfile',(request,response,next)=>{
+router.get('/updateProfile',(request,response)=>{
   
   const {nam,phn,empid,desig,empCat, postal,mob,uid }=request.body;
   let objUser=request.user;

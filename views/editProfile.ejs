@@ -165,9 +165,9 @@ body{
             console.log('FormValues '+JSON.stringify(values));
             $.ajax({
                 url : '/users/updateProfile',
-                type:'post',
+                type:'get',
                 data: values,
-                dataType : 'json'
+                //dataType : 'json'
             })
             .done((response)=>{
                 console.log('Profile Updated Succesfuly',response);
