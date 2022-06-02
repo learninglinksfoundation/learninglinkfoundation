@@ -1152,6 +1152,7 @@ router.post('/uploadImage',upload.any(),async (request, response) => {
    }
    catch(Ex)
    {
+        response.status(400).send({error:'Invalid Data'});
         console.log('Exception '+ex);
         console.log('Exception '+JSON.stringify(ex));
    }
