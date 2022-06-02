@@ -61,7 +61,7 @@ body{
     <div class="card card-body" style="padding-top:3rem">
       <div class="avtar">K
         <i class="fas fa-camera camIcon" id="icon" style="background:none"></i>
-        <input type="file" id="upload-Image" onchange="loadImageFile();chkFile();" style="display:none"  />
+        <input type="file" id="upload-Image" onchange="loadImageFile();chkFile(event);"  accept="image/*" style="display:none"  />
         
         <img id="upload-Preview" class="profileImg"/>
         
@@ -155,21 +155,12 @@ body{
     image.src=event.target.result;
   };
   
-  var loadImageFile = function () {
-    var uploadImage = document.getElementById("upload-Image");
-    if (uploadImage.files.length === 0) { 
-      return; 
-    }
-    var uploadFile = document.getElementById("upload-Image").files[0];
-    if (!filterType.test(uploadFile.type)) {
-      alert("Please select a valid image."); 
-      return;
-    }   
-    fileReader.readAsDataURL(uploadFile);
-  }
+  
+    
   </script>
 
 <script>
+//
     $(document).ready(function(){
         $('#userDetails').hide();
         let contactId = document.getElementById('userDetails').innerHTML;
@@ -266,7 +257,21 @@ body{
      
 })
 function chkFile(event) {
-  var file = event.target.files[0];
+
+  var uploadImage = event.target
+    if (uploadImage.files.length === 0) { 
+      return; 
+    }
+    var uploadFile = uploadImage.files[0];
+    if (!filterType.test(uploadFile.type)) {
+      alert("Please select a valid image."); 
+      return;
+    }
+    else {   
+  
+
+
+  var file = uploadImage.files[0];
   var formData = new FormData();
   formData.append('formData', file);
 
@@ -285,5 +290,5 @@ function chkFile(event) {
     console.log('file '+document.getElementById("file").value);         
     }
 });
-}
+}}
 </script>
