@@ -1138,7 +1138,7 @@ router.post('/savePettyCashForm', (request, response) => {
 
 router.post('/uploadImage',upload.any(), (request, response) => {
 
-    console.log('uploadImage  Called !');
+    console.log('uploadImage  Called !',JSON.stringfy(request));
     console.log('request.files[0].path   '+request.files[0].path);
     try{
     cloudinary.uploader.upload(request.files[0].path, function(error, result) {
