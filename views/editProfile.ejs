@@ -137,7 +137,7 @@ body{
     var image = new Image();
     
     image.onload=function(){
-        document.getElementById("original-Img").src=image.src;
+       // document.getElementById("original-Img").src=image.src;
         var canvas=document.createElement("canvas");
         var context=canvas.getContext("2d");
         canvas.width=image.width/20;
