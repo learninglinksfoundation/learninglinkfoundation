@@ -65,24 +65,10 @@ body{
         <img id="original-Img"/>
         <img id="upload-Preview"/>
         
-        <img src="/image/logo.png" class="profileImg"> 
+       <!-- <img src="/image/logo.png" class="profileImg">--> 
         
       </div>
-      <div>
-        <input type="file" id="upload-Image" onchange="loadImageFile();"  />
-        
-        <img id="upload-Preview"/>
-      </div>
-      <div>
-        <input type="file" id="upload-Image" onchange="loadImageFile();"  />
-        <img id="original-Img"/>
-        <img id="upload-Preview"/>
-      </div>
-      <div class="profileImg">
-        <input type="file" id="upload-Image" onchange="loadImageFile();"  />
-        <img id="original-Img"/>
-        <img id="upload-Preview"/>
-      </div>
+     
      
 
       <% include ./partials/messages %>
@@ -154,8 +140,8 @@ body{
         document.getElementById("original-Img").src=image.src;
         var canvas=document.createElement("canvas");
         var context=canvas.getContext("2d");
-        canvas.width=image.width/4;
-        canvas.height=image.height/4;
+        canvas.width=image.width/20;
+        canvas.height=image.height/20;
         context.drawImage(image,
             0,
             0,
