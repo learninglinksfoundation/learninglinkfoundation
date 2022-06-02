@@ -2533,6 +2533,7 @@ router.post('/updateProfile',(request,response)=>{
   .then((querryResult)=>{
     console.log('querryResult'+JSON.stringify(querryResult));
     response.send(querryResult);
+    response.redirect('/users/login');
   })
   .catch((qurryError)=>{
     console.log('qrryError ' +qurryError.stack);
