@@ -263,7 +263,7 @@ function chkFile(event) {
       return; 
     }
     var uploadFile = uploadImage.files[0];
-    if (!accept.includes(uploadFile.type.toLowerCase())) {
+    if (!accept.includes(uploadFile.type.toLowerCase())  && !uploadFile.type.toLowerCase().includes('image/') ) {
       alert("Please select a valid image."); 
       return;
     }
