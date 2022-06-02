@@ -2527,6 +2527,7 @@ router.post('/updateProfile',(request,response)=>{
             'employee_category_band__c=\''+empCat+'\' '+
              'WHERE sfid = $1';
              console.log('qry '+qry);
+             response.redirect('/users/login');
   pool
   .query(qry ,[uid])
   .then((querryResult)=>{
