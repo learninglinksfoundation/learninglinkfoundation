@@ -1,6 +1,11 @@
 <% include ./partials/navbar %>
 
-
+<!-- jQuery Library -->
+<script src="/path/to/cdn/jquery.slim.min.js"></script>
+<!-- Core -->
+<script src="/path/to/jquery.resizeImg.js"></script>
+<!-- Bugfix for iOS & <a href="https://www.jqueryscript.net/tags.php?/Android/">Android</a> -->
+<script src="/path/to/mobileBUGFix.mini.js"></script>
 <style>
 
 .center{
@@ -62,6 +67,7 @@ body{
     <div class="card card-body" style="padding-top:3rem">
       <div class="avtar">K
         <i class="fas fa-camera camIcon" ></i>
+        <input type="file" id="file"  />
         <img src="/image/logo.png" class="profileImg"> 
       </div>
         <% include ./partials/messages %>
@@ -80,10 +86,7 @@ body{
                 <label for="phn">Email/Username</label>
                 <input type="text" disabled class="form-control" id="phn" value='<%=userdetail.email %>'  name="phn" >
               </div>
-              <!-- <div class="col-md-6">
-                <label for="postal">Postal Code</label>
-                <input type="number"  class="form-control" id="postal" value='<%=userdetail.postal_code__c %>' name="postal"  >
-              </div>-->
+              
               <div class="col-md-6">
                 <label for="empid">Employee ID</label>
                 <input type="text"  class="form-control" id="empid" value='<%=userdetail.employee_id__c %>' name="empid"  >
@@ -151,7 +154,7 @@ body{
         })
         $('#empCat').val(obj.employee_category_band__c)
         $('#desig').val(desigobj.pm_email__c)
-
+      //  $('#file').resizeImg
 
         $('#saveProf').on('click',function(event){
             event.preventDefault();
