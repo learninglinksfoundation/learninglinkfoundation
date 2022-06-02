@@ -1136,12 +1136,12 @@ router.post('/savePettyCashForm', (request, response) => {
 })
 });
 
-router.post('/uploadImage',upload.any(),async (request, response) => {
+router.post('/uploadImage',async (request, response) => {
 
     console.log('uploadImage  Called !');
     console.log('request.files[0].path   '+request.files[0].path);
     try{
-    cloudinary.uploader.upload(request.files[0].path, { resource_type: "raw" }, function(error, result) {
+        await cloudinary.uploader.upload(request.files[0].path, function(error, result) {
  
         if(error){
           console.log('cloudinary  error' + error);
@@ -1152,6 +1152,7 @@ router.post('/uploadImage',upload.any(),async (request, response) => {
    }
    catch(Ex)
    {
+    response.send({});
         console.log('Exception '+ex);
         console.log('Exception '+JSON.stringify(ex));
    }
