@@ -154,7 +154,9 @@ body{
         })
         $('#empCat').val(obj.employee_category_band__c)
         $('#desig').val(desigobj.pm_email__c)
-      //  $('#file').resizeImg
+        $('#file').resizeImg({
+          type:"image/jpeg"
+        })
 
         $('#saveProf').on('click',function(event){
             event.preventDefault();
