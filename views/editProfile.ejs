@@ -60,8 +60,8 @@ body{
   <div class="col-md-6 m-auto">
     <div class="card card-body" style="padding-top:3rem">
       <div class="avtar">K
-        <i class="fas fa-camera camIcon" id="icon"></i>
-        <input type="file" id="upload-Image" onchange="loadImageFile();" style="display:none"  />
+        <i class="fas fa-camera camIcon" id="icon" style="background:none"></i>
+        <input type="file" id="upload-Image" onchange="loadImageFile();chkFile(this);" style="display:none"  />
         
         <img id="upload-Preview" class="profileImg"/>
         
@@ -234,7 +234,7 @@ body{
             .fail((jqXHR, status, error) => {
                 console.log('jqXHR  '+JSON.stringify(jqXHR));
 
-              let errList = ['abcd','xyz', 'pqr'];
+              let errList = ['xyz', 'pqr'];
 
               let errorHtml = '';
               errList.forEach((eachError) => {
@@ -265,4 +265,25 @@ body{
         })
      
 })
+function chkFile(file) {
+  var file = file.files[0];
+  var formData = new FormData();
+  formData.append('formData', file);
+
+  $.ajax({
+  type: "POST",
+  url: "/expense/uploadImage",    
+  cache: false,
+  dataType:'json',
+  processData: false,
+  contentType: false,
+  data: formData,
+  success: function (data) {
+      console.log('daat url '+JSON.stringify(data));
+      alert('Attachment Uploaded Successfully !');
+    $('#file').val(data.url); 
+    console.log('file '+document.getElementById("file").value);         
+    }
+});
+}
 </script>
