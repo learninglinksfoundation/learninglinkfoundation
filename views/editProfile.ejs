@@ -61,14 +61,13 @@ body{
     <div class="card card-body" style="padding-top:3rem">
       <div class="avtar">K
         <i class="fas fa-camera camIcon" ></i>
+        <input type="file" id="upload-Image" onchange="loadImageFile();"  />
+        <img id="upload-Preview" class="profileImg"/>
         
-        <img src="/image/logo.png" class="profileImg"> 
+       <!-- <img src="/image/logo.png" class="profileImg"> -->
         
       </div>
-     <div ><input type="file" id="upload-Image" onchange="loadImageFile();"  />
-      <img id="upload-Preview"/>
-      <img id="original-Img"/>
-      </div>
+     
 
       <% include ./partials/messages %>
         <div id="errorMessages"></div>
@@ -139,8 +138,8 @@ body{
         document.getElementById("original-Img").src=image.src;
         var canvas=document.createElement("canvas");
         var context=canvas.getContext("2d");
-        canvas.width=image.width/4;
-        canvas.height=image.height/4;
+        canvas.width=image.width/24;
+        canvas.height=image.height/24;
         context.drawImage(image,
             0,
             0,
