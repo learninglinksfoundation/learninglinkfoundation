@@ -165,12 +165,12 @@ body{
             console.log('FormValues '+JSON.stringify(values));
             $.ajax({
                 url : '/users/updateProfile',
-                type:'get',
+                type:'post',
                 data: values,
-                //dataType : 'json'
+                dataType : 'json'
             })
             .done((response)=>{
-                console.log('Profile Updated Succesfuly',response);
+                console.log('Profile Updated Succesfuly');
                 let successText = 'Profile Updated Succesfuly';
                 let errorHtml = '';
                 errorHtml += '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
@@ -187,7 +187,7 @@ body{
             .fail((jqXHR, status, error) => {
                 console.log('jqXHR  '+JSON.stringify(jqXHR));
 
-              let errList = [ 'pqr'];
+              let errList = ['abcd','xyz', 'pqr'];
 
               let errorHtml = '';
               errList.forEach((eachError) => {
@@ -212,8 +212,7 @@ body{
           }) 
           window.location.reload();
          // location.replace('https://learninglinksfoundation-test.herokuapp.com/users/login');
-         
-        })
+      })
      
 })
 </script>
