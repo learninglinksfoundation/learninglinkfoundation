@@ -60,7 +60,7 @@ body{
   <div class="col-md-6 m-auto">
     <div class="card card-body" style="padding-top:3rem">
       <div class="avtar">K
-        <i class="fas fa-camera camIcon" ></i>
+        <i class="fas fa-camera camIcon" id="icon"></i>
         <input type="file" id="upload-Image" onchange="loadImageFile();"  />
         
         <img id="upload-Preview" class="profileImg"/>
@@ -193,6 +193,11 @@ body{
         $('#empCat').val(obj.employee_category_band__c)
         $('#desig').val(desigobj.pm_email__c)
        
+        $('#icon').click(function(){
+
+          $('#upload-Image').click()
+              
+          })
 
         $('#saveProf').on('click',function(event){
             event.preventDefault();
