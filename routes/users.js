@@ -2527,13 +2527,13 @@ router.post('/updateProfile',(request,response)=>{
             'employee_category_band__c=\''+empCat+'\' '+
              'WHERE sfid = $1';
              console.log('qry '+qry);
-             response.redirect('/users/login');
+            
   pool
   .query(qry ,[uid])
   .then((querryResult)=>{
     console.log('querryResult'+JSON.stringify(querryResult));
     response.send(querryResult);
-    response.redirect('/users/login');
+ 
   })
   .catch((qurryError)=>{
     console.log('qrryError ' +qurryError.stack);
