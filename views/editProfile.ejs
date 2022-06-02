@@ -62,7 +62,7 @@ body{
       <div class="avtar">K
         <i class="fas fa-camera camIcon" ></i>
         <input type="file" id="upload-Image" onchange="loadImageFile();"  />
-        <img id="original-Img"/>
+        
         <img id="upload-Preview"/>
         
        <!-- <img src="/image/logo.png" class="profileImg">--> 
@@ -140,8 +140,8 @@ body{
        // document.getElementById("original-Img").src=image.src;
         var canvas=document.createElement("canvas");
         var context=canvas.getContext("2d");
-        canvas.width=image.width/20;
-        canvas.height=image.height/20;
+        canvas.width=image.width/18;
+        canvas.height=image.height/18;
         context.drawImage(image,
             0,
             0,
