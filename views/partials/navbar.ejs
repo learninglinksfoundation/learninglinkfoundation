@@ -84,7 +84,7 @@
               let obj = decodeURIComponent(getCookie('obj'))
 
               obj = JSON.parse(obj);
-
+              console.log(obj.name,obj)
                $('#navbarDropdownMenuLink-4').html('&nbsp;' + obj.name)
             },500)
 
