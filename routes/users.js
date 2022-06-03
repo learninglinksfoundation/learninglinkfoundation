@@ -2488,7 +2488,7 @@ router.get('/editProfile',verify,(request,response)=>{
 })
 router.post('/updateProfile',(request,response)=>{
   
-  const {nam,phn,empid,desig,empCat, postal,mob,uid }=request.body;
+  const {nam,phn,empid,desig,empCat, postal,mob,uid,imgpath }=request.body;
   //let objUser=request.user;
   /*  const errors = validationResult(req);
    if(!errors.isEmpty()){
@@ -2524,7 +2524,8 @@ router.post('/updateProfile',(request,response)=>{
             'pm_email__c=\''+desig+'\', '+
             'name=\''+nam+'\', '+
             'mobilephone=\''+mob+'\', '+
-            'employee_category_band__c=\''+empCat+'\' '+
+            'employee_category_band__c=\''+empCat+'\','+
+            'profile_picture_url__c=\''+imgpath+'\' '+
              'WHERE sfid = $1';
              console.log('qry '+qry);
             
