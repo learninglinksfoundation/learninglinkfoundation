@@ -286,7 +286,9 @@ function chkFile(event) {
   success: function (data) {
       console.log('daat url '+JSON.stringify(data));
       alert('Attachment Uploaded Successfully !');
+      console.log(data.url);
     $('#upload-Preview').val(data.url); 
+    console.log(data.url);
     console.log('file '+document.getElementById("file").value);         
     }
 });
