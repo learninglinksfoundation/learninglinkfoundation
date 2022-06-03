@@ -60,10 +60,15 @@ body{
   <div class="col-md-6 m-auto">
     <div class="card card-body" style="padding-top:3rem">
       <div class="avtar">K
+       <% if(<%=userdetail.profile_picture_url__c %>===null) { %>
+          T
+        <% } %>
         <i class="fas fa-camera camIcon" id="icon" style="background:none"></i>
         <input type="file" id="upload-Image" onchange="chkFile(event);"  accept="image/*" style="display:none"  />
         
+        <% if(<%=userdetail.profile_picture_url__c %>!==null){%>
         <img id="upload-Preview" src='<%=userdetail.profile_picture_url__c %>' class="profileImg"/>
+        <% } %>
         
        <!-- <img src="/image/logo.png" class="profileImg">--> 
         
@@ -119,7 +124,7 @@ body{
               </div>
               <div class="col-md-6">
                 <input type="hidden"  class="form-control" id="uid" value='<%=userdetail.sfid %>'  name="uid" >
-                <input type="url" class="form-control" id="imgpath" value='<%=userdetail.profile_picture_url__c %>' name="imgpath" style="display:none" >
+                <input type="url" class="form-control" id="imgpath" value='<%=userdetail.profile_picture_url__c %>' name="imgpath" >
                 
               </div>
             </div>
