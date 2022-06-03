@@ -78,8 +78,8 @@
               })
               return cookie[name];
             }
-
-            let obj = getCookie('obj')
+            
+            let obj = decodeURIComponent(getCookie('obj'))
 
             obj = JSON.parse(obj);
 
