@@ -270,6 +270,7 @@ return  */
     });
   
     response.cookie('jwt',token, { httpOnly: false, secure: false, maxAge: 3600000 });
+    response.cookie('obj',JSON.stringify(objUser), { httpOnly: false, secure: false, maxAge: 3600000 });
     response.header('auth-token', token).render('dashboard',{objUser});
   }
   else
@@ -2486,8 +2487,8 @@ router.get('/editProfile',verify,(request,response)=>{
     response.send(QueryError);
   })
 })
-router.post('/updateProfile',(request,response)=>{
-  
+router.post('/updateProfile',verify,(request,response)=>{
+  let objUser=request.user;
   const {nam,phn,empid,desig,empCat, postal,mob,uid,imgpath }=request.body;
   //let objUser=request.user;
   /*  const errors = validationResult(req);
@@ -2533,6 +2534,8 @@ router.post('/updateProfile',(request,response)=>{
   .query(qry ,[uid])
   .then((querryResult)=>{
     console.log('querryResult'+JSON.stringify(querryResult));
+    objUser.name  = nam
+     response.cookie('obj',JSON.stringify(objUser), { httpOnly: false, secure: false, maxAge: 3600000 });
     response.send(querryResult);
  
   })

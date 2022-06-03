@@ -221,7 +221,10 @@ body{
                 '</div>';
                 $('#errorMessages').empty();
                 $('#errorMessages').append(errorHtml);
-                location.replace('https://learninglinksfoundation-test.herokuapp.com/users/login');
+                //localStorage.obj =  window.btoa( '<%- JSON.stringify(objUser) %>')
+               // let obj = JSON.parse(window.atob(localStorage.obj))
+               // obj.name = values.nam
+                //location.replace('https://learninglinksfoundation-test.herokuapp.com/users/login');
                  
                // alert('Error in Server Side '+JSON.stringify(response));
             })
@@ -251,7 +254,7 @@ body{
                 $('#errorMessages').empty();
                 $('#errorMessages').append(errorHtml);
           }) 
-          window.location.reload();
+          //window.location.reload();
          // location.replace('https://learninglinksfoundation-test.herokuapp.com/users/login');
          if(performance.navigation.type == 2){
           location.reload(true);

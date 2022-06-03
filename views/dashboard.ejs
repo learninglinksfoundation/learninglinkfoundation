@@ -32,6 +32,7 @@
 
   <script>
     $(document).ready(()=>{
+      localStorage.obj =  window.btoa( '<%- JSON.stringify(objUser) %>')
       $('#spinner').hide();
       $('#spinnerPldForm').hide();
         $.ajax({
