@@ -78,12 +78,17 @@
               })
               return cookie[name];
             }
-            
-            let obj = decodeURIComponent(getCookie('obj'))
 
-            obj = JSON.parse(obj);
+            window.setTimeout(()=>{
+
+              let obj = decodeURIComponent(getCookie('obj'))
+
+              obj = JSON.parse(obj);
 
             $('#navbarDropdownMenuLink-4').html('&nbsp;' + obj.name)
+            },500)
+
+            
 
           </script>
       
