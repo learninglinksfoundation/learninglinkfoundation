@@ -2328,9 +2328,10 @@ router.get('/getevents',verify, async function(req, res, next) {
 
 
 router.get('/logout', (request, response) => {
- // request.logout();
+ // request.logout();obj
  // request.flash('success_msg', 'You are logged out');
  response.clearCookie("jwt");
+ response.clearCookie("obj");
   response.redirect('/users/login');
 });
 
