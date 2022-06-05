@@ -2536,6 +2536,7 @@ router.post('/updateProfile',verify,(request,response)=>{
   .then((querryResult)=>{
     console.log('querryResult'+JSON.stringify(querryResult));
     objUser.name  = nam
+    objUser.profile_picture_url__c = imgpath
      response.cookie('obj',JSON.stringify(objUser), { httpOnly: false, secure: false, maxAge: 3600000 });
     response.send(querryResult);
  
