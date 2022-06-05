@@ -2538,6 +2538,7 @@ router.post('/updateProfile',verify,(request,response)=>{
     objUser.name  = nam
     objUser.profile_picture_url__c = imgpath
     objUser.pm_email__c= desig
+    objUser.employee_category_band__c= empCat
      response.cookie('obj',JSON.stringify(objUser), { httpOnly: false, secure: false, maxAge: 3600000 });
     response.send(querryResult);
  
