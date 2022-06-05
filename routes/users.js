@@ -214,7 +214,7 @@ return  */
   
     await
     pool
-   .query('SELECT Id, sfid, Name, email, employee_category_band__c, PM_email__c FROM salesforce.Contact WHERE email = $1 AND password2__c = $2',[email,password])
+   .query('SELECT Id, sfid, Name, email, employee_category_band__c, profile_picture_url__c, PM_email__c FROM salesforce.Contact WHERE email = $1 AND password2__c = $2',[email,password])
    .then((loginResult) => {
          console.log('loginResult.rows[0]  '+JSON.stringify(loginResult.rows));
          if(loginResult.rowCount > 0)
