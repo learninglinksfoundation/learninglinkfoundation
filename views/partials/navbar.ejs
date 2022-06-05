@@ -59,7 +59,8 @@
                       <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4"  data-title="Usname"  data-toggle="dropdown" aria-haspopup="true"
                       aria-expanded="false">
                      <!-- <i class="fas fa-user " ></i>-->
-                    <img id="navimg" src=>  </a>
+                    <img id="navimg" style=" height: 70px;
+                    width: 70px;border-radius: 100%;"  src=>  </a>
                       <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
                       <a class="dropdown-item" href="/users/editProfile">Edit Profile</a>
                       <a class="dropdown-item" href="/users/logout">Log out</a>
@@ -85,7 +86,7 @@
               let obj = decodeURIComponent(getCookie('obj'))
              // let obj2 = decodeURIComponent(getCookie(''))
               obj = JSON.parse(obj);
-              $('[data-title="Usname"]').append('&nbsp;' + obj.name)
+              $('[data-title="Usname"]').append('&nbsp;' + obj.pm_email__c)
             //  $('#navimg').append(obj.profile_picture_url__c)
               document.getElementById("navimg").src=obj.profile_picture_url__c;
               // $('#navbarDropdownMenuLink-4').html('&nbsp;' + obj.name)
