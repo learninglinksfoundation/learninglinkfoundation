@@ -280,11 +280,7 @@ return  */
     response.cookie('obj',JSON.stringify(objUser), { httpOnly: false, secure: false, maxAge: 3600000 });
     response.header('auth-token', token).render('dashboard',{objUser});
   }
-  else if (!isActive){
-    errors.push({msg : 'User is inactive. Contact your website administrator.'});
-    response.render('login',{errors});
-
-  }
+ 
   else
   {
     errors.push({ msg: 'Please enter correct email or correct password' });
