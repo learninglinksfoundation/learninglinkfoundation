@@ -76,8 +76,10 @@
          
 
             
-            let int = localStorage.timeout =  0;
+             localStorage.timeout =  0;
             window.ids =   window.setInterval(()=>{
+
+                let int = Number(localStorage.timeout)
                   localStorage.timeout = ++int
 
                   if(int == 2){
@@ -100,7 +102,7 @@
 
             window.setTimeout(()=>{
                window.onclick =  ()=>{
-                int = 0;
+                //int = 0;
                 localStorage.timeout = 0
 
               }
