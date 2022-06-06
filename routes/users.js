@@ -205,7 +205,7 @@ return  */
    console.log('email : '+email+' passoword '+password);
 
   let errors = [], userId, objUser = {}, isUserExist = false;
-  let isActive=false;
+  let isActive=true;
 
    if (!email || !password) {
      errors.push({ msg: 'Please enter all fields' });
@@ -220,7 +220,7 @@ return  */
          console.log('loginResult.rows[0]  '+JSON.stringify(loginResult.rows));
          if(loginResult.rowCount > 0)
          {
-          if(loginResult.rows[0].active__c){ 
+          if(loginResult.rows[0].active__c==true){ 
             userId = loginResult.rows[0].sfid;
             objUser = loginResult.rows[0];
             isUserExist = true;
