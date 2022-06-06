@@ -281,7 +281,7 @@ return  */
     response.header('auth-token', token).render('dashboard',{objUser});
   }
   else if(!isActive){
-    errors.push({ msg: 'User is inactive. Please contact your administrator.' });
+    errors.push({ msg: 'User is inactive.Contact your website administrator' });
     response.render('login',{errors});
   }
  
