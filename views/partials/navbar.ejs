@@ -77,11 +77,13 @@
 
             
             let int = localStorage.timeout =  0;
-            window.setInterval(()=>{
+            window.ids =   window.setInterval(()=>{
                   localStorage.timeout = ++int
 
                   if(int == 2){
                     window.location.href = '/users/logout'
+                    window.clearInterval( window.ids);
+                    delete localStorage.timeout
                   }
             },30000)
 
@@ -98,8 +100,12 @@
 
             window.setTimeout(()=>{
                window.onclick =  ()=>{
+                int = 0;
                 localStorage.timeout = 0
+
               }
+
+              //window.on
 
               let obj = decodeURIComponent(getCookie('obj'))
              // let obj2 = decodeURIComponent(getCookie(''))
