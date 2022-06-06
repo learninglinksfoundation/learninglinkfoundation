@@ -205,6 +205,7 @@ return  */
    console.log('email : '+email+' passoword '+password);
 
   let errors = [], userId, objUser = {}, isUserExist = false;
+  let isActive=true;
 
    if (!email || !password) {
      errors.push({ msg: 'Please enter all fields' });
@@ -214,14 +215,20 @@ return  */
   
     await
     pool
-   .query('SELECT Id, sfid, Name, email, employee_category_band__c, profile_picture_url__c, PM_email__c FROM salesforce.Contact WHERE email = $1 AND password2__c = $2',[email,password])
+   .query('SELECT Id, sfid,active__c, Name, email, employee_category_band__c, profile_picture_url__c, PM_email__c FROM salesforce.Contact WHERE email = $1 AND password2__c = $2',[email,password])
    .then((loginResult) => {
          console.log('loginResult.rows[0]  '+JSON.stringify(loginResult.rows));
          if(loginResult.rowCount > 0)
          {
-           userId = loginResult.rows[0].sfid;
-           objUser = loginResult.rows[0];
-           isUserExist = true;
+          if(loginResult.rows[0].active__c==true){ 
+            userId = loginResult.rows[0].sfid;
+            objUser = loginResult.rows[0];
+            isUserExist = true;
+            isActive=true;
+          }
+          else{
+            isActive=false;
+          }
          }
          else
          {
@@ -273,6 +280,11 @@ return  */
     response.cookie('obj',JSON.stringify(objUser), { httpOnly: false, secure: false, maxAge: 3600000 });
     response.header('auth-token', token).render('dashboard',{objUser});
   }
+  else if(!isActive){
+    errors.push({ msg: 'User is inactive. Please contact your administrator.' });
+    response.render('login',{errors});
+  }
+ 
   else
   {
     errors.push({ msg: 'Please enter correct email or correct password' });
