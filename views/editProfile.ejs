@@ -234,7 +234,10 @@ body{
                 //location.replace('https://learninglinksfoundation-test.herokuapp.com/users/login');
                  
                // alert('Error in Server Side '+JSON.stringify(response));
-               window.location.reload();
+               window.setTimeout(function(){
+                window.location.reload();
+               },5000)
+               
             })
             .fail((jqXHR, status, error) => {
                 console.log('jqXHR  '+JSON.stringify(jqXHR));
