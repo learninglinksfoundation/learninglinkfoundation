@@ -159,7 +159,13 @@ body{
     image.src=event.target.result;
   };
   
-  
+  $('#upload-Preview,#navimg').click(function(e){
+    e.preventDefault();
+                e.stopImmediatePropagation()
+                e.stopPropagation();
+      let src = $('#upload-Preview').prop('src')
+        window.open(src,'_blank');
+    })
     
   </script>
 
@@ -228,6 +234,7 @@ body{
                 //location.replace('https://learninglinksfoundation-test.herokuapp.com/users/login');
                  
                // alert('Error in Server Side '+JSON.stringify(response));
+               window.location.reload();
             })
             .fail((jqXHR, status, error) => {
                 console.log('jqXHR  '+JSON.stringify(jqXHR));
@@ -255,7 +262,7 @@ body{
                 $('#errorMessages').empty();
                 $('#errorMessages').append(errorHtml);
           }) 
-          window.location.reload();
+         
          // location.replace('https://learninglinksfoundation-test.herokuapp.com/users/login');
          if(performance.navigation.type == 2){
           location.reload(true);
