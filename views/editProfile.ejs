@@ -231,15 +231,10 @@ body{
                 '</div>';
                 $('#errorMessages').empty();
                 $('#errorMessages').append(errorHtml);
-                //localStorage.obj =  window.btoa( '<%- JSON.stringify(objUser) %>')
-               // let obj = JSON.parse(window.atob(localStorage.obj))
-               // obj.name = values.nam
-                //location.replace('https://learninglinksfoundation-test.herokuapp.com/users/login');
-                 
-               // alert('Error in Server Side '+JSON.stringify(response));
+               
                window.setTimeout(function(){
                 window.location.reload();
-               },5000)
+               },1000)
                
             })
             .fail((jqXHR, status, error) => {
