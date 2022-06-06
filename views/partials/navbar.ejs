@@ -75,17 +75,14 @@
 
          
 
-            localStorage.timeout = 0
+            
+            let int = localStorage.timeout =  0;
             window.setInterval(()=>{
+                  localStorage.timeout = ++int
 
-                  if(localStorage.timeout === 2){
+                  if(int == 2){
                     window.location.href = '/users/logout'
                   }
-
-                  let st =  Number(localStorage.timeout)
-                  ++st
-                  console.log(st)
-                  localStorage.timeout = st
             },30000)
 
 
