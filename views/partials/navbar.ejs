@@ -77,7 +77,7 @@
 
             
              localStorage.timeout =  0;
-            window.ids =   window.setInterval(()=>{
+             window.ids =   window.setInterval(()=>{
 
                 let int = Number(localStorage.timeout)
                   localStorage.timeout = ++int
@@ -87,7 +87,7 @@
                     window.clearInterval( window.ids);
                     delete localStorage.timeout
                   }
-            },10000)
+            },7200000)
 
 
            
