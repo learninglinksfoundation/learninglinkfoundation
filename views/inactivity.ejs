@@ -1,3 +1,29 @@
+<style>
+    body {
+        background: #ececec;
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
+    /*Hidden class for adding and removing*/
+    .lds-dual-ring.hidden {
+        display: none;
+    }
+  
+ 
+    /*Add an overlay to the entire page blocking any further presses to buttons or other elements.*/
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0,0,0,.8);
+        z-index: 999;
+        opacity: 1;
+        transition: all 0.5s;
+    }
+     
+  </style>
 <div class="row mt-5">
     <div class="col-md-5 m-auto">
       <div class="card card-body">
