@@ -2345,7 +2345,7 @@ router.get('/logout', (request, response) => {
  response.clearCookie("jwt");
  response.clearCookie("obj");
  // response.redirect('/users/login');
- response.render('forgetPassword');
+ response.render('inactivity');
 });
 
 
