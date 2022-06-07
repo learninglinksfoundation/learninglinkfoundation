@@ -2344,10 +2344,17 @@ router.get('/logout', (request, response) => {
  // request.flash('success_msg', 'You are logged out');
  response.clearCookie("jwt");
  response.clearCookie("obj");
- // response.redirect('/users/login');
- response.render('inactivity');
+  response.redirect('/users/login');
 });
-
+router.get('/inactivity', (request, response) => {
+  // request.logout();obj
+  // request.flash('success_msg', 'You are logged out');
+ // response.clearCookie("jwt");
+  //response.clearCookie("obj");
+  // response.redirect('/users/login');
+  response.render('inactivity');
+ });
+ 
 
 
 
