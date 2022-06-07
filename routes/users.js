@@ -2344,8 +2344,10 @@ router.get('/logout', (request, response) => {
  // request.flash('success_msg', 'You are logged out');
  response.clearCookie("jwt");
  response.clearCookie("obj");
-  response.redirect('/users/login');
+ // response.redirect('/users/login');
+ res.render('forgetPassword');
 });
+
 
 
 
