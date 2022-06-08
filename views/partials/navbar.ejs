@@ -81,6 +81,10 @@
 
                 let int = Number(localStorage.timeout)
                   localStorage.timeout = ++int
+                  if(int == 2){
+                   window.location.href = '/users/inactivity'
+                   window.clearInterval( window.ids);
+                 }
 
                   
             },10000)

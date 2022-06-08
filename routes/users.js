@@ -2349,9 +2349,8 @@ router.get('/logout', (request, response) => {
 router.get('/inactivity', (request, response) => {
   // request.logout();obj
   // request.flash('success_msg', 'You are logged out');
- // response.clearCookie("jwt");
-  //response.clearCookie("obj");
-  // response.redirect('/users/login');
+ response.clearCookie("jwt");
+  response.clearCookie("obj");
   response.render('inactivity');
  });
  
