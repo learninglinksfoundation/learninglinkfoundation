@@ -48,7 +48,7 @@
        <!-- <br/>
         <a href="/users/logout" class="btn btn-primary">Logout</a>-->
         <br/>
-        <button  id="returnback" class="btn btn-primary"> Return to back screen</button>
+        <button  id="returnback" class="btn btn-primary"> Return to login screen</button>
         
      
     </div>
@@ -59,9 +59,11 @@
            window.open('/users/logout','_self')
     }
    // window.open('/users/login','_self')
-    window.history.forward();
-        function noBack() {
-            window.history.forward();
-        }
+   $(document).ready(function() {
+    window.history.pushState(null, "", window.location.href);        
+    window.onpopstate = function() {
+        window.history.pushState(null, "", window.location.href);
+    };
+});
 
 </script>
