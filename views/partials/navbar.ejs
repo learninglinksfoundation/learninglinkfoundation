@@ -85,11 +85,11 @@
                   if(int == 2){
                     window.location.href = '/users/inactivity'
                     window.clearInterval( window.ids);
-                    delete localStorage.timeout
+                    //delete localStorage.timeout
                   }
             },10000)
 
-
+          window.onbeforeunload = ()=> window.clearInterval( window.ids);
            
           function getCookie(name) {
               let cookie = {};
@@ -102,12 +102,10 @@
 
             window.setTimeout(()=>{
                window.onclick =  ()=>{
-                //int = 0;
                 localStorage.timeout = 0
 
               }
 
-              //window.on
 
               let obj = decodeURIComponent(getCookie('obj'))
              // let obj2 = decodeURIComponent(getCookie(''))
