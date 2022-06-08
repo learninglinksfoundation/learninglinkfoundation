@@ -20,23 +20,29 @@
         background: rgba(0,0,0,.8);
         z-index: 999;
         opacity: 1;
-        transition: all 0.5s;
+        transition: all 0.5s;  
+    }
+    .outerdiv{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 11%;
+    } 
+    .innerdiv{
+        box-shadow: rgb(193 193 193) 0px 2px 16px;
+        padding: 30px;
+        border-radius: 20px;
+        text-align: center;
     }
      
   </style>
-<div style="display: flex;
-justify-content: center;
-align-items: center;
-margin-top: 11%;">
-    <div style="box-shadow: rgb(193 193 193) 0px 2px 16px;
-    padding: 30px;
-    border-radius: 20px;
-    text-align: center;">
+<div class="outerdiv">
+    <div class="innerdiv">
      
        
         
       
-      <h3>You are logged out due to inactivity</h3> 
+      <h3>You are logged out due to inactivity.</h3> 
       
 
        <!-- <br/>
@@ -49,7 +55,7 @@ margin-top: 11%;">
 </div>
 <script>
    // document.getElementById("returnback").onclick(history.back());
-
+    window.open('/users/login','_self')
     window.history.forward();
         function noBack() {
             window.history.forward();
