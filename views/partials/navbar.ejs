@@ -82,12 +82,25 @@
                 let int = Number(localStorage.timeout)
                   localStorage.timeout = ++int
 
-                  if(int == 2){
-                    window.location.href = '/users/inactivity'
-                    window.clearInterval( window.ids);
-                    //delete localStorage.timeout
-                  }
+                  
             },10000)
+
+             // if(int == 2){
+             //        window.location.href = '/users/inactivity'
+             //        window.clearInterval( window.ids);
+             //        //delete localStorage.timeout
+             //      }
+
+             window.onstorage = (e) => {
+                  let newValue = e.newValue
+                  console.log(newValue)
+                  if(newValue == 2){
+                   window.location.href = '/users/inactivity'
+                   window.clearInterval( window.ids);
+                 }
+
+             }
+
 
           window.onbeforeunload = ()=> window.clearInterval( window.ids);
            
