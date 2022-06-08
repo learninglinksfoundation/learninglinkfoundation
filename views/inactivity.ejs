@@ -24,25 +24,31 @@
     }
      
   </style>
-<div class="row mt-5">
-    <div class="col-md-5 m-auto">
+<div style="display: flex;
+justify-content: center;
+align-items: center;
+margin-top: 11%;">
+    <div style="box-shadow: rgb(193 193 193) 0px 2px 16px;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;">
      
        
         
       
-      <h5>You are Logout due to inactivity</h5> 
-        <p>Will you Continue or not !</p>
+      <h3>You are logged out due to inactivity</h3> 
+      
 
        <!-- <br/>
         <a href="/users/logout" class="btn btn-primary">Logout</a>-->
         <br/>
-        <button  id="returnback" class="btn btn-primary"> Return</button>
+        <button  id="returnback" class="btn btn-primary"> Return to back screen</button>
         
      
     </div>
 </div>
 <script>
-    document.getElementById("returnback").click(history.back());
+    document.getElementById("returnback").onclick(history.back());
 
     window.history.forward();
         function noBack() {
