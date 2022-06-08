@@ -2384,7 +2384,7 @@ router.post('/salesforceEmailVeerification',(request,response)=>{
         }
         else
         {
-          response.send('[error1]');
+          response.send('Enter valid email');
         }
   })
   .catch((QueryError)=>{
