@@ -36,12 +36,14 @@
        <!-- <br/>
         <a href="/users/logout" class="btn btn-primary">Logout</a>-->
         <br/>
-        <button onclick="history.back()" class="btn btn-primary"> Return</button>
+        <button  id="returnback" class="btn btn-primary"> Return</button>
         
      
     </div>
 </div>
 <script>
+    document.getElementById("returnback").click(history.back);
+
     window.history.forward();
         function noBack() {
             window.history.forward();
