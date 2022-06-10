@@ -2399,6 +2399,8 @@ router.post('/sendEMail',(request,response)=>{
   console.log('emaoBidy' +email);
   console.log('sfid' +sfid);
   console.log('name' +name);
+  const sfid2 =sfid+'a';
+  console.log('sfid2' +sfid2);
  /*  nodemailer.createTestAccount((err, account) => {
     if (err) {
         console.error('Failed to create a testing account. ' + err.message);
@@ -2421,7 +2423,7 @@ router.post('/sendEMail',(request,response)=>{
     to:email,
     subject: 'Finish Resetting your Heroku Password ',
     text: 'Plz Click the below link to generate your password',
-    html: 'Heroku recently received a request to reset the password for the username '+email +'. <br/>To finish resetting your password, go to the following link. <br/> This link expires in 24 hours<br/><br/> Link : http://learninglinksfoundation.herokuapp.com/users/resetPassword/'+sfid+'<br/> Sender name : Heroku support'
+    html: 'Heroku recently received a request to reset the password for the username '+email +'. <br/>To finish resetting your password, go to the following link. <br/> This link expires in 24 hours<br/><br/> Link : http://learninglinksfoundation.herokuapp.com/users/resetPassword/'+sfid2+'<br/><br/> Sender Email : crm@learninglinksindia.org<br/><br/>Sender name : Heroku_Support <br/>'
     
   }
 
