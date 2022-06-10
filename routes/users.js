@@ -2419,9 +2419,10 @@ router.post('/sendEMail',(request,response)=>{
   let message = {
     from: 'crm@learninglinksindia.org',
     to:email,
-    subject: 'Heroku Forget Password ',
+    subject: 'Finish Resetting your Heroku Password ',
     text: 'Plz Click the below link to generate your password',
-    html: '<p><a href="http://learninglinksfoundation.herokuapp.com/users/resetPassword/'+sfid +'">click to resest your password</a></p>' 
+    html: 'Heroku recently received a request to reset the password for the username '+email +'. <br/>To finish resetting your password, go to the following link. <br/> This link expires in 24 hours<br/><br/> Link : http://learninglinksfoundation.herokuapp.com/users/resetPassword/'+sfid+'<br/> Sender name : Heroku support'
+    
   }
 
   transporter.sendMail(message, (err, info) => {
