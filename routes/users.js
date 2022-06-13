@@ -2441,9 +2441,9 @@ router.get('/resetPassword/:userId',(request,response)=>{
   console.log('userId  : '+userId);
   response.render('resetPassword',{userId});
 })
-router.get('/generatePassword',(request,response)=>{
- // let userId =request.params.userId;
-  response.render('generatePassword');
+router.get('/generatePassword/:userId',(request,response)=>{
+  let userId =request.params.userId;
+  response.render('generatePassword',{userId});
 })
 router.post('/updatePass',(request,response)=>{
   console.log('BODy'+JSON.stringify(request.body));
