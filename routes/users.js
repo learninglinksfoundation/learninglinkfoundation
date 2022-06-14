@@ -2451,7 +2451,7 @@ router.post('/updatePass',(request,response)=>{
 
    const schema = joi.object({
     password:joi.string().required().label('Please Fill Password'),
-    pass:joi.string().min(10).minOfSpecialCharacters(1).required().label('Password must be 10 characters long'),
+    pass:joi.string().minOfSpecialCharacters(1).required().label('Password must be 10 characters long'),
     password2:joi.string().required().label('Please Re-enter Password'),  
     confirmPassword:joi.string().required().valid(joi.ref('password')).label('Passwords does not match'),
       })
