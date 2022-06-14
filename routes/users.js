@@ -7,7 +7,8 @@ const router = new Router()
 const {pool} = require('../db/dbConfig');
 const verify = require('../config/verifyToken');
 const jwt = require('jsonwebtoken');
-const joi = require('joi');
+const joi = require('@hapi/joi');
+const { joiPassword } = require('joi-password');
 const { response } = require('express');
 const { Client } = require('pg');
 // const {check, validationResult }=require('express-validator');
@@ -2448,11 +2449,10 @@ router.get('/generatePassword/:userId',(request,response)=>{
 router.post('/updatePass',(request,response)=>{
   console.log('BODy'+JSON.stringify(request.body));
   const { pass,pass2,user}=request.body;
-  const strongPasswordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-  const stringPassswordError = new Error("Password must be strong. At least one upper case alphabet. At least one lower case alphabet. At least one digit. At least one special character. Minimum eight in length");
-   const schema = joi.object.keys({
+
+   const schema = joi.object({
     password:joi.string().required().label('Please Fill Password'),
-    pass:joi.string().regex(strongPasswordRegex).error(stringPassswordError).required(),
+    pass:joiPassword .minOfLowercase(2).string().min(10).required().label('Password must be 10 characters long'),
     password2:joi.string().required().label('Please Re-enter Password'),  
     confirmPassword:joi.string().required().valid(joi.ref('password')).label('Passwords does not match'),
       })
