@@ -8,8 +8,7 @@ const {pool} = require('../db/dbConfig');
 const verify = require('../config/verifyToken');
 const jwt = require('jsonwebtoken');
 const joi = require('joi');
-//const { joiPassword } = require('joi-password');
-const passwordComplexity = require("joi-password-complexity");
+
 const { response } = require('express');
 const { Client } = require('pg');
 // const {check, validationResult }=require('express-validator');
@@ -2452,7 +2451,7 @@ router.post('/updatePass',(request,response)=>{
   const { pass,pass2,user}=request.body;
 
    const schema = joi.object({
-    password:string().required().label('Please Fill Password'),
+    password:joi.string().required().label('Please Fill Password'),
     pass:joi.string().min(10).minOfNumeric(2).required().label('Password must be 10 characters long'),
     password2:joi.string().required().label('Please Re-enter Password'),  
     confirmPassword:joi.string().required().valid(joi.ref('password')).label('Passwords does not match'),
