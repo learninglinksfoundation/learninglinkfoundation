@@ -7,7 +7,7 @@ const router = new Router()
 const {pool} = require('../db/dbConfig');
 const verify = require('../config/verifyToken');
 const jwt = require('jsonwebtoken');
-const joi = require('@hapi/joi');
+const joi = require('joi');
 const { response } = require('express');
 const { Client } = require('pg');
 // const {check, validationResult }=require('express-validator');
@@ -2449,8 +2449,8 @@ router.post('/updatePass',(request,response)=>{
   console.log('BODy'+JSON.stringify(request.body));
   const { pass,pass2,user}=request.body;
   const strongPasswordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-const stringPassswordError = new Error("Password must be strong. At least one upper case alphabet. At least one lower case alphabet. At least one digit. At least one special character. Minimum eight in length");
-   const schema = joi.object({
+  const stringPassswordError = new Error("Password must be strong. At least one upper case alphabet. At least one lower case alphabet. At least one digit. At least one special character. Minimum eight in length");
+   const schema = joi.object.keys({
     password:joi.string().required().label('Please Fill Password'),
     pass:joi.string().regex(strongPasswordRegex).error(stringPassswordError).required(),
     password2:joi.string().required().label('Please Re-enter Password'),  
