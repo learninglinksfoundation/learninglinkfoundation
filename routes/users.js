@@ -2452,7 +2452,7 @@ router.post('/updatePass',(request,response)=>{
   const pattern = "/(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[$@$!#.])[A-Za-zd$@$!%*?&.]{8,20}/";
    const schema = joi.object({
     password:joi.string().required().label('Please Fill Password'),
-    pass:joi.string().required().min(3).regex(/(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[$@$!#.])[A-Za-zd$@$!%*?&.]{8,20}/).required(),
+    pass:joi.string().required().min(3).regex(/(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[$@$!#.])[A-Za-zd$@$!%*?&.]{8,20}/).required().label('minimum char 10'),
     password2:joi.string().required().label('Please Re-enter Password'),  
     confirmPassword:joi.string().required().valid(joi.ref('password')).label('Passwords does not match'),
       })
@@ -2490,7 +2490,7 @@ router.get('/editProfile',verify,(request,response)=>{
   let objUser=request.user;
   let userId=objUser.sfid;
   console.log('Sfidddd :'+JSON.stringify(objUser));
-  let queryContact = 'SELECT c.sfid, c.profile_picture_url__c, c.email, c.employee_id__c,c.salesforce_reporting_user__c , c.pm_email__c, c.employee_category_band__c, c.address__c,c.mobilephone, c.name FROM salesforce.contact c  where c.sfid=$1  ' ;
+  let queryContact = 'SELECT c.sfid, c.profile_picture_url__c, c.email, c.employee_id__c,c.salesforce_reporting_user__c ,, c.pm_email__c, c.employee_category_band__c, c.address__c,c.mobilephone, c.name FROM salesforce.contact c  where c.sfid=$1  ' ;
   pool
   .query(queryContact,[userId])
   .then( async (queryResult)=>{
@@ -2516,7 +2516,7 @@ router.get('/editProfile',verify,(request,response)=>{
 })
 router.post('/updateProfile',verify,(request,response)=>{
   let objUser=request.user;
-  const {nam,phn,empid,desig,empCat, postal,mob,uid,imgpath }=request.body;
+  const {nam,phn,empid,desig,empCat,mob,uid,imgpath }=request.body;
   //let objUser=request.user;
   /*  const errors = validationResult(req);
    if(!errors.isEmpty()){
@@ -2542,7 +2542,7 @@ router.post('/updateProfile',verify,(request,response)=>{
   console.log('body : '+ JSON.stringify(bdy));
   console.log('name '+nam);
   console.log('phn '+phn);
-  console.log('napostalme '+postal);
+  //console.log('napostalme '+postal);
   //console.log('add '+add);
   console.log('empi '+empid);
   console.log('uid '+uid);
