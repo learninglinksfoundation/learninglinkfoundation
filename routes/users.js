@@ -2499,7 +2499,7 @@ router.get('/editProfile',verify,(request,response)=>{
     objUser.name = userdetail.name;
     let resp = await pool.query('Select sfid,name from salesforce.contact where sfid = $1',[userdetail.salesforce_reporting_manager__c])
     console.log('userdeat '+JSON.stringify(userdetail));
-    userdetail.reportingname = resp.rows.length > 0 ? resp.rows[0].name : ''
+    userdetail.reportingname = resp.rows.length > 0 ? resp.rows[0].name : 'hi'
  /*    console.log('queryResult'+JSON.stringify(queryResult.rows));
     let obj = queryResult.rows;
     console.log('check'+JSON.stringify(obj[0]));
