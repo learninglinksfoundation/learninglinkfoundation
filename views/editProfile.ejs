@@ -116,7 +116,11 @@ body{
                 <label for="mob">Mobile</label>
                 <input type="number"  class="form-control" id="mob" value='<%=userdetail.mobilephone %>' name="mob"  >
               </div>
-              
+             
+              <div class="col-md-6">
+                <label for="herokumanage">Heroku reporting manager</label>
+                <input type="text" class="form-control" id="herokumanage"  value='<%= userdetail.reporting_manager__c %>' name="herokumanage">
+              </div>
               </div>
               <div class="col-md-6">
                 <input type="hidden"  class="form-control" id="uid" value='<%=userdetail.sfid %>'  name="uid" >
