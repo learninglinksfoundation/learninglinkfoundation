@@ -89,7 +89,7 @@ body{
                   </div>
               <div class="col-md-6">
                 <label for="phn">Email/Username</label>
-                <input type="text" disabled class="form-control" id="phn" disabled value='<%=userdetail.email %>'  name="phn" >
+                <input type="text" disabled class="form-control" id="phn"  value='<%=userdetail.email %>'  name="phn" >
               </div>
               
               <div class="col-md-6">
@@ -106,7 +106,7 @@ body{
               </div>
               <div class="col-md-6">
                 <label for="desig">Designation</label>
-                <select name="desig" id="desig" class="form-control">
+                <select name="desig" id="desig" disabled class="form-control">
                   <option value="" >Select</option>
                   
                 </select>
@@ -117,8 +117,12 @@ body{
                 <input type="number"  class="form-control" id="mob" value='<%=userdetail.mobilephone %>' name="mob"  >
               </div>
               <div class="col-md-6">
-                <label for="repmanage">Reporting manager</label>
-                <input type="text"  class="form-control" id="repmanage" disabled value='<%=userdetail.reportingname %>' name="repmanage"  >
+                <label for="repmanage">Salesforce reporting manager</label>
+                <input type="text"  class="form-control" id="repmanage" disabled value='<%=userdetail.salesforce_reporting_manager__c %>' name="repmanage"  >
+              </div>
+              <div class="col-md-6">
+                <label for="herokumanage">Heroku reporting manager</label>
+                <input type="text" class="form-control" id="herokumanage" disabled value='<%= userdetail.reporting_manager__c %>'>
               </div>
               </div>
               <div class="col-md-6">
