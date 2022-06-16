@@ -2497,9 +2497,11 @@ router.get('/editProfile',verify,(request,response)=>{
 
     let userdetail=queryResult.rows[0];
     objUser.name = userdetail.name;
-    let resp = await pool.query('Select sfid,name from salesforce.user where sfid = $1',[userdetail.salesforce_reporting_manager__c])
+    let heresp = await pool.query('Select sfid,name from salesforce.contact where sfid = $1',[userdetail.reporting_manager__c]);
+    let resp = await pool.query('Select sfid,name from salesforce.user where sfid = $1',[userdetail.salesforce_reporting_manager__c]);
     console.log('userdeat '+JSON.stringify(userdetail));
-    userdetail.reportingname = resp.rows.length > 0 ? resp.rows[0].name : 'a';
+    userdetail.reportingname = resp.rows.length > 0 ? resp.rows[0].name : '';
+    userdetail.heroreportingname = heresp.rows.length > 0 ?resp.rows[0].name : '';
  /*    console.log('queryResult'+JSON.stringify(queryResult.rows));
     let obj = queryResult.rows;
     console.log('check'+JSON.stringify(obj[0]));
