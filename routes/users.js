@@ -2418,7 +2418,7 @@ router.post('/sendEMail',(request,response)=>{
       }
   })
   let message = {
-    from: 'crm@learninglinksindia.org',
+    from: '"one"<crm@learninglinksindia.org>',
     to:email,
     subject: 'Finish Resetting your Heroku Password ',
     text: 'Plz Click the below link to generate your password',
@@ -2490,7 +2490,7 @@ router.get('/editProfile',verify,(request,response)=>{
   let objUser=request.user;
   let userId=objUser.sfid;
   console.log('Sfidddd :'+JSON.stringify(objUser));
-  let queryContact = 'SELECT c.sfid, c.profile_picture_url__c, c.email, c.employee_id__c,c.salesforce_reporting_manager__c ,c.reporting_manager__c , c.pm_email__c, c.employee_category_band__c, c.address__c,c.mobilephone, c.name FROM salesforce.contact c  where c.sfid=$1  ' ;
+  let queryContact = 'SELECT c.sfid, c.profile_picture_url__c, c.email, c.employee_id__c ,c.reporting_manager__c , c.pm_email__c, c.employee_category_band__c, c.address__c,c.mobilephone, c.name FROM salesforce.contact c  where c.sfid=$1  ' ;
   pool
   .query(queryContact,[userId])
   .then( async (queryResult)=>{
@@ -2498,9 +2498,9 @@ router.get('/editProfile',verify,(request,response)=>{
     let userdetail=queryResult.rows[0];
     objUser.name = userdetail.name;
     let heresp = await pool.query('Select sfid,name from salesforce.contact where sfid = $1',[userdetail.reporting_manager__c]);
-    let resp = await pool.query('Select sfid,name from salesforce.user where sfid = $1',[userdetail.salesforce_reporting_manager__c]);
+   
     console.log('userdeat '+JSON.stringify(userdetail));
-    userdetail.reportingname = resp.rows.length > 0 ? resp.rows[0].name : '';
+
     userdetail.heroreportingname = heresp.rows.length > 0 ?heresp.rows[0].name : '';
  /*    console.log('queryResult'+JSON.stringify(queryResult.rows));
     let obj = queryResult.rows;
