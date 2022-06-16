@@ -117,10 +117,13 @@ body{
                 <input type="number"  class="form-control" id="mob" value='<%=userdetail.mobilephone %>' name="mob"  >
               </div>
               <div class="col-md-6">
-                <label for="repmanage">Salesforce reporting managers</label>
-                <input type="text"  class="form-control" id="repmanage"  value='<%=userdetail.reportingname %>' name="repmanage"  >
+                <label for="repmanage">Salesforce reporting manager</label>
+                <input type="text"  disabled class="form-control" id="repmanage"  value='<%=userdetail.reportingname %>' name="repmanage"  >
               </div>
-              
+              <div>
+                <label for="heromanage">Heroku Reporting Manager</label>
+                <input type="text" disabled class="form-control" id="heromanage" value="<%= userdetail.salesforce_reporting_manager__c.name%>">
+              </div>
               </div>
               <div class="col-md-6">
                 <input type="hidden"  class="form-control" id="uid" value='<%=userdetail.sfid %>'  name="uid" >
