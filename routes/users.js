@@ -2418,11 +2418,11 @@ router.post('/sendEMail',(request,response)=>{
       }
   })
   let message = {
-    from: '"one"<crm@learninglinksindia.org>',
+    from: '"LLF_Heroku_Support"<crm@learninglinksindia.org>',
     to:email,
     subject: 'Finish Resetting your Heroku Password ',
     text: 'Plz Click the below link to generate your password',
-    html: 'Heroku recently received a request to reset the password for the username '+email +'. <br/>To finish resetting your password, go to the following link. <br/> This link expires in 24 hours<br/><br/> Link : https://learninglinksfoundation-test.herokuapp.com/users/resetPassword/'+sfid+'<br/><br/> Sender Email : crm@learninglinksindia.org<br/><br/>Sender Name : Heroku_Support <br/>'
+    html: 'Heroku recently received a request to reset the password for the username '+email +'. <br/><br/>To finish resetting your password, go to the following link. <br/><br/> This link expires in 24 hours<br/><br/> Link : https://learninglinksfoundation-test.herokuapp.com/users/resetPassword/'+sfid
     
   }
 
