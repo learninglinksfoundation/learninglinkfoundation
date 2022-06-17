@@ -85,7 +85,7 @@ body{
               justify-content: space-between;">
                   <div class="col-md-6">
                       <label for="nam">Name</label>
-                      <input type="text"  class="form-control" id="nam" disabled value= '<%=userdetail.name %>' name="nam" required="true">
+                      <input type="text"  class="form-control" id="nam"  value= '<%=userdetail.name %>' name="nam" required="true">
                   </div>
               <div class="col-md-6">
                 <label for="phn">Email/Username</label>
@@ -94,11 +94,11 @@ body{
               
               <div class="col-md-6">
                 <label for="empid">Employee ID</label>
-                <input type="text"  disabled class="form-control" id="empid"  value='<%=userdetail.employee_id__c %>' name="empid"  >
+                <input type="text"   class="form-control" id="empid"  value='<%=userdetail.employee_id__c %>' name="empid"  >
               </div>
               <div class="col-md-6">
                 <label for="empCat">Employee Category</label>
-                <select name="empCat" id="empCat" disabled class="form-control">
+                <select name="empCat" id="empCat" class="form-control">
                   <option disabled value="" >Select</option>
                  
                 </select>
@@ -121,8 +121,8 @@ body{
                 <input type="text"  disabled class="form-control" id="repmanage"   name="repmanage"  >
               </div>
               <div class="col-md-6">
-                <label for="heromanage">Heroku Reporting Manager</label>
-                <input type="text" disabled class="form-control" id="heromanage" value='<%= userdetail.heroreportingname %>' name="heromanage">
+                <label for="heromanage">Heroku Reporting manager</label>
+                <input type="text"  class="form-control" id="heromanage" value='<%= userdetail.heroreportingname %>' name="heromanage">
               </div>
               </div>
               <div class="col-md-6">
