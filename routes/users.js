@@ -2453,7 +2453,7 @@ router.post('/updatePass',(request,response)=>{
  // let pattern = '/^(?=.*[A-Z]).*$' ;
   const schema = joi.object({
     password:joi.string().required().label('Please Fill Password'),
-    pass:joi.regex(/^[a-zA-Z0-9]{3,30}$/).required(),
+    pass:joi.string().regex(/^[A-Z]$/).required(),
     password2:joi.string().required().label('Please Re-enter Password'),  
     confirmPassword:joi.string().required().valid(joi.ref('password')).label('Passwords does not match'),
       })
