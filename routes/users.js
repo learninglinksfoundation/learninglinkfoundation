@@ -2452,7 +2452,7 @@ router.post('/updatePass',(request,response)=>{
   //const pattern = "/(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[$@$!#.])[A-Za-zd$@$!%*?&.]{8,20}/";
    const schema = joi.object({
     password:joi.string().required().label('Please Fill Password'),
-    pass:joi.string().min(3).required().label('minimum char 10'),
+    pass:joi.string().min(10).required().label('minimum char 10'),
     password2:joi.string().required().label('Please Re-enter Password'),  
     confirmPassword:joi.string().required().valid(joi.ref('password')).label('Passwords does not match'),
       })
@@ -2501,7 +2501,7 @@ router.get('/editProfile',verify,(request,response)=>{
    
     console.log('userdeat '+JSON.stringify(userdetail));
 
-    userdetail.heroreportingname = heresp.rows.length > 0 ?heresp.rows[0].name : '';
+    userdetail.heroreportingname = heresp.rows.length > 0 ?heresp.rows[0].name : 'a';
  /*    console.log('queryResult'+JSON.stringify(queryResult.rows));
     let obj = queryResult.rows;
     console.log('check'+JSON.stringify(obj[0]));
