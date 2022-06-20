@@ -2497,11 +2497,27 @@ router.get('/editProfile',verify,(request,response)=>{
 
     let userdetail=queryResult.rows[0];
     objUser.name = userdetail.name;
-    let heresp = await pool.query('Select sfid,name from salesforce.contact where sfid = $1',[userdetail.reporting_manager__c]);
-   
+    
+    let sfid = userdetail.reporting_manager__c || userdetail.salesforce_reporting_manager__c;
+    let repid="",repname="";
+    let heresp = await pool.query('Select sfid,name from salesforce.contact union all Select sfid,name from salesforce.user ');// where sfid = $1',[userdetail.reporting_manager__c]);
+   for(let i=0;i<heresp.length;i++){
+    let obj1 = temp[i];
+    if(obj1 == sfid){
+       repname = obj1.name;
+       repid = obj1.id;
+      break;
+    }
+   }
+   if(repid && repid.substring(0,3)=='003') {
+    userdetail.salesreportingnm = repname;
+   }else if(repid && repid.substring(0,3)=='005') {
+    userdetail.reportingnm = repname ;
+   }
+
     console.log('userdeat '+JSON.stringify(userdetail));
 
-    userdetail.heroreportingname = heresp.rows.length > 0 ?heresp.rows[0].name : 'a';
+   // userdetail.heroreportingname = heresp.rows.length > 0 ?heresp.rows[0].name : 'a';
  /*    console.log('queryResult'+JSON.stringify(queryResult.rows));
     let obj = queryResult.rows;
     console.log('check'+JSON.stringify(obj[0]));
