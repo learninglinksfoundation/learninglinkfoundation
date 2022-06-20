@@ -2500,7 +2500,7 @@ router.get('/editProfile',verify,(request,response)=>{
     let userdetail=queryResult.rows[0];
     objUser.name = userdetail.name;
     
-    let sfid = userdetail.reporting_manager__c || userdetail.salesforce_reporting_user__c;
+   /* let sfid = userdetail.reporting_manager__c || userdetail.salesforce_reporting_user__c;
     let repid="",repname="";
     let heresp = await pool.query('Select sfid,name from salesforce.contact union all Select sfid,name from salesforce.user ');// where sfid = $1',[userdetail.reporting_manager__c]);
    for(let i=0;i<heresp.length;i++){
@@ -2519,11 +2519,11 @@ router.get('/editProfile',verify,(request,response)=>{
     userdetail.reportingnm = repname ;
     userdetail.salesreportingnm ='12';
 
-   }
+   }*/
 
     console.log('userdeat '+JSON.stringify(userdetail));
-
-   // userdetail.heroreportingname = heresp.rows.length > 0 ?heresp.rows[0].name : 'a';
+let heresp= await pool.query('Select sfid,name from salesforce.contact wherw sfid=$1',[userdetail.reporting_manager__c])
+    userdetail.reportingnm = heresp.rows.length > 0 ?heresp.rows[0].name : 'a';
  /*    console.log('queryResult'+JSON.stringify(queryResult.rows));
     let obj = queryResult.rows;
     console.log('check'+JSON.stringify(obj[0]));
