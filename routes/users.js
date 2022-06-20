@@ -2490,7 +2490,7 @@ router.get('/editProfile',verify,(request,response)=>{
   let objUser=request.user;
   let userId=objUser.sfid;
   console.log('Sfidddd :'+JSON.stringify(objUser));
-  let queryContact = 'SELECT c.sfid, c.profile_picture_url__c, c.email, c.employee_id__c ,c.reporting_manager__c ,c.salesforce_reporting_manager__c, c.pm_email__c, c.employee_category_band__c, c.address__c,c.mobilephone, c.name FROM salesforce.contact c  where c.sfid=$1  ' ;
+  let queryContact = 'SELECT c.sfid, c.profile_picture_url__c, c.email, c.employee_id__c ,c.reporting_manager__c ,c.salesforce_reporting_user__c, c.pm_email__c, c.employee_category_band__c, c.address__c,c.mobilephone, c.name FROM salesforce.contact c  where c.sfid=$1  ' ;
 
  //queryContact='Select * from contact'
  pool
@@ -2500,7 +2500,7 @@ router.get('/editProfile',verify,(request,response)=>{
     let userdetail=queryResult.rows[0];
     objUser.name = userdetail.name;
     
-    let sfid = userdetail.reporting_manager__c || userdetail.salesforce_reporting_manager__c;
+    let sfid = userdetail.reporting_manager__c || userdetail.salesforce_reporting_user__c;
     let repid="",repname="";
     let heresp = await pool.query('Select sfid,name from salesforce.contact union all Select sfid,name from salesforce.user ');// where sfid = $1',[userdetail.reporting_manager__c]);
    for(let i=0;i<heresp.length;i++){
