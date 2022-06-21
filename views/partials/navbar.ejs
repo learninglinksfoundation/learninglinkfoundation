@@ -90,9 +90,9 @@
                 })
                
                 .done((response)=>{
-                //  alert('h'+response[0]);
-                  console.log('k1'+response[0]);
-                  if(response[0].Active__c){
+                  alert('h'+JSON.stringify(response[0]));
+                  console.log('k1'+JSON.stringify(response[0]));
+                  if(response[0].active__c){
                     window.location.href='/users/logout';
                   }
                 })
