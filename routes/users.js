@@ -2368,7 +2368,7 @@ router.post('/salinactive',(request,response)=> {
   const {userPass }= request.body;
   console.log(usernm);
   //alert('hi'+usernm);
-  let qcontact ='Select sfid,name,Active__c from salesforce.contact where name=$1';
+  let qcontact ='Select sfid,name,active__c from salesforce.contact where name=$1';
   pool
   .query(qcontact,[usernm])
   .then((queryResult)=>{
