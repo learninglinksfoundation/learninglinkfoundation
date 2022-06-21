@@ -2391,7 +2391,7 @@ router.post('/salesforceEmailVeerification',(request,response)=>{
   let queryContact = 'SELECT sfid,email,name FROM salesforce.contact where email=$1' ;
   console.log('querry Contact '+queryContact);
   pool
-  .query(queryContact,[emailPass])
+  .query(queryContact,[emailEnter])
   .then((querryResult)=>{
         console.log('queryResult: '+JSON.stringify(querryResult.rows));
         if(querryResult.rowCount==1)
