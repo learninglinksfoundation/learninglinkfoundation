@@ -85,7 +85,9 @@
                   type:'post',
                   data:val,
                   dataType:'json'                
+                  
                 })
+               
                 .done((response)=>{
                   console.log('k1'+response[0]);
                   if(!response[0].Active__c){
@@ -94,7 +96,8 @@
                 })
                 .fail((jqXHR, status, error)=>{
                   console.log('k2'+error);
-                })
+                })  
+                console.log('a '+data);
             },5000)
          
 
