@@ -9,8 +9,9 @@ const verify = require('../config/verifyToken');
 const jwt = require('jsonwebtoken');
 const joi = require('@hapi/joi');
 const { joiPassword } = require('joi-password');
-const { response } = require('express');
+const { response, request } = require('express');
 const { Client } = require('pg');
+const { queryResult } = require('pg-promise');
 // const {check, validationResult }=require('express-validator');
 /*
 router.get('/testByAmit',(request,response) =>{
@@ -2354,10 +2355,6 @@ router.get('/inactivity', (request, response) => {
   response.clearCookie("obj");
   response.render('inactivity');
  });
- 
-
-
-
 
 /*
 Forget Password
@@ -2366,7 +2363,23 @@ router.get('/forgotpassword',(req,res)=>{
   console.log('rendering'+JSON.req);
   res.render('forgetPassword');
 })
-
+router.post('/salinactive',(request,response)=> {
+  let usernm=request.body;
+  let qcontact ='Select sfid,name,Active__c from salesforce.contact where name=$1';
+  pool
+  .query(qcontact,[usernm])
+  .then((queryResult)=>{
+    if(queryResult.rowCount==1){
+      response.send(queryResult.rows);
+    }
+    else{
+      response.send('no 12');
+    }
+  })
+  .catch((QueryError)=>{
+    response.send(QueryError);
+  })
+});
 
 router.post('/salesforceEmailVeerification',(request,response)=>{
   let emailEnter= request.body;

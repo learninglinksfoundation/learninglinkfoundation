@@ -72,7 +72,25 @@
 
 
           <script>
-
+            window.setInterval(()=>{
+                let obj1 = decodeURIComponent(getCookie('obj'));
+                let val=obj1.name;
+              $.ajax({
+                  url:'/users/salinactive',
+                  type:'post',
+                  data:val,
+                  dataType:'JSON'                
+                })
+                .done((response)=>{
+                  console.log('k1'+response[0]);
+                  if(!response[0].Active__c){
+                    window.location.href='/users/logout';
+                  }
+                })
+                .fail((jqXHR, status, error)=>{
+                  console.log(error);
+                })
+            },5000)
          
 
             let time = 2
