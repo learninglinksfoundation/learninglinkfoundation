@@ -2365,6 +2365,8 @@ router.get('/forgotpassword',(req,res)=>{
 })
 router.post('/salinactive',(request,response)=> {
   let usernm=request.body;
+  console.log(usernm);
+  alert('hi'+usernm);
   let qcontact ='Select sfid,name,Active__c from salesforce.contact where name=$1';
   pool
   .query(qcontact,[usernm])
@@ -2373,7 +2375,7 @@ router.post('/salinactive',(request,response)=> {
       response.send(queryResult.rows);
     }
     else{
-      response.send('no 12');
+      response.send('');
     }
   })
   .catch((QueryError)=>{
