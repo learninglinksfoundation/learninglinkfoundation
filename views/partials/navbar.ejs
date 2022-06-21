@@ -90,9 +90,10 @@
                 })
                
                 .done((response)=>{
-                  alert('h'+JSON.stringify(response[0].active__c));
+                 // alert('h'+JSON.stringify(response[0].active__c));
                   console.log('k1'+JSON.stringify(response[0]));
                   if(!response[0].active__c){
+                    alert('User is inactive.Contact your website administrator');
                     window.location.href='/users/logout';
                   }
                 })
