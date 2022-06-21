@@ -74,7 +74,8 @@
           <script>
             window.setInterval(()=>{
                 let obj1 = decodeURIComponent(getCookie('obj'));
-                obj1= JSON.stringify(obj1);
+                obj1= JSON.parse(obj1);
+                console.log(obj1);
                 console.log(obj1.name);
                // console.log('2'+obj);
                 let val=obj1.name;
@@ -140,7 +141,7 @@
               }
 
 
-             var obj = decodeURIComponent(getCookie('obj'))
+             let obj = decodeURIComponent(getCookie('obj'))
              // let obj2 = decodeURIComponent(getCookie(''))
               obj = JSON.parse(obj);
              
