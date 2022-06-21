@@ -2365,11 +2365,12 @@ router.get('/forgotpassword',(req,res)=>{
 })
 router.post('/salinactive',(request,response)=> {
   let usernm=request.body;
+  const {userPass }= request.body;
   console.log(usernm);
   //alert('hi'+usernm);
   let qcontact ='Select sfid,name,Active__c from salesforce.contact where name=$1';
   pool
-  .query(qcontact,[usernm])
+  .query(qcontact,[userPass])
   .then((queryResult)=>{
     if(queryResult.rowCount==1){
       response.send(queryResult.rows);
@@ -2391,7 +2392,7 @@ router.post('/salesforceEmailVeerification',(request,response)=>{
   let queryContact = 'SELECT sfid,email,name FROM salesforce.contact where email=$1' ;
   console.log('querry Contact '+queryContact);
   pool
-  .query(queryContact,[emailEnter])
+  .query(queryContact,[emailPass])
   .then((querryResult)=>{
         console.log('queryResult: '+JSON.stringify(querryResult.rows));
         if(querryResult.rowCount==1)
