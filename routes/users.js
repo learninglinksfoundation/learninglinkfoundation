@@ -2386,13 +2386,13 @@ router.post('/salinactive',(request,response)=> {
 
 router.post('/salesforceEmailVeerification',(request,response)=>{
   let emailEnter= request.body;
-  const {emailPass }= request.body;
-  console.log('emailAddress' +emailPass);
+  const {emailPass1 }= request.body;
+  console.log('emailAddress' +emailPass1);
   console.log('Body'+JSON.stringify(emailEnter));
   let queryContact = 'SELECT sfid,email,name FROM salesforce.contact where email=$1' ;
   console.log('querry Contact '+queryContact);
   pool
-  .query(queryContact,[emailPass])
+  .query(queryContact,[emailPass1])
   .then((querryResult)=>{
         console.log('queryResult: '+JSON.stringify(querryResult.rows));
         if(querryResult.rowCount==1)
