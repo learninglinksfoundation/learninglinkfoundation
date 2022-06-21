@@ -75,9 +75,9 @@
             window.setInterval(()=>{
                 let obj1 = decodeURIComponent(getCookie('obj'));
                 obj1= JSON.stringify(obj1);
-                console.log(obj1);
-                console.log('2'+obj);
-                let val='simran22';
+                console.log(obj1.name);
+               // console.log('2'+obj);
+                let val=obj1.name;
                console.log(val);
               $.ajax({
                   url:'/users/salinactive',
