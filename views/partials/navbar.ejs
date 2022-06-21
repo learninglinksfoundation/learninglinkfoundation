@@ -90,7 +90,7 @@
                 })
                
                 .done((response)=>{
-                  alert('h'+response[0]);
+                //  alert('h'+response[0]);
                   console.log('k1'+response[0]);
                   if(response[0].Active__c){
                     window.location.href='/users/logout';
@@ -99,7 +99,7 @@
                 .fail((jqXHR, status, error)=>{
                   console.log('k2'+error);
                 })  
-                console.log('a '+data);
+                
             },5000)
          
 
