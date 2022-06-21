@@ -78,7 +78,8 @@
                 console.log(obj1);
                 console.log(obj1.name);
                // console.log('2'+obj);
-                let val=obj1.name;
+                let val={};
+                val.add(obj1.name) //obj1.name;
                console.log(val);
               $.ajax({
                   url:'/users/salinactive',
