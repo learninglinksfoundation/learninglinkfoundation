@@ -74,6 +74,9 @@
           <script>
             window.setInterval(()=>{
                 let obj1 = decodeURIComponent(getCookie('obj'));
+                obj1= JSON.stringify(obj1);
+                console.log(obj1);
+                console.log('2'+obj);
                 let val='simran22';
                console.log(val);
               $.ajax({
@@ -137,7 +140,7 @@
               }
 
 
-              let obj = decodeURIComponent(getCookie('obj'))
+             var obj = decodeURIComponent(getCookie('obj'))
              // let obj2 = decodeURIComponent(getCookie(''))
               obj = JSON.parse(obj);
              
