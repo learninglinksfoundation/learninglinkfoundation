@@ -75,6 +75,7 @@
             window.setInterval(()=>{
                 let obj1 = decodeURIComponent(getCookie('obj'));
                 let val=obj1.name;
+                alert('hello');
               $.ajax({
                   url:'/users/salinactive',
                   type:'post',
@@ -88,7 +89,7 @@
                   }
                 })
                 .fail((jqXHR, status, error)=>{
-                  console.log(error);
+                  console.log('k2'+error);
                 })
             },5000)
          
