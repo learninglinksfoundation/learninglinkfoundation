@@ -2578,7 +2578,7 @@ router.post('/updateProfile',verify,(request,response)=>{
   let result= schema.validate({mob:bdy.mob});
   console.log('resutk '+JSON.stringify(result));
   if(result.error){
-    response.status(400).send(result.error.details[0].message)
+    response.status(400).send(result.error)
     return;
     }
   console.log('body : '+ JSON.stringify(bdy));
