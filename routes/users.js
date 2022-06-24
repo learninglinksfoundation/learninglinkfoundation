@@ -2575,7 +2575,7 @@ router.post('/updateProfile',verify,(request,response)=>{
     uid:joi.string(),*/
   }) 
  // const scema = joi.number().max(5);
-  let result= schema.validate({mob:bdy.nam});
+  let result= schema.validate({mob:bdy.mob});
   console.log('resutk '+JSON.stringify(result));
   if(result.error){
     response.status(400).send(result.error.details[0].message)
