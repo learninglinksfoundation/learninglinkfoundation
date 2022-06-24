@@ -2566,21 +2566,21 @@ router.post('/updateProfile',verify,(request,response)=>{
    } */
  // request.checkQuery('postal','"Postal Code should not  be empty ').notEmpty().isInt();
   let bdy= request.body;
-  /* const schema = joi.object({
-    nam:joi.string().min(4).max(20)
-   /*
+   const schema = joi.object({
+    mob:joi.string().min(4).max(20),
+   
     
-    phn:joi.string().required(),
+    /*phn:joi.string().required(),
     add:joi.string(),
-    uid:joi.string(),
+    uid:joi.string(),*/
   }) 
  // const scema = joi.number().max(5);
-  let result= schema.validate({nam:bdy.nam});
+  let result= schema.validate({mob:bdy.nam});
   console.log('resutk '+JSON.stringify(result));
   if(result.error){
     response.status(400).send(result.error.details[0].message)
     return;
-    }*/ 
+    }
   console.log('body : '+ JSON.stringify(bdy));
   console.log('name '+nam);
   console.log('phn '+phn);

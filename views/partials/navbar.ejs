@@ -75,7 +75,7 @@
             window.setInterval(()=>{
                 let obj1 = decodeURIComponent(getCookie('obj'));
                 obj1= JSON.parse(obj1);
-                console.log(obj1);
+                //console.log(obj1);
                 console.log(obj1.name);
                // console.log('2'+obj);
                 let val={};
@@ -93,7 +93,7 @@
                  // alert('h'+JSON.stringify(response[0].active__c));
                   console.log('k1'+JSON.stringify(response[0]));
                   if(!response[0].active__c){
-                    alert('User is inactive.Contact your website administrator');
+                   // alert('User is inactive.Contact your website administrator');
                     window.location.href='/users/logout';
                   }
                 })
