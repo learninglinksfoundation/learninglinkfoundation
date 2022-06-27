@@ -215,7 +215,7 @@ return  */
     }
     if(!password){
       errors.push({msg:'please enter password'});
-      response.render('login',{errors});
+     
     }
    console.log('pool.query : ');
   
