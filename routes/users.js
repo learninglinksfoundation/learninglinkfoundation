@@ -210,7 +210,7 @@ return  */
   let isActive=true;
 
    if (!email || !password) {
-     errors.push({ msg: 'Please enter all fields' });
+     errors.push({ msg: 'Please enter all fiel' });
      response.render('login',{errors});
     }
    console.log('pool.query : ');
