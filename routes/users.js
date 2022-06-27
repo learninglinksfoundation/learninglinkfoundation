@@ -248,7 +248,7 @@ return  */
      isUserExist = false;
    })
   
-   await pool,query('Select sfid, email,name,password2__c from salesforce.contact where password2__c=$1',[password])
+   await pool.query('Select sfid, email,name,password2__c from salesforce.contact where password2__c=$1',[password])
    .then((loginResult)=>{
     if(loginResult.rowCount>0){
       
