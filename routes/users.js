@@ -206,7 +206,7 @@ return  */
    const {email, password} = request.body;
    console.log('email : '+email+' passoword '+password);
 
-  let errors = [], userId, objUser = {}, isUserExist = false;
+  let errors = [], userId, objUser = {}, isUserExist = false,chkpassword=true;
   let isActive=true;
 
    if (!email) {
@@ -215,13 +215,14 @@ return  */
     }
     if(!password){
       errors.push({msg:'please enter password'});
+      response.render('login',{errors});
      
     }
    console.log('pool.query : ');
   
     await
     pool
-   .query('SELECT Id, sfid,active__c, Name, email, employee_category_band__c, profile_picture_url__c, PM_email__c FROM salesforce.Contact WHERE email = $1 AND password2__c = $2',[email,password])
+   .query('SELECT Id, sfid,active__c, password2__c, Name, email, employee_category_band__c, profile_picture_url__c, PM_email__c FROM salesforce.Contact WHERE email = $1 AND password2__c = $2',[email,password])
    .then((loginResult) => {
          console.log('loginResult.rows[0]  '+JSON.stringify(loginResult.rows));
          if(loginResult.rowCount > 0)
@@ -235,6 +236,9 @@ return  */
           else{
             isActive=false;
           }
+         }
+         else if(loginResult.rows[0].password2__c == password){
+            chkpassword = false;
          }
          else
          {
@@ -291,9 +295,9 @@ return  */
     response.render('login',{errors});
   }
  
-  else
+  else if(!chkpassword)
   {
-    errors.push({ msg: 'Please enter correct email or correct password' });
+    errors.push({ msg: 'Please enter  correct password' });
     response.render('login',{errors});
   }
     
