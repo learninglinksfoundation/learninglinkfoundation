@@ -9,7 +9,7 @@ const verify = require('../config/verifyToken');
 const jwt = require('jsonwebtoken');
 const joi = require('@hapi/joi');
 const { joiPassword } = require('joi-password');
-const { response, request } = require('express');
+const { response, request, query } = require('express');
 const { Client } = require('pg');
 const { queryResult } = require('pg-promise');
 // const {check, validationResult }=require('express-validator');
@@ -206,7 +206,7 @@ return  */
    const {email, password} = request.body;
    console.log('email : '+email+' passoword '+password);
 
-  let errors = [], userId, objUser = {}, isUserExist = false,chkpassword=true;
+  let errors = [], userId, objUser = {}, isUserExist = false,chkpassword=true,chkemail=true;
   let isActive=true;
 
    if (!email) {
@@ -237,9 +237,7 @@ return  */
             isActive=false;
           }
          }
-         else if(loginResult.rows[0].password2__c == password){
-            chkpassword = false;
-         }
+       
          else
          {
            isUserExist = false;
@@ -249,8 +247,19 @@ return  */
      console.log('loginError   :  '+loginError.stack);
      isUserExist = false;
    })
-
-
+  
+   await pool,query('Select sfid, email,name,password2__c from salesforce.contact where password2__c=$1',[password])
+   .then((loginResult)=>{
+    if(loginResult.rowCount>0){
+      
+      if(loginResult.rows[0].email==email){
+        chkemail = false;
+      }
+    }
+    else{
+      chkpassword = false;
+    }
+   })
    await pool.query('SELECT sfid, Name,reporting_manager__c FROM salesforce.Contact where reporting_manager__c = $1 ',[userId])
    .then(resp=>{
       if(resp.rowCount > 0){
