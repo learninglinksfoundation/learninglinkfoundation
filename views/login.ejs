@@ -38,7 +38,7 @@
             window.setTimeout(()=>{
               $('#email').val('')
              $('#password').val('');
-           },7000)
+           },2500)
              
             setData()
            }
@@ -50,10 +50,16 @@
               let check = $('#remember').prop('checked')
 
               if(username && pass && check ){
-                let obj = {user:username,pass:pass};
+                let obj = {user:username};
                 localStorage.setItem('cred',JSON.stringify(obj));
+              
                 localStorage.setItem('checked',check);
 
+              }
+              if(pass){
+                let obj2 = {pass:pass};
+                localStorage.setItem('cred'.JSON.stringify(obj2));
+                localStorage.setItem('checked',check);
               }
 
               
