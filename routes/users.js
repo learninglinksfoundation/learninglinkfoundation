@@ -307,7 +307,7 @@ return  */
   else if(!chkpassword)
   {
     errors.push({ msg: 'Please enter  correct password' });
-    response.send('login',{errors});
+    response.render('login',{errors});
   }
     
 }) 
