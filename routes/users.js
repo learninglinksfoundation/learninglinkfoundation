@@ -209,13 +209,9 @@ return  */
   let errors = [], userId, objUser = {}, isUserExist = false;
   let isActive=true;
 
-   if (!email) {
-     errors.push({ msg: 'Please enter correct email' });
+   if (!email || !password) {
+     errors.push({ msg: 'Please enter all fields' });
      response.render('login',{errors});
-    }
-    if(!password){
-      errors.push({msg : 'please enter correct password'});
-      response.render('login',{errors});
     }
    console.log('pool.query : ');
   
