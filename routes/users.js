@@ -307,8 +307,8 @@ return  */
   if(!chkpassword)
   {
     errors.push({ msg: 'Please enter  correct password' });
-    response.render('login',{errors});
-   response.status(204).send("hi1");
+    //response.render('login',{errors});
+   response.status(204).send('login',{errors});
    
   }
   if(!chkemail){
