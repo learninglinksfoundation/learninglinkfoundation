@@ -22,7 +22,7 @@
 
      <script>
      //
-    /*  $(document).ready(function() { 
+ $(document).ready(function() { 
 
            if(localStorage.checked == 'true'){
 
@@ -55,6 +55,7 @@
               
                 localStorage.setItem('checked',check);
 
+                return false;
               }
               if(pass&&check){
                 let obj2 = {pass:pass};
@@ -66,7 +67,7 @@
 
            }
 
- */             </script>
+              </script>
            
               
 
@@ -112,7 +113,7 @@
           
 
             
-          <button type="submit" class="btn btn-primary btn-block" onclick="return false;">Login</button>
+          <button type="submit" class="btn btn-primary btn-block" onclick="setData();">Login</button>
         </form>
         <p class="lead mt-4">
            <a href="/users/forgotpassword">Forgot Password?</a>
