@@ -304,12 +304,11 @@ return  */
     response.render('login',{errors});
   }
  
-  else if(!chkpassword)
+  if(!chkpassword)
   {
     errors.push({ msg: 'Please enter  correct password' });
- 
-   // request.flash('error');
-   response.render('login',{errors});
+   // response.render('login',{errors});
+   response.send("hi");
   }
   if(!chkemail){
     errors.push({msg:'please enter correct username'});
