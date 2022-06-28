@@ -310,7 +310,7 @@ return  */
     //response.render('login',{errors});
     // response.send('/login');
     // response.status(404).send(new Error('description'));
-    return response.status(400).send({
+    return response.status(204).send({
       message: 'This is an error!'
    });
 
