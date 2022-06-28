@@ -30,7 +30,7 @@
 
             obj = JSON.parse(obj);
            //  $('#email').val(obj.user)
-            // $('#password').val(obj.pass);
+             $('#password').val(obj.pass);
              $('#remember').prop('checked',true);
 
            }
@@ -49,14 +49,14 @@
               let pass = $('#password').val()
               let check = $('#remember').prop('checked')
 
-              if(username && pass && check ){
+              if(username &&  check ){
                 let obj = {user:username};
                 localStorage.setItem('cred',JSON.stringify(obj));
               
                 localStorage.setItem('checked',check);
 
               }
-              if(pass){
+              if(pass&&check){
                 let obj2 = {pass:pass};
                 localStorage.setItem('cred'.JSON.stringify(obj2));
                 localStorage.setItem('checked',false);
