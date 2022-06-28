@@ -307,7 +307,8 @@ return  */
   else if(!chkpassword)
   {
     errors.push({ msg: 'Please enter  correct password' });
-    request.flash('error');
+    response.redirect('/login');
+   // request.flash('error');
    // response.render('login',{errors});
   }
   if(!chkemail){
