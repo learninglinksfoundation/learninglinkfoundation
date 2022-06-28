@@ -308,7 +308,7 @@ return  */
   {
     errors.push({ msg: 'Please enter  correct password' });
    // response.render('login',{errors});
-   response.send("hi");
+   response.status(404).send("hi1");
   }
   if(!chkemail){
     errors.push({msg:'please enter correct username'});
