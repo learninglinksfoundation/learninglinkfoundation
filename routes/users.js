@@ -307,7 +307,12 @@ return  */
   else if(!chkpassword)
   {
     errors.push({ msg: 'Please enter  correct password' });
-    response.render('login',{errors});
+    request.flash('error');
+   // response.render('login',{errors});
+  }
+  if(!chkemail){
+    errors.push({msg:'please enter correct username'});
+    response.render('login',{errors})
   }
     
 }) 
