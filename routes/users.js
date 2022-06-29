@@ -308,7 +308,7 @@ return  */
   {
     errors.push({ msg: 'Please enter  correct password' });
     //response.render('login',{errors});
-    // response.send('/login');
+   
     // response.status(404).send(new Error('description'));
   //  return response.status(204).send({
      // message: 'This is an error!'});
@@ -2416,6 +2416,9 @@ router.post('/salesforceEmailVeerification',(request,response)=>{
   const {emailPass }= request.body;
   console.log('emailAddress' +emailPass);
   console.log('Body'+JSON.stringify(emailEnter));
+  if(!emailPass){
+    response.render('login');
+  }
   let queryContact = 'SELECT sfid,email,name FROM salesforce.contact where email=$1' ;
   console.log('querry Contact '+queryContact);
   pool
