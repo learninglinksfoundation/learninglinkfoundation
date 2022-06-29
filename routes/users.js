@@ -2416,7 +2416,7 @@ router.post('/salesforceEmailVeerification',(request,response)=>{
   const {emailPass }= request.body;
   console.log('emailAddress' +emailPass);
   console.log('Body'+JSON.stringify(emailEnter));
-  if(!emailPass){
+  if(!emailEnter){
     response.render('login');
   }
   let queryContact = 'SELECT sfid,email,name FROM salesforce.contact where email=$1' ;
