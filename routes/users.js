@@ -304,7 +304,7 @@ return  */
     response.render('login',{errors});
   }
  
-  if(!chkpassword)
+  else if(!chkpassword)
   {
     errors.push({ msg: 'Please enter  correct password' });
     //response.render('login',{errors});
@@ -316,7 +316,7 @@ return  */
 
    
   }
-  if(!chkemail){
+ else if(!chkemail){
     errors.push({msg:'please enter correct username'});
     response.render('login',{errors})
   }
