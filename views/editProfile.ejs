@@ -293,7 +293,7 @@ function chkFile(event) {
  
   alert('inside else'+canurl);    
   console.log('11pre til'+document.getElementById("upload-Preview").src);
-  var file = uploadImage.files[0];
+  var file = document.getElementById("upload-Preview").src;//uploadImage.files[0];
   console.log('h2'+file);
   var formData = new FormData();
   formData.append('formData', file);
