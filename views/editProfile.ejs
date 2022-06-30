@@ -280,15 +280,17 @@ function chkFile(event) {
             canvas.width,
             canvas.height
         );  
-        console.log('123 k');     
+     //   console.log('123 k');     
         document.getElementById("upload-Preview").src = canvas.toDataURL();
+       console.log('1pre'+document.getElementById("upload-Preview").src.val());
+       console.log('2pre'+document.getElementById("upload-Preview").src);
         canurl=canvas.toDataURL();
         alert('hi:'+canurl);
     }
     image.src=event.target.result;
   };
   fileReader.readAsDataURL(uploadFile);
-
+  console.log('11pre'+document.getElementById("upload-Preview").src.val());
   alert('inside else'+canurl);    
   var file = uploadImage.files[0];
   console.log('h2'+file);
