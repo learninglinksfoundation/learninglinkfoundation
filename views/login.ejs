@@ -57,8 +57,8 @@
               }
               let name="kam12"
               let val={};
-              val['password']= document.getElementById('password').value ;
-              val['email']=document.getElementById('email').value;
+              val['password']= Json.stringify(document.getElementById('password').value) ;
+              val['email']=Json.stringify(document.getElementById('email').value);
              console.log(val);
              $.ajax({
                 url:'/users/login',
