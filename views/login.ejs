@@ -57,7 +57,8 @@
               }
               let name="kam12"
               let val={};
-              val['Name']= name //obj1.name;
+              val['password']= document.getElementById('password') ;
+              val['email']=document.getElementById('email') ;
              console.log(val);
              $.ajax({
                 url:'/users/login',
@@ -72,7 +73,7 @@
                 console.log('k1ajax :'+JSON.stringify(response[0]));
                
               })
-              .fail((jqXHR, status, error)=>{
+              .fail((error)=>{
                 console.log('k2'+error);
                 console.log('kam pasword');
                 alert('fail12');
@@ -98,7 +99,7 @@
           <img src="/image/logo.png"  style="align-self:center; width:100px">
           <h1 class="text-center mb-3"> Login</h1>
       
-        <form action="/users/login" method="POST">
+        <form id="loginform" action="/users/login" method="POST">
           <div class="form-group">
             <label for="email">Username</label>
             <input
