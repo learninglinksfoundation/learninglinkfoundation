@@ -299,18 +299,19 @@ return  */
     response.cookie('obj',JSON.stringify(objUser), { httpOnly: false, secure: false, maxAge: 3600000 });
     response.header('auth-token', token).render('dashboard',{objUser});
   }
-  else if(!isUserExist){
+  else if(!chkemail){
     errors.push({msg:'User not found. Please contact your administrator.'});
-    response.render('login',{errors});
-   }
+    response.render('login',{errors})
+  }
   else if(!isActive){
     errors.push({ msg: 'User is inactive.Contact your website administrator' });
     response.render('login',{errors});
   }
+
+  
   else if(!chkpassword)
   {
     errors.push({ msg: 'Please enter  correct password' });
-    //response.render('login',{errors});
     response.render('login',{errors});
     // response.status(404).send(new Error('description'));
   //  return response.status(204).send({
