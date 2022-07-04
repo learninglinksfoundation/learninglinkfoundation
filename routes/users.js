@@ -308,11 +308,11 @@ return  */
   {
     errors.push({ msg: 'Please enter  correct password' });
     //response.render('login',{errors});
-   
+   response.render('login',{errors});
     // response.status(404).send(new Error('description'));
   //  return response.status(204).send({
      // message: 'This is an error!'});
-    response.status(204).send('correctpassword');
+    //response.status(204).send('correctpassword');
    
   }
  else if(!chkemail){
