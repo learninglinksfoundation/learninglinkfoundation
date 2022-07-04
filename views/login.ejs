@@ -55,29 +55,7 @@
                 localStorage.setItem('checked',check);
 
               }
-              let name="kam12"
-              let val={};
-              val['password']= Json.stringify(document.getElementById('password').value) ;
-              val['email']=Json.stringify(document.getElementById('email').value);
-             console.log(val);
-             $.ajax({
-                url:'/users/login',
-                type:'post',
-                data:val,
-                dataType:'json'                
-                
-              })
-             
-              .done((response)=>{
-               // alert('h'+JSON.stringify(response[0].active__c));
-                console.log('k1ajax :'+JSON.stringify(response[0]));
-               
-              })
-              .fail((error)=>{
-                console.log('k2'+error);
-                console.log('kam pasword');
-                alert('fail12');
-              })  
+     
               
 
            }
