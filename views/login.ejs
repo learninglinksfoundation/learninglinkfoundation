@@ -32,6 +32,45 @@
           });
           console.log(values);
         })
+        $.ajax({
+          url : '/users/login',
+          type:'post',
+          data: values,
+          dataType : 'json'
+      })
+      .done((response)=>{
+          let msg = response;
+          console.log('messageeee '+msg);
+
+      })
+      .fail((jqXHR, status, error) => {
+          console.log('jqXHR  '+JSON.stringify(jqXHR));
+          if(jqXHR.responseText== "Updated Successfully !")
+                           {
+                              //  alert('Updated Successfully !');
+                              let errorHtml = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+jqXHR.responseText+
+                              '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                              '<span aria-hidden="true">&times;</span>'+
+                              '</button>'+
+                              '</div>';
+                              $('#errorMessages').empty();
+                              $('#errorMessages').append(errorHtml); 
+                             
+                            }
+                            else
+                            {
+                              console.log('jqXHR   '+JSON.stringify(jqXHR));
+                              //  alert('Error: '+jqXHR.responseText);
+                              let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+jqXHR.responseText+
+                              '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                              '<span aria-hidden="true">&times;</span>'+
+                              '</button>'+
+                              '</div>';
+                              $('#errorMessages').empty();
+                              $('#errorMessages').append(errorHtml); 
+                           
+                            }
+    })
            if(localStorage.checked == 'true'){
 
             let obj = localStorage.cred
