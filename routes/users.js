@@ -300,29 +300,25 @@ return  */
     response.header('auth-token', token).render('dashboard',{objUser});
   }
   else if(!isUserExist){
-    errors.push({msg:'User not exist'});
+    errors.push({msg:'User not found. Please contact your administrator.'});
     response.render('login',{errors});
    }
   else if(!isActive){
     errors.push({ msg: 'User is inactive.Contact your website administrator' });
     response.render('login',{errors});
   }
-
   else if(!chkpassword)
   {
     errors.push({ msg: 'Please enter  correct password' });
     //response.render('login',{errors});
-   response.render('login',{errors});
+    response.render('login',{errors});
     // response.status(404).send(new Error('description'));
   //  return response.status(204).send({
      // message: 'This is an error!'});
     //response.status(204).send('correctpassword');
    
   }
- else if(!chkemail){
-    errors.push({msg:'please enter correct username'});
-    response.render('login',{errors})
-  }
+ 
     
 }) 
 
