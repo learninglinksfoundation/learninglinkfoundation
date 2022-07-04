@@ -201,8 +201,7 @@ client.query('SELECT id,sfid,name  FROM salesforce.contact;', (err, res) => {
 return  */
 //////////////////////////////////////////////////////////////////////////////////////
 
- const nm = request.body;
- console.log('kl'+nm);
+
 
    const {email, password} = request.body;
    console.log('email : '+email+' passoword '+password);
