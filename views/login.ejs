@@ -23,7 +23,15 @@
      <script>
      //
       $(document).ready(function() { 
-
+        $('#loginform').on('submit',(e)=>{
+          e.preventDefault();
+          var $inputs = $('[type="email"],[type="password"]');
+          var values = {};
+          $inputs.each(function() {
+              values[this.name] = $(this).val();
+          });
+          console.log(values);
+        })
            if(localStorage.checked == 'true'){
 
             let obj = localStorage.cred
