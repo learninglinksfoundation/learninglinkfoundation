@@ -248,16 +248,17 @@ return  */
      isUserExist = false;
    })
   
-   await pool.query('Select sfid, email,name,password2__c from salesforce.contact where password2__c=$1',[password])
+   await pool.query('Select sfid, email,name,password2__c from salesforce.contact where email=$1',[email])
    .then((loginResult)=>{
     if(loginResult.rowCount>0){
       
-      if(loginResult.rows[0].email===email){
-        chkemail = false;
+      if(loginResult.rows[0].password2__c===password){
+        
+        chkpassword = false;
       }
     }
     else{
-      chkpassword = false;
+      chkemail = false;
     }
    })
    await pool.query('SELECT sfid, Name,reporting_manager__c FROM salesforce.Contact where reporting_manager__c = $1 ',[userId])
