@@ -257,7 +257,7 @@ return  */
    })
    await pool.query('Select sfid,password2__c,email from salesforce.contact where password2__c=$1',[password])
    .then((loginResult)=>{
-    if(loginResult.rows.rowCount<1){
+    if(loginResult.rowCount<1){
       chkpassword = false;
     }
    })
