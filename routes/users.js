@@ -319,7 +319,7 @@ return  */
     response.status(204).send('correct Your password');
    
   }
- response.status(204).send('update pass');
+ //response.status(204).send('update pass');
     
 }) 
 
