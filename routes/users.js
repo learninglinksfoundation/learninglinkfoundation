@@ -301,7 +301,7 @@ return  */
   }
   else if(!chkemail){
     errors.push({msg:'User not found. Please contact your administrator.'});
-    response.render('login',{errors})
+    response.render('login',{errors});
   }
   else if(!isActive){
     errors.push({ msg: 'User is inactive.Contact your website administrator' });
