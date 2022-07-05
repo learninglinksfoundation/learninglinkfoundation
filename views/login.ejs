@@ -24,7 +24,7 @@
      //
       $(document).ready(function() { 
         $('#loginform').on('submit',(e)=>{
-          e.preventDefault();
+         // e.preventDefault();
           var $inputs = $('[type="email"],[type="password"]');
           var values = {};
           $inputs.each(function() {
@@ -58,7 +58,7 @@
                               }
                               else
                               {
-                                console.log('jqXHR   '+JSON.stringify(jqXHR));
+                                //console.log('jqXHR   '+JSON.stringify(jqXHR));
                                   alert('Error: '+jqXHR.responseText);
                                 let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+jqXHR.responseText+
                                 '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
