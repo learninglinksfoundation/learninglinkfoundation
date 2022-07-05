@@ -250,15 +250,15 @@ return  */
   
    await pool.query('Select sfid, email,name,password2__c from salesforce.contact where email=$1',[email])
    .then((loginResult)=>{
-    if(loginResult.rowCount>0){
-      
-      if(loginResult.rows[0].password2__c===password){
-        
-        chkpassword = false;
-      }
+    if(loginResult.rowCount<1){
+      chkemail = false;  
     }
-    else{
-      chkemail = false;
+   
+   })
+   await pool.query('Select sfid,password2__c,email from salesforce.contact where password2__c=$1',[password])
+   .then((loginResult)=>{
+    if(loginResult.rows.rowCount<1){
+      chkpassword = false;
     }
    })
    await pool.query('SELECT sfid, Name,reporting_manager__c FROM salesforce.Contact where reporting_manager__c = $1 ',[userId])
