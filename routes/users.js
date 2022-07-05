@@ -252,7 +252,7 @@ return  */
    .then((loginResult)=>{
     if(loginResult.rowCount>0){
       
-      if(loginResult.rows[0].email==email){
+      if(loginResult.rows[0].email===email){
         chkemail = false;
       }
     }
