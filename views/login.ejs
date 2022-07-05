@@ -40,8 +40,8 @@
         .done((response)=>{
             let msg = response;
             console.log('messageeee '+msg);
-            alert('Updated Successfully !');
-                                let errorHtml = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+'wrong pass'+
+           // alert('Updated Successfully !');
+                                let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+'wrong pass'+
                                 '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
                                 '<span aria-hidden="true">&times;</span>'+
                                 '</button>'+
@@ -53,34 +53,7 @@
         .fail((jqXHR, status, error) => {
             console.log('k1 jqXHR  '+JSON.stringify(jqXHR));
             
-            if(jqXHR.responseText== "correct Your password")
-                             {
-                             
-
-                              alert('Updated Successfully !');
-                                let errorHtml = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+jqXHR.responseText+
-                                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-                                '<span aria-hidden="true">&times;</span>'+
-                                '</button>'+
-                                '</div>';
-                                $('#errorMessages').empty();
-                                $('#errorMessages').append(errorHtml); 
-                              e.preventDefault();
-                               window.history.back();
-                              }
-                              else
-                              {
-                                //console.log('jqXHR   '+JSON.stringify(jqXHR));
-                                  alert('Error: '+jqXHR.responseText);
-                                let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+jqXHR.responseText+
-                                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-                                '<span aria-hidden="true">&times;</span>'+
-                                '</button>'+
-                                '</div>';
-                                $('#errorMessages').empty();
-                                $('#errorMessages').append(errorHtml); 
-                             
-                              }
+           
         })
       
       })
