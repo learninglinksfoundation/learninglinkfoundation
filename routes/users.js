@@ -316,10 +316,10 @@ return  */
     // response.status(404).send(new Error('description'));
   //  return response.status(204).send({
      // message: 'This is an error!'});
-    response.status(204).send('correct Your password');
+    response.status(200).send('correct Your password');
    
   }
- //response.send('update pass');
+ response.status(204).send('update pass');
     
 }) 
 
