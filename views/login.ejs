@@ -40,13 +40,15 @@
         .done((response)=>{
             let msg = response;
             console.log('messageeee '+msg);
-            e.preventDefault();
+           
          })
         .fail((jqXHR, status, error) => {
             console.log('k1 jqXHR  '+JSON.stringify(jqXHR));
+            
             if(jqXHR.responseText== "correct Your password")
                              {
-                                  alert('Updated Successfully !');
+                              e.preventDefault();
+                              alert('Updated Successfully !');
                                 let errorHtml = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+jqXHR.responseText+
                                 '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
                                 '<span aria-hidden="true">&times;</span>'+
@@ -125,7 +127,7 @@
           <%- include ('./partials/messages') %>
           <img src="/image/logo.png"  style="align-self:center; width:100px">
           <h1 class="text-center mb-3"> Login</h1>
-      
+          <div id="errorMessages"></div>
         <form id="loginform" action="/users/login" method="POST">
           <div class="form-group">
             <label for="email">Username</label>
