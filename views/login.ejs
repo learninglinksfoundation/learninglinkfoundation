@@ -36,12 +36,12 @@
             type:'post',
             data: values,
             dataType : 'json'
-        })
+         })
         .done((response)=>{
             let msg = response;
             console.log('messageeee '+msg);
-  
-        })
+            e.preventDefault();
+         })
         .fail((jqXHR, status, error) => {
             console.log('k1 jqXHR  '+JSON.stringify(jqXHR));
             if(jqXHR.responseText== "correct Your password")
@@ -69,9 +69,10 @@
                                 $('#errorMessages').append(errorHtml); 
                              
                               }
-      })
         })
-       
+      
+      })
+    
            if(localStorage.checked == 'true'){
 
             let obj = localStorage.cred
