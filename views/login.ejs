@@ -47,7 +47,8 @@
             
             if(jqXHR.responseText== "correct Your password")
                              {
-                              e.preventDefault();
+                             
+
                               alert('Updated Successfully !');
                                 let errorHtml = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+jqXHR.responseText+
                                 '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
@@ -56,7 +57,8 @@
                                 '</div>';
                                 $('#errorMessages').empty();
                                 $('#errorMessages').append(errorHtml); 
-                               
+                              e.preventDefault();
+                               window.history.back();
                               }
                               else
                               {
