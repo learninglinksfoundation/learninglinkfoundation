@@ -210,11 +210,11 @@ return  */
   let isActive=true;
 
    if (!email) {
-     errors.push({ msg: 'Please enter username' });
+     errors.push({ msg: 'Please enter username.' });
      response.render('login',{errors});
     }
     if(!password){
-      errors.push({msg:'please enter password'});
+      errors.push({msg:'Please enter password.'});
       response.render('login',{errors});
      
     }
@@ -305,14 +305,14 @@ return  */
     response.render('login',{errors});
   }
   else if(!isActive){
-    errors.push({ msg: 'User is inactive.Contact your website administrator' });
+    errors.push({ msg: 'User is inactive. Contact your website administrator.' });
     response.render('login',{errors});
   }
 
   
   else if(!chkpassword)
   {
-    errors.push({ msg: 'Please enter  correct password' });
+    errors.push({ msg: 'Please enter  correct password.' });
    //response.render('login',{errors});
     // response.status(404).send(new Error('description'));
   //  return response.status(204).send({
