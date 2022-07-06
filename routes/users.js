@@ -2500,7 +2500,7 @@ router.post('/updatePass',(request,response)=>{
     password:joi.string().required().label('Please Fill Password'),
     pass:joi.string().regex( /^(?!.*\s)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]).{10,15}$/).required().label('The password is not as per the specified criteria.'),
     password2:joi.string().required().label('Please Re-enter Password'),  
-    confirmPassword:joi.string().required().valid(joi.ref('password')).label('Passwords does not match'),
+    confirmPassword:joi.string().required().valid(joi.ref('password')).label('Password does not match.'),
       })
       let Result=schema.validate({password:pass,pass:pass,password2:pass2,confirmPassword:pass2});
           console.log('validaton result '+JSON.stringify(Result.error));
