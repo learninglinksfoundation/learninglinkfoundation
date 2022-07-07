@@ -141,6 +141,43 @@ body{
  </div>
 
 
+ <script >
+  let fileReader = new FileReader();
+ // let filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/gfif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-xwindowdump)$/i;
+ var filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i; 
+ let accept = ['jpg','jpeg','png','gif','gfif']
+  fileReader.onload = function (event) {
+    var image = new Image();   
+    image.onload=function(){
+        var canvas=document.createElement("canvas");
+        var context=canvas.getContext("2d");
+        canvas.width=image.width/14;
+        canvas.height=image.height/14;
+        context.drawImage(image,
+            0,
+            0,
+            image.width,
+            image.height,
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );       
+        document.getElementById("upload-Preview").src = canvas.toDataURL();
+    }
+    image.src=event.target.result;
+  };
+  
+  $('#upload-Preview,#navimg').click(function(e){
+    e.preventDefault();
+                e.stopImmediatePropagation()
+                e.stopPropagation();
+      let src = $('#upload-Preview').prop('src')
+        window.open(src,'_blank');
+    })
+    
+  </script>
+
 <script>
 //
     $(document).ready(function(){
@@ -240,14 +277,6 @@ body{
         })
      
 })
-//
-let canurl;
-let fileReader = new FileReader();
-      // let filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/gfif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-xwindowdump)$/i;
-var filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i; 
-let accept = ['jpg','jpeg','png','gif','gfif']
-
-
 function chkFile(event) {
 
   var uploadImage = event.target
@@ -260,41 +289,10 @@ function chkFile(event) {
       return;
     }
     else {   
-  //
- 
+  
 
-  fileReader.onload = function (event) {
-    var image = new Image();   
-    image.onload=function(){
-        var canvas=document.createElement("canvas");
-        var context=canvas.getContext("2d");
-        canvas.width=image.width/14;
-        canvas.height=image.height/14;
-        context.drawImage(image,
-            0,
-            0,
-            image.width,
-            image.height,
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );  
-     //   console.log('123 k');     
-        document.getElementById("upload-Preview").src = canvas.toDataURL();
-      // console.log('1pre'+document.getElementById("upload-Preview").src.val());
-     //  console.log('2pre'+document.getElementById("upload-Preview").src);
-        canurl=canvas.toDataURL();
-   //     alert('hi:'+canurl);
-    }
-    image.src=event.target.result;
-  };
-  fileReader.readAsDataURL(uploadFile);
- 
- // alert('inside else'+canurl);    
- // console.log('11pre til'+document.getElementById("upload-Preview").src);
+
   var file = uploadImage.files[0];
-  //console.log('h2'+file);
   var formData = new FormData();
   formData.append('formData', file);
 
@@ -317,13 +315,4 @@ function chkFile(event) {
     }
 });
 }}
-
-$('#upload-Preview,#navimg').click(function(e){
-  e.preventDefault();
-              e.stopImmediatePropagation()
-              e.stopPropagation();
-    let src = $('#upload-Preview').prop('src')
-      window.open(src,'_blank');
-  })
-  
 </script>
