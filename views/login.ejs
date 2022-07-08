@@ -1,159 +1,139 @@
 <style>
-
-  html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
   }
+
   #container {
-  /* 	 min-height:80%; */
-      margin-left:auto;
-      margin-right:auto;
-      width:50%;
-      overflow-y: hidden;
-      overflow-x: hidden;
-      flex-grow:1;
-      background:rgb(174, 216, 230)
+    /* 	 min-height:80%; */
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    flex-grow: 1;
+    background: rgb(174, 216, 230)
   }
-    </style>
+</style>
 
 
-
-
-     <script>
-     //
-      $(document).ready(function() { 
-        $('#loginform').on('submit',(e)=>{
-         // e.preventDefault();
-          var $inputs = $('[type="email"],[type="password"]');
-          var values = {};
-          $inputs.each(function() {
-              values[this.name] = $(this).val();
-          });
-          console.log('pass km:'+values);
-          $.ajax({
-            url : '/users/login',
-            type:'post',
-            data: values,
-            dataType : 'json'
-         })
-        .done((response)=>{
-            let msg = response;
-            console.log('messageeee '+msg);
-           // alert('Updated Successfully !');
-                                let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+'Please enter correct password.'+
-                                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-                                '<span aria-hidden="true">&times;</span>'+
-                                '</button>'+
-                                '</div>';
-                                $('#errorMessages').empty();
-                                $('#errorMessages').append(errorHtml);
-           
-         })
-        .fail((jqXHR, status, error) => {
-            console.log('k1 jqXHR  '+JSON.stringify(jqXHR));
-            
-           
-        })
-      
-      })
-    
-           if(localStorage.checked == 'true'){
-
-            let obj = localStorage.cred
-
-            obj = JSON.parse(obj);
-             $('#email').val(obj.user)
-             $('#password').val(obj.pass);
-             $('#remember').prop('checked',true);
-
-           }
-           else{
-            window.setTimeout(()=>{
-              $('#email').val('')
-             $('#password').val('');
-           },2500)
-             
-            setData()
-           }
+<script>
+  //
+  $(document).ready(function () {
+    $('#loginform').on('submit', (e) => {
+      // e.preventDefault();
+      var $inputs = $('[type="email"],[type="password"]');
+      var values = {};
+      $inputs.each(function () {
+        values[this.name] = $(this).val();
       });
+      console.log('pass km:' + values);
+      $.ajax({
+        url: '/users/login',
+        type: 'post',
+        data: values,
+        dataType: 'json'
+      })
+        .done((response) => {
+          let msg = response;
+          console.log('messageeee ' + msg);
+          // alert('Updated Successfully !');
+          let errorHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert">' + 'Please enter correct password.' +
+            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+            '<span aria-hidden="true">&times;</span>' +
+            '</button>' +
+            '</div>';
+          $('#errorMessages').empty();
+          $('#errorMessages').append(errorHtml);
 
-           function setData(){
-              let username = $('#email').val()
-              let pass = $('#password').val()
-              let check = $('#remember').prop('checked')
+        })
+        .fail((jqXHR, status, error) => {
+          console.log('k1 jqXHR  ' + JSON.stringify(jqXHR));
+        })
+    })
 
-              if(username && pass && check ){
-                let obj = {user:username,pass:pass};
-                localStorage.setItem('cred',JSON.stringify(obj));
-                localStorage.setItem('checked',check);
+    if (localStorage.checked == 'true') {
+      let obj = localStorage.cred
+      obj = JSON.parse(obj);
+      $('#email').val(obj.user)
+      $('#password').val(obj.pass);
+      $('#remember').prop('checked', true);
+    }
+    else {
+      window.setTimeout(() => {
+        $('#email').val('')
+        $('#password').val('');
+      }, 2500)
 
-              }
-     
-              
+      setData()
+    }
+  });
 
-           }
+  function setData() {
+    let username = $('#email').val()
+    let pass = $('#password').val()
+    let check = $('#remember').prop('checked')
 
-              </script>
-           
-              
+    if (username && pass && check) {
+      let obj = { user: username, pass: pass };
+      localStorage.setItem('cred', JSON.stringify(obj));
+      localStorage.setItem('checked', check);
 
-      <!DOCTYPE html>
-      <html>
-        <body>
-          <div style="display:flex;height:100%;overflow:hidden">
+    }
+  }
 
-      <div id="container">
- <div class="row mt-5">
-    <div class="col-md-6 m-auto">
-      <div class="card card-body" style="margin-top:15px">
-          <%- include ('./partials/messages') %>
-          <img src="/image/logo.png"  style="align-self:center; width:100px">
-          <h1 class="text-center mb-3"> Login</h1>
-          <div id="errorMessages"></div>
-        <form id="loginform" action="/users/login" method="POST">
-          <div class="form-group">
-            <label for="email">Username</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              class="form-control"
-              placeholder="Enter Email"
-            />
+</script>
+
+<!DOCTYPE html>
+<html>
+
+<body>
+  <div style="display:flex;height:100%;overflow:hidden">
+
+    <div id="container">
+      <div class="row mt-5">
+        <div class="col-md-6 m-auto">
+          <div class="card card-body" style="margin-top:15px">
+            <%- include ('./partials/messages') %>
+              <img src="/image/logo.png" style="align-self:center; width:100px">
+              <h1 class="text-center mb-3"> Login</h1>
+              <div id="errorMessages"></div>
+              <form id="loginform" action="/users/login" method="POST">
+                <div class="form-group">
+                  <label for="email">Username</label>
+                  <input type="email" id="email" name="email" class="form-control" placeholder="Enter Email" />
+                </div>
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input type="password" id="password" name="password" class="form-control"
+                    placeholder="Enter Password" />
+                </div>
+                <div style="display: flex;justify-content:flex-start;align-items: center;margin:10px 0px">
+                  <input type="checkbox" id="remember" name="remember" />
+                  <div style="margin:0px 4px;">Remember me</div>
+                </div>
+
+
+
+
+                <button type="submit" class="btn btn-primary btn-block" onclick="setData()">Login</button>
+              </form>
+              <p class="lead mt-4">
+                <a href="/users/forgotpassword">Forgot Password?</a>
+              </p>
           </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              class="form-control"
-              placeholder="Enter Password"
-            />
-          </div>
-          <div style="display: flex;justify-content:flex-start;align-items: center;margin:10px 0px">
-            <input type="checkbox" id="remember" name="remember" />
-            <div style="margin:0px 4px;">Remember me</div>
-          </div>
-
-          
-
-            
-          <button type="submit" class="btn btn-primary btn-block" onclick="setData()">Login</button>
-        </form>
-        <p class="lead mt-4">
-           <a href="/users/forgotpassword">Forgot Password?</a>
-        </p>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
-<div style="width:50%">
-  <iframe src="https://www.learninglinksindia.org/" width="100%" height="100%" title="llf"></div></iframe>
-</div>
-</div>
+    <div style="width:50%">
+      <iframe src="https://www.learninglinksindia.org/" width="100%" height="100%" title="llf">
+    </div></iframe>
+  </div>
+  </div>
 
 </body>
+
 </html>
