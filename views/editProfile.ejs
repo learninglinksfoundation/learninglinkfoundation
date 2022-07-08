@@ -300,11 +300,14 @@
             //  console.log('1pre'+document.getElementById("upload-Preview").src);
             alert('2pre' + document.getElementById("upload-Preview").src);
             canurl = canvas.toDataURL();
+            var file;
             alert('hi:' + canurl);
             canvas.toBlob(
               (blob) => {
                 if (blob) {
                   compressedImageBlob = blob;
+                  file=blob;
+                  alert("kam"+file);
                   document.getElementById("upload-Preview").src = URL.createObjectURL(compressedImageBlob);
 
                 }
@@ -312,35 +315,38 @@
             alert('blob is:' + compressedImageBlob)
           }
           image.src = event.target.result;
+          //
+          alert('inside else' + canurl);
+          alert('blob is inside:' + compressedImageBlob);
+          //alert('11pre til'+document.getElementById("upload-Preview").src);
+        //  var file = document.getElementsByTagName("canvas");//uploadImage.files[0];
+          alert('h2' + file);
+          var formData = new FormData();
+          formData.append('formData', file);
+  
+          $.ajax({
+            type: "POST",
+            url: "/expense/uploadImage",
+            cache: false,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (data) {
+              console.log('daat url ' + JSON.stringify(data));
+              alert('Attachment Uploaded Successfully !');
+              console.log(data.url);
+              $('#imgpath').val(data.url);
+              document.getElementById("upload-Preview").src = data.url;
+              console.log(data.url);
+              console.log('file ' + document.getElementById("file").value);
+            }
+          });
+          //
         };
         fileReader.readAsDataURL(uploadFile);
 
-        alert('inside else' + canurl);
-        alert('blob is inside:' + compressedImageBlob);
-        //alert('11pre til'+document.getElementById("upload-Preview").src);
-        var file = document.getElementsByTagName("canvas")//uploadImage.files[0];
-      //  alert('h2' + file);
-        var formData = new FormData();
-        formData.append('formData', file);
-
-        $.ajax({
-          type: "POST",
-          url: "/expense/uploadImage",
-          cache: false,
-          dataType: 'json',
-          processData: false,
-          contentType: false,
-          data: formData,
-          success: function (data) {
-            console.log('daat url ' + JSON.stringify(data));
-            alert('Attachment Uploaded Successfully !');
-            console.log(data.url);
-            $('#imgpath').val(data.url);
-            document.getElementById("upload-Preview").src = data.url;
-            console.log(data.url);
-            console.log('file ' + document.getElementById("file").value);
-          }
-        });
+       
       }
     }
 
