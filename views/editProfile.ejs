@@ -303,7 +303,8 @@
             canurl = canvas.toDataURL();
             
             alert('hi:' + canurl);
-            canvas.toBlob(
+            
+              canvas.toBlob(
               (blob) => {
                 if (blob) {
                   compressedImageBlob = blob;
@@ -312,11 +313,11 @@
                   document.getElementById("upload-Preview").src = URL.createObjectURL(compressedImageBlob);
 
                 }
-              })
+              },"image/jpeg");
+           
+         
             alert('blob is:' + compressedImageBlob)
-          }
-          image.src = event.target.result;
-          //
+         
           alert('inside else' + canurl);
           alert('blob is inside:' + compressedImageBlob);
           //alert('11pre til'+document.getElementById("upload-Preview").src);
@@ -343,6 +344,9 @@
               console.log('file ' + document.getElementById("file").value);
             }
           });
+        }
+        image.src = event.target.result;
+        //
           //
         };
         fileReader.readAsDataURL(uploadFile);
