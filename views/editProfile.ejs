@@ -251,6 +251,8 @@ let accept = ['jpg','jpeg','png','gif','gfif']
 function chkFile(event) {
 
   var uploadImage = event.target
+  alert('e.t'+uploadImage);
+  alert('et2'+uploadImage.files[0])
     if (uploadImage.files.length === 0) { 
       return; 
     }
