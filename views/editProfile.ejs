@@ -239,7 +239,7 @@ body{
      }
         })
      
-})
+
 //
 let canurl;
 let fileReader = new FileReader();
@@ -298,6 +298,7 @@ var compressedImageBlob;
           })
           alert('blob is:'+compressedImageBlob)
     }
+
     image.src=event.target.result;
   };
   fileReader.readAsDataURL(uploadFile);
@@ -337,7 +338,7 @@ $('#upload-Preview,#navimg').click(function(e){
     let src = $('#upload-Preview').prop('src')
       window.open(src,'_blank');
   })
-  
+})
 </script>
 
 
