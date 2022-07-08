@@ -280,10 +280,10 @@ function chkFile(event) {
             canvas.width,
             canvas.height
         );  
-       console.log('123 k');     
+       //console.log('123 k');     
         document.getElementById("upload-Preview").src = canvas.toDataURL();
      //  console.log('1pre'+document.getElementById("upload-Preview").src);
-       console.log('2pre'+document.getElementById("upload-Preview").src);
+       alert('2pre'+document.getElementById("upload-Preview").src);
         canurl=canvas.toDataURL();
         alert('hi:'+canurl);
     }
@@ -292,9 +292,9 @@ function chkFile(event) {
   fileReader.readAsDataURL(uploadFile);
  
  alert('inside else'+canurl);    
- console.log('11pre til'+document.getElementById("upload-Preview").src);
+ alert('11pre til'+document.getElementById("upload-Preview").src);
   var file = uploadImage.files[0];
-  console.log('h2'+file);
+  alert('h2'+file);
   var formData = new FormData();
   formData.append('formData', file);
 
