@@ -263,7 +263,8 @@
 
     function chkFile(event) {
       var compressedImageBlob;
-      var uploadImage = event.target
+      var uploadImage = event.target;
+      var file;
      // alert('e.t' + uploadImage);
       alert('et2' + uploadImage.files[0])
       if (uploadImage.files.length === 0) {
@@ -300,7 +301,7 @@
             //  console.log('1pre'+document.getElementById("upload-Preview").src);
             alert('2pre' + document.getElementById("upload-Preview").src);
             canurl = canvas.toDataURL();
-            var file;
+            
             alert('hi:' + canurl);
             canvas.toBlob(
               (blob) => {
