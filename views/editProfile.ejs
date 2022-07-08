@@ -358,8 +358,6 @@
 
   <script >
   let fileReader = new FileReader();
-  let compressedImageBlob;
-  let canurl;
  // let filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/gfif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-xwindowdump)$/i;
  var filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i; 
  let accept = ['jpg','jpeg','png','gif','gfif']
@@ -381,17 +379,7 @@
             canvas.height
         );       
         document.getElementById("upload-Preview").src = canvas.toDataURL();
-        canurl=canvas.toDataURL();
-        canvas.toBlob(
-          (blob) => {
-            if (blob) {
-              compressedImageBlob = blob;
-              document.getElementById("upload-Preview").src = URL.createObjectURL(compressedImageBlob);
-
-            }
-          })
-        alert('blob is:' + compressedImageBlob);
-        alert('one url:'+canurl);
+        
     }
     image.src=event.target.result;
   };
@@ -505,7 +493,6 @@
         })
      
 })
-alert('ip funct'+canurl);
 function chkFile(event) {
 
   var uploadImage = event.target
@@ -519,7 +506,7 @@ function chkFile(event) {
     }
     else {   
   
-      alert('inside else'+canurl);
+
 
   var file = uploadImage.files[0];
   var formData = new FormData();
