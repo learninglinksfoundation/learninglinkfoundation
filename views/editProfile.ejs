@@ -1,350 +1,365 @@
 <%- include ('./partials/navbar') %>
 
-<style>
+  <style>
+    .center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 88vh;
+      width: 100%;
+    }
 
-.center{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 88vh;
-    width: 100%;
-}
-body{
-    padding-bottom: 0;
-}
-.avtar {height: 70px;
-  width: 70px;
-  padding: 14px 27px;
-  font-size: 1.5rem;
-  position: absolute;
-  background: #ecf0f1;
-  top: -2.8rem;
-  border-radius: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-}
-.profileImg{
-     height: 70px;
-    width: 70px;
-    border-radius: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0; 
-}
-.profileImg{
-  height: 70px;
- width: 70px;
- border-radius: 100%;
- position: absolute;
- left: 0;
- top: 0;
- right: 0; 
-}
-  .camIcon {
- left: 50px;
-    position: absolute;
-    z-index: 5;
-    color: #2c3e50;
-    bottom: 0;
-    background: white; 
-  }
-</style>
+    body {
+      padding-bottom: 0;
+    }
+
+    .avtar {
+      height: 70px;
+      width: 70px;
+      padding: 14px 27px;
+      font-size: 1.5rem;
+      position: absolute;
+      background: #ecf0f1;
+      top: -2.8rem;
+      border-radius: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .profileImg {
+      height: 70px;
+      width: 70px;
+      border-radius: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+    }
+
+    .profileImg {
+      height: 70px;
+      width: 70px;
+      border-radius: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+    }
+
+    .camIcon {
+      left: 50px;
+      position: absolute;
+      z-index: 5;
+      color: #2c3e50;
+      bottom: 0;
+      background: white;
+    }
+  </style>
 
 
-<p id='userDetails'><%=userdetail.sfid %></p>
+  <p id='userDetails'>
+    <%=userdetail.sfid %>
+  </p>
 
 
 
-<div class="center">
-  <div class="col-md-6 m-auto">
-    <div class="card card-body" style="padding-top:3rem">
-      <div class="avtar">
-       <% if(!userdetail.profile_picture_url__c){%>
-          <%=userdetail.name[0]%>
-          <%}%>
-          
-          <i class="fas fa-camera camIcon" id="icon" style="background:none"></i>
-          <input type="file" id="upload-Image" onchange="chkFile(event);"  accept="image/*" style="display:none"  />
-          <%if(userdetail.profile_picture_url__c){%>
-            <img id="upload-Preview" src='<%=userdetail.profile_picture_url__c %>' class="profileImg"/>
-          <%}%>
-         <!-- <img src="/image/logo.png" class="profileImg">--> 
-        
-      </div>
-     
-     
+  <div class="center">
+    <div class="col-md-6 m-auto">
+      <div class="card card-body" style="padding-top:3rem">
+        <div class="avtar">
+          <% if(!userdetail.profile_picture_url__c){%>
+            <%=userdetail.name[0]%>
+              <%}%>
 
-      <%- include ('./partials/messages') %>
-        <div id="errorMessages"></div>
-      
-        <form name="editprofile" id="editprofile"  >
+                <i class="fas fa-camera camIcon" id="icon" style="background:none"></i>
+                <input type="file" id="upload-Image" onchange="chkFile(event);" accept="image/*" style="display:none" />
+                <%if(userdetail.profile_picture_url__c){%>
+                  <img id="upload-Preview" src='<%=userdetail.profile_picture_url__c %>' class="profileImg" />
+                  <%}%>
+                    <!-- <img src="/image/logo.png" class="profileImg">-->
+
+        </div>
+
+
+
+        <%- include ('./partials/messages') %>
+          <div id="errorMessages"></div>
+
+          <form name="editprofile" id="editprofile">
             <div class="form-group">
               <div style="display: flex;
               flex-wrap: wrap;
               justify-content: space-between;">
-                  <div class="col-md-6">
-                      <label for="nam">Name</label>
-                      <input type="text" disabled class="form-control" id="nam"  value= '<%=userdetail.name %>' name="nam" required="true">
-                  </div>
-              <div class="col-md-6">
-                <label for="phn">Email/Username</label>
-                <input type="text" disabled class="form-control" id="phn"  value='<%=userdetail.email %>'  name="phn" >
+                <div class="col-md-6">
+                  <label for="nam">Name</label>
+                  <input type="text" disabled class="form-control" id="nam" value='<%=userdetail.name %>' name="nam"
+                    required="true">
+                </div>
+                <div class="col-md-6">
+                  <label for="phn">Email/Username</label>
+                  <input type="text" disabled class="form-control" id="phn" value='<%=userdetail.email %>' name="phn">
+                </div>
+
+                <div class="col-md-6">
+                  <label for="empid">Employee ID</label>
+                  <input type="text" disabled class="form-control" id="empid" value='<%=userdetail.employee_id__c %>'
+                    name="empid">
+                </div>
+                <div class="col-md-6">
+                  <label for="empCat">Employee Category</label>
+                  <select name="empCat" id="empCat" disabled class="form-control">
+                    <option value="">Select</option>
+
+                  </select>
+
+                </div>
+                <div class="col-md-6">
+                  <label for="desig">Designation</label>
+                  <select name="desig" id="desig" disabled class="form-control">
+                    <option value="">Select</option>
+
+                  </select>
+
+                </div>
+                <div class="col-md-6">
+                  <label for="mob">Mobile</label>
+                  <input type="number" class="form-control" id="mob" value='<%=userdetail.mobilephone %>' name="mob">
+                </div>
+                <div class="col-md-6">
+                  <label for="repmanage">Salesforce reporting manager</label>
+                  <input type="text" disabled class="form-control" id="repmanage"
+                    value="<%= userdetail.salreportingnm %>" name="repmanage">
+                </div>
+                <div class="col-md-6">
+                  <label for="heromanage">Heroku Reporting manager</label>
+                  <input type="text" disabled class="form-control" id="heromanage" value='<%= userdetail.reportingnm %>'
+                    name="heromanage">
+                </div>
               </div>
-              
               <div class="col-md-6">
-                <label for="empid">Employee ID</label>
-                <input type="text"  disabled class="form-control" id="empid"  value='<%=userdetail.employee_id__c %>' name="empid"  >
-              </div>
-              <div class="col-md-6">
-                <label for="empCat">Employee Category</label>
-                <select name="empCat" id="empCat" disabled class="form-control">
-                  <option  value="" >Select</option>
-                 
-                </select>
-    
-              </div>
-              <div class="col-md-6">
-                <label for="desig">Designation</label>
-                <select name="desig" id="desig" disabled class="form-control">
-                  <option value="" >Select</option>
-                  
-                </select>
-     
-              </div>
-              <div class="col-md-6">
-                <label for="mob">Mobile</label>
-                <input type="number"  class="form-control" id="mob" value='<%=userdetail.mobilephone %>' name="mob"  >
-              </div>
-              <div class="col-md-6">
-                <label for="repmanage">Salesforce reporting manager</label>
-                <input type="text"  disabled class="form-control" id="repmanage" value="<%= userdetail.salreportingnm %>"   name="repmanage"  >
-              </div>
-              <div class="col-md-6">
-                <label for="heromanage">Heroku Reporting manager</label>
-                <input type="text"  disabled class="form-control" id="heromanage" value='<%= userdetail.reportingnm %>' name="heromanage">
-              </div>
-              </div>
-              <div class="col-md-6">
-                <input type="hidden"  class="form-control" id="uid" value='<%=userdetail.sfid %>'  name="uid" >
-                <input type="url" class="form-control" id="imgpath" value='<%=userdetail.profile_picture_url__c %>' name="imgpath" style="display:none" >
-                
+                <input type="hidden" class="form-control" id="uid" value='<%=userdetail.sfid %>' name="uid">
+                <input type="url" class="form-control" id="imgpath" value='<%=userdetail.profile_picture_url__c %>'
+                  name="imgpath" style="display:none">
+
               </div>
             </div>
-          <div style="text-align:center"><button type="submit" class="btn btn-primary" id="saveProf" >Save</button></div>
-        </form>
+            <div style="text-align:center"><button type="submit" class="btn btn-primary" id="saveProf">Save</button>
+            </div>
+          </form>
 
 
 
       </div>
     </div>
- </div>
+  </div>
 
 
-<script>
-//
-    $(document).ready(function(){
-        $('#userDetails').hide();
-        let contactId = document.getElementById('userDetails').innerHTML;
-        let obj = JSON.parse('<%- JSON.stringify(userdetail) %>')
-        let desigobj=JSON.parse('<%- JSON.stringify(userdetail)%>')
+  <!--<script>
+    //
+    $(document).ready(function () {
+      $('#userDetails').hide();
+      let contactId = document.getElementById('userDetails').innerHTML;
+      let obj = JSON.parse('<%- JSON.stringify(userdetail) %>')
+      let desigobj = JSON.parse('<%- JSON.stringify(userdetail)%>')
 
-        let category = ['Full-Time','Fixed-Term Employment','Retainer'];
-        let designation=['Managing Partner','Principal Partner','Senior Partner','Partner','Associate Partner','Managing Consultant','Principal Consultant','Senior Consultant','Lead Consultant','Consultant','Executive','Chairperson','Senior Managing Consultant']
+      let category = ['Full-Time', 'Fixed-Term Employment', 'Retainer'];
+      let designation = ['Managing Partner', 'Principal Partner', 'Senior Partner', 'Partner', 'Associate Partner', 'Managing Consultant', 'Principal Consultant', 'Senior Consultant', 'Lead Consultant', 'Consultant', 'Executive', 'Chairperson', 'Senior Managing Consultant']
 
-        category.forEach(dt=>{
-                $('#empCat').append($("<option></option>")
-                .attr("value",dt)
-                .text(dt))
-        }) 
+      category.forEach(dt => {
+        $('#empCat').append($("<option></option>")
+          .attr("value", dt)
+          .text(dt))
+      })
 
-        designation.forEach(desin=>{ 
-            $('#desig').append($("<option></option>")
-            .attr("value",desin)
-            .text(desin))
+      designation.forEach(desin => {
+        $('#desig').append($("<option></option>")
+          .attr("value", desin)
+          .text(desin))
+      })
+      $('#empCat').val(obj.employee_category_band__c)
+      $('#desig').val(desigobj.pm_email__c)
+
+      $('#icon').click(function () {
+
+        $('#upload-Image').click()
+
+      })
+
+      $('#saveProf').on('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+        var $inputs = $('#editprofile :input');
+        var values = {};
+        $inputs.each(function () {
+          values[this.name] = $(this).val();
         })
-        $('#empCat').val(obj.employee_category_band__c)
-        $('#desig').val(desigobj.pm_email__c)
-       
-        $('#icon').click(function(){
+        console.log('FormValues ' + JSON.stringify(values));
+        $.ajax({
+          url: '/users/updateProfile',
+          type: 'post',
+          data: values,
+          dataType: 'json'
+        })
+          .done((response) => {
+            console.log('Profile Updated Succesfuly');
+            let successText = 'Profile Updated Succesfuly';
+            let errorHtml = '';
+            errorHtml += '<div class="alert alert-success alert-dismissible fade show" role="alert">' +
+              successText +
+              '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+              '<span aria-hidden="true">&times;</span>' +
+              '</button>' +
+              '</div>';
+            $('#errorMessages').empty();
+            $('#errorMessages').append(errorHtml);
 
-          $('#upload-Image').click()
-              
+            window.setTimeout(function () {
+              window.location.reload();
+            }, 1000)
+
           })
+          .fail((jqXHR, status, error) => {
+            console.log('jqXHR  ' + JSON.stringify(jqXHR));
 
-        $('#saveProf').on('click',function(event){
-            event.preventDefault();
-            event.stopPropagation();
-            event.stopImmediatePropagation();    
-            var $inputs = $('#editprofile :input');
-            var values={};
-            $inputs.each(function() {
-                values[this.name] = $(this).val();
-            })
-            console.log('FormValues '+JSON.stringify(values));
-            $.ajax({
-                url : '/users/updateProfile',
-                type:'post',
-                data: values,
-                dataType : 'json'
-            })
-            .done((response)=>{
-                console.log('Profile Updated Succesfuly');
-                let successText = 'Profile Updated Succesfuly';
-                let errorHtml = '';
-                errorHtml += '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
-                    successText+
-                  '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-                    '<span aria-hidden="true">&times;</span>'+
-                  '</button>'+
+            let errList = ['Mobile number must have ,exact 10 digits .'];
+
+            let errorHtml = '';
+            errList.forEach((eachError) => {
+              errorHtml += '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                eachError +
+                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                '<span aria-hidden="true">&times;</span>' +
+                '</button>' +
                 '</div>';
-                $('#errorMessages').empty();
-                $('#errorMessages').append(errorHtml);
-               
-               window.setTimeout(function(){
-                window.location.reload();
-               },1000)
-               
             })
-            .fail((jqXHR, status, error) => {
-                console.log('jqXHR  '+JSON.stringify(jqXHR));
-
-              let errList = ['Mobile number must have ,exact 10 digits .'];
-
-              let errorHtml = '';
-              errList.forEach((eachError) => {
-                errorHtml += '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+
-                    eachError+
-                    '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-                      '<span aria-hidden="true">&times;</span>'+
-                    '</button>'+
-                  '</div>';
-              })
 
 
-                
+
             /*    errorHtml += '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+
                   jqXHR.responseText+
                   '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
                     '<span aria-hidden="true">&times;</span>'+
                   '</button>'+
                 '</div>';*/
-                $('#errorMessages').empty();
-                $('#errorMessages').append(errorHtml);
-          }) 
-         
-         // location.replace('https://learninglinksfoundation-test.herokuapp.com/users/login');
-         if(performance.navigation.type == 2){
-          location.reload(true);
-     }
-        })
-     
-
-//
-let canurl;
-let fileReader = new FileReader();
-      // let filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/gfif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-xwindowdump)$/i;
-var filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i; 
-let accept = ['jpg','jpeg','png','gif','gfif']
-
-
-function chkFile(event) {
-var compressedImageBlob;
-  var uploadImage = event.target
-  alert('e.t'+uploadImage);
-  alert('et2'+uploadImage.files[0])
-    if (uploadImage.files.length === 0) { 
-      return; 
-    }
-    var uploadFile = uploadImage.files[0];
-    if (!filterType.test(uploadFile.type)  && !uploadFile.type.toLowerCase().includes('image/') ) {
-      alert("Please select a valid image."); 
-      return;
-    }
-    else {   
-  //
- 
-
-  fileReader.onload = function (event) {
-    var image = new Image();   
-    image.onload=function(){
-        var canvas=document.createElement("canvas");
-        var context=canvas.getContext("2d");
-        canvas.width=image.width/14;
-        canvas.height=image.height/14;
-        context.drawImage(image,
-            0,
-            0,
-            image.width,
-            image.height,
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );  
-       //console.log('123 k');     
-        document.getElementById("upload-Preview").src = canvas.toDataURL();
-     //  console.log('1pre'+document.getElementById("upload-Preview").src);
-       alert('2pre'+document.getElementById("upload-Preview").src);
-        canurl=canvas.toDataURL();
-        alert('hi:'+canurl);
-        canvas.toBlob(
-          (blob) => {
-            if (blob) {
-              compressedImageBlob = blob;
-              document.getElementById("upload-Preview").src= URL.createObjectURL(compressedImageBlob);
-              
-            }
+            $('#errorMessages').empty();
+            $('#errorMessages').append(errorHtml);
           })
-          alert('blob is:'+compressedImageBlob)
+
+        // location.replace('https://learninglinksfoundation-test.herokuapp.com/users/login');
+        if (performance.navigation.type == 2) {
+          location.reload(true);
+        }
+      })
+
+    })
+    //
+    let canurl;
+    let fileReader = new FileReader();
+    // let filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/gfif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-xwindowdump)$/i;
+    var filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
+    let accept = ['jpg', 'jpeg', 'png', 'gif', 'gfif']
+
+
+    function chkFile(event) {
+      var compressedImageBlob;
+      var uploadImage = event.target
+     // alert('e.t' + uploadImage);
+      alert('et2' + uploadImage.files[0])
+      if (uploadImage.files.length === 0) {
+        return;
+      }
+      var uploadFile = uploadImage.files[0];
+      if (!filterType.test(uploadFile.type) && !uploadFile.type.toLowerCase().includes('image/')) {
+        alert("Please select a valid image.");
+        return;
+      }
+      else {
+        //
+
+
+        fileReader.onload = function (event) {
+          var image = new Image();
+          image.onload = function () {
+            var canvas = document.createElement("canvas");
+            var context = canvas.getContext("2d");
+            canvas.width = image.width / 14;
+            canvas.height = image.height / 14;
+            context.drawImage(image,
+              0,
+              0,
+              image.width,
+              image.height,
+              0,
+              0,
+              canvas.width,
+              canvas.height
+            );
+            //console.log('123 k');     
+            document.getElementById("upload-Preview").src = canvas.toDataURL();
+            //  console.log('1pre'+document.getElementById("upload-Preview").src);
+            alert('2pre' + document.getElementById("upload-Preview").src);
+            canurl = canvas.toDataURL();
+            alert('hi:' + canurl);
+            canvas.toBlob(
+              (blob) => {
+                if (blob) {
+                  compressedImageBlob = blob;
+                  document.getElementById("upload-Preview").src = URL.createObjectURL(compressedImageBlob);
+
+                }
+              })
+            alert('blob is:' + compressedImageBlob)
+          }
+          image.src = event.target.result;
+        };
+        fileReader.readAsDataURL(uploadFile);
+
+        alert('inside else' + canurl);
+        alert('blob is inside:' + compressedImageBlob);
+        //alert('11pre til'+document.getElementById("upload-Preview").src);
+        var file = uploadImage.files[0];
+        alert('h2' + file);
+        var formData = new FormData();
+        formData.append('formData', file);
+
+        $.ajax({
+          type: "POST",
+          url: "/expense/uploadImage",
+          cache: false,
+          dataType: 'json',
+          processData: false,
+          contentType: false,
+          data: formData,
+          success: function (data) {
+            console.log('daat url ' + JSON.stringify(data));
+            alert('Attachment Uploaded Successfully !');
+            console.log(data.url);
+            $('#imgpath').val(data.url);
+            document.getElementById("upload-Preview").src = data.url;
+            console.log(data.url);
+            console.log('file ' + document.getElementById("file").value);
+          }
+        });
+      }
     }
 
-    image.src=event.target.result;
-  };
-  fileReader.readAsDataURL(uploadFile);
- 
- alert('inside else'+canurl);    
- alert('blob is inside else:'+compressedImageBlob);
- //alert('11pre til'+document.getElementById("upload-Preview").src);
-  var file = uploadImage.files[0];
-  alert('h2'+file);
-  var formData = new FormData();
-  formData.append('formData', file);
+    $('#upload-Preview,#navimg').click(function (e) {
+      e.preventDefault();
+      e.stopImmediatePropagation()
+      e.stopPropagation();
+      let src = $('#upload-Preview').prop('src')
+      window.open(src, '_blank');
+    })
 
-  $.ajax({
-  type: "POST",
-  url: "/expense/uploadImage",    
-  cache: false,
-  dataType:'json',
-  processData: false,
-  contentType: false,
-  data: formData,
-  success: function (data) {
-      console.log('daat url '+JSON.stringify(data));
-      alert('Attachment Uploaded Successfully !');
-      console.log(data.url);
-    $('#imgpath').val(data.url); 
-    document.getElementById("upload-Preview").src=data.url;
-    console.log(data.url);
-    console.log('file '+document.getElementById("file").value);         
-    }
-});
-}}
-
-$('#upload-Preview,#navimg').click(function(e){
-  e.preventDefault();
-              e.stopImmediatePropagation()
-              e.stopPropagation();
-    let src = $('#upload-Preview').prop('src')
-      window.open(src,'_blank');
-  })
-})
-</script>
+  </script>-->
 
 
 
-<!--<script >
+  <script >
   let fileReader = new FileReader();
+  let compressedImageBlob;
+  let canurl;
  // let filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/gfif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-xwindowdump)$/i;
  var filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i; 
  let accept = ['jpg','jpeg','png','gif','gfif']
@@ -366,6 +381,17 @@ $('#upload-Preview,#navimg').click(function(e){
             canvas.height
         );       
         document.getElementById("upload-Preview").src = canvas.toDataURL();
+        canurl=canvas.toDataURL();
+        canvas.toBlob(
+          (blob) => {
+            if (blob) {
+              compressedImageBlob = blob;
+              document.getElementById("upload-Preview").src = URL.createObjectURL(compressedImageBlob);
+
+            }
+          })
+        alert('blob is:' + compressedImageBlob);
+        alert('one url:'+canurl);
     }
     image.src=event.target.result;
   };
@@ -479,6 +505,7 @@ $('#upload-Preview,#navimg').click(function(e){
         })
      
 })
+alert('ip funct'+canurl);
 function chkFile(event) {
 
   var uploadImage = event.target
@@ -492,7 +519,7 @@ function chkFile(event) {
     }
     else {   
   
-
+      alert('inside else'+canurl);
 
   var file = uploadImage.files[0];
   var formData = new FormData();
@@ -517,4 +544,4 @@ function chkFile(event) {
     }
 });
 }}
-</script>-->
+</script>
