@@ -154,7 +154,7 @@
   </div>
 
 
-  <!--<script>
+  <script>
     //
     $(document).ready(function () {
       $('#userDetails').hide();
@@ -318,8 +318,8 @@
         alert('inside else' + canurl);
         alert('blob is inside:' + compressedImageBlob);
         //alert('11pre til'+document.getElementById("upload-Preview").src);
-        var file = uploadImage.files[0];
-        alert('h2' + file);
+        var file = document.getElementsByTagName("canvas")//uploadImage.files[0];
+      //  alert('h2' + file);
         var formData = new FormData();
         formData.append('formData', file);
 
@@ -352,11 +352,11 @@
       window.open(src, '_blank');
     })
 
-  </script>-->
+  </script>
 
 
 
-  <script >
+ <!-- <script >
   let fileReader = new FileReader();
  // let filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/gfif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-xwindowdump)$/i;
  var filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i; 
@@ -392,9 +392,9 @@
         window.open(src,'_blank');
     })
     
-  </script>
+  </script>-->
 
-<script>
+<!--<script>
 //
     $(document).ready(function(){
         $('#userDetails').hide();
@@ -531,4 +531,4 @@ function chkFile(event) {
     }
 });
 }}
-</script>
+</script>-->
