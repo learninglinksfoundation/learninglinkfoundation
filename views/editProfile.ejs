@@ -266,7 +266,7 @@
       var uploadImage = event.target;
       var file;
      // alert('e.t' + uploadImage);
-      alert('et2' + uploadImage.files[0])
+     // alert('et2' + uploadImage.files[0])
       if (uploadImage.files.length === 0) {
         return;
       }
@@ -302,7 +302,7 @@
             alert('2pre' + document.getElementById("upload-Preview").src);
             canurl = canvas.toDataURL();
             
-            alert('hi:' + canurl);
+         //  alert('hi:' + canurl);
             
               canvas.toBlob(
               (blob) => {
@@ -316,7 +316,7 @@
               },"image/jpeg");
            
               setTimeout(() => {
-                alert('blob is:' + compressedImageBlob)
+               // alert('blob is:' + compressedImageBlob)
          
                 //alert('inside else' + canurl);
                 alert('blob is inside:' + compressedImageBlob);
@@ -324,13 +324,13 @@
               //  var file = document.getElementsByTagName("canvas");//uploadImage.files[0];
                 alert('h2' + file);
                 var formData = new FormData();
-                formData.append('image', compressedImageBlob);
+                formData.append("blob", file);
         
                 $.ajax({
                   type: "POST",
                   url: "/expense/uploadImage",
                   cache: false,
-                  dataType: 'application/json',
+                  dataType: 'json',
                   processData: false,
                   contentType: false,
                   data: formData,
@@ -343,6 +343,7 @@
                     console.log(data.url);
                     console.log('file ' + document.getElementById("file").value);
                   }
+                  
                 });
               }, 1000)
          
