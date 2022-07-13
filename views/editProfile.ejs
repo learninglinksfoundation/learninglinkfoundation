@@ -303,7 +303,7 @@
                   canvas.height
               );       
               document.getElementById("upload-Preview").src = canvas.toDataURL();
-              setTimeout(() => {
+             
               canvas.toBlob(
                 (blob) => {
                   if (blob) {
@@ -314,7 +314,7 @@
     
                   }
                 },"image/jpeg");
-              },1000);
+             
                 alert('k1'+file1);
           }
           image.src=event.target.result;
