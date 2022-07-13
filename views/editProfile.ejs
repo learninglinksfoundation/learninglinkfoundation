@@ -323,43 +323,43 @@
               alert('blob is inside:' + compressedImageBlob);
               //alert('11pre til'+document.getElementById("upload-Preview").src);
               //  var file = document.getElementsByTagName("canvas");//uploadImage.files[0];
-            
+              alert('h2' + file);
+              var file1 = uploadImage.files[0]
+              var formData = new FormData();
+              formData.append("formData", file1);
+              alert('formd1' + formData);
+              $.ajax({
+                type: "POST",
+                url: "/expense/uploadImage",
+                cache: false,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function (data) {
+                  console.log('daat url ' + JSON.stringify(data));
+                  alert('Attachment Uploaded Successfully !');
+                  console.log(data.url);
+                  $('#imgpath').val(data.url);
+                  document.getElementById("upload-Preview").src = data.url;
+                  console.log(data.url);
+                  console.log('file ' + document.getElementById("file").value);
+                },
+                fail:function(){
+                  alert('fail1');
+                }
+
+              });
             }, 1000)
 
           }
           image.src = event.target.result;
           //
           //
-          
         };
         fileReader.readAsDataURL(uploadFile);
 
-        alert('h2' + file);
-        var formData = new FormData();
-        formData.append("formData", file);
-        alert('formd1' + formData);
-        $.ajax({
-          type: "POST",
-          url: "/expense/uploadImage",
-          cache: false,
-          dataType: 'json',
-          processData: false,
-          contentType: false,
-          data: formData,
-          success: function (data) {
-            console.log('daat url ' + JSON.stringify(data));
-            alert('Attachment Uploaded Successfully !');
-            console.log(data.url);
-            $('#imgpath').val(data.url);
-            document.getElementById("upload-Preview").src = data.url;
-            console.log(data.url);
-            console.log('file ' + document.getElementById("file").value);
-          },
-          fail:function(){
-            alert('fail');
-          }
 
-        });
       }
     }
 
