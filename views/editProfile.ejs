@@ -169,12 +169,7 @@
   <script>
   //
       $(document).ready(function(){
-        let fileReader = new FileReader();
-        // let filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/gfif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-xwindowdump)$/i;
-        var filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i; 
-        let accept = ['jpg','jpeg','png','gif','gfif']
-        let compressedImageBlob,file1;
-
+       
           $('#userDetails').hide();
           let contactId = document.getElementById('userDetails').innerHTML;
           let obj = JSON.parse('<%- JSON.stringify(userdetail) %>')
@@ -270,7 +265,12 @@
        }
           })
        
- 
+          let fileReader = new FileReader();
+          // let filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/gfif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-xwindowdump)$/i;
+          var filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i; 
+          let accept = ['jpg','jpeg','png','gif','gfif']
+          let compressedImageBlob,file1;
+  
   //alert('k2'+file1);
   function chkFile(event) {
   
