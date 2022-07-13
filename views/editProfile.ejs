@@ -67,14 +67,14 @@
     <div class="col-md-6 m-auto">
       <div class="card card-body" style="padding-top:3rem">
         <div class="avtar">
-          <% if(userdetail.profile_picture_url__c==="https://sfdc.com"){%>
+          
             <%=userdetail.name[0]%>
-              <%}%>
+            
 
                 <i class="fas fa-camera camIcon" id="icon" style="background:none"></i>
                 <input type="file" id="upload-Image" onchange="chkFile(event);" accept="image/*" style="display:none" />
               
-                  <img id="upload-Preview" src='<%=userdetail.profile_picture_url__c %>' class="profileImg" />
+                  <img id="upload-Preview" src='<%=userdetail.profile_picture_url__c %>' class="profileImg" style="display:none" />
                   
                     <!-- <img src="/image/logo.png" class="profileImg">-->
 
