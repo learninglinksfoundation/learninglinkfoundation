@@ -152,21 +152,220 @@
       </div>
     </div>
   </div>
-  <script >
-  
- 
-    
-    $('#upload-Preview,#navimg').click(function(e){
-      e.preventDefault();
-                  e.stopImmediatePropagation()
-                  e.stopPropagation();
-        let src = $('#upload-Preview').prop('src')
-          window.open(src,'_blank');
-      })
-      
-    </script>
-  
   <script>
+    //
+    $(document).ready(function () {
+      $('#userDetails').hide();
+      let contactId = document.getElementById('userDetails').innerHTML;
+      let obj = JSON.parse('<%- JSON.stringify(userdetail) %>')
+      let desigobj = JSON.parse('<%- JSON.stringify(userdetail)%>')
+
+      let category = ['Full-Time', 'Fixed-Term Employment', 'Retainer'];
+      let designation = ['Managing Partner', 'Principal Partner', 'Senior Partner', 'Partner', 'Associate Partner', 'Managing Consultant', 'Principal Consultant', 'Senior Consultant', 'Lead Consultant', 'Consultant', 'Executive', 'Chairperson', 'Senior Managing Consultant']
+
+      category.forEach(dt => {
+        $('#empCat').append($("<option></option>")
+          .attr("value", dt)
+          .text(dt))
+      })
+
+      designation.forEach(desin => {
+        $('#desig').append($("<option></option>")
+          .attr("value", desin)
+          .text(desin))
+      })
+      $('#empCat').val(obj.employee_category_band__c)
+      $('#desig').val(desigobj.pm_email__c)
+
+      $('#icon').click(function () {
+
+        $('#upload-Image').click()
+
+      })
+
+      $('#saveProf').on('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+        var $inputs = $('#editprofile :input');
+        var values = {};
+        $inputs.each(function () {
+          values[this.name] = $(this).val();
+        })
+        console.log('FormValues ' + JSON.stringify(values));
+        $.ajax({
+          url: '/users/updateProfile',
+          type: 'post',
+          data: values,
+          dataType: 'json'
+        })
+          .done((response) => {
+            console.log('Profile Updated Succesfuly');
+            let successText = 'Profile Updated Succesfuly';
+            let errorHtml = '';
+            errorHtml += '<div class="alert alert-success alert-dismissible fade show" role="alert">' +
+              successText +
+              '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+              '<span aria-hidden="true">&times;</span>' +
+              '</button>' +
+              '</div>';
+            $('#errorMessages').empty();
+            $('#errorMessages').append(errorHtml);
+
+            window.setTimeout(function () {
+              window.location.reload();
+            }, 1000)
+
+          })
+          .fail((jqXHR, status, error) => {
+            console.log('jqXHR  ' + JSON.stringify(jqXHR));
+
+            let errList = ['Mobile number must have ,exact 10 digits .'];
+
+            let errorHtml = '';
+            errList.forEach((eachError) => {
+              errorHtml += '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                eachError +
+                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                '<span aria-hidden="true">&times;</span>' +
+                '</button>' +
+                '</div>';
+            })
+
+
+
+            /*    errorHtml += '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+
+                  jqXHR.responseText+
+                  '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                    '<span aria-hidden="true">&times;</span>'+
+                  '</button>'+
+                '</div>';*/
+            $('#errorMessages').empty();
+            $('#errorMessages').append(errorHtml);
+          })
+
+        // location.replace('https://learninglinksfoundation-test.herokuapp.com/users/login');
+        if (performance.navigation.type == 2) {
+          location.reload(true);
+        }
+      })
+
+    })
+    //
+    let canurl;
+    let fileReader = new FileReader();
+    // let filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/gfif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-xwindowdump)$/i;
+    var filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
+    let accept = ['jpg', 'jpeg', 'png', 'gif', 'gfif']
+
+
+    function chkFile(event) {
+      var compressedImageBlob;
+      var uploadImage = event.target;
+      var file;
+     // alert('e.t' + uploadImage);
+     // alert('et2' + uploadImage.files[0])
+      if (uploadImage.files.length === 0) {
+        return;
+      }
+      var uploadFile = uploadImage.files[0];
+      if (!filterType.test(uploadFile.type) && !uploadFile.type.toLowerCase().includes('image/')) {
+        alert("Please select a valid image.");
+        return;
+      }
+      else {
+        //
+
+
+        fileReader.onload = function (event) {
+          var image = new Image();
+          image.onload = function () {
+            var canvas = document.createElement("canvas");
+            var context = canvas.getContext("2d");
+            canvas.width = image.width / 14;
+            canvas.height = image.height / 14;
+            context.drawImage(image,
+              0,
+              0,
+              image.width,
+              image.height,
+              0,
+              0,
+              canvas.width,
+              canvas.height
+            );
+            //console.log('123 k');     
+            document.getElementById("upload-Preview").src = canvas.toDataURL();
+            //  console.log('1pre'+document.getElementById("upload-Preview").src);
+            alert('2pre' + document.getElementById("upload-Preview").src);
+            canurl = canvas.toDataURL();
+            
+         //  alert('hi:' + canurl);
+            
+              canvas.toBlob(
+              (blob) => {
+                if (blob) {
+                  compressedImageBlob = blob;
+                  file=blob;
+                  alert("kam"+file);
+                  document.getElementById("upload-Preview").src = URL.createObjectURL(compressedImageBlob);
+
+                }
+              },"image/jpeg");
+           
+              setTimeout(() => {
+               // alert('blob is:' + compressedImageBlob)
+         
+                //alert('inside else' + canurl);
+                alert('blob is inside:' + compressedImageBlob);
+                //alert('11pre til'+document.getElementById("upload-Preview").src);
+              //  var file = document.getElementsByTagName("canvas");//uploadImage.files[0];
+                alert('h2' + file);
+                var file = uploadImage.files[0];
+                var formData = new FormData();
+                formData.append('formData', file);
+              
+                $.ajax({
+                type: "POST",
+                url: "/expense/uploadImage",    
+                cache: false,
+                dataType:'json',
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function (data) {
+                    console.log('daat url '+JSON.stringify(data));
+                    alert('Attachment Uploaded Successfully !');
+                    console.log(data.url);
+                  $('#imgpath').val(data.url); 
+                  document.getElementById("upload-Preview").src=data.url;
+                  console.log(data.url);
+                  console.log('file '+document.getElementById("file").value);         
+                  }
+              });
+              }, 1000)
+         
+        }
+        image.src = event.target.result;
+        //
+          //
+        };
+        fileReader.readAsDataURL(uploadFile);
+
+       
+      }
+    }
+
+    $('#upload-Preview,#navimg').click(function (e) {
+      e.preventDefault();
+      e.stopImmediatePropagation()
+      e.stopPropagation();
+      let src = $('#upload-Preview').prop('src')
+      window.open(src, '_blank');
+    })
+
+  </script>
+ <!-- <script>
   //
       $(document).ready(function(){
        
@@ -350,7 +549,7 @@
  }
 }
 
-  </script>
+  </script>-->
 
  <!-- <script >
     let fileReader = new FileReader();
