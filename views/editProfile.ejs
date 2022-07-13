@@ -321,9 +321,9 @@
                 //alert('11pre til'+document.getElementById("upload-Preview").src);
               //  var file = document.getElementsByTagName("canvas");//uploadImage.files[0];
                 alert('h2' + file);
-                var file1 = uploadImage.files[0];
+              //  var file1 = uploadImage.files[0];
                 var formData = new FormData();
-                formData.append('formData', file1);
+                formData.append('formData', file);
               
                 $.ajax({
                 type: "POST",
