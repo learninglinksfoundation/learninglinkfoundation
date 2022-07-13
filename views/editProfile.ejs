@@ -326,7 +326,7 @@
                 alert('h2' + file);
                 var formData = new FormData();
                 formData.append("formData", file);
-                
+                alert('formd1'+formData);
                 $.ajax({
                   type: "POST",
                   url: "/expense/uploadImage",
