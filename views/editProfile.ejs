@@ -301,7 +301,7 @@
           })
        
   })
-  alert('k2'+file1);
+  //alert('k2'+file1);
   function chkFile(event) {
   
     var uploadImage = event.target
@@ -314,7 +314,7 @@
         return;
       }
       else {   
-    
+        fileReader.readAsDataURL(uploadFile);
         alert('k3'+file1);
   
     var file = uploadImage.files[0];
