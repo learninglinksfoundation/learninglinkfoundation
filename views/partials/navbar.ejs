@@ -59,23 +59,6 @@
                       <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4"  data-title="Usname"  data-toggle="dropdown" aria-haspopup="true"
                       aria-expanded="false">
                      <!-- <i class="fas fa-user " ></i>-->
-                     <% if(userdetail.profile_picture_url__c==="https://sfdc.com"){%>
-                       <div style="
-                       height: 40px;
-                       width: 40px;
-                       border-radius: 100%;
-                       background-color: aqua;
-                       "> <%=userdetail.name[0]%></div>
-                     <%}%>
-         
-                     <%if(userdetail.profile_picture_url__c){%>
-                       <img style="
-                       height: 40px;
-                       width: 40px;
-                       border-radius: 100%;
-                       background-color: aqua;
-                       " id="upload-Preview" src='<%=userdetail.profile_picture_url__c %>'  />
-                    <%}%>
                     <img id="navimg" style=" height: 40px;
                     width: 40px;border-radius: 100%;"  src=>  </a>
                       <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
