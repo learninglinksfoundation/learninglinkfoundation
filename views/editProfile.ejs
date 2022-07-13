@@ -176,7 +176,7 @@
               canvas.height
           );       
           document.getElementById("upload-Preview").src = canvas.toDataURL();
-          
+          setTimeout(() => {
           canvas.toBlob(
             (blob) => {
               if (blob) {
@@ -187,6 +187,7 @@
 
               }
             },"image/jpeg");
+          },1000);
             alert('k1'+file1);
       }
       image.src=event.target.result;
@@ -315,6 +316,7 @@
       }
       else {   
         fileReader.readAsDataURL(uploadFile);
+        setTimeout(() => {
         alert('k3'+file1);
   
     var file = uploadImage.files[0];
@@ -339,7 +341,10 @@
       console.log('file '+document.getElementById("file").value);         
       }
   });
-  }}
+  },2000);//time
+
+ }
+}
   </script>
 
  <!-- <script >
