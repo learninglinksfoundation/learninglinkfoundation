@@ -250,12 +250,11 @@
         }
       })
 
-    })
+    })//document.ready
     //
     let canurl;
     let fileReader = new FileReader();
-    // let filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/gfif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-xwindowdump)$/i;
-    var filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
+    let filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
     let accept = ['jpg', 'jpeg', 'png', 'gif', 'gfif']
 
 
@@ -263,8 +262,6 @@
       var compressedImageBlob;
       var uploadImage = event.target;
       var file;
-     // alert('e.t' + uploadImage);
-     // alert('et2' + uploadImage.files[0])
       if (uploadImage.files.length === 0) {
         return;
       }
@@ -274,9 +271,6 @@
         return;
       }
       else {
-        //
-
-
         fileReader.onload = function (event) {
           var image = new Image();
           image.onload = function () {
@@ -294,40 +288,24 @@
               canvas.width,
               canvas.height
             );
-            //console.log('123 k');     
-            document.getElementById("upload-Preview").src = canvas.toDataURL();
-            //  console.log('1pre'+document.getElementById("upload-Preview").src);
-            alert('2pre' + document.getElementById("upload-Preview").src);
-            canurl = canvas.toDataURL();
-            
-         //  alert('hi:' + canurl);
-            
+              
+              document.getElementById("upload-Preview").src = canvas.toDataURL();                     
               canvas.toBlob(
               (blob) => {
                 if (blob) {
                   compressedImageBlob = blob;
                   file=blob;
-                  alert("kam"+file);
+                  //alert("kam"+file);
                   document.getElementById("upload-Preview").src = URL.createObjectURL(compressedImageBlob);
 
                 }
               },"image/jpeg");
            
-              setTimeout(() => {
-               // alert('blob is:' + compressedImageBlob)
-         
-                //alert('inside else' + canurl);
-                alert('blob is inside:' + compressedImageBlob);
-                //alert('11pre til'+document.getElementById("upload-Preview").src);
-              //  var file = document.getElementsByTagName("canvas");//uploadImage.files[0];
-                alert('h2' + file);
-              //  var file1 = uploadImage.files[0];
-              alert('kl1'+uploadImage.files[0]);
-              alert('kl2'+file);
+              setTimeout(() => {               
+              
+            //  alert('kl2'+file);
               var f = new File([file],'image1.jpeg',{type:file.type});
-              alert('k3'+f);
-             // file.name='test12.jpeg';
-               // file.lastModifiedDate = new Date();
+           
                 var formData = new FormData();
                 formData.append('formData', f);
               
